@@ -242,6 +242,7 @@ phina.define("battleCpuPage", {
     this.monsterB = new monster('ゴブリン',10,1);
     this.count = 0;
     this.side = 0;
+    this.battleLog;
     //battle(monsterA,monsterB,master);
     
     // var scanBgSprite = Sprite('scanBg').addChildTo(this);
@@ -256,7 +257,7 @@ phina.define("battleCpuPage", {
     if(app.frame % SPEED === 0){
       console.log(this.count);
       if(this.count <= 5){
-        battleLabel(this.side,this.monsterA,this.monsterB,master);
+        this.battleLog = battleLabel(this.side,this.monsterA,this.monsterB,master);
         if(this.side === 0){
           this.side = 1;
         }else{
@@ -317,3 +318,5 @@ phina.define("battleResultPage", {
   },
 
 });
+
+//コミットテスト
