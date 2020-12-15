@@ -244,7 +244,6 @@ phina.define("battleCpuPage", {
     this.side = 0;
     this.battleLog;
     //battle(monsterA,monsterB,master);
-    
     // var scanBgSprite = Sprite('scanBg').addChildTo(this);
     // scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
     // scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
@@ -255,9 +254,10 @@ phina.define("battleCpuPage", {
   // 更新(次回ここから！)
   update: function(app) {
     if(app.frame % SPEED === 0){
-      console.log(this.count);
-      if(this.count <= 5){
-        this.battleLog = battleLabel(this.side,this.monsterA,this.monsterB,master);
+      //this.battleLog.text = "";
+      if(this.count < 5){
+        console.log(this.count);
+        battleLabel(this.side,this.monsterA,this.monsterB,master);
         if(this.side === 0){
           this.side = 1;
         }else{
@@ -296,7 +296,7 @@ phina.define("battleResultPage", {
     SoundManager.playMusic("resultBGM");
 
 
-    setBaseButton(master);
+    menuSet(master);
     
     charaResultSet(master, 'c000');
     // var scanBgSprite = Sprite('scanBg').addChildTo(this);
@@ -305,8 +305,6 @@ phina.define("battleResultPage", {
     // scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
     
   },
-
-  // 更新(次回ここから！)
   update: function(app) {
     if(app.frame % SPEED === 0){
       if(master.resultLabel.text === "a"){

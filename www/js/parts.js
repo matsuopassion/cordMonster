@@ -186,10 +186,3 @@ function backButton(master){
     master.exit();
   };
 }
-
-function setBaseButton(master){
-  backButton(master);
-  menuBoxButton(master);
-  menuScanButton(master);
-  menuBattleButton(master);
-}
