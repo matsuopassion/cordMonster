@@ -5,7 +5,7 @@ phina.globalize();
 var ASSETS = {
   // 画像
   image: {
-    'startBg': 'image/startBg.jpg',
+    'startBg': 'image/startBg.png',
     'scanBg': 'image/scanBg.jpg',
     'mainBg': 'image/mainBg.jpg',
     'c000': 'image/000.png',
@@ -14,6 +14,7 @@ var ASSETS = {
     'buttonBattle': 'image/buttonBattle.png',
     'buttonScan': 'image/buttonScan.png',
     'buttonBox': 'image/buttonBox.png',
+    'buttonBack': 'image/buttonBack.png',
     'menuBar': 'image/menuBar.png',
     'scanStartButton': 'image/scanStartButton.png',
   },

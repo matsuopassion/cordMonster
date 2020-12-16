@@ -3,57 +3,16 @@ const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
 
 
-function battleLabel(side,myMonster,enemy,master){
-  //攻撃サイドを数値で表してるけどあんまりよくないかも
-  let message;
-  if(side === 0){
-    this.message = `${myMonster.name}のターン！\n${enemy.name}に${myMonster.pw}のダメージ！`;
-  }else{
-    this.message = `${enemy.name}のターン！\n${myMonster.name}に${enemy.pw}のダメージ！`;
-  }
-  Label({
-      text: this.message,
-      fontSize: 20,
-      fill: 'white',
-    }).addChildTo(master).setPosition(master.gridX.center(), master.gridY.center(2));
+function battleLabel(master,width,height){
+  let messageBox = RectangleShape();
+  messageBox.width = width;
+  messageBox.height = height;
+  messageBox.fill = "black";
+  messageBox.stroke = "white";
+  messageBox.strokeWidth = 10;
+  messageBox.cornerRadius = 25;
 }
-//戻るボタン
-phina.define("returnButton",{
 
-  superClass: 'Button',
-  init(){
-    this.superInit({
-        width: 50,         // 横サイズ
-        height: 50,        // 縦サイズ
-        text: "戻る",     // 表示文字
-        fontSize: 20,       // 文字サイズ
-        fontColor: 'white', // 文字色
-        cornerRadius: 10,   // 角丸み
-        fill: 'skyblue',    // ボタン色
-        stroke: 'blue',     // 枠色
-        strokeWidth: 5,     // 枠太さ
-    });
-  },
-});
-
-phina.define("registButton",{
-
-  superClass: 'Button',
-  init(){
-    this.superInit({
-        width: 80,         // 横サイズ
-        height: 70,        // 縦サイズ
-        text: "登録",     // 表示文字
-        fontSize: 32,       // 文字サイズ
-        fontColor: 'white', // 文字色
-        cornerRadius: 10,   // 角丸み
-        fill: 'green',    // ボタン色
-        stroke: 'black',     // 枠色
-        strokeWidth: 5,     // 枠太さ
-        
-    });
-  }
-});
 
 phina.define("baseButton",{
 
@@ -95,7 +54,7 @@ function menuBuckGroundSet(master){
 
 //メニューバーのセット用
 function menuSet(master){
-  backButton(master);
+  BackButtonSet(master);
   let magnification = menuBuckGroundSet(master);
   battleButtonSet(master,magnification);
   BoxButtonSet(master,magnification);
@@ -137,6 +96,18 @@ function ScanButtonSet(master,magnification){
   };
 }
 
+function BackButtonSet(master){
+  let buttonScan = Sprite('buttonBack');
+  //画面に合わせてサイズ変更
+  buttonScan.width = 100;
+  buttonScan.height = 100;
+  buttonScan.setInteractive(true);
+  buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
+    SoundManager.play("buttonPush");
+    master.exit();
+  };
+}
+
 //scanPage用ボタン
 function ScanStartButton(master){
   let buttonScanStart = Sprite('scanStartButton');
@@ -149,6 +120,8 @@ function ScanStartButton(master){
     scanBarcode();
   };
 }
+
+
 
 
 function charaResultSet(master,charaNum){
