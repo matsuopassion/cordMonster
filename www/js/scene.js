@@ -222,6 +222,10 @@ phina.define("battleCpuPage", {
 
     this.messageArray = ["子豚","狸","狐","猫ひろし"];
     this.count = 0;
+    this.message;
+    this.group = setBattleMessage(master);
+    this.group.addChildTo(master);
+    this.group.children[1].text = "バトルスタート！";
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
     this.myMonster = new monster('コーモンくん',50,5,5,5);
@@ -236,9 +240,9 @@ phina.define("battleCpuPage", {
       if(this.myMonster.life <= 0 || this.enemy.life <= 0 ){
         console.log("死んだ");
         this.phase = "s";
-        setBattleLabel(this.phase,this.myMonster,this.enemy,master);
+        this.message = setBattleLabel(this.phase,this.myMonster,this.enemy,master);
       }else{
-        setBattleLabel(this.phase,this.myMonster,this.enemy,master);
+        this.message = setBattleLabel(this.phase,this.myMonster,this.enemy,master);
         if(this.myMonster.speed > this.enemy.speed && this.phase == "s"){
           this.phase = "m";
         }else if(this.myMonster.speed <= this.enemy.speed && this.phase == "s"){
@@ -256,6 +260,7 @@ phina.define("battleCpuPage", {
           }
         }
       }
+      this.group.children[1].text = this.message;
     }
   }
 });

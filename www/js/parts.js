@@ -9,6 +9,24 @@ phina.globalize();
       enemy 敵キャラのクラス
       master Sceneの情報
 */
+function setBattleMessage(){
+  let group = DisplayElement();
+  let messageBox = RectangleShape();
+  messageBox.width = 400;
+  messageBox.height = 300;
+  messageBox.fill = "black";
+  messageBox.stroke = "white";
+  messageBox.strokeWidth = 10;
+  messageBox.cornerRadius = 25;
+  messageBox.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
+  let messageLabel = Label();
+  messageLabel.text = "";
+  messageLabel.fontSize = 20;
+  messageLabel.fill = "white";
+  messageLabel.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
+  return group;
+}
+
 function setBattleLabel(phase,myMonster,enemy,master){
   // 出題・回答・判定の内の、どのフェーズか
          /*
@@ -21,24 +39,24 @@ function setBattleLabel(phase,myMonster,enemy,master){
     case 'm':
       this.message = `${myMonster.name}のターン！\n${enemy.name}に${myMonster.power}のダメージ！`;
       enemy.life = enemy.life - myMonster.power;
-      console.log(this.message);
+      //console.log(this.message);
       console.log(`${myMonster.name}の体力：${myMonster.life}`);
       console.log(`${enemy.name}の体力：${enemy.life}`);
       break;
     case 'e':
       this.message = `${enemy.name}のターン！\n${myMonster.name}に${enemy.power}のダメージ！`;
       myMonster.life = myMonster.life - enemy.power;
-      console.log(this.message);
+      //console.log(this.message);
       console.log(`${myMonster.name}の体力：${myMonster.life}`);
       console.log(`${enemy.name}の体力：${enemy.life}`);
       break;
     case 's':
       if(myMonster.life <= 0){
         this.message = `${myMonster.name}は倒れた！`;
-        console.log(this.message);
+        //console.log(this.message);
       }else if(enemy.life <= 0){
         this.message = `${enemy.name}は倒れた！`;
-        console.log(this.message);
+        //console.log(this.message);
       }else{
         this.message = `${enemy.name}が飛び出してきた！`;
         console.log(`${myMonster.name}の体力：${myMonster.life}`);
@@ -50,6 +68,7 @@ function setBattleLabel(phase,myMonster,enemy,master){
       console.log('エラー：変数 phase に正しい値が設定されてません');
       console.log(`phase : ${phase} `);
   }
+  return this.message;
 }
 //戻るボタン
 phina.define("returnButton",{
