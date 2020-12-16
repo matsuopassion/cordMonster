@@ -4,14 +4,10 @@ function battle(myMonster,enemyMonster,master){
   this.myMonster = myMonster;
   this.enemy = enemyMonster;
   let battleEndFlag = false;
-  let side = 0;
+  let phase = s;
   while(battleEndFlag === false){
-    battleLabel(side,myMonster,enemy,master);
-    if(side === 0){
-      side = 1;
-    }else{
-      side = 0;
-    }count++;
+    setBattleLabel(phase,myMonster,enemy,master);
+    count++;
     if(count === 5){
       battleEndFlag = true;
     }

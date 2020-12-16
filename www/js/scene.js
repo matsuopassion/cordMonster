@@ -221,36 +221,43 @@ phina.define("battleCpuPage", {
     BackButtonSet(master);
 
     this.messageArray = ["子豚","狸","狐","猫ひろし"];
-    this.group = battleLabel(master);
-    this.group.addChildTo(master);
     this.count = 0;
-    this.group.children[1].text = this.messageArray[this.count];
-
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
-    this.monsterA = new monster('コーモンくん',10,1);
-    this.monsterB = new monster('ゴブリン',10,1);
- 
-    this.side = 0;
+    this.myMonster = new monster('コーモンくん',50,5,5,5);
+    this.enemy = new monster('ゴブリン',50,5,5,5);
     this.battleLog;
-    
+    this.phase = "s";
   },
 
   // 更新(次回ここから！)
   update: function(app) {
-    if(app.frame % SPEED === 0){
-      //this.battleLog.text = "";
-      this.count++;
-      if(this.count > 3 ){
-        this.count = 0;
+    if (app.pointer.getPointingStart()) {
+      if(this.myMonster.life <= 0 || this.enemy.life <= 0 ){
+        console.log("死んだ");
+        this.phase = "s";
+        setBattleLabel(this.phase,this.myMonster,this.enemy,master);
+      }else{
+        setBattleLabel(this.phase,this.myMonster,this.enemy,master);
+        if(this.myMonster.speed > this.enemy.speed && this.phase == "s"){
+          this.phase = "m";
+        }else if(this.myMonster.speed <= this.enemy.speed && this.phase == "s"){
+          this.phase = "e";
+        }else{
+          switch (this.phase) {
+            case 'e':
+              this.phase = "m"
+              break;
+            case 'm':
+              this.phase = "e"
+              break;
+            default:
+              console.log(`eでもmでもない`);
+          }
+        }
       }
-      this.group.children[1].text = this.messageArray[this.count];
-      
-
     }
-  },
-
-
+  }
 });
 
 /*
@@ -295,8 +302,7 @@ phina.define("battleResultPage", {
         master.resultLabel.text  ="a";
       }
     }
-  },
-
+  }
 });
 
 //コミットテスト

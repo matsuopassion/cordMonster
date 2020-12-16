@@ -1,6 +1,8 @@
 // This is a JavaScript file
-function monster(name,hp,pw){
+function monster(name,life,power,shield,speed){
   this.name = name;
-  this.hp = hp;
-  this.pw = pw;
+  this.life = life;
+  this.power = power;
+  this.shield = shield;
+  this.speed = speed;
 }

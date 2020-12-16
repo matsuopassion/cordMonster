@@ -2,25 +2,92 @@
 const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
 
-
-function battleLabel(master){
-  let group = DisplayElement();
-  let messageBox = RectangleShape();
-  messageBox.width = 400;
-  messageBox.height = 300;
-  messageBox.fill = "black";
-  messageBox.stroke = "white";
-  messageBox.strokeWidth = 10;
-  messageBox.cornerRadius = 25;
-  messageBox.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
-  let messageLabel = Label();
-  messageLabel.text = "";
-  messageLabel.fontSize = 20;
-  messageLabel.fill = "white";
-  messageLabel.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
-  return group;
+/*
+関数概要：戦闘画面のメッセージを返す関数
+引数：phase 誰による行動かを判別するための文字列
+      myMonster 自キャラのクラス
+      enemy 敵キャラのクラス
+      master Sceneの情報
+*/
+function setBattleLabel(phase,myMonster,enemy,master){
+  // 出題・回答・判定の内の、どのフェーズか
+         /*
+         * 自キャラ・・・"m"
+         * 敵キャラ・・・"e"
+         * システム・・・"s"
+         */
+  let message;
+  switch (phase){
+    case 'm':
+      this.message = `${myMonster.name}のターン！\n${enemy.name}に${myMonster.power}のダメージ！`;
+      enemy.life = enemy.life - myMonster.power;
+      console.log(this.message);
+      console.log(`${myMonster.name}の体力：${myMonster.life}`);
+      console.log(`${enemy.name}の体力：${enemy.life}`);
+      break;
+    case 'e':
+      this.message = `${enemy.name}のターン！\n${myMonster.name}に${enemy.power}のダメージ！`;
+      myMonster.life = myMonster.life - enemy.power;
+      console.log(this.message);
+      console.log(`${myMonster.name}の体力：${myMonster.life}`);
+      console.log(`${enemy.name}の体力：${enemy.life}`);
+      break;
+    case 's':
+      if(myMonster.life <= 0){
+        this.message = `${myMonster.name}は倒れた！`;
+        console.log(this.message);
+      }else if(enemy.life <= 0){
+        this.message = `${enemy.name}は倒れた！`;
+        console.log(this.message);
+      }else{
+        this.message = `${enemy.name}が飛び出してきた！`;
+        console.log(`${myMonster.name}の体力：${myMonster.life}`);
+        console.log(`${enemy.name}の体力：${enemy.life}`);
+        console.log(this.message);
+      }
+      break;
+    default:
+      console.log('エラー：変数 phase に正しい値が設定されてません');
+      console.log(`phase : ${phase} `);
+  }
 }
+//戻るボタン
+phina.define("returnButton",{
 
+  superClass: 'Button',
+  init(){
+    this.superInit({
+        width: 50,         // 横サイズ
+        height: 50,        // 縦サイズ
+        text: "戻る",     // 表示文字
+        fontSize: 20,       // 文字サイズ
+        fontColor: 'white', // 文字色
+        cornerRadius: 10,   // 角丸み
+        fill: 'skyblue',    // ボタン色
+        stroke: 'blue',     // 枠色
+        strokeWidth: 5,     // 枠太さ
+    });
+  },
+});
+
+phina.define("registButton",{
+
+  superClass: 'Button',
+  init(){
+    this.superInit({
+        width: 80,         // 横サイズ
+        height: 70,        // 縦サイズ
+        text: "登録",     // 表示文字
+        fontSize: 32,       // 文字サイズ
+        fontColor: 'white', // 文字色
+        cornerRadius: 10,   // 角丸み
+        fill: 'green',    // ボタン色
+        stroke: 'black',     // 枠色
+        strokeWidth: 5,     // 枠太さ
+        
+    });
+  }
+});
 
 phina.define("baseButton",{
 
@@ -40,6 +107,18 @@ phina.define("baseButton",{
     });
   }
 });
+
+function BackButtonSet(master){
+  let buttonScan = Sprite('buttonBack');
+  //画面に合わせてサイズ変更
+  buttonScan.width = 70;
+  buttonScan.height = 70;
+  buttonScan.setInteractive(true);
+  buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
+    SoundManager.play("buttonPush");
+    master.exit();
+  };
+}
 
 function charaSet(master,charaNum, posX,posY){
     let mainChara = Sprite(charaNum);
@@ -62,7 +141,7 @@ function menuBuckGroundSet(master){
 
 //メニューバーのセット用
 function menuSet(master){
-  BackButtonSet(master);
+  backButton(master);
   let magnification = menuBuckGroundSet(master);
   battleButtonSet(master,magnification);
   BoxButtonSet(master,magnification);
@@ -104,18 +183,6 @@ function ScanButtonSet(master,magnification){
   };
 }
 
-function BackButtonSet(master){
-  let buttonScan = Sprite('buttonBack');
-  //画面に合わせてサイズ変更
-  buttonScan.width = 70;
-  buttonScan.height = 70;
-  buttonScan.setInteractive(true);
-  buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
-    SoundManager.play("buttonPush");
-    master.exit();
-  };
-}
-
 //scanPage用ボタン
 function ScanStartButton(master){
   let buttonScanStart = Sprite('scanStartButton');
@@ -128,8 +195,6 @@ function ScanStartButton(master){
     scanBarcode();
   };
 }
-
-
 
 
 function charaResultSet(master,charaNum){
@@ -156,4 +221,14 @@ function BattleStartButton(master){
     SoundManager.play("buttonPush");
     master.exit('battleCpuPage');
   }
+}
+
+
+function backButton(master){
+  var backButton = returnButton(master);
+  backButton.setPosition(master.gridX.span(2), master.gridY.span(1)).addChildTo(master),
+  backButton.onpush= function(e){
+    SoundManager.play("buttonPush");
+    master.exit();
+  };
 }
