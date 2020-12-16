@@ -3,14 +3,22 @@ const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
 
 
-function battleLabel(master,width,height){
+function battleLabel(master){
+  let group = DisplayElement();
   let messageBox = RectangleShape();
-  messageBox.width = width;
-  messageBox.height = height;
+  messageBox.width = 400;
+  messageBox.height = 300;
   messageBox.fill = "black";
   messageBox.stroke = "white";
   messageBox.strokeWidth = 10;
   messageBox.cornerRadius = 25;
+  messageBox.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
+  let messageLabel = Label();
+  messageLabel.text = "";
+  messageLabel.fontSize = 20;
+  messageLabel.fill = "white";
+  messageLabel.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
+  return group;
 }
 
 
@@ -99,8 +107,8 @@ function ScanButtonSet(master,magnification){
 function BackButtonSet(master){
   let buttonScan = Sprite('buttonBack');
   //画面に合わせてサイズ変更
-  buttonScan.width = 100;
-  buttonScan.height = 100;
+  buttonScan.width = 70;
+  buttonScan.height = 70;
   buttonScan.setInteractive(true);
   buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
     SoundManager.play("buttonPush");
@@ -148,14 +156,4 @@ function BattleStartButton(master){
     SoundManager.play("buttonPush");
     master.exit('battleCpuPage');
   }
-}
-
-
-function backButton(master){
-  var backButton = returnButton(master);
-  backButton.setPosition(master.gridX.span(2), master.gridY.span(1)).addChildTo(master),
-  backButton.onpush= function(e){
-    SoundManager.play("buttonPush");
-    master.exit();
-  };
 }

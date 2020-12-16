@@ -153,19 +153,9 @@ phina.define("scanPage", {
     scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
     ScanStartButton(master);
-    
-    // //召喚ボタンのセット（scanのメソッドを呼び出し）
-    // const scanButton = baseButton("召喚");
-    // scanButton.setPosition(this.gridX.center(0),this.gridY.center(0)).addChildTo(this),scanButton.onpush=function(e){
-    //   //コード読取のメソッド
-    //   scanBarcode();
-    // };
 
     //共通ボタンのセット
     menuSet(master);
-
-    // // Android端末か確認。
-    // var chkAndroid = navigator.userAgent.indexOf("Android")>0;
     
   },
   
@@ -200,12 +190,7 @@ phina.define("battlePage", {
     SoundManager.playMusic("battleSelectBGM",1,true);
 
     menuSet(master);
-
-    // var scanBgSprite = Sprite('scanBg').addChildTo(this);
-    // scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
-    // scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
-    // scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
-    
+  
   },
 
 });
@@ -233,21 +218,21 @@ phina.define("battleCpuPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
 
-    //setBaseButton(master);
-    backButton(master);
+    BackButtonSet(master);
+
+    this.messageArray = ["子豚","狸","狐","猫ひろし"];
+    this.group = battleLabel(master);
+    this.group.addChildTo(master);
+    this.count = 0;
+    this.group.children[1].text = this.messageArray[this.count];
 
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
     this.monsterA = new monster('コーモンくん',10,1);
     this.monsterB = new monster('ゴブリン',10,1);
-    this.count = 0;
+ 
     this.side = 0;
     this.battleLog;
-    //battle(monsterA,monsterB,master);
-    // var scanBgSprite = Sprite('scanBg').addChildTo(this);
-    // scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
-    // scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
-    // scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
     
   },
 
@@ -255,16 +240,13 @@ phina.define("battleCpuPage", {
   update: function(app) {
     if(app.frame % SPEED === 0){
       //this.battleLog.text = "";
-      if(this.count < 5){
-        console.log(this.count);
-        battleLabel(this.side,this.monsterA,this.monsterB,master);
-        if(this.side === 0){
-          this.side = 1;
-        }else{
-          this.side = 0;
-        }
-        this.count++;
+      this.count++;
+      if(this.count > 3 ){
+        this.count = 0;
       }
+      this.group.children[1].text = this.messageArray[this.count];
+      
+
     }
   },
 
