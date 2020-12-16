@@ -1,7 +1,6 @@
 // This is a JavaScript file
 // グローバルに展開
 phina.globalize();
-
 var ASSETS = {
   // 画像
   image: {
