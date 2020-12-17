@@ -211,9 +211,9 @@ function ScanStartButton(master){
   buttonScanStart.setInteractive(true);
   buttonScanStart.setPosition(master.gridX.center(),master.gridY.center()).addChildTo(master),buttonScanStart.onpointstart=function(e){
     SoundManager.play("scanStartBGM");
-    scanBarcode();
+    let monsterData = scanBarcode();
     //scanResultPage：未実装
-    master.exit("scanResultPage");
+    master.exit("scanResultPage",monsterData);
   };
 }
 
