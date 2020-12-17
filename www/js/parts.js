@@ -160,7 +160,7 @@ function menuBuckGroundSet(master){
 
 //メニューバーのセット用
 function menuSet(master){
-  backButton(master);
+  BackButtonSet(master);
   let magnification = menuBuckGroundSet(master);
   battleButtonSet(master,magnification);
   BoxButtonSet(master,magnification);
@@ -212,6 +212,8 @@ function ScanStartButton(master){
   buttonScanStart.setPosition(master.gridX.center(),master.gridY.center()).addChildTo(master),buttonScanStart.onpointstart=function(e){
     SoundManager.play("scanStartBGM");
     scanBarcode();
+    //scanResultPage：未実装
+    master.exit("scanResultPage");
   };
 }
 
@@ -223,6 +225,18 @@ function charaResultSet(master,charaNum){
     mainChara.scaleX = -1;
     mainChara.setPosition(master.gridX.center(),master.gridY.center(-5)).addChildTo(master);
     mainChara.setInteractive(true);
+}
+
+function getCharaResultSet(master,monster){
+  let getMonsterImage = Sprite(monster.monsterID);
+  mainChara.width = 500;
+  mainChara.height = 500;
+  mainChara.setPosition(master.gridX.center(),master.gridY.center(-4)).addChildTo(master);
+  let getMonsterName = Label();
+  getMonsterName.text = monster.monsterName;
+  getMonsterName.fontSize = 30;
+  getMonsterName.fill = "white";
+  mainChara.setPosition(master.gridX.center(),master.gridY.center(1)).addChildTo(master);
 }
 
 function charaEnemySet(master,charaNum, posX,posY){
@@ -240,14 +254,4 @@ function BattleStartButton(master){
     SoundManager.play("buttonPush");
     master.exit('battleCpuPage');
   }
-}
-
-
-function backButton(master){
-  var backButton = returnButton(master);
-  backButton.setPosition(master.gridX.span(2), master.gridY.span(1)).addChildTo(master),
-  backButton.onpush= function(e){
-    SoundManager.play("buttonPush");
-    master.exit();
-  };
 }

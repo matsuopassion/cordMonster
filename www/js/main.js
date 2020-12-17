@@ -86,6 +86,12 @@ phina.main(function() {
         className: 'battleResultPage',
         label: 'battleResultPage',
         nextLabel: 'mainPage',
+      },
+
+      {
+        className: 'scanResultPage',
+        calssName: 'scanResultPage',
+        nextLabel:'scanPage',
       }
     ]
   });
