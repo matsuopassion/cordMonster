@@ -78,7 +78,7 @@ function getNewMonster(monsterID){
                shield : scM.defaultParam.shield , 
                speed : scM.defaultParam.speed },
     ability : ["abt1"],
-    form : 0
+    condition : ["con1"] 
   };
   return monster;
 }
