@@ -89,5 +89,5 @@ function resultClassification(text){
   let monsterPcs = MONSTER_MASTER.monsterData.length;
   let monsterIndex = monsterPcs - 1 - (textLength % monsterPcs);
   let monster = MONSTER_MASTER.monsterData[monsterIndex];
-  return monster.monsterID;
+  return monster.monsterID; //※配列投げてるよ
 }
