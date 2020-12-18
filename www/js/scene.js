@@ -345,7 +345,7 @@ phina.define("battleCpuPage", {
       cornerRadius: 10,      // 角丸み
       maxValue: this.enemy.life,         // ゲージ最大値
       value: this.enemy.life,         // ゲージ初期値
-      fill: 'white',         // 後ろの色
+      fill: 'red',         // 後ろの色
       gaugeColor: 'skyblue', // ゲージ色
       stroke: 'silver',      // 枠色
       strokeWidth: 5,        // 枠太さ
