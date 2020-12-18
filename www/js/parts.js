@@ -178,6 +178,32 @@ function battleButtonSet(master,magnification){
   };
 }
 
+function battleCPUButtonSet(master){
+  let buttonBattleCPU = Sprite('buttonBattleCPU');
+  //画面に合わせてサイズ変更
+  let magnification =(SCREEN_WIDTH / buttonBattleCPU.width);
+  buttonBattleCPU.width *= magnification;
+  buttonBattleCPU.height *= magnification;
+  buttonBattleCPU.setInteractive(true);
+  buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(master),buttonBattleCPU.onpointstart=function(e){
+    SoundManager.play("buttonPush");
+    master.exit('battleCpuPage');
+  };
+}
+
+function battleFriendButtonSet(master){
+  let buttonBattleFriend = Sprite('buttonBattleFriend');
+  //画面に合わせてサイズ変更
+  let magnification =(SCREEN_WIDTH / buttonBattleFriend.width);
+  buttonBattleFriend.width *= magnification;
+  buttonBattleFriend.height *= magnification;
+  buttonBattleFriend.setInteractive(true);
+  buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(master),buttonBattleFriend.onpointstart=function(e){
+    SoundManager.play("buttonPush");
+    //master.exit('battleCpuPage');
+  };
+}
+
 function BoxButtonSet(master,magnification){
   let buttonBox = Sprite('buttonBox');
   //画面に合わせてサイズ変更

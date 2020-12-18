@@ -16,6 +16,8 @@ var ASSETS = {
     'buttonBack': 'image/buttonBack.png',
     'menuBar': 'image/menuBar.png',
     'scanStartButton': 'image/scanStartButton.png',
+    'buttonBattleCPU': 'image/buttonBattleCPU.png',
+    'buttonBattleFriend': 'image/buttonBattleFriend.png',
   },
   sound:{
     'startBGM': 'sound/startBGM.mp3',
