@@ -2,6 +2,8 @@
 // グローバルに展開
 phina.globalize();
 var SPEED = 15;
+var gauge1;
+var gauge2;
 /*
  * シーン01
  */ 
@@ -107,19 +109,77 @@ phina.define("boxPage", {
     // 背景色
     this.backgroundColor = 'red';
 
-    // ラベル
-    Label({
-      text: 'boxPage',
-      fontSize: 20,
+    //BGMセット部分（先に全画面のBGMを停止）
+    SoundManager.stopMusic();
+    SoundManager.playMusic("mainBGM",1,true);
+
+     //box 画像
+    var boxBgSprite = Sprite('boxBg').addChildTo(this);
+      //画面に合わせてサイズ変更
+    boxBgSprite.width *= (SCREEN_WIDTH / boxBgSprite.width);
+    boxBgSprite.height *= (SCREEN_HEIGHT / boxBgSprite.height);
+    //画像を配置
+    boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+    master=this;
+
+    
+    boxcharaSet(master, 'c000', -5, -5);
+    boxcharaSet(master,'c001',-1,-5)
+      // var boxCgSprite = Sprite('c000',150,150).addChildTo(this);
+      // boxCgSprite.setPosition(master.gridX.center(-5), master.gridY.center(-5));
+      // character.setInteractive(true);
+      // character.onpointstart = function(e) {
+      // master.exit("characterChack");
+      // }
+    menuSet(master);
+  }
+});
+
+/*
+ * BOX詳細ページ
+ */
+phina.define("characterChack", {
+  // 継承
+  superClass: 'DisplayScene',
+  // 初期化
+  init: function(charaNum) {
+
+    //自分をオブジェクトとして変数に代入
+    master = this;
+
+    // 親クラス初期化
+    this.superInit(charaNum);
+
+         //box 画像
+    var boxBgSprite = Sprite('characterBg').addChildTo(this);
+      //画面に合わせてサイズ変更
+    boxBgSprite.width *= (SCREEN_WIDTH / boxBgSprite.width);
+    boxBgSprite.height *= (SCREEN_HEIGHT / boxBgSprite.height);
+    //画像を配置
+    boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+
+       Label({
+      text: ' life 1000 \n power 100 \n shield 50 \n speed 100' ,
+      fontSize: 50,
       fill: 'white',
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
+      align: "left",
+    }).addChildTo(this).setPosition(this.gridX.center(-5), this.gridY.center(2));
+
+    master=this;
+
+    // 背景色
+    //this.backgroundColor = 'red';
+
 
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("mainBGM",1,true);
-    
-    //共通ボタンのセット
+
+     //box 画像
+    var boxCgSprite = Sprite(charaNum.value1,400,400).addChildTo(this);
+    boxCgSprite.setPosition(master.gridX.center(0), master.gridY.center(-5));
     menuSet(master);
+    
   }
 });
 
@@ -265,6 +325,32 @@ phina.define("battleCpuPage", {
     charaEnemySet(master, 'c002', 5, -5);
     this.myMonster = new monster('コーモンくん',50,5,5,5);
     this.enemy = new monster('ゴブリン',50,5,5,5);
+    gauge1 = Gauge({
+      x: 100, y: 300,        // x,y座標
+      width: 150,            // 横サイズ
+      height: 30,            // 縦サイズ
+      cornerRadius: 10,      // 角丸み
+      maxValue: this.myMonster.life,         // ゲージ最大値
+      value: this.myMonster.life,         // ゲージ初期値
+      fill: 'white',         // 後ろの色
+      gaugeColor: 'skyblue', // ゲージ色
+      stroke: 'silver',      // 枠色
+      strokeWidth: 5,        // 枠太さ
+    }).addChildTo(this);
+
+    gauge2 = Gauge({
+      x: 320, y: 300,        // x,y座標
+      width: 150,            // 横サイズ
+      height: 30,            // 縦サイズ
+      cornerRadius: 10,      // 角丸み
+      maxValue: this.enemy.life,         // ゲージ最大値
+      value: this.enemy.life,         // ゲージ初期値
+      fill: 'white',         // 後ろの色
+      gaugeColor: 'skyblue', // ゲージ色
+      stroke: 'silver',      // 枠色
+      strokeWidth: 5,        // 枠太さ
+    }).addChildTo(this);
+
     this.battleLog;
     this.phase = "s";
   },

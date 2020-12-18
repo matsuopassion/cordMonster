@@ -18,6 +18,8 @@ var ASSETS = {
     'scanStartButton': 'image/scanStartButton.png',
     'buttonBattleCPU': 'image/buttonBattleCPU.png',
     'buttonBattleFriend': 'image/buttonBattleFriend.png',
+    'boxBg':'image/box.png',
+    'characterBg' : 'image/a.png',
   },
   sound:{
     'startBGM': 'sound/startBGM.mp3',
@@ -94,7 +96,13 @@ phina.main(function() {
         className: 'scanResultPage',
         calssName: 'scanResultPage',
         nextLabel:'scanPage',
-      }
+      },
+
+      {
+        className: 'characterChack',
+        label: 'characterChack',
+        nextLabel: 'boxPage',
+      },
     ]
   });
   // 実行

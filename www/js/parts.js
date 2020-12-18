@@ -281,3 +281,22 @@ function BattleStartButton(master){
     master.exit('battleCpuPage');
   }
 }
+
+function boxButton(master){
+  var mBattleButton = baseButton('Boxを確認',200,70,'white','purple');
+  mBattleButton.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master),mBattleButton.onpush=function(e){
+    SoundManager.play("buttonPush");
+    master.exit("boxChack");
+  }
+}
+
+function boxcharaSet(master,charaNum, posX,posY){
+    let boxChara = Sprite(charaNum);
+    boxChara.width = 150;
+    boxChara.height = 150;
+    boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
+    boxChara.setInteractive(true);
+    boxChara.onpointstart = function(e) {
+    master.exit('characterChack',{value1:charaNum});
+    }
+}
