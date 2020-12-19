@@ -1,5 +1,3 @@
-// object data
-
 var MONSTER_MASTER = {
     monsterData : [
        {
