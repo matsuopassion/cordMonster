@@ -25,7 +25,6 @@ phina.define("startPage", {
     //画面に合わせてサイズ変更
     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
     bgSprite.height *= (SCREEN_HEIGHT / bgSprite.height );
-    bgSprite.height -= 72;
     //画像を配置
     bgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
@@ -163,45 +162,6 @@ phina.define("scanPage", {
 });
 
 /*
- * 召喚リザルトページ
- */
-phina.define("scanResultPage", {
-  // 継承
-  superClass: 'DisplayScene',
-  // 初期化
-  init: function(option) {
-
-    //自分をオブジェクトとして変数に代入
-    master = this;
-
-    // 親クラス初期化
-    this.superInit(option);
-
-    // 背景色
-    this.backgroundColor = 'purple';
-
-    //BGMセット部分（先に全画面のBGMを停止）
-    SoundManager.stopMusic();
-    SoundManager.playMusic("scanBGM",1,true);
-
-    //背景画像
-    var scanBgSprite = Sprite('scanBg').addChildTo(this);
-    //画面に合わせてサイズ変更
-    scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
-    scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
-    //画像を配置
-    scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
-
-    //ScanStartButton(master);
-
-    //共通ボタンのセット
-    menuSet(master);
-    
-  },
-  
-});
-
-/*
  * バトル選択ページ
  */
 phina.define("battlePage", {
@@ -218,11 +178,14 @@ phina.define("battlePage", {
     // 背景色
     this.backgroundColor = 'black';
     
+    Label({
+      text: 'battlePage',
+      fontSize: 20,
+      fill: 'white',
+    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
 
-    menuSet(master);
-    battleCPUButtonSet(master);
-    battleFriendButtonSet(master);
-    
+    BattleStartButton(master);
+
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
 
@@ -257,14 +220,16 @@ phina.define("battleCpuPage", {
 
     BackButtonSet(master);
 
+    this.messageArray = ["abt1","abt2"];
+    this.count = 0;
     this.message;
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
-    this.myMonster = new monster('コーモンくん',50,5,5,5);
-    this.enemy = new monster('ゴブリン',50,5,5,5);
+    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.messageArray);
+    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.messageArray);
     this.battleLog;
     this.phase = "s";
   },
@@ -272,23 +237,29 @@ phina.define("battleCpuPage", {
   // 更新(次回ここから！)
   update: function(app) {
     if (app.pointer.getPointingStart()) {
-      if(this.myMonster.life <= 0 || this.enemy.life <= 0 ){
+      console.log("今のphase : "+this.phase);
+      if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){
         console.log("死んだ");
         this.phase = "s";
-        this.message = setBattleLabel(this.phase,this.myMonster,this.enemy,master);
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master);
       }else{
-        this.message = setBattleLabel(this.phase,this.myMonster,this.enemy,master);
-        if(this.myMonster.speed > this.enemy.speed && this.phase == "s"){
+        if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){
           this.phase = "m";
-        }else if(this.myMonster.speed <= this.enemy.speed && this.phase == "s"){
+          console.log("今のphase : "+this.phase);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+        }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
+          console.log("今のphase : "+this.phase);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master);
         }else{
           switch (this.phase) {
             case 'e':
               this.phase = "m"
+              this.message = Battle(this.phase,this.myMonster,this.enemy,master);
               break;
             case 'm':
               this.phase = "e"
+              this.message = Battle(this.phase,this.myMonster,this.enemy,master);
               break;
             default:
               console.log(`eでもmでもない`);
@@ -344,3 +315,5 @@ phina.define("battleResultPage", {
     }
   }
 });
+
+//コミットテスト
