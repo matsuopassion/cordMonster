@@ -7,8 +7,8 @@ function Battle(phase,myMonster,enemy,master){
          */
   let message;
   let commandResults;
-  let ability_name;
-  let ability_message;
+  let abilityName;
+  let abilityMessage;
   let damage = 0;
   switch (phase){
     case 'm':
@@ -17,8 +17,7 @@ function Battle(phase,myMonster,enemy,master){
       enemy.param = commandResults.enemyParam;
       console.log(JSON.stringify(myMonster.param));
       console.log(JSON.stringify(enemy.param));
-      this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}は${commandResults.ability_message}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
-      //console.log(this.message);
+      this.message = getMessage(phase,myMonster,enemy,commandResults);
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
       break;
@@ -26,8 +25,7 @@ function Battle(phase,myMonster,enemy,master){
       commandResults = abilitySelect(phase,myMonster,enemy);
       myMonster.param = commandResults.myMonsterParam;
       enemy.param = commandResults.enemyParam;
-      this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}は${commandResults.ability_message}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
-      //console.log(this.message);
+      this.message = getMessage(phase,myMonster,enemy,commandResults);
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
       break;
@@ -65,10 +63,12 @@ function abilitySelect(phase,myMonster,enemy){
   let targetSpeed;
   let mParam = myMonster.param;
   let eParam = enemy.param;
-  let ability_name = "様子を見る";
-  let ability_power = 0;
-  let ability_message = "様子を見ている";
+  let abilityName = "様子を見る";
+  let abilityPower = 0;
+  let abilityMessage = "様子を見ている";
   let damage = 0;
+  let abilityType = 0;
+  // 0:相手に攻撃 1:相手に攻撃かつ状態異常 2:相手に状態異常 3:自身を回復 4:相手に攻撃かつ自身に回復 5:相手を回復
   if(phase === "m"){
     abilityId = myMonster.ability;
     abilityId = abilityId[Math.floor(Math.random() * abilityId.length)].toString();
@@ -102,10 +102,11 @@ function abilitySelect(phase,myMonster,enemy){
   }
   switch (abilityId){
     case 'abt1':
-      ability_power = 30;
-      ability_name = "通常攻撃";
-      ability_message = "攻撃をしかけた！"
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * ability_power * attackerPower / targetShield )/50+2))) / 255);
+      abilityType = 0;
+      abilityPower = 30;
+      abilityName = "通常攻撃";
+      abilityMessage = "は攻撃をしかけた！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
       targetLife = targetLife - damage;
       break;
     case 'abt2':
@@ -113,30 +114,108 @@ function abilitySelect(phase,myMonster,enemy){
     case 'abt3':
       break;
     case 'abt4':
+      abilityType = 0;
+      abilityPower = 60;
+      abilityName = "強打";
+      abilityMessage = "は強打を放った！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt5':
+      abilityType = 0;
+      abilityPower = 75;
+      abilityName = "のしかかり";
+      abilityMessage = "は大きく飛び上がって相手にのしかかった！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt6':
+      abilityType = 0;
+      abilityPower = 85;
+      abilityName = "ぶちかまし";
+      abilityMessage = "のぶちかまし！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt7':
+      abilityType = 1;
+      abilityPower = 25;
+      abilityName = "毒攻撃";
+      abilityMessage = "は毒攻撃をしかけた！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt8':
+      abilityPower = 45;
+      abilityType = 1;
+      abilityName = "溶解液";
+      abilityMessage = "は溶解液を放った！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt9':
+      abilityType = 3;
+      abilityPower = 40;
+      abilityName = "ヒール";
+      abilityMessage = "のヒール！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      attackerLife = attackerLife + damage;
       break;
     case 'abt10':
+      abilityType = 1;
+      abilityPower = 40;
+      abilityName = "フラッシュ";
+      abilityMessage = "はフラッシュを放った！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt11':
+      abilityType = 0;
+      abilityPower = getRandomInt(30,70);
+      abilityName = "おまじない";
+      abilityMessage = "のおまじない！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt12':
+      abilityType = 0;
+      abilityPower = 65;
+      abilityName = "パイロキネシス";
+      abilityMessage = "はパイロキネシスを放った！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt13':
+      abilityType = 0;
+      abilityPower = 75;
+      abilityName = "火炎放射";
+      abilityMessage = "は火炎放射を放った！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt14':
+      abilityType = 0;
+      abilityPower = 80;
+      abilityName = "パイルバンカー";
+      abilityMessage = "はパイルバンカーで相手を激しく打ち付けた！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt15':
+      abilityType = 0;
+      abilityPower = 85;
+      abilityName = "ラリアット";
+      abilityMessage = "のラリアット！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt16':
+      abilityType = 0;
+      abilityPower = 95;
+      abilityName = "テラブレイク";
+      abilityMessage = "のテラブレイク！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt17':
       break;
@@ -174,8 +253,71 @@ function abilitySelect(phase,myMonster,enemy){
     eParam.shield = attackerShield;
     eParam.speed = attackerSpeed;
   }
-  return {ability_name:ability_name, ability_message:ability_message, damage:damage, myMonsterParam:mParam, enemyParam:eParam};
+  return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType};
 };
+
+function getMessage(phase,myMonster,enemy,commandResults){
+  let message = "エラー：変数'message'の値が不正です";
+  switch (phase){
+    case 'm':
+      switch(commandResults.abilityType){
+        case 0:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 1:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 2:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 3:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}は${commandResults.damage}回復した！`;
+          break;
+        case 4:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 5:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 6:
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        default:
+          this.message = `エラー：変数 abilityTypeの値が不正です`;
+      }
+      break;
+    case 'e':
+      switch(commandResults.abilityType){
+        case 0:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 1:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 2:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 3:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}は${commandResults.damage}回復した！`;
+          break;
+        case 4:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 5:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        case 6:
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          break;
+        default:
+          this.message = `エラー：変数'abilityType'の値が不正です`;
+      }
+      break;
+    default:
+      this.message = `エラー：引数として渡された変数'phase'の値が不正です`;
+  }
+  return this.message;
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
