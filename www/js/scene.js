@@ -150,7 +150,7 @@ phina.define("characterChack", {
     this.superInit(charaNum);
 
          //box 画像
-    var boxBgSprite = Sprite('characterBg').addChildTo(this);
+    var boxBgSprite = Sprite('boxBg').addChildTo(this);
       //画面に合わせてサイズ変更
     boxBgSprite.width *= (SCREEN_WIDTH / boxBgSprite.width);
     boxBgSprite.height *= (SCREEN_HEIGHT / boxBgSprite.height);
@@ -267,6 +267,14 @@ phina.define("battleCpuPage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'black';
+
+    //背景画像
+    var scanBgSprite = Sprite('battleCPUBg').addChildTo(this);
+    //画面に合わせてサイズ変更
+    scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
+    scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
+    //画像を配置
+    scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
     
     Label({
       text: 'battleCpuPage',
@@ -280,7 +288,7 @@ phina.define("battleCpuPage", {
 
     BackButtonSet(master);
 
-    this.ability = ["abt1","abt4","abt9"];
+    this.messageArray = ["abt1","abt2"];
     this.count = 0;
     this.message;
     this.group = setBattleMessage(master);
@@ -288,8 +296,8 @@ phina.define("battleCpuPage", {
     this.group.children[1].text = "バトルスタート！";
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
-    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
-    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
+    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.messageArray);
+    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.messageArray);
 
     gauge1 = Gauge({
       x: 100, y: 300,        // x,y座標
@@ -298,7 +306,7 @@ phina.define("battleCpuPage", {
       cornerRadius: 10,      // 角丸み
       maxValue: this.myMonster.life,         // ゲージ最大値
       value: this.myMonster.life,         // ゲージ初期値
-      fill: 'white',         // 後ろの色
+      fill: 'red',         // 後ろの色
       gaugeColor: 'skyblue', // ゲージ色
       stroke: 'silver',      // 枠色
       strokeWidth: 5,        // 枠太さ

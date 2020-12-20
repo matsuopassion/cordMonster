@@ -7,6 +7,7 @@ var ASSETS = {
     'startBg': 'image/startBg.png',
     'scanBg': 'image/scanBg.jpg',
     'mainBg': 'image/mainBg.jpg',
+    'battleCPUBg': 'image/battleCPUBg.png',
     'c000': 'image/000.png',
     'c001': 'image/001.png',
     'c002': 'image/002.png',
@@ -18,7 +19,7 @@ var ASSETS = {
     'scanStartButton': 'image/scanStartButton.png',
     'buttonBattleCPU': 'image/buttonBattleCPU.png',
     'buttonBattleFriend': 'image/buttonBattleFriend.png',
-    'boxBg':'image/box.png',
+    'boxBg':'image/boxBg.png',
     'characterBg' : 'image/a.png',
   },
   sound:{
