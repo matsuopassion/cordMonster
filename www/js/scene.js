@@ -21,9 +21,11 @@ phina.define("startPage", {
 
     // 背景色
     this.backgroundColor = 'black';
+    // this.monsterData = MONSTER_MASTER;
+    // console.log(monsterData);
 
     //背景画像
-    var bgSprite = Sprite('startBg').addChildTo(this);
+    var bgSprite = Sprite('startBg2').addChildTo(this);
     //画面に合わせてサイズ変更
     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
     bgSprite.height *= (SCREEN_HEIGHT / bgSprite.height );
@@ -219,6 +221,45 @@ phina.define("scanPage", {
     
   },
   
+});
+
+/*
+ * 召喚リザルトページ
+ */
+phina.define("scanResultPage", {
+  // 継承
+  superClass: 'DisplayScene',
+  // 初期化
+  init: function(option) {
+
+    //自分をオブジェクトとして変数に代入
+    master = this;
+
+    // 親クラス初期化
+    this.superInit(option);
+
+    // 背景色
+    this.backgroundColor = 'purple';
+
+    //BGMセット部分（先に全画面のBGMを停止）
+    SoundManager.stopMusic();
+    SoundManager.playMusic("scanBGM",1,true);
+
+    //背景画像
+    var scanBgSprite = Sprite('scanBg').addChildTo(this);
+    //画面に合わせてサイズ変更
+    scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
+    scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
+    //画像を配置
+    scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+
+    //ScanStartButton(master);
+
+    //共通ボタンのセット
+    menuSet(master);
+
+  },
+
 });
 
 /*

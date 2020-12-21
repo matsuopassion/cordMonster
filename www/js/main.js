@@ -5,6 +5,7 @@ var ASSETS = {
   // 画像
   image: {
     'startBg': 'image/startBg.png',
+    'startBg2': 'image/startBg2.png',
     'scanBg': 'image/scanBg.jpg',
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
@@ -96,7 +97,7 @@ phina.main(function() {
 
       {
         className: 'scanResultPage',
-        calssName: 'scanResultPage',
+        label: 'scanResultPage',
         nextLabel:'scanPage',
       },
 
