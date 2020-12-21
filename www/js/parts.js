@@ -196,7 +196,9 @@ function ScanStartButton(master){
     SoundManager.play("scanStartBGM");
     let monsterData = scanBarcode();
     //scanResultPage：未実装
-    master.exit("scanResultPage",monsterData);
+    master.exit("scanResultPage",{
+      resultMonster: monsterData,
+    });
   };
 }
 

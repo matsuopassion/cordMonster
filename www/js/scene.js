@@ -230,13 +230,13 @@ phina.define("scanResultPage", {
   // 継承
   superClass: 'DisplayScene',
   // 初期化
-  init: function(option) {
+  init: function(param) {
 
     //自分をオブジェクトとして変数に代入
     master = this;
 
     // 親クラス初期化
-    this.superInit(option);
+    this.superInit(param);
 
     // 背景色
     this.backgroundColor = 'purple';
@@ -244,7 +244,10 @@ phina.define("scanResultPage", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
-
+    
+    //モンスターの値が取れてないよ
+    console.log(param.resultMonstar);
+    let resultMonstarData = param.resultMonstar;
     //背景画像
     var scanBgSprite = Sprite('scanBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -253,6 +256,9 @@ phina.define("scanResultPage", {
     //画像を配置
     scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
+    console.log(resultMonstarData);
+    console.log(resultMonstarData.monsterID);
+    charaSet(master,this.resultMonstarData.monsterID,0,0);
     //ScanStartButton(master);
 
     //共通ボタンのセット
