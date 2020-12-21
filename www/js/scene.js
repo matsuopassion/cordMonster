@@ -237,18 +237,12 @@ phina.define("battlePage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'black';
-    
-    Label({
-      text: 'battlePage',
-      fontSize: 20,
-      fill: 'white',
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
-
-    BattleStartButton(master);
 
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
-
+    
+    battleCPUButtonSet(master);
+    battleFriendButtonSet(master);
     menuSet(master);
   
   },
