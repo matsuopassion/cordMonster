@@ -237,18 +237,12 @@ phina.define("battlePage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'black';
-    
-    Label({
-      text: 'battlePage',
-      fontSize: 20,
-      fill: 'white',
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
-
-    BattleStartButton(master);
 
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
-
+    
+    battleCPUButtonSet(master);
+    battleFriendButtonSet(master);
     menuSet(master);
   
   },
@@ -283,7 +277,7 @@ phina.define("battleCpuPage", {
 
     BackButtonSet(master);
 
-    this.messageArray = ["abt1","abt2"];
+    this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
     this.message;
     this.group = setBattleMessage(master);
@@ -291,34 +285,11 @@ phina.define("battleCpuPage", {
     this.group.children[1].text = "バトルスタート！";
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
-    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.messageArray);
-    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.messageArray);
+    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
+    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
 
-    gauge1 = Gauge({
-      x: 100, y: 300,        // x,y座標
-      width: 150,            // 横サイズ
-      height: 30,            // 縦サイズ
-      cornerRadius: 10,      // 角丸み
-      maxValue: this.myMonster.param.life,         // ゲージ最大値
-      value: this.myMonster.param.life,         // ゲージ初期値
-      fill: 'red',         // 後ろの色
-      gaugeColor: 'skyblue', // ゲージ色
-      stroke: 'silver',      // 枠色
-      strokeWidth: 5,        // 枠太さ
-    }).addChildTo(this);
-
-    gauge2 = Gauge({
-      x: 320, y: 300,        // x,y座標
-      width: 150,            // 横サイズ
-      height: 30,            // 縦サイズ
-      cornerRadius: 10,      // 角丸み
-      maxValue: this.enemy.param.life,         // ゲージ最大値
-      value: this.enemy.param.life,         // ゲージ初期値
-      fill: 'red',         // 後ろの色
-      gaugeColor: 'skyblue', // ゲージ色
-      stroke: 'silver',      // 枠色
-      strokeWidth: 5,        // 枠太さ
-    }).addChildTo(this);
+    gauge1 = gaugeSet(master,this.myMonster,-4,-2);
+    gauge2 = gaugeSet(master,this.enemy,4,-2);
 
     this.battleLog;
     this.phase = "s";
