@@ -283,7 +283,7 @@ phina.define("battleCpuPage", {
 
     BackButtonSet(master);
 
-    this.messageArray = ["abt1","abt2"];
+    this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
     this.message;
     this.group = setBattleMessage(master);
@@ -291,8 +291,8 @@ phina.define("battleCpuPage", {
     this.group.children[1].text = "バトルスタート！";
     charaSet(master, 'c000', -5, -5);
     charaEnemySet(master, 'c002', 5, -5);
-    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.messageArray);
-    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.messageArray);
+    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
+    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
 
     gauge1 = Gauge({
       x: 100, y: 300,        // x,y座標
