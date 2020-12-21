@@ -1,6 +1,3 @@
-
-setMonsterMap();
-setBasicMap();
 function scanBarcode() {
 cordova.plugins.barcodeScanner.scan(
   function (result) {
@@ -31,34 +28,50 @@ function getSearchData(qrText,cancelled) {
   } else if(localStorage.getItem(qrText) != null){
    return alert("既にスキャンされています");
   }
-  localStorage.setItem(qrText,'exist'); //スキャン済みのQRコード登録
-  let monsterID = resultClassification(qrText); //QRコードからモンスターを決定
-  let monsterJsonString = localStorage.getItem(monsterID); // ローカルストレージ内にあるJSON取得
+
+  //スキャン済みのQRコード登録
+  localStorage.setItem(qrText,'exist');
+
+  //QRコードからモンスターを決定
+  let monsterID = resultClassification(qrText);
+  
+  // ローカルストレージ内にあるJSON取得
+  let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
+  
+  //localstrage内にデータがなければ、モンスター新規取得
   if(monsterJsonString == null){
     monsterData = getNewMonster(monsterID);
     alert(monsterData.monsterName + "をゲットしました");
   } else {
+  //levelUPの処理
     monsterData = levelUpMonster(JSON.parse(monsterJsonString));
   }
 
-  //表示
+  //localstrageに保存
   localStorage.setItem(monsterID,JSON.stringify(monsterData));
+
   return monsterData;
 }
 
 function levelUpMonster(monsterData){
+  //lvUP
     monsterData.Lv = monsterData.Lv + 1;
     alert(monsterData.monsterName + "がレベルアップしました");
+    //対象モンスターのマスタ
     const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    
+    //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
     const abilityLv = monster.abilityLv;
     
     if(monster.evoLv == monsterData.Lv){ 
       monsterData = getEvoMonster(monsterData);
     }
+
     for(let i in abilityLv){
-      if(abilityLv[i] == monsterData.Lv){ //レベルに該当する場合は特技を追加
+      //レベルに該当する場合は特技を追加
+      if(abilityLv[i] == monsterData.Lv){
         monsterData.ability.push(monsterAbility[i]);
         alert("新しい特技を取得したよ");
       }
@@ -85,6 +98,7 @@ function getNewMonster(monsterID){
 
 //モンスターの決定
 function resultClassification(text){
+  //QRコードの文字数 ※現時点では確率設定してない、するならここ
   let textLength = text.length;
   let monsterPcs = BASIC_LIST.length;
   let monsterIndex = monsterPcs - 1 - (textLength % monsterPcs);
@@ -93,13 +107,16 @@ function resultClassification(text){
 }
 
 function getEvoMonster(monsterData){
-   //進化前のマスタ取得
+  //進化前のマスタ取得
   const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
-   //進化後のマスタ取得
+
+  //進化後のマスタ取得
   const evoMonster = JSON.parse(MONSTER_MAP.get(monster.evoLine));
-   //進化先のパラメータ取得
+
+  //進化先のパラメータ取得
   const eDefaultParam = evoMonster.defaultParam ;
-   //進化前のデフォルトパラメータ取得
+  
+  //進化前のデフォルトパラメータ取得
   const defaultParam = JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).defaultParam;
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
