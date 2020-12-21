@@ -1,5 +1,3 @@
-// This is a JavaScript file
-
 function scanBarcode() {
 cordova.plugins.barcodeScanner.scan(
   function (result) {
@@ -36,40 +34,39 @@ function getSearchData(qrText,cancelled) {
   let monsterData;
   if(monsterJsonString == null){
     monsterData = getNewMonster(monsterID);
-    alert("新しいポケモンをゲットしました");
+    alert(monsterData.monsterName + "をゲットしました");
   } else {
-    monsterData = levelUpMonster(JSON.parse(monsterJsonString),monsterID);
+    monsterData = levelUpMonster(JSON.parse(monsterJsonString));
   }
+
   //表示
   localStorage.setItem(monsterID,JSON.stringify(monsterData));
   return monsterData;
 }
 
-function levelUpMonster(monsterData,monsterID){
+function levelUpMonster(monsterData){
     monsterData.Lv = monsterData.Lv + 1;
-    const monster = JSON.parse(MONSTER_MAP.get(monsterID[monsterData.evoLine]));
+    alert(monsterData.monsterName + "がレベルアップしました");
+    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
     const monsterAbility = monster.ability;
     const abilityLv = monster.abilityLv;
-    const evoLine = monster.evoLine;
-
-    for(let evoLine of evoLine){
-      if( evoLine == monsterData.Lv ){ //レベルに進化のインデックスをずらす
-        monsterData.form += 1;
-      }
+    
+    if(monster.evoLv == monsterData.Lv){ 
+      monsterData = getEvoMonster(monsterData);
     }
-
     for(let i in abilityLv){
-      console.log(abilityLv[i]);
-      if( abilityLv[i] == monsterData.Lv ){ //レベルに該当する場合は特技を追加
+      if(abilityLv[i] == monsterData.Lv){ //レベルに該当する場合は特技を追加
         monsterData.ability.push(monsterAbility[i]);
+        alert("新しい特技を取得したよ");
       }
     }
     return monsterData;
 }
 
 function getNewMonster(monsterID){
+  alert(MONSTER_MAP.get(monsterID));
   let scM = JSON.parse(MONSTER_MAP.get(monsterID));
-  const monster = {
+  const monsterData = {
      monsterID : scM.monsterID ,
      monsterName : scM.monsterFamily ,
      Lv : 1 ,
@@ -78,16 +75,42 @@ function getNewMonster(monsterID){
                shield : scM.defaultParam.shield , 
                speed : scM.defaultParam.speed },
     ability : ["abt1"],
-    condition : ["con1"] 
+    condition : ["con1"]
   };
-  return monster;
+  return monsterData;
 }
 
 //モンスターの決定
 function resultClassification(text){
   let textLength = text.length;
-  let monsterPcs = MONSTER_MASTER.monsterData.length;
+  let monsterPcs = BASIC_LIST.length;
   let monsterIndex = monsterPcs - 1 - (textLength % monsterPcs);
-  let monster = MONSTER_MASTER.monsterData[monsterIndex];
-  return monster.monsterID; //※配列投げてるよ
+  let monster = BASIC_LIST[monsterIndex];
+  return monster.monsterID;
+}
+
+function getEvoMonster(monsterData){
+   //進化前のマスタ取得
+  const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+   //進化後のマスタ取得
+  const evoMonster = JSON.parse(MONSTER_MAP.get(monster.evoLine));
+   //進化先のパラメータ取得
+  const eDefaultParam = evoMonster.defaultParam ;
+   //進化前のデフォルトパラメータ取得
+  const defaultParam = JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).defaultParam;
+  let evoMonsterData = {
+    monsterID : evoMonster.monsterID ,
+    monsterName : evoMonster.monsterFamily ,
+    Lv : monsterData.Lv ,
+    param : {
+      life : monsterData.param.life + eDefaultParam.life - defaultParam.life , 
+      power : monsterData.param.power + eDefaultParam.power - defaultParam.power ,
+      shield : monsterData.param.shield + eDefaultParam.shield - defaultParam.shield , 
+      speed : monsterData.param.speed + eDefaultParam.speed - defaultParam.speed , 
+    } ,
+    ability : monsterData.ability ,
+    condition : monsterData.condition
+  }
+  alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
+  return evoMonsterData;
 }
