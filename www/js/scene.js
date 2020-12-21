@@ -294,31 +294,8 @@ phina.define("battleCpuPage", {
     this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.messageArray);
     this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.messageArray);
 
-    gauge1 = Gauge({
-      x: 100, y: 300,        // x,y座標
-      width: 150,            // 横サイズ
-      height: 30,            // 縦サイズ
-      cornerRadius: 10,      // 角丸み
-      maxValue: this.myMonster.param.life,         // ゲージ最大値
-      value: this.myMonster.param.life,         // ゲージ初期値
-      fill: 'red',         // 後ろの色
-      gaugeColor: 'skyblue', // ゲージ色
-      stroke: 'silver',      // 枠色
-      strokeWidth: 5,        // 枠太さ
-    }).addChildTo(this);
-
-    gauge2 = Gauge({
-      x: 320, y: 300,        // x,y座標
-      width: 150,            // 横サイズ
-      height: 30,            // 縦サイズ
-      cornerRadius: 10,      // 角丸み
-      maxValue: this.enemy.param.life,         // ゲージ最大値
-      value: this.enemy.param.life,         // ゲージ初期値
-      fill: 'red',         // 後ろの色
-      gaugeColor: 'skyblue', // ゲージ色
-      stroke: 'silver',      // 枠色
-      strokeWidth: 5,        // 枠太さ
-    }).addChildTo(this);
+    gauge1 = gaugeSet(master,this.myMonster,-4,-2);
+    gauge2 = gaugeSet(master,this.enemy,4,-2);
 
     this.battleLog;
     this.phase = "s";

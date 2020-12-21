@@ -200,6 +200,24 @@ function ScanStartButton(master){
   };
 }
 
+function gaugeSet(master,monster,x,y){
+  let charaGauge =Gauge({
+        // x: 100, y: 300,        // x,y座標
+        width: 150,            // 横サイズ
+        height: 30,            // 縦サイズ
+        cornerRadius: 10,      // 角丸み
+        maxValue: monster.param.life,         // ゲージ最大値
+        value: monster.param.life,         // ゲージ初期値
+        // maxValue: 100,         // ゲージ最大値
+        // value: 100,         // ゲージ初期値
+        fill: 'red',         // 後ろの色
+        gaugeColor: 'skyblue', // ゲージ色
+        stroke: 'silver',      // 枠色
+        strokeWidth: 5,        // 枠太さ
+      }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
+  return charaGauge;
+}
+
 
 function charaResultSet(master,charaNum){
     let mainChara = Sprite(charaNum);
