@@ -87,7 +87,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : false
         },
@@ -100,7 +100,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },
@@ -113,7 +113,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },
@@ -126,7 +126,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },
@@ -139,7 +139,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },
@@ -152,7 +152,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },
@@ -165,7 +165,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },{
@@ -177,7 +177,7 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "undefined" ,
+            evoLine : "undefined",
     	      evoLv : "undefined",
             basic : true
         },{
@@ -189,6 +189,8 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "undefined",
+    	      evoLv : "undefined",
             basic : true
         },{
             monsterID : "fishman" ,
@@ -199,6 +201,8 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "undefined",
+    	      evoLv : "undefined",
             basic : true
         },{
             monsterID : "lyris" ,
@@ -209,6 +213,8 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "undefined",
+    	      evoLv : "undefined",
             basic : true
         }
     ]
