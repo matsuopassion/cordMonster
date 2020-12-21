@@ -2,6 +2,7 @@ var MONSTER_MAP = new Map();
 console.log("---------start--------");
 function setMonsterMap(){
   for (let monster of MONSTER_MASTER.monsterData) {
+    console.log();
     MONSTER_MAP.set(monster.monsterID,JSON.stringify(monster));
     }
 };
