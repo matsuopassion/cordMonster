@@ -269,18 +269,13 @@ phina.define("battleCpuPage", {
     this.backgroundColor = 'black';
 
     //背景画像
-    var scanBgSprite = Sprite('battleCPUBg').addChildTo(this);
+    var battleCPUBgSprite = Sprite('battleCPUBg').addChildTo(this);
     //画面に合わせてサイズ変更
-    scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
-    scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
+    battleCPUBgSprite.width *= (SCREEN_WIDTH / battleCPUBgSprite.width);
+    battleCPUBgSprite.height *= (SCREEN_HEIGHT / battleCPUBgSprite.height);
     //画像を配置
-    scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
-    
-    Label({
-      text: 'battleCpuPage',
-      fontSize: 20,
-      fill: 'white',
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
+    battleCPUBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+  
 
     master = this;
     SoundManager.stopMusic();
@@ -304,8 +299,8 @@ phina.define("battleCpuPage", {
       width: 150,            // 横サイズ
       height: 30,            // 縦サイズ
       cornerRadius: 10,      // 角丸み
-      maxValue: this.myMonster.life,         // ゲージ最大値
-      value: this.myMonster.life,         // ゲージ初期値
+      maxValue: this.myMonster.param.life,         // ゲージ最大値
+      value: this.myMonster.param.life,         // ゲージ初期値
       fill: 'red',         // 後ろの色
       gaugeColor: 'skyblue', // ゲージ色
       stroke: 'silver',      // 枠色
@@ -317,8 +312,8 @@ phina.define("battleCpuPage", {
       width: 150,            // 横サイズ
       height: 30,            // 縦サイズ
       cornerRadius: 10,      // 角丸み
-      maxValue: this.enemy.life,         // ゲージ最大値
-      value: this.enemy.life,         // ゲージ初期値
+      maxValue: this.enemy.param.life,         // ゲージ最大値
+      value: this.enemy.param.life,         // ゲージ初期値
       fill: 'red',         // 後ろの色
       gaugeColor: 'skyblue', // ゲージ色
       stroke: 'silver',      // 枠色
@@ -362,6 +357,8 @@ phina.define("battleCpuPage", {
         }
       }
       this.group.children[1].text = this.message;
+      gauge1.value = this.myMonster.param.life;
+      gauge2.value = this.enemy.param.life;
     }
   }
 });

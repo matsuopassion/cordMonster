@@ -8,6 +8,7 @@ var ASSETS = {
     'scanBg': 'image/scanBg.jpg',
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
+    'battleFriendBg': 'image/battleFriendBg.png',
     'c000': 'image/000.png',
     'c001': 'image/001.png',
     'c002': 'image/002.png',
