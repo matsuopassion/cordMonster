@@ -25,7 +25,8 @@ var MONSTER_MASTER = {
             evoLine : "Undefined" ,
     	      evoLv : "Undefined",
             basic : true
-        },{
+        },
+        {
             monsterID : "Blingo" ,
             monsterFamily : "ブリンゴ" ,
             comment: "邪悪で狡猾な種族。高い知能を持ち、武器や防具を装備することが出来る。",
@@ -37,31 +38,8 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },{
-            monsterID : "Killerblingo" ,
-            monsterFamily : "キラーブリンゴ" ,
-            comment: "ブリンゴの中でも特に能力が高く強い個体。手下のブリンゴ達の統率を取って戦う",
-            rarity : "B" ,
-            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
-            ability : ["abt1","abt4","abt9"],
-            abilityLv : [ 1 ,2 ,5 ],
-            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
-    	      evoLv : "Undefined",
-            basic : true
-        },{
-            monsterID : "Blingolord" ,
-            monsterFamily : "ブリンゴロード" ,
-            comment: "ブリンゴ族のリーダー。冷酷で残忍であり、返り討ちにされた人間は数知れない。",
-            rarity : "A" ,
-            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
-            ability : ["abt1","abt4","abt9"],
-            abilityLv : [ 1 ,2 ,5 ],
-            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
-    	      evoLv : "Undefined",
-            basic : true
-        },{
+        },
+        {
             monsterID : "Golem" ,
             monsterFamily : "ゴーレム" ,
             comment: "古代の魔法で作られた巨大な人形。力持ちで頼りになるぞ！",
@@ -231,54 +209,6 @@ var MONSTER_MASTER = {
             monsterFamily : "リリ" ,
             comment: "魔界のアイドルっ！リリちゃんだよー！五月蠅い人間は魅了しちゃうよっ♡",
             rarity : "B" ,
-            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
-            ability : ["abt1","abt4","abt9"],
-            abilityLv : [ 1 ,2 ,5 ],
-            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
-    	      evoLv : "Undefined",
-            basic : true
-        },{
-            monsterID : "Chaser" ,
-            monsterFamily : "チェイサー" ,
-            comment: "宇宙の凶悪犯罪を追う正義の追跡者。まだまだ組織じゃ新人だ！",
-            rarity : "C",
-            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" },
-            ability : ["abt1","abt4","abt9"],
-            abilityLv : [ 1 ,2 ,5 ],
-            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
-    	      evoLv : "Undefined",
-            basic : true
-        },{
-            monsterID : "Kinichiro" ,
-            monsterFamily : "キンイチロウ" ,
-            comment: "生まれたときからの力持ち。山の中で彼のパワーに敵う動物はもういない！",
-            rarity : "B" ,
-            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
-            ability : ["abt1","abt4","abt9"],
-            abilityLv : [ 1 ,2 ,5 ],
-            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
-    	      evoLv : "Undefined",
-            basic : true
-        },{
-            monsterID : "Ibuki" ,
-            monsterFamily : "イブキ" ,
-            comment: "ニンジュツと呼ばれる風の魔法を扱う事に長けた東洋の戦士。",
-            rarity : "c" ,
-            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
-            ability : ["abt1","abt4","abt9"],
-            abilityLv : [ 1 ,2 ,5 ],
-            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
-    	      evoLv : "Undefined",
-            basic : true
-        },{
-            monsterID : "Unsui" ,
-            monsterFamily : "アンスイ" ,
-            comment: "超霊媒体質であるアンスイは、その身に取り憑いた殺戮者の邪霊に抗う為に修行に身を置く。",
-            rarity : "c" ,
             appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],

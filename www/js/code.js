@@ -1,9 +1,19 @@
 setMonsterMap();
 setBasicMap();
-function scanBarcode() {
+function scanBarcode(callback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {
-    return getSearchData(result.text,result.cancelled);
+    //sreturn getSearchData(result.text,result.cancelled);
+    if (result.cancelled == 0){
+      if(localStorage.getItem(qrText) != null){
+        return alert("既にスキャンされています");
+      } else {
+        callback(getSearchData(result.text));
+      }
+    } else {
+      alert("召喚をキャンセルしました。");
+      return;
+    }
   },
   function (error) {
     alert("Scanning failed: " + error);
@@ -24,12 +34,8 @@ cordova.plugins.barcodeScanner.scan(
 );
 }
 //召喚用のスキャン
-function getSearchData(qrText,cancelled) {
-  if(cancelled == 1){
-    return console.log("なんもスキャンされとらんやないかい");
-  } else if(localStorage.getItem(qrText) != null){
-   return alert("既にスキャンされています");
-  }
+function getSearchData(qrText) {
+
 
   //スキャン済みのQRコード登録
   localStorage.setItem(qrText,'exist');
