@@ -1,15 +1,15 @@
 // This is a JavaScript file
-function monster(id,name,condition,lv,life,power,shield,speed,ability){
-  this.monsterID = id;
-  this.monsterName = name;
-  this.condition = condition;
-  this.Lv = lv;
+function monster(monster){
+  this.monsterID = monster.monsterID;
+  this.monsterName = monster.monsterName;
+  this.condition = monster.condition;
+  this.Lv = monster.Lv;
   this.param = 
   { 
-    life : life,
-    power : power,
-    shield : shield, 
-    speed : speed 
+    life : monster.param.life,
+    power : monster.param.power,
+    shield : monster.param.shield, 
+    speed : monster.param.speed 
   };
-  this.ability = ability;
+  this.ability = monster.ability;
 }

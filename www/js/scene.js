@@ -33,6 +33,36 @@ phina.define("startPage", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("startBGM",1,true);
+    this.monsterArray = ["Bechoime",
+                        "Pixia",
+                        "Blingo",
+                        "Golem",
+                        "Worm",
+                        "Chrysalis",
+                        "Fukahirade",
+                        "Genie",
+                        "Lindwurm",
+                        "Sapphivern",
+                        "Taurusborg",
+                        "Pilebine",
+                        "Maskednature",
+                        "Hotdog",
+                        "Aborideer",
+                        "Fishman",
+                        "Lyris",
+                        "Chaser",
+                        "Blingolord",
+                        "Killerblingo",
+                        "Ibuki",
+                        "Kinichiro",
+                        "Unsui",
+                        "Cthulhu",
+                        "Ithaqua"];
+    for(monsterID of this.monsterArray){
+      console.log("モンスターをセット（テスト用）：" + monsterID);
+      console.log(JSON.stringify(getNewMonster(monsterID)));
+      localStorage.setItem(monsterID,JSON.stringify(getNewMonster(monsterID)));
+    }
 
   },
   // タッチで次のシーンへ
@@ -314,10 +344,17 @@ phina.define("battleCpuPage", {
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
-    charaSet(master, 'c000', -5, -5);
-    charaEnemySet(master, 'c002', 5, -5);
-    this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
-    this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
+    
+
+    //ここにID指定でバトルテスト可能
+    console.log(localStorage.getItem("Blingo"));
+    this.myMonster  = new monster(JSON.parse(localStorage.getItem("Lyris")));
+    this.enemy = new monster(JSON.parse(localStorage.getItem("Blingo")));
+    charaSet(master, this.myMonster.monsterID, -5, -5);
+    charaEnemySet(master, this.enemy.monsterID, 5, -5);
+
+    // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
+    // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
 
     gauge1 = gaugeSet(master,this.myMonster,-4,-2);
     gauge2 = gaugeSet(master,this.enemy,4,-2);
