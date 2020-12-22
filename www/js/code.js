@@ -1,5 +1,3 @@
-setMonsterMap();
-setBasicMap();
 function scanBarcode(callback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {
@@ -35,8 +33,6 @@ cordova.plugins.barcodeScanner.scan(
 }
 //召喚用のスキャン
 function getSearchData(qrText) {
-
-
   //スキャン済みのQRコード登録
   localStorage.setItem(qrText,'exist');
 
@@ -64,7 +60,8 @@ function getSearchData(qrText) {
 
 function levelUpMonster(monsterData){
   //lvUP
-    monsterData.Lv = monsterData.Lv + 1;
+    monsterData.Lv += 1;
+    monsterData.skill += 1;
     alert(monsterData.monsterName + "がレベルアップしました");
     //対象モンスターのマスタ
     const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
@@ -88,18 +85,24 @@ function levelUpMonster(monsterData){
 }
 
 function getNewMonster(monsterID){
-  alert(MONSTER_MAP.get(monsterID));
   let scM = JSON.parse(MONSTER_MAP.get(monsterID));
   const monsterData = {
      monsterID : scM.monsterID ,
      monsterName : scM.monsterFamily ,
      Lv : 1 ,
-     param : { life : scM.defaultParam.life ,
-               power : scM.defaultParam.power ,
-               shield : scM.defaultParam.shield , 
-               speed : scM.defaultParam.speed },
+     param : { 
+        life : scM.defaultParam.life ,
+        power : scM.defaultParam.power ,
+        shield : scM.defaultParam.shield , 
+        speed : scM.defaultParam.speed },
+     skill : {
+        point : 0,
+        life : 0 ,
+        power : 0 ,
+        shield : 0 , 
+        speed : 0 },
     ability : ["abt1"],
-    condition : ["con1"]
+    condition : ["con1"]  
   };
   return monsterData;
 }
@@ -124,18 +127,30 @@ function getEvoMonster(monsterData){
   //進化先のパラメータ取得
   const eDefaultParam = evoMonster.defaultParam ;
   
-  //進化前のデフォルトパラメータ取得
-  const defaultParam = JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).defaultParam;
+  //skilふり直し
+  const skill = getEvoMonster.skill
+  const skillPoint = 
+   skill.point +
+   skill.life + 
+   skill.power +
+   skill.shield +
+   skill.speed ; 
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
     monsterName : evoMonster.monsterFamily ,
     Lv : monsterData.Lv ,
     param : {
-      life : monsterData.param.life + eDefaultParam.life - defaultParam.life , 
-      power : monsterData.param.power + eDefaultParam.power - defaultParam.power ,
-      shield : monsterData.param.shield + eDefaultParam.shield - defaultParam.shield , 
-      speed : monsterData.param.speed + eDefaultParam.speed - defaultParam.speed , 
+      life : eDefaultParam.life  , 
+      power : eDefaultParam.power ,
+      shield : eDefaultParam.shield , 
+      speed : eDefaultParam.speed , 
     } ,
+    skill : {
+      point : skillPoint ,
+      life : 0 ,
+      power : 0 ,
+      shield : 0 , 
+      speed : 0 },
     ability : monsterData.ability ,
     condition : monsterData.condition
   }
