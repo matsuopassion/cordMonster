@@ -27,65 +27,6 @@ function setBattleMessage(){
   return group;
 }
 
-
-
-//戻るボタン
-phina.define("returnButton",{
-
-  superClass: 'Button',
-  init(){
-    this.superInit({
-        width: 50,         // 横サイズ
-        height: 50,        // 縦サイズ
-        text: "戻る",     // 表示文字
-        fontSize: 20,       // 文字サイズ
-        fontColor: 'white', // 文字色
-        cornerRadius: 10,   // 角丸み
-        fill: 'skyblue',    // ボタン色
-        stroke: 'blue',     // 枠色
-        strokeWidth: 5,     // 枠太さ
-    });
-  },
-});
-
-phina.define("registButton",{
-
-  superClass: 'Button',
-  init(){
-    this.superInit({
-        width: 80,         // 横サイズ
-        height: 70,        // 縦サイズ
-        text: "登録",     // 表示文字
-        fontSize: 32,       // 文字サイズ
-        fontColor: 'white', // 文字色
-        cornerRadius: 10,   // 角丸み
-        fill: 'green',    // ボタン色
-        stroke: 'black',     // 枠色
-        strokeWidth: 5,     // 枠太さ
-        
-    });
-  }
-});
-
-phina.define("baseButton",{
-
-  superClass: 'Button',
-  init(text,width,height,fontColor,fill){
-    this.superInit({
-        width: width,         // 横サイズ
-        height: height,        // 縦サイズ
-        text: text,     // 表示文字
-        fontSize: 32,       // 文字サイズ
-        fontColor: fontColor, // 文字色
-        cornerRadius: 10,   // 角丸み
-        fill: fill,    // ボタン色
-        stroke: 'black',     // 枠色
-        strokeWidth: 5,     // 枠太さ
-        
-    });
-  }
-});
-
 function BackButtonSet(master){
   let buttonScan = Sprite('buttonBack');
   //画面に合わせてサイズ変更
@@ -222,10 +163,6 @@ function ScanStartButton(master){
     SoundManager.play("scanStartBGM");
     this.monsterData;
     scanBarcode(function(monsterData) {
-        console.log("きてるよ");
-        console.log(monsterData);
-        // // This function gets called by the geocode function on success
-        // makeMap(results[0].geometry.location.lat(), results[0].geometry.location.lng()); 
         master.exit("scanResultPage",{
           resultMonster: monsterData,
         });
