@@ -23,7 +23,7 @@ var ASSETS = {
     'Lyris':'image/monsters/Lyris.png',
     'Chaser':'image/monsters/Chaser.png',
     'Blingolord':'image/monsters/Blingolord.png',
-    'KillerBlingo':'image/monsters/KillerBlingo.png',
+    'Killerblingo':'image/monsters/Killerblingo.png',
     'Ibuki':'image/monsters/Ibuki.png',
     'Kinichiro':'image/monsters/Kinichiro.png',
     'Unsui':'image/monsters/Unsui.png',

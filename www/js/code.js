@@ -5,7 +5,7 @@ cordova.plugins.barcodeScanner.scan(
   function (result) {
     //sreturn getSearchData(result.text,result.cancelled);
     if (result.cancelled == 0){
-      if(localStorage.getItem(qrText) != null){
+      if(localStorage.getItem(result.text) != null){
         return alert("既にスキャンされています");
       } else {
         callback(getSearchData(result.text));

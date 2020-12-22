@@ -98,9 +98,8 @@ function BackButtonSet(master){
 
 function charaSet(master,charaNum, posX,posY){
     let mainChara = Sprite(charaNum);
-    mainChara.width = 200;
-    mainChara.height = 200;
-    mainChara.scaleX = -1;
+    mainChara.width = 400;
+    mainChara.height = 400;
     mainChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
     mainChara.setInteractive(true);
 }
