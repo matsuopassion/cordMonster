@@ -10,6 +10,7 @@ function Battle(phase,myMonster,enemy,master){
   let abilityName;
   let abilityMessage;
   let damage = 0;
+  let count = 1;
   switch (phase){
     case 'm':
       commandResults = abilitySelect(phase,myMonster,enemy);
@@ -218,8 +219,88 @@ function abilitySelect(phase,myMonster,enemy){
       targetLife = targetLife - damage;
       break;
     case 'abt17':
+      abilityType = 0;
+      abilityPower = 45;
+      abilityName = "噛みつき";
+      abilityMessage = "は噛みついた！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     case 'abt18':
+      abilityType = 0;
+      abilityPower = getChooseRandom([0,0,300]);
+      abilityName = "マサカリ";
+      abilityMessage = "はマサカリを大きく振りかぶった！！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
+      break;
+    case 'abt19':
+      abilityType = 0;
+      abilityPower = 15;
+      count = getRandomInt(1, 6);
+      abilityName = "クナイ";
+      abilityMessage = `のクナイ投げ！！${count}回当たった！！`
+      
+      damage = count * (Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255));
+      targetLife = targetLife - damage;
+      break;
+    case 'abt20':
+      abilityType = 0;
+      abilityPower = 25;
+      count = getRandomInt(1, 3);
+      abilityName = "回転切り";
+      abilityMessage = `の回転切り！！${count}回転！！`
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
+      break;
+    case 'abt21':
+      abilityType = 0;
+      abilityPower = 50;
+      count = getRandomInt(2, 5);
+      abilityName = "大回転切り";
+      abilityMessage = `の大回転切り！！${count}回転！！`
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
+      break;
+    case 'abt22':
+      abilityType = 0;
+      abilityPower = 10;
+      count = getRandomInt(3, 6);
+      abilityName = "連続突き";
+      abilityMessage = `の連続突き！！${count}回当たった！！`
+      damage = count * (Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255));
+      targetLife = targetLife - damage;
+      break;
+    case 'abt23':
+      abilityType = 0;
+      abilityPower = 200;
+      abilityName = "無限";
+      abilityMessage = "の無限！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
+      break;
+    case 'abt24':
+      abilityType = 0;
+      abilityPower = 300;
+      abilityName = "狂気";
+      abilityMessage = "の狂気！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
+      break;
+    case 'abt25':
+      abilityType = 0;
+      abilityPower = 95;
+      abilityName = "歩む死";
+      abilityMessage = "の歩む死！！"
+      targetLife = Math.floor(targetLife / 2);
+      break;
+    case 'abt26':
+      abilityType = 0;
+      abilityPower = 95;
+      abilityName = "テラブレイク";
+      abilityMessage = "のテラブレイク！！"
+      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / targetShield )/50+2))) / 255);
+      targetLife = targetLife - damage;
       break;
     default:
       console.log('エラー：渡されたability idが不正です。');
@@ -324,3 +405,8 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min);
 };
+
+function getChooseRandom(arrayData) {
+    var arrayIndex = Math.floor(Math.random() * arrayData.length);
+    return arrayData[arrayIndex];
+}
