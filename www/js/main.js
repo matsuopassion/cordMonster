@@ -27,6 +27,8 @@ var ASSETS = {
     'Ibuki':'image/monsters/Ibuki.png',
     'Kinichiro':'image/monsters/Kinichiro.png',
     'Unsui':'image/monsters/Unsui.png',
+    'Cthulhu':'image/monsters/Cthulhu.png',
+    'Ithaqua':'image/monsters/Ithaqua.png',
     'startBg': 'image/startBg.png',
     'startBg2': 'image/startBg2.png',
     'scanBg': 'image/scanBg.jpg',
