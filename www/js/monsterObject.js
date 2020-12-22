@@ -12,8 +12,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined" ,
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Pixia" ,
             monsterFamily : "ピクシア" ,
             comment: "可愛い妖精さん。知性と魔力が高くいたずらが好き。",

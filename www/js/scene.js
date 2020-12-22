@@ -246,8 +246,7 @@ phina.define("scanResultPage", {
     SoundManager.playMusic("scanBGM",1,true);
     
     //モンスターの値が取れてないよ
-    console.log(param.resultMonstar);
-    let resultMonstarData = param.resultMonstar;
+    console.log(param.resultMonster);
     //背景画像
     var scanBgSprite = Sprite('scanBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -256,10 +255,8 @@ phina.define("scanResultPage", {
     //画像を配置
     scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
-    console.log(resultMonstarData);
-    console.log(resultMonstarData.monsterID);
-    charaSet(master,this.resultMonstarData.monsterID,0,0);
-    //ScanStartButton(master);
+    console.log(param.resultMonster.monsterID);
+    charaSet(master,param.resultMonster.monsterID,0,0);
 
     //共通ボタンのセット
     menuSet(master);
