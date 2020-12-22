@@ -222,10 +222,6 @@ function ScanStartButton(master){
     SoundManager.play("scanStartBGM");
     this.monsterData;
     scanBarcode(function(monsterData) {
-        console.log("きてるよ");
-        console.log(monsterData);
-        // // This function gets called by the geocode function on success
-        // makeMap(results[0].geometry.location.lat(), results[0].geometry.location.lng()); 
         master.exit("scanResultPage",{
           resultMonster: monsterData,
         });

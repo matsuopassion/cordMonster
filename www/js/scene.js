@@ -21,8 +21,6 @@ phina.define("startPage", {
 
     // 背景色
     this.backgroundColor = 'black';
-    // this.monsterData = MONSTER_MASTER;
-    // console.log(monsterData);
 
     //背景画像
     var bgSprite = Sprite('startBg2').addChildTo(this);
@@ -84,9 +82,6 @@ phina.define("mainPage", {
     menuSet(master);
 
     charaSet(master,"c000",0,1);
-
-    // // Android端末か確認。
-    // var chkAndroid = navigator.userAgent.indexOf("Android")>0;
     
   },
   
@@ -126,12 +121,6 @@ phina.define("boxPage", {
     
     boxcharaSet(master, 'c000', -5, -5);
     boxcharaSet(master,'c001',-1,-5)
-      // var boxCgSprite = Sprite('c000',150,150).addChildTo(this);
-      // boxCgSprite.setPosition(master.gridX.center(-5), master.gridY.center(-5));
-      // character.setInteractive(true);
-      // character.onpointstart = function(e) {
-      // master.exit("characterChack");
-      // }
     menuSet(master);
   }
 });
@@ -245,7 +234,6 @@ phina.define("scanResultPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
     
-    //モンスターの値が取れてないよ
     console.log(param.resultMonster);
     //背景画像
     var scanBgSprite = Sprite('scanBg').addChildTo(this);
@@ -290,7 +278,6 @@ phina.define("battlePage", {
     menuSet(master);
   
   },
-
 });
 
 /*
@@ -338,8 +325,6 @@ phina.define("battleCpuPage", {
     this.battleLog;
     this.phase = "s";
   },
-
-  // 更新(次回ここから！)
   update: function(app) {
     if (app.pointer.getPointingStart()) {
       console.log("今のphase : "+this.phase);
@@ -406,10 +391,6 @@ phina.define("battleResultPage", {
     menuSet(master);
     
     charaResultSet(master, 'c000');
-    // var scanBgSprite = Sprite('scanBg').addChildTo(this);
-    // scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
-    // scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
-    // scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
     
   },
   update: function(app) {
