@@ -12,8 +12,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined" ,
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Pixia" ,
             monsterFamily : "ピクシア" ,
             comment: "可愛い妖精さん。知性と魔力が高くいたずらが好き。",
@@ -25,8 +24,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined" ,
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Blingo" ,
             monsterFamily : "ブリンゴ" ,
             comment: "邪悪で狡猾な種族。高い知能を持ち、武器や防具を装備することが出来る。",
@@ -35,11 +33,34 @@ var MONSTER_MASTER = {
             ability : ["abt1","abt4","abt9"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
-            evoLine : "Undefined",
+            evoLine : "Killerblingo",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
+            monsterID : "Killerblingo" ,
+            monsterFamily : "キラーブリンゴ" ,
+            comment: "ブリンゴの中でも特に能力が高く強い個体。手下のブリンゴ達の統率を取って戦う",
+            rarity : "B" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
+            ability : ["abt1","abt4","abt21"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Blingolord",
+    	      evoLv : "5",
+            basic : false
+        },{
+            monsterID : "Blingolord" ,
+            monsterFamily : "ブリンゴロード" ,
+            comment: "ブリンゴ族のリーダー。冷酷で残忍であり、返り討ちにされた人間は数知れない。",
+            rarity : "A" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
+            ability : ["abt1","abt4","abt22"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Blingolord",
+    	      evoLv : "10",
+            basic : false
+        },{
             monsterID : "Golem" ,
             monsterFamily : "ゴーレム" ,
             comment: "古代の魔法で作られた巨大な人形。力持ちで頼りになるぞ！",
@@ -51,8 +72,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Worm" ,
             monsterFamily : "ツノムシ" ,
             comment: "大きなツノがチャームポイントのムシ。触ると超危険！",
@@ -64,8 +84,7 @@ var MONSTER_MASTER = {
             evoLine : "Chrysalis",
     	      evoLv : 3,
             basic : true
-        },
-        {
+        },{
             monsterID : "Chrysalis" ,
             monsterFamily : "トゲサリス" ,
             comment: "ツノムシの進化した姿。眠っているがしっかり戦えるぞ！",
@@ -77,8 +96,7 @@ var MONSTER_MASTER = {
             evoLine : "Lindwurm" ,
     	      evoLv : 7,
             basic : false
-        },
-        {
+        },{
             monsterID : "Lindwurm" ,
             monsterFamily : "リンドブルム" ,
             comment: "永い眠りから目覚めた〇〇の最終形態！もう誰も止められない！",
@@ -90,8 +108,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : false
-        },
-        {
+        },{
             monsterID : "Fukahirade" ,
             monsterFamily : "フカヒレイド" ,
             comment: "獲物を切り裂く水中の剣士。ヒレも牙も全てが凶器！",
@@ -103,8 +120,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Genie" ,
             monsterFamily : "ランプのまじん" ,
             comment: "願いをかなえるランプの魔人のはず…だが？なぜだかダラダラしている。",
@@ -116,8 +132,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Sapphivern" ,
             monsterFamily : "サファイバーン" ,
             comment: "伝説の蒼い翼竜。その口から放たれる火炎は広野を一瞬で焼き尽くす。",
@@ -129,8 +144,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Taurusborg" ,
             monsterFamily : "タウロスボーグ" ,
             comment: "秘密の研究によって生み出された計り知れないパワーと知性を持つ牛のサイボーグ。",
@@ -142,8 +156,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Pilebine" ,
             monsterFamily : "パイルバイン" ,
             comment: "長い年月、地中に埋まっていた古代兵器。主人を守るために再び動き出す。",
@@ -155,8 +168,7 @@ var MONSTER_MASTER = {
             evoLine : "Undefined",
     	      evoLv : "Undefined",
             basic : true
-        },
-        {
+        },{
             monsterID : "Maskednature" ,
             monsterFamily : "マスクド・ネイチャー" ,
             comment: "長い年月、地中に埋まっていた古代兵器。主人を守るために再び動き出す。",
@@ -211,6 +223,78 @@ var MONSTER_MASTER = {
             rarity : "B" ,
             appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
             ability : ["abt1","abt4","abt9"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Undefined",
+    	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Chaser" ,
+            monsterFamily : "チェイサー" ,
+            comment: "宇宙の凶悪犯罪を追う正義の追跡者。まだまだ組織じゃ新人だ！",
+            rarity : "C",
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" },
+            ability : ["abt1","abt4","abt9"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Undefined",
+    	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Kinichiro" ,
+            monsterFamily : "キンイチロウ" ,
+            comment: "生まれたときからの力持ち。山の中で彼のパワーに敵う動物はもういない！",
+            rarity : "B" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
+            ability : ["abt1","abt4","abt9"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Undefined",
+    	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Ibuki" ,
+            monsterFamily : "イブキ" ,
+            comment: "ニンジュツと呼ばれる風の魔法を扱う事に長けた東洋の戦士。",
+            rarity : "c" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
+            ability : ["abt1","abt4","abt9"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Undefined",
+    	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Unsui" ,
+            monsterFamily : "アンスイ" ,
+            comment: "超霊媒体質であるアンスイは、その身に取り憑いた殺戮者の邪霊に抗う為に修行に身を置く。",
+            rarity : "c" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
+            ability : ["abt1","abt4","abt9"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Undefined",
+    	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Ithaqua" ,
+            monsterFamily : "イトハカ" ,
+            comment: "旧支配者。「風」に乗る能力によって、宇宙を移動する。",
+            rarity : "A" ,
+            appropriate : { life : "B" ,power : "A" ,shield : "B",speed : "A" } ,
+            ability : ["abt1","abt4","abt9"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
+            evoLine : "Undefined",
+    	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Cthulhu" ,
+            monsterFamily : "クトゥルー" ,
+            comment: "旧支配者。クトゥルーが再び姿を現したとき、この世が滅ぶという予言がある。",
+            rarity : "A" ,
+            appropriate : { life : "A" ,power : "A" ,shield : "A",speed : "C" } ,
+            ability : ["abt1","abt23","abt24"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 20 ,power : 5 ,shield : 5 , speed : 5 },
             evoLine : "Undefined",
