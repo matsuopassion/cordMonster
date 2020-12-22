@@ -27,6 +27,8 @@ function setBattleMessage(){
   return group;
 }
 
+
+
 //戻るボタン
 phina.define("returnButton",{
 
@@ -98,10 +100,35 @@ function BackButtonSet(master){
 
 function charaSet(master,charaNum, posX,posY){
     let mainChara = Sprite(charaNum);
+    mainChara.width = 200;
+    mainChara.height = 200;
+    mainChara.scaleX = -1;
+    mainChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
+    mainChara.setInteractive(true);
+}
+
+function scanCharaSet(master,charaNum, posX,posY){
+    let mainChara = Sprite(charaNum);
     mainChara.width = 400;
     mainChara.height = 400;
     mainChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
     mainChara.setInteractive(true);
+}
+
+function setScanResultMessage(master,text){
+  let messageBox = RectangleShape();
+  messageBox.width = 300;
+  messageBox.height = 200;
+  messageBox.fill = "black";
+  messageBox.stroke = "white";
+  messageBox.strokeWidth = 10;
+  messageBox.cornerRadius = 25;
+  messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(2));
+  let messageLabel = Label();
+  messageLabel.text = text;
+  messageLabel.fontSize = 20;
+  messageLabel.fill = "white";
+  messageLabel.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(2));
 }
 
 function menuBuckGroundSet(master){

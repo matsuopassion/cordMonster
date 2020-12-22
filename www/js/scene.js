@@ -256,8 +256,8 @@ phina.define("scanResultPage", {
     scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
     console.log(param.resultMonster.monsterID);
-    charaSet(master,param.resultMonster.monsterID,0,0);
-
+    scanCharaSet(master,param.resultMonster.monsterID,0,-4);
+    setScanResultMessage(master,param.resultMonster.monsterName);
     //共通ボタンのセット
     menuSet(master);
 
