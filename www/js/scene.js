@@ -203,7 +203,7 @@ phina.define("boxPage", {
             //console.log(ID);
             // boxcharaSet(master, ID, x, y);
             // x += 2;
-          }
+    }
 
     
     // boxcharaSet(master, 'c000', -5, -5);
