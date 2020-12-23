@@ -164,3 +164,7 @@ function decisionParam(monsterApp){
   let param = Math.getRandomIntInclusive(paramWidth[0],paramWidth[1]);
   return param;
 }
+
+function updateParam(monsterData,monsterApp){
+  //ここから
+}
