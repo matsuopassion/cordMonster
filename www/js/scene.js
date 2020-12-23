@@ -183,7 +183,7 @@ phina.define("boxPage", {
             boxcharaSet(master,ID,ID,Name,Lv,life,power,shield,speed, x, y);
             if(x == 5){
               y += 5;
-              x = -15;
+              x = -5;
             }else{
               x += 5;
             }
