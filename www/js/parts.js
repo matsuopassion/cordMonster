@@ -235,13 +235,13 @@ function boxButton(master){
   }
 }
 
-function boxcharaSet(master,charaNum, posX,posY){
+function boxcharaSet(master,charaNum,ID,Name,Lv,life,power,shield,speed, posX,posY){
     let boxChara = Sprite(charaNum);
     boxChara.width = 150;
     boxChara.height = 150;
     boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
-    master.exit('characterChack',{value1:charaNum});
+    master.exit('characterChack',{charaNum:charaNum, ID:ID, Name:Name, Lv:Lv, life:life, power:power, shield:shield,speed:speed});
     }
 }

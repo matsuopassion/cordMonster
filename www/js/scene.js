@@ -148,9 +148,66 @@ phina.define("boxPage", {
     boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
     master=this;
 
+    var boxMonster = new Array();// locaStorageから取得
+
+    let object = {};        //オブジェクト配列生成
+    let key;                //key
+    let mons = [];
+    let int = 0;
+    let jsonMonster;
+    let x = -5;
+    let y = -5;
+    // for(let i = 0 ; i < localStorage.length ; i++) {
+    // key = localStorage.key(i);
+    // let exist =  localStorage.getItem(key);
+    //   if(exist != "exist"){       //existではなかったら値取り出し
+    //     object[key] = localStorage.getItem(key);
+    //     mons[int] = key;
+    //   }
+    // }
+
+    for(let i = 0; i < localStorage.length; i++){
+      key = localStorage.key(i);
+      let exist =  localStorage.getItem(key);
+      if(exist != "exist"){       //existではなかったら値取り出し
+        object[i] = localStorage.getItem(key);
+        jsonMonster = new monster(JSON.parse(object[i])); //Stringからjsonに変換
+        let ID = jsonMonster.monsterID;
+            let Name = jsonMonster.monsterName;
+            let Lv = jsonMonster.Lv;
+            let life = jsonMonster.param["life"];
+            let power = jsonMonster.param["power"];
+            let shield = jsonMonster.param["shield"];
+            let speed = jsonMonster.param["speed"];
+            //console.log(ID,Name,Lv,life,power,shield,speed);
+            boxcharaSet(master,ID,ID,Name,Lv,life,power,shield,speed, x, y);
+            if(x == 5){
+              y += 5;
+              x = -15;
+            }else{
+              x += 5;
+            }
+            
+      }
+      //let monsterstatus1 = jsonMonster.monsterID;
+      // for (let k = 0; k < MONSTER_MASTER.monsterData.length; k++) {
+      //     let monsterstatus2 = MONSTER_MASTER.monsterData[k]["monsterID"];
+      //     if(monsterstatus1 == monsterstatus2){
+            // let ID = jsonMonster.monsterID;
+            // let Name = jsonMonster.monsterName;
+            // let Lv = jsonMonster.Lv;
+            // let life = jsonMonster.param["life"];
+            // let power = jsonMonster.param["power"];
+            // let shield = jsonMonster.param["shield"];
+            // let speed = jsonMonster.param["speed"];
+            //console.log(ID);
+            // boxcharaSet(master, ID, x, y);
+            // x += 2;
+          }
+
     
-    boxcharaSet(master, 'c000', -5, -5);
-    boxcharaSet(master,'c001',-1,-5)
+    // boxcharaSet(master, 'c000', -5, -5);
+    // boxcharaSet(master,'c001',-1,-5)
     menuSet(master);
   }
 });
@@ -162,13 +219,13 @@ phina.define("characterChack", {
   // 継承
   superClass: 'DisplayScene',
   // 初期化
-  init: function(charaNum) {
+  init: function(boxCharaResults) {
 
     //自分をオブジェクトとして変数に代入
     master = this;
 
     // 親クラス初期化
-    this.superInit(charaNum);
+    this.superInit(boxCharaResults);
 
          //box 画像
     var boxBgSprite = Sprite('boxBg').addChildTo(this);
@@ -178,12 +235,12 @@ phina.define("characterChack", {
     //画像を配置
     boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
-       Label({
-      text: ' life 1000 \n power 100 \n shield 50 \n speed 100' ,
+       let label = Label({
+      text: '',
       fontSize: 50,
       fill: 'white',
       align: "left",
-    }).addChildTo(this).setPosition(this.gridX.center(-5), this.gridY.center(2));
+    }).addChildTo(this).setPosition(this.gridX.center(-4), this.gridY.center(4));
 
     master=this;
 
@@ -196,8 +253,9 @@ phina.define("characterChack", {
     SoundManager.playMusic("mainBGM",1,true);
 
      //box 画像
-    var boxCgSprite = Sprite(charaNum.value1,400,400).addChildTo(this);
-    boxCgSprite.setPosition(master.gridX.center(0), master.gridY.center(-5));
+    var boxCgSprite = Sprite(boxCharaResults.charaNum,400,400).addChildTo(this);
+    boxCgSprite.setPosition(master.gridX.center(0), master.gridY.center(-3));
+    label.text = `${boxCharaResults.Name}\n life:${boxCharaResults.life}\n power:${boxCharaResults.power}\n shiled${boxCharaResults.shield}\n speed${boxCharaResults.speed}\n`;
     menuSet(master);
     
   }
