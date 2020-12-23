@@ -134,7 +134,8 @@ function getEvoMonster(monsterData){
    skill.life + 
    skill.power +
    skill.shield +
-   skill.speed ; 
+   skill.speed ;
+
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
     monsterName : evoMonster.monsterFamily ,
@@ -156,4 +157,10 @@ function getEvoMonster(monsterData){
   }
   alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
   return evoMonsterData;
+}
+
+function decisionParam(monsterApp){
+  let paramWidth = RISE_WIDTH[RISE_INDEX.prototype.indexOf(monsterApp)];
+  let param = Math.getRandomIntInclusive(paramWidth[0],paramWidth[1]);
+  return param;
 }
