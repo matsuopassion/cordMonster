@@ -235,13 +235,43 @@ function boxButton(master){
   }
 }
 
-function boxcharaSet(master,charaNum,ID,Name,Lv,life,power,shield,speed, posX,posY){
-    let boxChara = Sprite(charaNum);
+function boxcharaSet(master,jsonMonster,posX,posY){
+    let boxChara = Sprite(jsonMonster.monsterID);
     boxChara.width = 150;
     boxChara.height = 150;
     boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
-    master.exit('characterChack',{charaNum:charaNum, ID:ID, Name:Name, Lv:Lv, life:life, power:power, shield:shield,speed:speed});
+      master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
+}
+
+function boxCharaDSet(master,charaNum){
+  let boxCharaD = Sprite(charaNum);
+  boxCharaD.width = 400;
+  boxCharaD.height = 400;
+  boxCharaD.setPosition(master.gridX.center(0),master.gridY.center(-4)).addChildTo(master);
+}
+
+function boxCharaInfoSet(master,monster){
+  let messageBox = RectangleShape();
+  messageBox.width = 400;
+  messageBox.height = 300;
+  messageBox.fill = "black";
+  messageBox.stroke = "white";
+  messageBox.strokeWidth = 10;
+  messageBox.cornerRadius = 25;
+  messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
+  let nameLabel = Label({
+      text: monster.monsterName,
+      fontSize: 30,
+      fill: 'white',
+    }).addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(1));
+  let statusLabel = Label({
+      text: 'life:' + monster.param.life + '\n' + 'power:' + monster.param.power + '\n' +  'shiled:' +
+      monster.param.shield + '\n' + 'speed:' + monster.param.speed,
+      fontSize: 40,
+      fill: 'white',
+      align: "left",
+    }).addChildTo(master).setPosition(master.gridX.center(-3),master.gridY.center(4));
 }

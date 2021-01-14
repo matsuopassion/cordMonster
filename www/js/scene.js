@@ -172,21 +172,14 @@ phina.define("boxPage", {
       if(exist != "exist"){       //existではなかったら値取り出し
         object[i] = localStorage.getItem(key);
         jsonMonster = new monster(JSON.parse(object[i])); //Stringからjsonに変換
-        let ID = jsonMonster.monsterID;
-            let Name = jsonMonster.monsterName;
-            let Lv = jsonMonster.Lv;
-            let life = jsonMonster.param["life"];
-            let power = jsonMonster.param["power"];
-            let shield = jsonMonster.param["shield"];
-            let speed = jsonMonster.param["speed"];
-            //console.log(ID,Name,Lv,life,power,shield,speed);
-            boxcharaSet(master,ID,ID,Name,Lv,life,power,shield,speed, x, y);
-            if(x == 5){
-              y += 5;
-              x = -5;
-            }else{
-              x += 5;
-            }
+        //console.log(ID,Name,Lv,life,power,shield,speed);
+        boxcharaSet(master,jsonMonster, x, y);
+        if(x == 5){
+          y += 5;
+          x = -5;
+        }else{
+          x += 5;
+        }
             
       }
       //let monsterstatus1 = jsonMonster.monsterID;
@@ -219,28 +212,21 @@ phina.define("characterChack", {
   // 継承
   superClass: 'DisplayScene',
   // 初期化
-  init: function(boxCharaResults) {
+  init: function(param) {
 
     //自分をオブジェクトとして変数に代入
     master = this;
 
     // 親クラス初期化
-    this.superInit(boxCharaResults);
+    this.superInit(param);
 
-         //box 画像
+    //box 画像
     var boxBgSprite = Sprite('boxBg').addChildTo(this);
-      //画面に合わせてサイズ変更
+    //画面に合わせてサイズ変更
     boxBgSprite.width *= (SCREEN_WIDTH / boxBgSprite.width);
     boxBgSprite.height *= (SCREEN_HEIGHT / boxBgSprite.height);
     //画像を配置
     boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
-
-       let label = Label({
-      text: '',
-      fontSize: 50,
-      fill: 'white',
-      align: "left",
-    }).addChildTo(this).setPosition(this.gridX.center(-4), this.gridY.center(4));
 
     master=this;
 
@@ -253,9 +239,9 @@ phina.define("characterChack", {
     SoundManager.playMusic("mainBGM",1,true);
 
      //box 画像
-    var boxCgSprite = Sprite(boxCharaResults.charaNum,400,400).addChildTo(this);
-    boxCgSprite.setPosition(master.gridX.center(0), master.gridY.center(-3));
-    label.text = `${boxCharaResults.Name}\n life:${boxCharaResults.life}\n power:${boxCharaResults.power}\n shiled${boxCharaResults.shield}\n speed${boxCharaResults.speed}\n`;
+    boxCharaDSet(master,param.boxCharaResults.monsterID);
+    console.log("ここまでき");
+    boxCharaInfoSet(master,param.boxCharaResults);
     menuSet(master);
     
   }
@@ -406,7 +392,7 @@ phina.define("battleCpuPage", {
 
     //ここにID指定でバトルテスト可能
     console.log(localStorage.getItem("Blingo"));
-    this.myMonster  = new monster(JSON.parse(localStorage.getItem("Lyris")));
+    this.myMonster  = new monster(JSON.parse(localStorage.getItem("Sapphivern")));
     this.enemy = new monster(JSON.parse(localStorage.getItem("Blingo")));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
