@@ -161,10 +161,37 @@ function getEvoMonster(monsterData){
 
 function decisionParam(monsterApp){
   let paramWidth = RISE_WIDTH[RISE_INDEX.prototype.indexOf(monsterApp)];
-  let param = Math.getRandomIntInclusive(paramWidth[0],paramWidth[1]);
+  let param = Math.getRandomIntInclusive(paramWidth[0],paramWidth[1]); //引数1~引数2までの中から乱数で値を決定
   return param;
 }
 
-function updateParam(monsterData,monsterApp){
-  //ここから
+function skillAllocation(monsterApp,addPoint){
+  let totalParam = 0 ;
+  for(addPoint; addPoint > 0; addPoint--){
+    totalParam =+ decisionParam(monsterApp);
+  }
+  return totalParam ;
+}
+
+function updateParam(monsterData,addPointArray){
+  const appropriates = getAppropriate(monsterData);
+  let totalPoint = 0;
+  for(let point of addPointArray){
+    totalPoint =+ point;
+  } 
+  let skills = monsterData.skill;
+
+  skills.life(skillAllocation(appropriates.life),addPointArray[0]);
+  skills.power(skillAllocation(appropriates.power),addPointArray[1]);
+  skills.shield(skillAllocation(appropriates.shield),addPointArray[2]);
+  skills.speed(skillAllocation(appropriates.speed),addPointArray[3]);
+  skills.point(totalPoint);
+
+  return monsterData.skill(skills);//あやしい
+}
+
+function getAppropriate(monsterData){
+  let monsterApp = 
+    JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).appropriate;
+  return monsterApp;
 }
