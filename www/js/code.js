@@ -180,11 +180,15 @@ function updateParam(monsterData,addPointArray){
     totalPoint =+ point;
   } 
   let skills = monsterData.skill;
-
-  skills.life(skillAllocation(appropriates.life),addPointArray[0]);
-  skills.power(skillAllocation(appropriates.power),addPointArray[1]);
-  skills.shield(skillAllocation(appropriates.shield),addPointArray[2]);
-  skills.speed(skillAllocation(appropriates.speed),addPointArray[3]);
+  let params = monsterData.param;
+  params.life(skillAllocation(appropriates.life),addPointArray[0]);
+  skills.life(addPointArray[0]);
+  params.power(skillAllocation(appropriates.power),addPointArray[1]);
+  skills.power(addPointArray[1]);
+  params.shield(skillAllocation(appropriates.shield),addPointArray[2]);
+  skills.shield(addPointArray[2]);
+  params.speed(skillAllocation(appropriates.speed),addPointArray[3]);
+  skills.speed(addPointArray[3]);
   skills.point(totalPoint);
 
   return monsterData.skill(skills);//あやしい
