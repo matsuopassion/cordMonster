@@ -248,30 +248,86 @@ function boxcharaSet(master,jsonMonster,posX,posY){
 
 function boxCharaDSet(master,charaNum){
   let boxCharaD = Sprite(charaNum);
-  boxCharaD.width = 400;
-  boxCharaD.height = 400;
+  boxCharaD.width = 250;
+  boxCharaD.height = 250;
   boxCharaD.setPosition(master.gridX.center(0),master.gridY.center(-4)).addChildTo(master);
 }
 
 function boxCharaInfoSet(master,monster){
+  let pointSetArray = [0,0,0,0];
   let messageBox = RectangleShape();
+  let rowNum = 1;
+  let statusTextArray = ["life:","power:","shield:","speed:"];
+  //↓ダサいからあとで変える
+  let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
   messageBox.width = 400;
-  messageBox.height = 300;
+  messageBox.height = 400;
   messageBox.fill = "black";
   messageBox.stroke = "white";
   messageBox.strokeWidth = 10;
   messageBox.cornerRadius = 25;
   messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
   let nameLabel = Label({
-      text: monster.monsterName,
-      fontSize: 30,
-      fill: 'white',
-    }).addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(1));
-  let statusLabel = Label({
-      text: 'life:' + monster.param.life + '\n' + 'power:' + monster.param.power + '\n' +  'shiled:' +
-      monster.param.shield + '\n' + 'speed:' + monster.param.speed,
+    text: monster.monsterName,
+    fontSize: 30,
+    fill: 'white',
+   }).addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(0));
+  for (let i = 0; i < 4; i++){
+    let statusLabel = Label({
+      text: statusTextArray[i] + statusNumArray[i],
       fontSize: 40,
       fill: 'white',
       align: "left",
-    }).addChildTo(master).setPosition(master.gridX.center(-3),master.gridY.center(4));
+   }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(rowNum));
+   let statusUpButton = Label({
+      text: "+",
+      fontSize: 50,
+      fill: 'white',
+      align: "left",
+   }).addChildTo(master).setPosition(master.gridX.center(3),master.gridY.center(rowNum));
+
+   if(monster.skill.point > 0){
+     statusUpButton.setInteractive(true);
+     statusUpButton.fill = 'yellow';
+   }else{
+     statusUpButton.setInteractive(false);
+     statusUpButton.fill = 'gray';
+   }
+
+   let statusDownButton = Label({
+      text: "-",
+      fontSize: 50,
+      fill: 'white',
+      align: "left",
+   }).addChildTo(master).setPosition(master.gridX.center(5),master.gridY.center(rowNum));
+
+   if(pointSetArray[rowNum] > 0){
+     statusDownButton.setInteractive(true);
+     statusDownButton.fill = 'yellow';
+   }else{
+     statusDownButton.setInteractive(false);
+     statusDownButton.fill = 'gray';
+   }
+
+   rowNum+=1;
+  }
+  let statusSkillPointLabel = Label({
+      text: "skillPoint:" + monster.skill.point,
+      fontSize: 40,
+      fill: 'yellow',
+      align: "left",
+   }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(rowNum));
+  let statusSkillUpdateLabel = Label({
+      text: "更新",
+      fontSize: 40,
+      fill: 'yellow',
+      align: "left",
+   }).addChildTo(master).setPosition(master.gridX.center(3),master.gridY.center(rowNum));
+  // let statusLabel = Label({
+  //     text: 'life:' + monster.param.life + '\n' + 'power:' + monster.param.power + '\n' +  'shiled:' +
+  //     monster.param.shield + '\n' + 'speed:' + monster.param.speed,
+  //     fontSize: 40,
+  //     fill: 'white',
+  //     align: "left",
+  //  }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(3));
 }

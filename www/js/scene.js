@@ -242,7 +242,8 @@ phina.define("characterChack", {
     boxCharaDSet(master,param.boxCharaResults.monsterID);
     console.log("ここまでき");
     boxCharaInfoSet(master,param.boxCharaResults);
-    menuSet(master);
+    //menuSet(master);
+    BackButtonSet(master);
     
   }
 });
