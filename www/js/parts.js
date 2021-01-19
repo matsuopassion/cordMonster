@@ -272,14 +272,14 @@ function viewUpDateInfo(master,monster,testSkillPoint,pointSetArray){
         fontSize: 40,
         fill: 'white',
         align: "left",
-    }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(rowNum));
+    }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
     
     let updatePointLabel = Label({
         text: "",
         fontSize: 30,
         fill: 'red',
         align: "left",
-    }).addChildTo(master).setPosition(master.gridX.center(1),master.gridY.center(rowNum));
+    }).addChildTo(master).setPosition(master.gridX.center(1),master.gridY.center(1+i));
 
     if(pointSetArray[rowNum] > 0){
       updatePointLabel.text = "+" + pointSetArray[rowNum];
@@ -287,32 +287,48 @@ function viewUpDateInfo(master,monster,testSkillPoint,pointSetArray){
       updatePointLabel.text = "";
     }
 
-    let statusUpButton = Label({
+    let statusUpButton = Button({
         text: "+",
+        width: 50,
+        height: 50, 
         fontSize: 50,
+        fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(master).setPosition(master.gridX.center(3),master.gridY.center(rowNum));
+    }).addChildTo(master).setPosition(master.gridX.center(4),master.gridY.center(1+i));
+    statusUpButton.onpointstart = function(e) {
+      console.log("押せています:" + i);
+      testSkillPoint--;
+      pointSetArray[i]++;
+      viewUpDateInfo(master,monster,testSkillPoint,pointSetArray);
+    };
 
     if(testSkillPoint > 0){
       statusUpButton.setInteractive(true);
+      fontColor: 'black',
       statusUpButton.fill = 'yellow';
     }else{
       statusUpButton.setInteractive(false);
+      fontColor: 'white',
       statusUpButton.fill = 'gray';
     }
-    let statusDownButton = Label({
+    let statusDownButton = Button({
         text: "-",
+        width: 50,
+        height: 50, 
         fontSize: 50,
+        fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(master).setPosition(master.gridX.center(5),master.gridY.center(rowNum));
+    }).addChildTo(master).setPosition(master.gridX.center(6),master.gridY.center(1+i));
 
-    if(pointSetArray[rowNum] > 0){
+    if(pointSetArray[i] > 0){
       statusDownButton.setInteractive(true);
+      fontColor: 'black',
       statusDownButton.fill = 'yellow';
     }else{
       statusDownButton.setInteractive(false);
+      fontColor: 'white',
       statusDownButton.fill = 'gray';
     }
 
@@ -323,14 +339,17 @@ function viewUpDateInfo(master,monster,testSkillPoint,pointSetArray){
       fontSize: 40,
       fill: 'yellow',
       align: "left",
-   }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(rowNum));
+   }).addChildTo(master).setPosition(master.gridX.center(-6),master.gridY.center(5));
 
-  let statusSkillUpdateLabel = Label({
-      text: "更新",
+  let statusSkillUpdateLabel = Button({
+      text: "決定！",
+      width: 130,
+      height: 60, 
+      fontColor: 'white',
       fontSize: 40,
       fill: 'white',
       align: "left",
-   }).addChildTo(master).setPosition(master.gridX.center(3),master.gridY.center(rowNum));
+   }).addChildTo(master).setPosition(master.gridX.center(0),master.gridY.center(6));
   for(let pointSet of pointSetArray){
     totalSetPoint += pointSet;
   }
