@@ -128,7 +128,7 @@ function getEvoMonster(monsterData){
   const eDefaultParam = evoMonster.defaultParam ;
   
   //skilふり直し
-  const skill = getEvoMonster.skill
+  const skill = monsterData.skill;
   const skillPoint = 
    skill.point +
    skill.life + 
