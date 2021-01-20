@@ -182,6 +182,20 @@ phina.define("boxPage", {
         }
             
       }
+      //let monsterstatus1 = jsonMonster.monsterID;
+      // for (let k = 0; k < MONSTER_MASTER.monsterData.length; k++) {
+      //     let monsterstatus2 = MONSTER_MASTER.monsterData[k]["monsterID"];
+      //     if(monsterstatus1 == monsterstatus2){
+            // let ID = jsonMonster.monsterID;
+            // let Name = jsonMonster.monsterName;
+            // let Lv = jsonMonster.Lv;
+            // let life = jsonMonster.param["life"];
+            // let power = jsonMonster.param["power"];
+            // let shield = jsonMonster.param["shield"];
+            // let speed = jsonMonster.param["speed"];
+            //console.log(ID);
+            // boxcharaSet(master, ID, x, y);
+            // x += 2;
     }
 
     
@@ -223,9 +237,12 @@ phina.define("characterChack", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("mainBGM",1,true);
+
      //box 画像
     boxCharaDSet(master,param.boxCharaResults.monsterID);
+    console.log("ここまでき");
     boxCharaInfoSet(master,param.boxCharaResults);
+    //menuSet(master);
     BackButtonSet(master);
     
   }
@@ -373,14 +390,43 @@ phina.define("battleCpuPage", {
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
     
-
+    // 0からmax-1までの整数を返す
+    function getRandomInt(max) {
+    // ランダムな配列
+      return Math.floor(Math.random() * Math.floor(max));
+    }
     //ここにID指定でバトルテスト可能
-    console.log(localStorage.getItem("Blingo"));
-    this.myMonster  = new monster(JSON.parse(localStorage.getItem("Sapphivern")));
-    this.enemy = new monster(JSON.parse(localStorage.getItem("Blingo")));
+    this.monsterArray = ["Bechoime",
+                        "Pixia",
+                        "Blingo",
+                        "Golem",
+                        "Worm",
+                        "Chrysalis",
+                        "Fukahirade",
+                        "Genie",
+                        "Lindwurm",
+                        "Sapphivern",
+                        "Taurusborg",
+                        "Pilebine",
+                        "Maskednature",
+                        "Hotdog",
+                        "Aborideer",
+                        "Fishman",
+                        "Lyris",
+                        "Chaser",
+                        "Blingolord",
+                        "Killerblingo",
+                        "Ibuki",
+                        "Kinichiro",
+                        "Unsui",
+                        "Cthulhu",
+                        "Ithaqua"];
+    this.myMonster  = new monster(JSON.parse(localStorage.getItem(this.monsterArray[getRandomInt(25)])));
+    this.enemy = new monster(JSON.parse(localStorage.getItem(this.monsterArray[getRandomInt(25)])));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
-
+    this.myMonster.ability = JSON.parse(MONSTER_MAP.get(this.myMonster.monsterID)).ability;
+    this.enemy.ability = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).ability;
     // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
     // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
 
