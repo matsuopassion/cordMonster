@@ -148,45 +148,24 @@ phina.define("boxPage", {
     boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
     master=this;
 
-    var boxMonster = new Array();// locaStorageから取得
-
     let object = {};        //オブジェクト配列生成
-    let key;                //key
-    let mons = [];
-    let int = 0;
-    let jsonMonster;
-    let x = -5;
-    let y = -5;
-    // for(let i = 0 ; i < localStorage.length ; i++) {
-    // key = localStorage.key(i);
-    // let exist =  localStorage.getItem(key);
-    //   if(exist != "exist"){       //existではなかったら値取り出し
-    //     object[key] = localStorage.getItem(key);
-    //     mons[int] = key;
-    //   }
-    // }
-
-    for(let i = 0; i < localStorage.length; i++){
-      key = localStorage.key(i);
-      let exist =  localStorage.getItem(key);
-      if(exist != "exist"){       //existではなかったら値取り出し
-        object[i] = localStorage.getItem(key);
-        jsonMonster = new monster(JSON.parse(object[i])); //Stringからjsonに変換
-        //console.log(ID,Name,Lv,life,power,shield,speed);
-        boxcharaSet(master,jsonMonster, x, y);
-        if(x == 5){
-          y += 5;
-          x = -5;
-        }else{
-          x += 5;
+    let myMonsterNum = 0;
+    let myMonsterArray = {};
+    //↓localStorageの中のモンスターだけを抽出
+    for(let i = 0;i < localStorage.length;i++){
+      keyID = localStorage.key(i);
+      try {
+        getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
+        console.log("getItemIndex:" + getItemIndex.monsterID);
+        if(getItemIndex.monsterID != undefined){
+          myMonsterArray[myMonsterNum] = getItemIndex;
+          myMonsterNum++;
         }
-            
+      } catch (e) {
+        continue;
       }
     }
-
-    
-    // boxcharaSet(master, 'c000', -5, -5);
-    // boxcharaSet(master,'c001',-1,-5)
+    boxPageView(master,myMonsterArray,0,1);
     menuSet(master);
   }
 });

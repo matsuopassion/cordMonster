@@ -235,15 +235,98 @@ function boxButton(master){
   }
 }
 
-function boxcharaSet(master,jsonMonster,posX,posY){
+function boxcharaSet(master,group,jsonMonster,posX,posY){
+    console.log(jsonMonster.monsterID);
     let boxChara = Sprite(jsonMonster.monsterID);
-    boxChara.width = 150;
-    boxChara.height = 150;
-    boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
+    boxChara.width = 140;
+    boxChara.height = 140;
+    boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(group);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
       master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
+}
+
+function boxPageView(master,monsterList,startNum,pageNum){
+  console.log("ここまできていら");
+  let x = -5;
+  let y = -4;
+  let boxViewGroup = DisplayElement().addChildTo(master);
+  let startCount = startNum;
+  let addCount = 0;
+  let monsterListLen = Object.keys(monsterList).length;
+  if( monsterListLen % 9 != 0 ){
+    addCount = 1;
+  }
+  console.log(Object.keys(monsterList).length);
+  let pageMax = Math.floor(monsterListLen / 9) + addCount;
+  console.log("ページ最大数：" + pageMax);
+  let roopCount = 9;
+  if( 9 > monsterListLen - startCount ){
+    roopCount = monsterListLen - startCount;
+  }
+  for(let i = 0; i < roopCount; i++){
+      boxcharaSet(master,boxViewGroup,monsterList[startCount + i],x, y);
+      if(x == 5){
+        y += 4;
+        x = -5;
+      }else{
+        x += 5;
+      }
+   }
+
+   let pageDownButton = Button({
+      text: "<",
+      width: 50,
+      height: 50, 
+      fontSize: 50,
+      fontColor: 'white',
+      fill: 'white',
+      align: "left",
+   }).addChildTo(boxViewGroup).setPosition(master.gridX.center(3),master.gridY.center(-7));
+   
+   if( pageNum > 1 ){
+     pageDownButton.setInteractive(true);
+     fontColor: 'white',
+     pageDownButton.fill = 'green';
+   }else{
+     pageDownButton.setInteractive(false);
+     fontColor: 'white',
+     pageDownButton.fill = 'gray';
+   }
+   pageDownButton.onpointstart = function(e) {
+      pageNum--;
+      startCount -= 9;
+      boxViewGroup.children.clear();
+      boxPageView(master,monsterList,startCount,pageNum);
+   };
+
+   let pageUpButton = Button({
+      text: ">",
+      width: 50,
+      height: 50, 
+      fontSize: 50,
+      fontColor: 'white',
+      fill: 'white',
+      align: "left",
+   }).addChildTo(boxViewGroup).setPosition(master.gridX.center(6),master.gridY.center(-7));
+   
+   if( pageNum != pageMax ){
+     pageUpButton.setInteractive(true);
+     fontColor: 'white',
+     pageUpButton.fill = 'green';
+   }else{
+     pageUpButton.setInteractive(false);
+     fontColor: 'white',
+     pageUpButton.fill = 'gray';
+   }
+   pageUpButton.onpointstart = function(e) {
+      pageNum++;
+      startCount += 9;
+      boxViewGroup.children.clear();
+      boxPageView(master,monsterList,startCount,pageNum);
+   };
+
 }
 
 function boxCharaDSet(master,charaNum){
