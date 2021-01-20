@@ -190,8 +190,9 @@ function updateParam(monsterData,addPointArray){
   params.speed(skillAllocation(appropriates.speed),addPointArray[3]);
   skills.speed(addPointArray[3]);
   skills.point(totalPoint);
-
-  return monsterData.skill(skills);//あやしい
+  monsterData.skill(skills);
+  
+  return monsterData;//あやしい
 }
 
 function getAppropriate(monsterData){
