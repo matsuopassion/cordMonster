@@ -182,20 +182,6 @@ phina.define("boxPage", {
         }
             
       }
-      //let monsterstatus1 = jsonMonster.monsterID;
-      // for (let k = 0; k < MONSTER_MASTER.monsterData.length; k++) {
-      //     let monsterstatus2 = MONSTER_MASTER.monsterData[k]["monsterID"];
-      //     if(monsterstatus1 == monsterstatus2){
-            // let ID = jsonMonster.monsterID;
-            // let Name = jsonMonster.monsterName;
-            // let Lv = jsonMonster.Lv;
-            // let life = jsonMonster.param["life"];
-            // let power = jsonMonster.param["power"];
-            // let shield = jsonMonster.param["shield"];
-            // let speed = jsonMonster.param["speed"];
-            //console.log(ID);
-            // boxcharaSet(master, ID, x, y);
-            // x += 2;
     }
 
     
@@ -237,12 +223,9 @@ phina.define("characterChack", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("mainBGM",1,true);
-
      //box 画像
     boxCharaDSet(master,param.boxCharaResults.monsterID);
-    console.log("ここまでき");
     boxCharaInfoSet(master,param.boxCharaResults);
-    //menuSet(master);
     BackButtonSet(master);
     
   }
