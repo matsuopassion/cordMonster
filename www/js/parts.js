@@ -235,13 +235,166 @@ function boxButton(master){
   }
 }
 
-function boxcharaSet(master,charaNum,ID,Name,Lv,life,power,shield,speed, posX,posY){
-    let boxChara = Sprite(charaNum);
+function boxcharaSet(master,jsonMonster,posX,posY){
+    let boxChara = Sprite(jsonMonster.monsterID);
     boxChara.width = 150;
     boxChara.height = 150;
     boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
-    master.exit('characterChack',{charaNum:charaNum, ID:ID, Name:Name, Lv:Lv, life:life, power:power, shield:shield,speed:speed});
+      master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
+}
+
+function boxCharaDSet(master,charaNum){
+  let boxCharaD = Sprite(charaNum);
+  boxCharaD.width = 250;
+  boxCharaD.height = 250;
+  boxCharaD.setPosition(master.gridX.center(0),master.gridY.center(-4)).addChildTo(master);
+}
+
+function viewUpdateInfo(master,group,monster,pointSetArray){
+  let rowNum = 1;
+  let statusTextArray = ["life:","power:","shield:","speed:"];
+  //↓ダサいからあとで変える
+  let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
+  let totalSetPoint = 0;
+  let nameLabel = Label({
+      text: monster.monsterName,
+      fontSize: 30,
+      fill: 'white',
+    }).addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(0));
+
+    for (let i = 0; i < 4; i++){
+
+      let statusLabel = Label({
+        text: statusTextArray[i] + statusNumArray[i],
+        fontSize: 40,
+        fill: 'white',
+        align: "left",
+    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
+    
+    let updatePointLabel = Label({
+        text: "",
+        fontSize: 30,
+        fill: 'red',
+        align: "left",
+    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(1+i));
+
+    if(pointSetArray[i] > 0){
+      updatePointLabel.text = "+" + pointSetArray[i];
+    }else{
+      updatePointLabel.text = "";
+    }
+
+    let statusUpButton = Button({
+        text: "+",
+        width: 50,
+        height: 50, 
+        fontSize: 50,
+        fontColor: 'white',
+        fill: 'white',
+        align: "left",
+    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
+    statusUpButton.onpointstart = function(e) {
+      monster.skill.point--;
+      pointSetArray[i]++;
+      viewUpdateStatus(group);
+      viewUpdateInfo(master,group,monster,pointSetArray);
+    };
+
+    if(monster.skill.point > 0){
+      statusUpButton.setInteractive(true);
+      fontColor: 'black',
+      statusUpButton.fill = 'yellow';
+    }else{
+      statusUpButton.setInteractive(false);
+      fontColor: 'white',
+      statusUpButton.fill = 'gray';
+    }
+    let statusDownButton = Button({
+        text: "-",
+        width: 50,
+        height: 50, 
+        fontSize: 50,
+        fontColor: 'white',
+        fill: 'white',
+        align: "left",
+    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
+
+    statusDownButton.onpointstart = function(e) {
+      monster.skill.point++;
+      pointSetArray[i]--;
+      viewUpdateStatus(group);
+      viewUpdateInfo(master,group,monster,pointSetArray);
+    };
+
+    if(pointSetArray[i] > 0){
+      statusDownButton.setInteractive(true);
+      fontColor: 'black',
+      statusDownButton.fill = 'yellow';
+    }else{
+      statusDownButton.setInteractive(false);
+      fontColor: 'white',
+      statusDownButton.fill = 'gray';
+    }
+
+    rowNum+=1;
+  }
+  let statusSkillPointLabel = Label({
+      text: "skillPoint:" + monster.skill.point,
+      fontSize: 40,
+      fill: 'yellow',
+      align: "left",
+   }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(5));
+
+  let statusSkillUpdateButton = Button({
+      text: "決定！",
+      width: 130,
+      height: 60, 
+      fontColor: 'white',
+      fontSize: 40,
+      fill: 'white',
+      align: "left",
+   }).addChildTo(group).setPosition(master.gridX.center(0),master.gridY.center(6));
+  for(let pointSet of pointSetArray){
+    totalSetPoint += pointSet;
+  }
+  if(totalSetPoint > 0){
+    statusSkillUpdateButton.setInteractive(true);
+    statusSkillUpdateButton.fill = 'green';
+  }else{
+    statusSkillUpdateButton.setInteractive(false);
+    statusSkillUpdateButton.fill = 'gray';
+  }
+
+  statusSkillUpdateButton.onpointstart = function(e) {
+      alert('ステータスアップ！！');
+      let updateMonster = updateParam(monster,pointSetArray);
+      console.log(JSON.stringify(updateMonster));
+      alert('ステータスが更新されました。');
+      localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
+      pointSetArray = [0,0,0,0];
+      viewUpdateStatus(group);
+      viewUpdateInfo(master,group,updateMonster,pointSetArray);
+  }
+}
+
+function viewUpdateStatus(group){
+  group.children.clear();
+}
+
+function boxCharaInfoSet(master,monster){
+  //↓テスト用のスキルポイント
+  let pointSetArray = [0,0,0,0];
+  let messageBox = RectangleShape();
+  messageBox.width = 400;
+  messageBox.height = 400;
+  messageBox.fill = "black";
+  messageBox.stroke = "white";
+  messageBox.strokeWidth = 10;
+  messageBox.cornerRadius = 25;
+  messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
+  let viewStatusGroup = DisplayElement().addChildTo(master);
+  viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray);
 }

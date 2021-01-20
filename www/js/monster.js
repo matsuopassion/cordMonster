@@ -11,5 +11,14 @@ function monster(monster){
     shield : monster.param.shield, 
     speed : monster.param.speed 
   };
+  this.skill =
+  {
+    point : monster.skill.point,
+    life : monster.skill.life,
+    power : monster.skill.power,
+    shield : monster.skill.shield, 
+    speed : monster.skill.speed 
+  };
   this.ability = monster.ability;
+  this.condition = monster.condition;
 }

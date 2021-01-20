@@ -61,7 +61,7 @@ function getSearchData(qrText) {
 function levelUpMonster(monsterData){
   //lvUP
     monsterData.Lv += 1;
-    monsterData.skill += 1;
+    monsterData.skill.point += 1;
     alert(monsterData.monsterName + "がレベルアップしました");
     //対象モンスターのマスタ
     const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
@@ -160,11 +160,56 @@ function getEvoMonster(monsterData){
 }
 
 function decisionParam(monsterApp){
-  let paramWidth = RISE_WIDTH[RISE_INDEX.prototype.indexOf(monsterApp)];
-  let param = Math.getRandomIntInclusive(paramWidth[0],paramWidth[1]);
+  let paramWidth = RISE_WIDTH[RISE_INDEX.indexOf(monsterApp)];
+  let param = getRandomIntInclusive(paramWidth[0],paramWidth[1]); //引数1~引数2までの中から乱数で値を決定
   return param;
 }
 
-function updateParam(monsterData,monsterApp){
-  //ここから
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    // both min and max are inclusive
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function skillAllocation(monsterApp,addPoint){
+  let totalParam = 0 ;
+  let count = 0;
+  for(let i = addPoint; i > 0; i--){
+    count++;
+    console.log(count);
+    totalParam += decisionParam(monsterApp);
+    console.log("totalParam:" + totalParam);
+  }
+  return totalParam ;
+}
+
+function updateParam(monsterData,addPointArray){
+  const appropriates = getAppropriate(monsterData);
+  let totalPoint = 0;
+  console.log(addPointArray);
+  for(let point of addPointArray){
+    totalPoint =+ point;
+  } 
+  let skills = monsterData.skill;
+  let params = monsterData.param;
+  params.life += skillAllocation(appropriates.life,addPointArray[0]);
+  skills.life += addPointArray[0];
+  params.power += skillAllocation(appropriates.power,addPointArray[1]);
+  skills.power += addPointArray[1];
+  params.shield += skillAllocation(appropriates.shield,addPointArray[2]);
+  skills.shield += addPointArray[2];
+  params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
+  skills.speed += addPointArray[3];
+  skills.point -= totalPoint;
+  monsterData.param = params;
+  monsterData.skill = skills;
+  
+  return monsterData;//あやしい
+}
+
+function getAppropriate(monsterData){
+  let monsterApp = 
+    JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).appropriate;
+  return monsterApp;
 }
