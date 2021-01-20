@@ -160,15 +160,26 @@ function getEvoMonster(monsterData){
 }
 
 function decisionParam(monsterApp){
-  let paramWidth = RISE_WIDTH[RISE_INDEX.prototype.indexOf(monsterApp)];
-  let param = Math.getRandomIntInclusive(paramWidth[0],paramWidth[1]); //引数1~引数2までの中から乱数で値を決定
+  let paramWidth = RISE_WIDTH[RISE_INDEX.indexOf(monsterApp)];
+  let param = getRandomIntInclusive(paramWidth[0],paramWidth[1]); //引数1~引数2までの中から乱数で値を決定
   return param;
+}
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    // both min and max are inclusive
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function skillAllocation(monsterApp,addPoint){
   let totalParam = 0 ;
-  for(addPoint; addPoint > 0; addPoint--){
-    totalParam =+ decisionParam(monsterApp);
+  let count = 0;
+  for(let i = addPoint; i > 0; i--){
+    count++;
+    console.log(count);
+    totalParam += decisionParam(monsterApp);
+    console.log("totalParam:" + totalParam);
   }
   return totalParam ;
 }
@@ -176,21 +187,23 @@ function skillAllocation(monsterApp,addPoint){
 function updateParam(monsterData,addPointArray){
   const appropriates = getAppropriate(monsterData);
   let totalPoint = 0;
+  console.log(addPointArray);
   for(let point of addPointArray){
     totalPoint =+ point;
   } 
   let skills = monsterData.skill;
   let params = monsterData.param;
-  params.life(skillAllocation(appropriates.life),addPointArray[0]);
-  skills.life(addPointArray[0]);
-  params.power(skillAllocation(appropriates.power),addPointArray[1]);
-  skills.power(addPointArray[1]);
-  params.shield(skillAllocation(appropriates.shield),addPointArray[2]);
-  skills.shield(addPointArray[2]);
-  params.speed(skillAllocation(appropriates.speed),addPointArray[3]);
-  skills.speed(addPointArray[3]);
-  skills.point(totalPoint);
-  monsterData.skill(skills);
+  params.life += skillAllocation(appropriates.life,addPointArray[0]);
+  skills.life += addPointArray[0];
+  params.power += skillAllocation(appropriates.power,addPointArray[1]);
+  skills.power += addPointArray[1];
+  params.shield += skillAllocation(appropriates.shield,addPointArray[2]);
+  skills.shield += addPointArray[2];
+  params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
+  skills.speed += addPointArray[3];
+  skills.point -= totalPoint;
+  monsterData.param = params;
+  monsterData.skill = skills;
   
   return monsterData;//あやしい
 }

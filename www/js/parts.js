@@ -253,7 +253,7 @@ function boxCharaDSet(master,charaNum){
   boxCharaD.setPosition(master.gridX.center(0),master.gridY.center(-4)).addChildTo(master);
 }
 
-function viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray){
+function viewUpdateInfo(master,group,monster,pointSetArray){
   let rowNum = 1;
   let statusTextArray = ["life:","power:","shield:","speed:"];
   //↓ダサいからあとで変える
@@ -297,13 +297,13 @@ function viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray){
         align: "left",
     }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
     statusUpButton.onpointstart = function(e) {
-      testSkillPoint--;
+      monster.skill.point--;
       pointSetArray[i]++;
       viewUpdateStatus(group);
-      viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray);
+      viewUpdateInfo(master,group,monster,pointSetArray);
     };
 
-    if(testSkillPoint > 0){
+    if(monster.skill.point > 0){
       statusUpButton.setInteractive(true);
       fontColor: 'black',
       statusUpButton.fill = 'yellow';
@@ -323,10 +323,10 @@ function viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray){
     }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
 
     statusDownButton.onpointstart = function(e) {
-      testSkillPoint++;
+      monster.skill.point++;
       pointSetArray[i]--;
       viewUpdateStatus(group);
-      viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray);
+      viewUpdateInfo(master,group,monster,pointSetArray);
     };
 
     if(pointSetArray[i] > 0){
@@ -342,7 +342,7 @@ function viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray){
     rowNum+=1;
   }
   let statusSkillPointLabel = Label({
-      text: "skillPoint:" + testSkillPoint,
+      text: "skillPoint:" + monster.skill.point,
       fontSize: 40,
       fill: 'yellow',
       align: "left",
@@ -370,9 +370,14 @@ function viewUpdateInfo(master,group,monster,testSkillPoint,pointSetArray){
 
   statusSkillUpdateButton.onpointstart = function(e) {
       alert('ステータスアップ！！');
-      updateParam(pointSetArray);
+      let updateMonster = updateParam(monster,pointSetArray);
+      console.log(JSON.stringify(updateMonster));
       alert('ステータスが更新されました。');
-  };
+      localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
+      pointSetArray = [0,0,0,0];
+      viewUpdateStatus(group);
+      viewUpdateInfo(master,group,updateMonster,pointSetArray);
+  }
 }
 
 function viewUpdateStatus(group){
@@ -381,7 +386,6 @@ function viewUpdateStatus(group){
 
 function boxCharaInfoSet(master,monster){
   //↓テスト用のスキルポイント
-  let testSkillPoint = 5;
   let pointSetArray = [0,0,0,0];
   let messageBox = RectangleShape();
   messageBox.width = 400;
@@ -392,5 +396,5 @@ function boxCharaInfoSet(master,monster){
   messageBox.cornerRadius = 25;
   messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
   let viewStatusGroup = DisplayElement().addChildTo(master);
-  viewUpdateInfo(master,viewStatusGroup,monster,testSkillPoint,pointSetArray);
+  viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray);
 }
