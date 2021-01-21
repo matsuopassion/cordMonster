@@ -108,11 +108,10 @@ function getNewMonster(monsterID){
 }
 
 //モンスターの決定
-function resultClassification(text){
+function resultClassification(){
   //QRコードの文字数 ※現時点では確率設定してない、するならここ
-  let textLength = text.length;
   let monsterPcs = BASIC_LIST.length;
-  let monsterIndex = monsterPcs - 1 - (textLength % monsterPcs);
+  let monsterIndex = 1; //はよ直せ
   let monster = BASIC_LIST[monsterIndex];
   return monster.monsterID;
 }
