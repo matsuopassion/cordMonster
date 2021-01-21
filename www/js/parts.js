@@ -245,6 +245,23 @@ function boxcharaSet(master,group,jsonMonster,posX,posY){
     boxChara.onpointstart = function(e) {
       master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
+    let selectCharaGridX = Grid({
+      width: 140,
+      columns: 3,
+      offset: master.gridX.center(posX),
+    });
+    let selectCharaGridY = Grid({
+      width: 140,
+      columns: 3,
+      offset: master.gridY.center(posY),
+    });
+    if(localStorage.getItem("selectMonster") == jsonMonster.monsterID){
+      let selectLabel = Label({
+        text: "バトルセット中",
+        fontSize: 20,
+        fill: 'white',
+      }).addChildTo(group).setPosition(selectCharaGridX.span(0),selectCharaGridY.span(1));
+    }
 }
 
 function boxPageView(master,monsterList,startNum,pageNum){
@@ -338,8 +355,7 @@ function boxCharaDSet(master,charaNum){
 
 function viewUpdateInfo(master,group,monster,pointSetArray){
   let rowNum = 1;
-  let statusTextArray = ["life:","power:","shield:","speed:"];
-  //↓ダサいからあとで変える
+  let statusTextArray = ["HP:","体力:","防御力:","素早さ:"];
   let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
   let totalSetPoint = 0;
   let nameLabel = Label({
@@ -348,21 +364,28 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
       fill: 'white',
     }).addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(0));
 
+  let lvLabel = Label({
+    text: "Lv." + monster.Lv,
+    fontSize: 40,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1)); 
+
     for (let i = 0; i < 4; i++){
 
       let statusLabel = Label({
         text: statusTextArray[i] + statusNumArray[i],
-        fontSize: 40,
+        fontSize: 35,
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(2+i));
     
     let updatePointLabel = Label({
         text: "",
         fontSize: 30,
         fill: 'red',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(2+i));
 
     if(pointSetArray[i] > 0){
       updatePointLabel.text = "+" + pointSetArray[i];
@@ -373,12 +396,12 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
     let statusUpButton = Button({
         text: "+",
         width: 50,
-        height: 50, 
+        height: 40, 
         fontSize: 50,
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(2+i));
     statusUpButton.onpointstart = function(e) {
       monster.skill.point--;
       pointSetArray[i]++;
@@ -398,12 +421,12 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
     let statusDownButton = Button({
         text: "-",
         width: 50,
-        height: 50, 
+        height: 40, 
         fontSize: 50,
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(2+i));
 
     statusDownButton.onpointstart = function(e) {
       monster.skill.point++;
@@ -425,21 +448,21 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
     rowNum+=1;
   }
   let statusSkillPointLabel = Label({
-      text: "skillPoint:" + monster.skill.point,
-      fontSize: 40,
+      text: "スキルポイント:" + monster.skill.point,
+      fontSize: 30,
       fill: 'yellow',
       align: "left",
-   }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(5));
+   }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(6));
 
   let statusSkillUpdateButton = Button({
-      text: "決定！",
-      width: 130,
-      height: 60, 
+      text: "決定!",
+      width: 110,
+      height: 50, 
       fontColor: 'white',
       fontSize: 40,
       fill: 'white',
       align: "left",
-   }).addChildTo(group).setPosition(master.gridX.center(0),master.gridY.center(6));
+   }).addChildTo(group).setPosition(master.gridX.center(5),master.gridY.center(6));
   for(let pointSet of pointSetArray){
     totalSetPoint += pointSet;
   }
@@ -461,6 +484,35 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
       viewUpdateStatus(group);
       viewUpdateInfo(master,group,updateMonster,pointSetArray);
   }
+
+  let selectMonsterButton = Button({
+      text: "",
+      width: 200,
+      height: 60, 
+      fontColor: 'white',
+      fontSize: 40,
+      fill: 'white',
+      align: "left",
+   }).addChildTo(group).setPosition(master.gridX.center(3),master.gridY.center(-7));
+
+  console.log(localStorage.getItem("selectMonster"));
+  if( localStorage.getItem("selectMonster") == null || localStorage.getItem("selectMonster") != monster.monsterID){
+    selectMonsterButton.setInteractive(true);
+    selectMonsterButton.fill = "blue";
+    selectMonsterButton.text = "連れていく"
+  }else{
+    selectMonsterButton.setInteractive(false);
+    selectMonsterButton.fill = "gray";
+    selectMonsterButton.text = "セット済み";
+  }
+
+  selectMonsterButton.onpointstart = function(e) {
+      alert(monster.monsterName + `\nをバトルモンスターにセットしました！`);
+      localStorage.setItem("selectMonster",monster.monsterID);
+      viewUpdateStatus(group);
+      viewUpdateInfo(master,group,monster,pointSetArray);
+  }
+
 }
 
 function viewUpdateStatus(group){
