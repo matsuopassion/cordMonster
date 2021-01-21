@@ -16,19 +16,27 @@ function Battle(phase,myMonster,enemy,master){
       commandResults = abilitySelect(phase,myMonster,enemy);
       myMonster.param = commandResults.myMonsterParam;
       enemy.param = commandResults.enemyParam;
+      myMonster.condition = commandResults.mCondition;
+      enemy.condition = commandResults.eCondition;
       console.log(JSON.stringify(myMonster.param));
       console.log(JSON.stringify(enemy.param));
       this.message = getMessage(phase,myMonster,enemy,commandResults);
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
+      console.log(`${myMonster.monsterName}の状態：${myMonster.condition}`);
+      console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
       break;
     case 'e':
       commandResults = abilitySelect(phase,myMonster,enemy);
       myMonster.param = commandResults.myMonsterParam;
       enemy.param = commandResults.enemyParam;
+      myMonster.condition = commandResults.mCondition;
+      enemy.condition = commandResults.eCondition;
       this.message = getMessage(phase,myMonster,enemy,commandResults);
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
+      console.log(`${myMonster.monsterName}の状態：${myMonster.condition}`);
+      console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
       break;
     case 's':
       if(myMonster.param.life <= 0){
@@ -39,8 +47,12 @@ function Battle(phase,myMonster,enemy,master){
         //console.log(this.message);
       }else{
         this.message = `${enemy.monsterName}が飛び出してきた！`;
+        myMonster.condition = commandResults.mCondition;
+        enemy.condition = commandResults.eCondition;
         console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
         console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
+        console.log(`${myMonster.monsterName}の状態：${myMonster.condition}`);
+        console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
         console.log(this.message);
       }
       break;
@@ -62,6 +74,9 @@ function abilitySelect(phase,myMonster,enemy){
   let targetPower;
   let targetShield;
   let targetSpeed;
+  let conditionName = "通常"
+  let mCondition = myMonster.condition
+  let eCondition = enemy.condition
   let mParam = myMonster.param;
   let eParam = enemy.param;
   let abilityName = "様子を見る";
@@ -145,14 +160,18 @@ function abilitySelect(phase,myMonster,enemy){
       abilityMessage = "は毒攻撃をしかけた！！"
       damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
       targetLife = targetLife - damage * 2;
+      conditionName = "猛毒";
+      eCondition = "poison";
       break;
     case 'abt8':
-      abilityPower = 45;
+      abilityPower = 65;
       abilityType = 1;
       abilityName = "溶解液";
       abilityMessage = "は溶解液を放った！！"
       damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
       targetLife = targetLife - damage * 2;
+      conditionName = "猛毒";      
+      eCondition = "poison";
       break;
     case 'abt9':
       abilityType = 3;
@@ -169,6 +188,8 @@ function abilitySelect(phase,myMonster,enemy){
       abilityMessage = "はフラッシュを放った！！"
       damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
       targetLife = targetLife - damage * 2;
+      conditionName = "混乱";
+      eCondition = "panic";
       break;
     case 'abt11':
       abilityType = 0;
@@ -335,7 +356,7 @@ function abilitySelect(phase,myMonster,enemy){
     eParam.shield = attackerShield;
     eParam.speed = attackerSpeed;
   }
-  return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType};
+  return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType , conditionName:conditionName,mCondition:mCondition,eCondition:eCondition};
 };
 
 function getMessage(phase,myMonster,enemy,commandResults){
@@ -347,7 +368,7 @@ function getMessage(phase,myMonster,enemy,commandResults){
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
         case 1:
-          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.conditionName}状態になった！`;
           break;
         case 2:
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
@@ -374,7 +395,7 @@ function getMessage(phase,myMonster,enemy,commandResults){
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
         case 1:
-          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.conditionName}状態になった！`;
           break;
         case 2:
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;

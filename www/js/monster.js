@@ -20,5 +20,4 @@ function monster(monster){
     speed : monster.skill.speed 
   };
   this.ability = monster.ability;
-  this.condition = monster.condition;
 }
