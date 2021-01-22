@@ -29,7 +29,6 @@ function setGachaList(){
   let cList = [];
 
   for (let monster of BASIC_LIST) {
-
     if(monster.rarity == "A"){
       aList.push(monster);
     }else if(monster.rarity == "B"){
