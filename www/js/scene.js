@@ -111,7 +111,7 @@ phina.define("mainPage", {
     //setBaseButton(master);
     menuSet(master);
 
-    charaSet(master,"c000",0,1);
+    charaSet(master,"Cohmon",0,1);
     
   },
   
@@ -310,10 +310,41 @@ phina.define("battlePage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
     
-    battleCPUButtonSet(master);
-    battleFriendButtonSet(master);
-    menuSet(master);
-  
+    // battleCPUButtonSet(master);
+    // battleFriendButtonSet(master);
+    battleSelectButtonSet(master,false);
+  },
+});
+
+/*
+ * フレンドバトルQR表示ページ
+ */
+phina.define("qrSetPage", {
+  // 継承
+  superClass: 'DisplayScene',
+  // 初期化
+  init: function(option) {
+
+    //自分をオブジェクトとして変数に代入
+    master = this;
+
+    // 親クラス初期化
+    this.superInit(option);
+    // 背景色
+    this.backgroundColor = 'black';
+
+    // SoundManager.stopMusic();
+    // SoundManager.playMusic("battleSelectBGM",1,true);
+    
+    // battleCPUButtonSet(master);
+    // battleFriendButtonSet(master);
+    //battleSelectButtonSet(master,false);
+    qrCodegenerator(master);
+    let qrcodeSprite = Sprite("monsterQR");
+    qrcodeSprite.width = 200;
+    qrcodeSprite.height = 200;
+    qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
+    BackButtonSet(master);
   },
 });
 
@@ -434,7 +465,7 @@ phina.define("battleResultPage", {
 
     menuSet(master);
     
-    charaResultSet(master, 'c000');
+    charaResultSet(master, 'Cohmon');
     
   },
   update: function(app) {

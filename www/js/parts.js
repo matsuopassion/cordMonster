@@ -90,6 +90,14 @@ function menuSet(master){
   BoxButtonSet(master,magnification);
   ScanButtonSet(master,magnification);
 }
+
+function underMenuSet(master){
+  let magnification = menuBuckGroundSet(master);
+  battleButtonSet(master,magnification);
+  BoxButtonSet(master,magnification);
+  ScanButtonSet(master,magnification);
+};
+
 function battleButtonSet(master,magnification){
   let buttonBattle = Sprite('buttonBattle');
   //画面に合わせてサイズ変更
@@ -102,29 +110,102 @@ function battleButtonSet(master,magnification){
   };
 }
 
-function battleCPUButtonSet(master){
+function battleSelectButtonSet(master,flag){
+  let bfModeSelectGroup = DisplayElement().addChildTo(master);
+  let friendBattleFlag = flag;
   let buttonBattleCPU = Sprite('buttonBattleCPU');
   //画面に合わせてサイズ変更
-  let magnification =(SCREEN_WIDTH / buttonBattleCPU.width);
-  buttonBattleCPU.width *= magnification;
-  buttonBattleCPU.height *= magnification;
+  let magnificationCPU =(SCREEN_WIDTH / buttonBattleCPU.width);
+  buttonBattleCPU.width *= magnificationCPU;
+  buttonBattleCPU.height *= magnificationCPU;
   buttonBattleCPU.setInteractive(true);
-  buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(master),buttonBattleCPU.onpointstart=function(e){
+  buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(bfModeSelectGroup),buttonBattleCPU.onpointstart=function(e){
     SoundManager.play("buttonPush");
     master.exit('battleCpuPage');
   };
-}
 
-function battleFriendButtonSet(master){
   let buttonBattleFriend = Sprite('buttonBattleFriend');
-  //画面に合わせてサイズ変更
-  let magnification =(SCREEN_WIDTH / buttonBattleFriend.width);
-  buttonBattleFriend.width *= magnification;
-  buttonBattleFriend.height *= magnification;
+    //画面に合わせてサイズ変更
+  let magnificationFriend =(SCREEN_WIDTH / buttonBattleFriend.width);
+  buttonBattleFriend.width *= magnificationFriend;
+  buttonBattleFriend.height *= magnificationFriend;
   buttonBattleFriend.setInteractive(true);
-  buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(master),buttonBattleFriend.onpointstart=function(e){
+  buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(bfModeSelectGroup),buttonBattleFriend.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    //master.exit('battleCpuPage');
+    friendBattleFlag = true;
+    bfModeSelectGroup.children.clear();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    battleSelectButtonSet(master,friendBattleFlag);
+  };
+
+  let backGround = RectangleShape({
+      width:SCREEN_WIDTH,
+      height:SCREEN_HEIGHT,
+      fill:"black",
+      stroke:"black",
+      strokeWidth:10,
+      cornerRadius:0
+  }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(),master.gridY.center());
+
+  let qrGetButton = Button({
+        text: "読み取る！",
+        width: 300,
+        height: 200, 
+        fontSize: 50,
+        fontColor: 'white',
+        fill: 'red',
+        //align: "left",
+  }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(-3));
+
+  let qrSetButton = Button({
+        text: "表示する！",
+        width: 300,
+        height: 200, 
+        fontSize: 50,
+        fontColor: 'white',
+        fill: 'blue',
+        //align: "left",
+  }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(3));
+  qrSetButton.onpointstart=function(e){
+    console.log("押されましたね");
+    SoundManager.play("buttonPush");
+    master.exit('qrSetPage');
+  };
+
+
+  underMenuSet(master);
+
+  if(friendBattleFlag == true){
+    backGround.setInteractive(true);
+    buttonBattleCPU.setInteractive(false);
+    buttonBattleFriend.setInteractive(false);
+    qrGetButton.setInteractive(true);
+    qrSetButton.setInteractive(true);
+    qrGetButton.alpha = 1;
+    qrSetButton.alpha = 1;
+    backGround.alpha = 0.6;
+  }else{
+    backGround.setInteractive(false);
+    buttonBattleCPU.setInteractive(true);
+    buttonBattleFriend.setInteractive(true);
+    qrGetButton.setInteractive(false);
+    qrSetButton.setInteractive(false);
+    qrGetButton.alpha = 0;
+    qrSetButton.alpha = 0;
+    backGround.alpha = 0;
+  }
+
+  backGround.onpointstart=function(e){
+    friendBattleFlag = false;
+    bfModeSelectGroup.children.clear();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    battleSelectButtonSet(master,friendBattleFlag);
   };
 }
 
@@ -265,7 +346,6 @@ function boxcharaSet(master,group,jsonMonster,posX,posY){
 }
 
 function boxPageView(master,monsterList,startNum,pageNum){
-  console.log("ここまできていら");
   let x = -5;
   let y = -4;
   let boxViewGroup = DisplayElement().addChildTo(master);
@@ -532,4 +612,22 @@ function boxCharaInfoSet(master,monster){
   messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
   let viewStatusGroup = DisplayElement().addChildTo(master);
   viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray);
+}
+
+function qrCodegenerator(master){
+  let qrcode = document.getElementById("qrcode");
+  qrcode.textContent="";
+  //let barcode = document.getElementById("barcode");
+  let text = localStorage.getItem(localStorage.getItem("selectMonster"));
+  let qrcode_object = new QRCode(
+                qrcode,
+                {
+                    text: text,
+                    width: 300,
+                    height: 300,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+  phina.asset.AssetManager.set("image","monsterQR",qrcode);
 }

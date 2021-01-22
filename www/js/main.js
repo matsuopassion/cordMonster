@@ -7,6 +7,7 @@ phina.globalize();
 var ASSETS = {
   // 画像
   image: {
+    'Cohmon':'image/monsters/Cohmon.png',
     'Bechoime':'image/monsters/Bechoime.png',
     'Pixia':'image/monsters/Pixia.png',
     'Blingo':'image/monsters/Blingo.png',
@@ -45,9 +46,6 @@ var ASSETS = {
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
     'battleFriendBg': 'image/battleFriendBg.png',
-    'c000': 'image/000.png',
-    'c001': 'image/001.png',
-    'c002': 'image/002.png',
     'buttonBattle': 'image/buttonBattle.png',
     'buttonScan': 'image/buttonScan.png',
     'buttonBox': 'image/buttonBox.png',
@@ -57,7 +55,6 @@ var ASSETS = {
     'buttonBattleCPU': 'image/buttonBattleCPU.png',
     'buttonBattleFriend': 'image/buttonBattleFriend.png',
     'boxBg':'image/boxBg.png',
-    'characterBg' : 'image/a.png',
   },
   sound:{
     'startBGM': 'sound/startBGM.mp3',
@@ -140,6 +137,12 @@ phina.main(function() {
         className: 'characterChack',
         label: 'characterChack',
         nextLabel: 'boxPage',
+      },
+
+      {
+        className: 'qrSetPage',
+        label: 'qrSetPage',
+        nextLabel: 'battlePage',
       },
     ]
   });
