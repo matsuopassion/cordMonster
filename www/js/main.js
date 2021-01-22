@@ -1,5 +1,6 @@
 setMonsterMap();
 setBasicMap();
+setGachaList();
 // This is a JavaScript file
 // グローバルに展開
 phina.globalize();
