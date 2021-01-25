@@ -434,7 +434,7 @@ phina.define("battleCpuPage", {
                         "Unsui",
                         "Cthulhu",
                         "Ithaqua"];
-    this.myMonster  = new monster(JSON.parse(localStorage.getItem(this.monsterArray[getRandomInt(25)])));
+    this.myMonster  = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
     this.enemy = new monster(JSON.parse(localStorage.getItem(this.monsterArray[getRandomInt(25)])));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);

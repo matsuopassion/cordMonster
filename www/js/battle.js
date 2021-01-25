@@ -380,12 +380,6 @@ function abilitySelect(phase,myMonster,enemy){
   return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType , conditionName:conditionName,mCondition:mCondition,eCondition:eCondition};
 };
 
-/**
- * Helloという文字列を返します。
- * @module hello
- * @param {string} name - 表示したい名前を指定する。
- * @return {string} - [Hello + name]という形式で戻る。
- */
 function getMessage(phase,myMonster,enemy,commandResults){
   let message = "エラー：変数'message'の値が不正です";
   switch (phase){
