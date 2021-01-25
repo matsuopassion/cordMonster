@@ -629,5 +629,5 @@ function qrCodegenerator(master){
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
-  phina.asset.AssetManager.set("image","monsterQR",qrcode);
+  //phina.asset.AssetManager.set("image","monsterQR",qrcode);
 }
