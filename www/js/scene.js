@@ -57,7 +57,19 @@ phina.define("startPage", {
                         "Kinichiro",
                         "Unsui",
                         "Cthulhu",
-                        "Ithaqua"];
+                        "Ithaqua",
+                        "Babygon",
+                        "Bechoimeking",
+                        "Beetletank",
+                        "Captainskull",
+                        "Momosuke",
+                        "Mummy",
+                        "Rasyomon",
+                        "Ryuya",
+                        "Ryuyasoldier",
+                        "Ryuyaraptor",
+                        "Senra",
+                        "Yanchicken"];
     for(monsterID of this.monsterArray){
       console.log("モンスターをセット（テスト用）：" + monsterID);
       console.log(JSON.stringify(getNewMonster(monsterID)));

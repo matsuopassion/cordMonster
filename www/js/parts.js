@@ -435,7 +435,7 @@ function boxCharaDSet(master,charaNum){
 
 function viewUpdateInfo(master,group,monster,pointSetArray){
   let rowNum = 1;
-  let statusTextArray = ["HP:","体力:","防御力:","素早さ:"];
+  let statusTextArray = ["HP:","攻撃力:","防御力:","素早さ:"];
   let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
   let totalSetPoint = 0;
   let nameLabel = Label({
