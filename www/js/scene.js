@@ -339,12 +339,25 @@ phina.define("qrSetPage", {
     // battleCPUButtonSet(master);
     // battleFriendButtonSet(master);
     //battleSelectButtonSet(master,false);
-    qrCodegenerator(master);
-    let qrcodeSprite = Sprite("monsterQR");
-    qrcodeSprite.width = 200;
-    qrcodeSprite.height = 200;
-    qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
-    BackButtonSet(master);
+    var flow = Flow(function(resolve) {
+      if(qrCodeGenerator(master)){
+          resolve();
+      }
+    });
+    flow.then(function() {
+      console.log("マサラタウン");
+      let qrcodeMonster = phina.asset.AssetManager.get("image", "monsterQR");
+      console.log(qrcodeMonster);
+      let qrcodeSprite = Sprite("monsterQR");
+      console.log("マラサタウン");
+      
+      console.log("qrcodeSprite:" + qrcodeSprite);
+      qrcodeSprite.width = 200;
+      qrcodeSprite.height = 200;
+      qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
+      BackButtonSet(master);
+    });
+    
   },
 });
 

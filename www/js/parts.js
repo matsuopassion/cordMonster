@@ -614,11 +614,17 @@ function boxCharaInfoSet(master,monster){
   viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray);
 }
 
-function qrCodegenerator(master){
+function qrCodeGenerator(master){
+  let qrcodeImage;
+  console.log("ここまできた");
   let qrcode = document.getElementById("qrcode");
+  console.log("ここまできち");
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
-  let text = localStorage.getItem(localStorage.getItem("selectMonster"));
+  let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+  delete sendMonster.skill;
+  let text = JSON.stringify(sendMonster);
+  console.log("ここまできつ");
   let qrcode_object = new QRCode(
                 qrcode,
                 {
@@ -629,5 +635,18 @@ function qrCodegenerator(master){
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
-  //phina.asset.AssetManager.set("image","monsterQR",qrcode);
+  var flow = Flow(function(resolve) {
+      html2canvas(document.querySelector("#qrcode")).then(canvas => {
+        qrcodeImage = canvas.toDataURL("image/png");
+      });
+      console.log("ここまできて");
+      console.log("ここまできと");
+      resolve();
+    });
+    flow.then(function() {
+      console.log("画像：" + qrcodeImage);
+      phina.asset.AssetManager.set("image","monsterQR",qrcodeImage);
+      return true;
+    });
+  
 }
