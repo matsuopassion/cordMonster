@@ -1,10 +1,11 @@
+/**
+ * バトル中に行われるモンスターの行動を決める処理です。
+ * @param {string} phase - "m","e","s"のいずれか。
+ * @param {object} myMonster - 自分のモンスターの情報。
+ * @param {object} enemy - 相手のモンスターの情報。
+ * @param {object} master - phina.jsのマスタクラス。
+ */
 function Battle(phase,myMonster,enemy,master){
-  // 出題・回答・判定の内の、どのフェーズか
-         /*
-         * 自キャラ・・・"m"
-         * 敵キャラ・・・"e"
-         * システム・・・"s"
-         */
   let message;
   let commandResults;
   let abilityName;
@@ -41,10 +42,10 @@ function Battle(phase,myMonster,enemy,master){
     case 's':
       if(myMonster.param.life <= 0){
         this.message = `${myMonster.monsterName}は倒れた！`;
-        //console.log(this.message);
+        console.log(this.message);
       }else if(enemy.param.life <= 0){
         this.message = `${enemy.monsterName}は倒れた！`;
-        //console.log(this.message);
+        console.log(this.message);
       }else{
         this.message = `${enemy.monsterName}が飛び出してきた！`;
         myMonster.condition = commandResults.mCondition;
@@ -60,9 +61,14 @@ function Battle(phase,myMonster,enemy,master){
       console.log('エラー：変数 phase に正しい値が設定されてません');
       console.log(`phase : ${phase} `);
   }
-  return this.message;
+  return {messageContent:this.message, mCondition:myMonster.condition, eCondition:enemy.condition};
 }
 
+/**
+ * @param {string} phase - "m","e","s"のいずれか。
+ * @param {object} myMonster - 自分のモンスターの情報。
+ * @param {object} enemy - 相手のモンスターの情報。
+ */
 function abilitySelect(phase,myMonster,enemy){
   let abilityId = "abt0";
   let attackerLv;
@@ -75,8 +81,8 @@ function abilitySelect(phase,myMonster,enemy){
   let targetShield;
   let targetSpeed;
   let conditionName = "通常"
-  let mCondition = myMonster.condition
-  let eCondition = enemy.condition
+  let mCondition = myMonster.condition;
+  let eCondition = enemy.condition;
   let mParam = myMonster.param;
   let eParam = enemy.param;
   let abilityName = "様子を見る";
@@ -156,22 +162,32 @@ function abilitySelect(phase,myMonster,enemy){
     case 'abt7':
       abilityType = 1;
       abilityPower = 25;
+      conditionType = "Poison"
       abilityName = "毒攻撃";
       abilityMessage = "は毒攻撃をしかけた！！"
       damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
       targetLife = targetLife - damage * 2;
-      conditionName = "猛毒";
-      eCondition = "poison";
+      conditionName = "毒";
+      if(phase === "m"){
+        eCondition = "poison";
+      }else{
+        mCondition = "poison";
+      }
       break;
     case 'abt8':
       abilityPower = 65;
       abilityType = 1;
+      conditionType = "hgihPoison"
       abilityName = "溶解液";
       abilityMessage = "は溶解液を放った！！"
       damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
       targetLife = targetLife - damage * 2;
-      conditionName = "猛毒";      
-      eCondition = "poison";
+      conditionName = "猛毒";
+      if(phase === "m"){
+        eCondition = "highPoison";
+      }else{
+        mCondition = "highPoison";
+      }
       break;
     case 'abt9':
       abilityType = 3;
@@ -183,13 +199,18 @@ function abilitySelect(phase,myMonster,enemy){
       break;
     case 'abt10':
       abilityType = 1;
+      conditionType = "poison"
       abilityPower = 40;
       abilityName = "フラッシュ";
       abilityMessage = "はフラッシュを放った！！"
       damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
       targetLife = targetLife - damage * 2;
-      conditionName = "混乱";
-      eCondition = "panic";
+      conditionName = "毒";
+      if(phase === "m"){
+        eCondition = "poison";
+      }else{
+        mCondition = "poison";
+      }
       break;
     case 'abt11':
       abilityType = 0;
@@ -359,6 +380,12 @@ function abilitySelect(phase,myMonster,enemy){
   return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType , conditionName:conditionName,mCondition:mCondition,eCondition:eCondition};
 };
 
+/**
+ * Helloという文字列を返します。
+ * @module hello
+ * @param {string} name - 表示したい名前を指定する。
+ * @return {string} - [Hello + name]という形式で戻る。
+ */
 function getMessage(phase,myMonster,enemy,commandResults){
   let message = "エラー：変数'message'の値が不正です";
   switch (phase){
@@ -422,13 +449,94 @@ function getMessage(phase,myMonster,enemy,commandResults){
   return this.message;
 }
 
+/**
+ * 状態異常によってダメージを受ける場合の処理を行います。
+ * @param {string} phase - "m","e","s"のいずれか。
+ * @param {object} myMonster - 自分のモンスターの情報。
+ * @param {object} enemy - 相手のモンスターの情報。
+ * @param {string} conditionType - "poison"等の状態異常を指す文字列。
+ */
+function conditionDamage(phase,myMonster,enemy,conditionType) {
+  let mParam = myMonster.param;
+  let eParam = enemy.param;
+  let mCondition = myMonster.condition;
+  let eCondition = enemy.condition;
+  let conditionName;
+  if(phase === "m"){
+    //攻撃者の設定
+    attackerLife = mParam.life;
+    //受け手の設定
+    targetLife = eParam.life;
+  }else{
+    //攻撃者の設定
+    attackerLife = eParam.life;
+    //受け手の設定
+    targetLife = mParam.life;
+  }
+  console.log(conditionType);
+  switch (conditionType){
+    case "poison":
+      conditionName = "毒";
+      if(phase === "m"){
+        this.message = `${myMonster.monsterName}は毒のダメージを受けている`;
+        attackerLife = attackerLife - Math.floor(attackerLife / 5);
+      }
+      if(phase === "e"){
+        this.message = `${enemy.monsterName}は毒のダメージを受けている`;
+        attackerLife = attackerLife - Math.floor(attackerLife / 5);
+      }
+      break;
+    case "highPoison":
+      conditionName = "猛毒";
+      if(phase === "m"){
+        this.message = `${myMonster.monsterName}は猛毒のダメージを受けている`;
+        attackerLife = attackerLife - Math.floor(attackerLife / 4);
+      }
+      if(phase === "e"){
+        this.message = `${enemy.monsterName}は猛毒のダメージを受けている`;
+        attackerLife = attackerLife - Math.floor(attackerLife / 4);
+      }
+      break;
+    default:
+     this.message = `エラー：未知の状態異常が設定されています。`;
+  }
+  if(phase === "m"){
+    if(getRandomInt(1, 4) == 1){
+      mCondition = "normal"
+    } 
+    //攻撃者の設定
+    mParam.life = attackerLife;
+    //受け手の設定
+    eParam.life = targetLife;
+  }else{
+    //敵のターンの場合
+    if(getRandomInt(1, 4) == 1){
+      eCondition = "normal"
+    } 
+    //攻撃者の設定
+    mParam.life = targetLife;
+    //受け手の設定
+    eParam.life = attackerLife;
+  }
+    return {myMonsterParam:mParam, enemyParam:eParam, conditionName:conditionName,mCondition:mCondition,eCondition:eCondition, messageContent:this.message};
+};
+
+/**
+ * 指定された範囲内の乱数を整数で返します。
+ * @param {int} min - 求める乱数の最小値。
+ * @param {int} max - 求める乱数の最大値。
+ */
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+/**
+ * 渡された配列の中からランダムで一つ取り出して返します。
+ * @param {array} arrayData - 要素を取り出したい配列。
+ */
 function getChooseRandom(arrayData) {
     var arrayIndex = Math.floor(Math.random() * arrayData.length);
     return arrayData[arrayIndex];
-}
+};

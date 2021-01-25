@@ -385,7 +385,10 @@ phina.define("battleCpuPage", {
 
     this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
+    this.battleResults;
+    this.abilityType;
     this.message;
+    this.conditionChange;
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
@@ -442,25 +445,45 @@ phina.define("battleCpuPage", {
       if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){
         console.log("死んだ");
         this.phase = "s";
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
       }else{
         if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){
           this.phase = "m";
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else{
           switch (this.phase) {
             case 'e':
               this.phase = "m"
-              this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.mCondition != "normal"){
+                this.conditionType = this.battleResults.mCondition;
+                this.phase = "coToM";
+              }
               break;
             case 'm':
               this.phase = "e"
-              this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.eCondition != "normal"){
+                this.conditionType = this.battleResults.eCondition;
+                this.phase = "coToE";
+              }
+              break;
+            case 'coToM':
+              this.phase = "m"
+              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              this.message = this.battleResults.messageContent;
+              break;
+            case 'coToE':
+              this.phase = "e"
+              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              this.message = this.battleResults.messageContent;
               break;
             default:
               console.log(`eでもmでもない`);
