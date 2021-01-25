@@ -1,11 +1,13 @@
 setMonsterMap();
 setBasicMap();
+setGachaList();
 // This is a JavaScript file
 // グローバルに展開
 phina.globalize();
 var ASSETS = {
   // 画像
   image: {
+    'Cohmon':'image/monsters/Cohmon.png',
     'Bechoime':'image/monsters/Bechoime.png',
     'Pixia':'image/monsters/Pixia.png',
     'Blingo':'image/monsters/Blingo.png',
@@ -29,17 +31,21 @@ var ASSETS = {
     'Ibuki':'image/monsters/Ibuki.png',
     'Kinichiro':'image/monsters/Kinichiro.png',
     'Unsui':'image/monsters/Unsui.png',
-    'Cthulhu':'image/monsters/Cthulhu.png',
-    'Ithaqua':'image/monsters/Ithaqua.png',
+    'Cthulhu':'image/monsters/enemyMonster/Cthulhu.png',
+    'Ithaqua':'image/monsters/enemyMonster/Ithaqua.png',
+    'Envy':'image/monsters/enemyMonster/Envy.png',
+    'Glutton':'image/monsters/enemyMonster/Glutton.png',
+    'Greed':'image/monsters/enemyMonster/Greed.png',
+    'Lust':'image/monsters/enemyMonster/Lust.png',
+    'Pride':'image/monsters/enemyMonster/Pride.png',
+    'Sloth':'image/monsters/enemyMonster/Sloth.png',
+    'Wrath':'image/monsters/enemyMonster/Wrath.png',
     'startBg': 'image/startBg.png',
     'startBg2': 'image/startBg2.png',
     'scanBg': 'image/scanBg.jpg',
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
     'battleFriendBg': 'image/battleFriendBg.png',
-    'c000': 'image/000.png',
-    'c001': 'image/001.png',
-    'c002': 'image/002.png',
     'buttonBattle': 'image/buttonBattle.png',
     'buttonScan': 'image/buttonScan.png',
     'buttonBox': 'image/buttonBox.png',
@@ -49,7 +55,6 @@ var ASSETS = {
     'buttonBattleCPU': 'image/buttonBattleCPU.png',
     'buttonBattleFriend': 'image/buttonBattleFriend.png',
     'boxBg':'image/boxBg.png',
-    'characterBg' : 'image/a.png',
   },
   sound:{
     'startBGM': 'sound/startBGM.mp3',
@@ -132,6 +137,12 @@ phina.main(function() {
         className: 'characterChack',
         label: 'characterChack',
         nextLabel: 'boxPage',
+      },
+
+      {
+        className: 'qrSetPage',
+        label: 'qrSetPage',
+        nextLabel: 'battlePage',
       },
     ]
   });

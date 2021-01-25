@@ -90,6 +90,14 @@ function menuSet(master){
   BoxButtonSet(master,magnification);
   ScanButtonSet(master,magnification);
 }
+
+function underMenuSet(master){
+  let magnification = menuBuckGroundSet(master);
+  battleButtonSet(master,magnification);
+  BoxButtonSet(master,magnification);
+  ScanButtonSet(master,magnification);
+};
+
 function battleButtonSet(master,magnification){
   let buttonBattle = Sprite('buttonBattle');
   //画面に合わせてサイズ変更
@@ -102,29 +110,102 @@ function battleButtonSet(master,magnification){
   };
 }
 
-function battleCPUButtonSet(master){
+function battleSelectButtonSet(master,flag){
+  let bfModeSelectGroup = DisplayElement().addChildTo(master);
+  let friendBattleFlag = flag;
   let buttonBattleCPU = Sprite('buttonBattleCPU');
   //画面に合わせてサイズ変更
-  let magnification =(SCREEN_WIDTH / buttonBattleCPU.width);
-  buttonBattleCPU.width *= magnification;
-  buttonBattleCPU.height *= magnification;
+  let magnificationCPU =(SCREEN_WIDTH / buttonBattleCPU.width);
+  buttonBattleCPU.width *= magnificationCPU;
+  buttonBattleCPU.height *= magnificationCPU;
   buttonBattleCPU.setInteractive(true);
-  buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(master),buttonBattleCPU.onpointstart=function(e){
+  buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(bfModeSelectGroup),buttonBattleCPU.onpointstart=function(e){
     SoundManager.play("buttonPush");
     master.exit('battleCpuPage');
   };
-}
 
-function battleFriendButtonSet(master){
   let buttonBattleFriend = Sprite('buttonBattleFriend');
-  //画面に合わせてサイズ変更
-  let magnification =(SCREEN_WIDTH / buttonBattleFriend.width);
-  buttonBattleFriend.width *= magnification;
-  buttonBattleFriend.height *= magnification;
+    //画面に合わせてサイズ変更
+  let magnificationFriend =(SCREEN_WIDTH / buttonBattleFriend.width);
+  buttonBattleFriend.width *= magnificationFriend;
+  buttonBattleFriend.height *= magnificationFriend;
   buttonBattleFriend.setInteractive(true);
-  buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(master),buttonBattleFriend.onpointstart=function(e){
+  buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(bfModeSelectGroup),buttonBattleFriend.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    //master.exit('battleCpuPage');
+    friendBattleFlag = true;
+    bfModeSelectGroup.children.clear();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    battleSelectButtonSet(master,friendBattleFlag);
+  };
+
+  let backGround = RectangleShape({
+      width:SCREEN_WIDTH,
+      height:SCREEN_HEIGHT,
+      fill:"black",
+      stroke:"black",
+      strokeWidth:10,
+      cornerRadius:0
+  }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(),master.gridY.center());
+
+  let qrGetButton = Button({
+        text: "読み取る！",
+        width: 300,
+        height: 200, 
+        fontSize: 50,
+        fontColor: 'white',
+        fill: 'red',
+        //align: "left",
+  }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(-3));
+
+  let qrSetButton = Button({
+        text: "表示する！",
+        width: 300,
+        height: 200, 
+        fontSize: 50,
+        fontColor: 'white',
+        fill: 'blue',
+        //align: "left",
+  }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(3));
+  qrSetButton.onpointstart=function(e){
+    console.log("押されましたね");
+    SoundManager.play("buttonPush");
+    master.exit('qrSetPage');
+  };
+
+
+  underMenuSet(master);
+
+  if(friendBattleFlag == true){
+    backGround.setInteractive(true);
+    buttonBattleCPU.setInteractive(false);
+    buttonBattleFriend.setInteractive(false);
+    qrGetButton.setInteractive(true);
+    qrSetButton.setInteractive(true);
+    qrGetButton.alpha = 1;
+    qrSetButton.alpha = 1;
+    backGround.alpha = 0.6;
+  }else{
+    backGround.setInteractive(false);
+    buttonBattleCPU.setInteractive(true);
+    buttonBattleFriend.setInteractive(true);
+    qrGetButton.setInteractive(false);
+    qrSetButton.setInteractive(false);
+    qrGetButton.alpha = 0;
+    qrSetButton.alpha = 0;
+    backGround.alpha = 0;
+  }
+
+  backGround.onpointstart=function(e){
+    friendBattleFlag = false;
+    bfModeSelectGroup.children.clear();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    master.children.last.remove();
+    battleSelectButtonSet(master,friendBattleFlag);
   };
 }
 
@@ -235,15 +316,114 @@ function boxButton(master){
   }
 }
 
-function boxcharaSet(master,jsonMonster,posX,posY){
+function boxcharaSet(master,group,jsonMonster,posX,posY){
+    console.log(jsonMonster.monsterID);
     let boxChara = Sprite(jsonMonster.monsterID);
-    boxChara.width = 150;
-    boxChara.height = 150;
-    boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
+    boxChara.width = 140;
+    boxChara.height = 140;
+    boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(group);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
       master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
+    let selectCharaGridX = Grid({
+      width: 140,
+      columns: 3,
+      offset: master.gridX.center(posX),
+    });
+    let selectCharaGridY = Grid({
+      width: 140,
+      columns: 3,
+      offset: master.gridY.center(posY),
+    });
+    if(localStorage.getItem("selectMonster") == jsonMonster.monsterID){
+      let selectLabel = Label({
+        text: "バトルセット中",
+        fontSize: 20,
+        fill: 'white',
+      }).addChildTo(group).setPosition(selectCharaGridX.span(0),selectCharaGridY.span(1));
+    }
+}
+
+function boxPageView(master,monsterList,startNum,pageNum){
+  let x = -5;
+  let y = -4;
+  let boxViewGroup = DisplayElement().addChildTo(master);
+  let startCount = startNum;
+  let addCount = 0;
+  let monsterListLen = Object.keys(monsterList).length;
+  if( monsterListLen % 9 != 0 ){
+    addCount = 1;
+  }
+  console.log(Object.keys(monsterList).length);
+  let pageMax = Math.floor(monsterListLen / 9) + addCount;
+  console.log("ページ最大数：" + pageMax);
+  let roopCount = 9;
+  if( 9 > monsterListLen - startCount ){
+    roopCount = monsterListLen - startCount;
+  }
+  for(let i = 0; i < roopCount; i++){
+      boxcharaSet(master,boxViewGroup,monsterList[startCount + i],x, y);
+      if(x == 5){
+        y += 4;
+        x = -5;
+      }else{
+        x += 5;
+      }
+   }
+
+   let pageDownButton = Button({
+      text: "<",
+      width: 50,
+      height: 50, 
+      fontSize: 50,
+      fontColor: 'white',
+      fill: 'white',
+      align: "left",
+   }).addChildTo(boxViewGroup).setPosition(master.gridX.center(3),master.gridY.center(-7));
+   
+   if( pageNum > 1 ){
+     pageDownButton.setInteractive(true);
+     fontColor: 'white',
+     pageDownButton.fill = 'green';
+   }else{
+     pageDownButton.setInteractive(false);
+     fontColor: 'white',
+     pageDownButton.fill = 'gray';
+   }
+   pageDownButton.onpointstart = function(e) {
+      pageNum--;
+      startCount -= 9;
+      boxViewGroup.children.clear();
+      boxPageView(master,monsterList,startCount,pageNum);
+   };
+
+   let pageUpButton = Button({
+      text: ">",
+      width: 50,
+      height: 50, 
+      fontSize: 50,
+      fontColor: 'white',
+      fill: 'white',
+      align: "left",
+   }).addChildTo(boxViewGroup).setPosition(master.gridX.center(6),master.gridY.center(-7));
+   
+   if( pageNum != pageMax ){
+     pageUpButton.setInteractive(true);
+     fontColor: 'white',
+     pageUpButton.fill = 'green';
+   }else{
+     pageUpButton.setInteractive(false);
+     fontColor: 'white',
+     pageUpButton.fill = 'gray';
+   }
+   pageUpButton.onpointstart = function(e) {
+      pageNum++;
+      startCount += 9;
+      boxViewGroup.children.clear();
+      boxPageView(master,monsterList,startCount,pageNum);
+   };
+
 }
 
 function boxCharaDSet(master,charaNum){
@@ -255,8 +435,7 @@ function boxCharaDSet(master,charaNum){
 
 function viewUpdateInfo(master,group,monster,pointSetArray){
   let rowNum = 1;
-  let statusTextArray = ["life:","power:","shield:","speed:"];
-  //↓ダサいからあとで変える
+  let statusTextArray = ["HP:","体力:","防御力:","素早さ:"];
   let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
   let totalSetPoint = 0;
   let nameLabel = Label({
@@ -265,21 +444,28 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
       fill: 'white',
     }).addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(0));
 
+  let lvLabel = Label({
+    text: "Lv." + monster.Lv,
+    fontSize: 40,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1)); 
+
     for (let i = 0; i < 4; i++){
 
       let statusLabel = Label({
         text: statusTextArray[i] + statusNumArray[i],
-        fontSize: 40,
+        fontSize: 35,
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(2+i));
     
     let updatePointLabel = Label({
         text: "",
         fontSize: 30,
         fill: 'red',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(2+i));
 
     if(pointSetArray[i] > 0){
       updatePointLabel.text = "+" + pointSetArray[i];
@@ -290,12 +476,12 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
     let statusUpButton = Button({
         text: "+",
         width: 50,
-        height: 50, 
+        height: 40, 
         fontSize: 50,
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(2+i));
     statusUpButton.onpointstart = function(e) {
       monster.skill.point--;
       pointSetArray[i]++;
@@ -315,12 +501,12 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
     let statusDownButton = Button({
         text: "-",
         width: 50,
-        height: 50, 
+        height: 40, 
         fontSize: 50,
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(2+i));
 
     statusDownButton.onpointstart = function(e) {
       monster.skill.point++;
@@ -342,21 +528,21 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
     rowNum+=1;
   }
   let statusSkillPointLabel = Label({
-      text: "skillPoint:" + monster.skill.point,
-      fontSize: 40,
+      text: "スキルポイント:" + monster.skill.point,
+      fontSize: 30,
       fill: 'yellow',
       align: "left",
-   }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(5));
+   }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(6));
 
   let statusSkillUpdateButton = Button({
-      text: "決定！",
-      width: 130,
-      height: 60, 
+      text: "決定!",
+      width: 110,
+      height: 50, 
       fontColor: 'white',
       fontSize: 40,
       fill: 'white',
       align: "left",
-   }).addChildTo(group).setPosition(master.gridX.center(0),master.gridY.center(6));
+   }).addChildTo(group).setPosition(master.gridX.center(5),master.gridY.center(6));
   for(let pointSet of pointSetArray){
     totalSetPoint += pointSet;
   }
@@ -378,6 +564,35 @@ function viewUpdateInfo(master,group,monster,pointSetArray){
       viewUpdateStatus(group);
       viewUpdateInfo(master,group,updateMonster,pointSetArray);
   }
+
+  let selectMonsterButton = Button({
+      text: "",
+      width: 200,
+      height: 60, 
+      fontColor: 'white',
+      fontSize: 40,
+      fill: 'white',
+      align: "left",
+   }).addChildTo(group).setPosition(master.gridX.center(3),master.gridY.center(-7));
+
+  console.log(localStorage.getItem("selectMonster"));
+  if( localStorage.getItem("selectMonster") == null || localStorage.getItem("selectMonster") != monster.monsterID){
+    selectMonsterButton.setInteractive(true);
+    selectMonsterButton.fill = "blue";
+    selectMonsterButton.text = "連れていく"
+  }else{
+    selectMonsterButton.setInteractive(false);
+    selectMonsterButton.fill = "gray";
+    selectMonsterButton.text = "セット済み";
+  }
+
+  selectMonsterButton.onpointstart = function(e) {
+      alert(monster.monsterName + `\nをバトルモンスターにセットしました！`);
+      localStorage.setItem("selectMonster",monster.monsterID);
+      viewUpdateStatus(group);
+      viewUpdateInfo(master,group,monster,pointSetArray);
+  }
+
 }
 
 function viewUpdateStatus(group){
@@ -397,4 +612,22 @@ function boxCharaInfoSet(master,monster){
   messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
   let viewStatusGroup = DisplayElement().addChildTo(master);
   viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray);
+}
+
+function qrCodegenerator(master){
+  let qrcode = document.getElementById("qrcode");
+  qrcode.textContent="";
+  //let barcode = document.getElementById("barcode");
+  let text = localStorage.getItem(localStorage.getItem("selectMonster"));
+  let qrcode_object = new QRCode(
+                qrcode,
+                {
+                    text: text,
+                    width: 300,
+                    height: 300,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+  phina.asset.AssetManager.set("image","monsterQR",qrcode);
 }

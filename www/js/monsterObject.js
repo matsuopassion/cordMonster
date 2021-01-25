@@ -8,7 +8,7 @@ var MONSTER_MASTER = {
             appropriate : { life : "E" ,power : "F" ,shield : "F",speed : "E" } ,
             ability : ["abt1","abt7","abt8"],
             abilityLv : [1 ,2 ,5 ],
-            defaultParam : { life : 50 ,power : 50 ,shield : 30 , speed : 20 },
+            defaultParam : { life : 100 ,power : 50 ,shield : 30 , speed : 50 },
             evoLine : "Undefined" ,
     	      evoLv : "Undefined",
             basic : true
@@ -185,7 +185,7 @@ var MONSTER_MASTER = {
             monsterFamily : "ホットドッグ" ,
             comment: "小学生に人気なアイツ。彼を主人公にしたアニメもある。",
             rarity : "C" ,
-            appropriate : { life : "F" ,power : "E" ,shield : "E",speed : "G" } ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
             ability : ["abt1","abt4","abt13"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 50 ,power : 70 ,shield : 25 , speed : 60 },

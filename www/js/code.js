@@ -108,11 +108,9 @@ function getNewMonster(monsterID){
 }
 
 //モンスターの決定
-function resultClassification(text){
+function resultClassification(){
   //QRコードの文字数 ※現時点では確率設定してない、するならここ
-  let textLength = text.length;
-  let monsterPcs = BASIC_LIST.length;
-  let monsterIndex = monsterPcs - 1 - (textLength % monsterPcs);
+  let monsterIndex = getRandomIntInclusive(0,BASIC_LIST.length); //0~INDEXまde
   let monster = BASIC_LIST[monsterIndex];
   return monster.monsterID;
 }
@@ -128,7 +126,7 @@ function getEvoMonster(monsterData){
   const eDefaultParam = evoMonster.defaultParam ;
   
   //skilふり直し
-  const skill = getEvoMonster.skill
+  const skill = monsterData.skill;
   const skillPoint = 
    skill.point +
    skill.life + 
