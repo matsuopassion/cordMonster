@@ -342,8 +342,6 @@ phina.define("battlePage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
     
-    // battleCPUButtonSet(master);
-    // battleFriendButtonSet(master);
     battleSelectButtonSet(master,false);
   },
 });

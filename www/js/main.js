@@ -140,6 +140,12 @@ phina.main(function() {
       },
 
       {
+        className: 'battleFriendPage',
+        label: 'battleFriendPage',
+        nextLabel: 'battleResultPage',
+      },
+
+      {
         className: 'battleResultPage',
         label: 'battleResultPage',
         nextLabel: 'mainPage',
