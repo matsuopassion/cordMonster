@@ -82,7 +82,28 @@ var ASSETS = {
     'resultBGM': 'sound/resultBGM.mp3',
     'battleSelectBGM': 'sound/battleSelectBGM.mp3',
     'scanStartBGM': 'sound/scanStartBGM.mp3',
+    'bird_1': 'sound/effect/se_bird_1.mp3',
+    'dageki_1': 'sound/effect/se_dageki_1.mp3',
+    'dageki_2': 'sound/effect/se_dageki_2.mp3',
+    'dageki_3': 'sound/effect/se_dageki_3.mp3',
+    'dageki_4': 'sound/effect/se_dageki_4.mp3',
+    'dageki_5': 'sound/effect/se_dageki_5.mp3',
+    'dragon_1': 'sound/effect/se_dragon_1.mp3',
+    'gunfire_1': 'sound/effect/se_gunfire_1.mp3',
+    'gunfire_2': 'sound/effect/se_gunfire_2.mp3',
+    'gunfire_3': 'sound/effect/se_gunfire_3.mp3',
+    'gunfire_4': 'sound/effect/se_gunfire_4.mp3',
+    'magic_1': 'sound/effect/se_magic_1.mp3',
+    'magic_2': 'sound/effect/se_magic_2.mp3',
+    'magic_3': 'sound/effect/se_magic_3.mp3',
+    'magic_4': 'sound/effect/se_magic_4.mp3',
+    'slime_1': 'sound/effect/se_slime_1.mp3',
+    'slime_2': 'sound/effect/se_slime_2.mp3',
+    'special_1': 'sound/effect/se_special_1.mp3',
+    'swing_1': 'sound/effect/se_swing_1.mp3',
+    'swing_2': 'sound/effect/se_swing_2.mp3'
   }
+  //効果音
 };
 
 // 定数

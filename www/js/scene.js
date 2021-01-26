@@ -126,7 +126,7 @@ phina.define("mainPage", {
     //setBaseButton(master);
     menuSet(master);
 
-    charaSet(master,"Cohmon",0,1);
+    charaSet(master,"Ryuya",0,1);
     
   },
   
@@ -438,6 +438,7 @@ phina.define("battleCpuPage", {
     this.abilityType;
     this.message;
     this.conditionChange;
+    this.turnCount = 0;
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
@@ -490,14 +491,17 @@ phina.define("battleCpuPage", {
   },
   update: function(app) {
     if (app.pointer.getPointingStart()) {
-      console.log("今のphase : "+this.phase);
-      if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){
-        console.log("死んだ");
+      if(this.turnCount == 0){//１ターン目限定のセットアップ処理
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+      }
+      if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
         this.phase = "s";
         this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        console.log("死んだ");
       }else{
-        if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){
+        if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){//素早さが速い方が先攻
           this.phase = "m";
+          console.log("１ターン目：バトル開始");
           console.log("今のphase : "+this.phase);
           this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
@@ -542,6 +546,8 @@ phina.define("battleCpuPage", {
       this.group.children[1].text = this.message;
       gauge1.value = this.myMonster.param.life;
       gauge2.value = this.enemy.param.life;
+      this.turnCount++;
+      console.log(this.turnCount);
     }
   }
 });
