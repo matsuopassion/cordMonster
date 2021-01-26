@@ -31,7 +31,10 @@ cordova.plugins.barcodeScanner.scan(
   }
 );
 }
-//召喚用のスキャン
+/**
+ * 召喚用スキャンデータ読み込み
+ * qrText : 読み込んだＱＲコードの文字列
+ */
 function getSearchData(qrText) {
   //スキャン済みのQRコード登録
   localStorage.setItem(qrText,'exist');
@@ -114,13 +117,24 @@ function getNewMonster(monsterID){
   return monsterData;
 }
 
-
+/**
+ * 召喚によって出るモンスターを決定
+ */
 function resultClassification(){
-  //QRコードの文字数
-  let monsterIndex = getRandomIntInclusive(0,BASIC_LIST.length); //0~INDEXまde
-  let monster = BASIC_LIST[monsterIndex];
+  let rarityList = [0.1,0.4,1];
+  let lotNum = Math.random();
+  let rarityIndex;
+  console.log(lotNum);
+  for(rarityIndex = 0; lotNum > rarityList[rarityIndex]; rarityIndex++ ){
+  }
+  let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
+  let monster = GACHA_LIST[rarityIndex][monsterIndex];
+  console.log(rarityIndex);
+  console.log(monster.rarity);
+  
   return monster.monsterID;
 }
+
 
 function getEvoMonster(monsterData){
   //進化前のマスタ取得

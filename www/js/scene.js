@@ -4,6 +4,7 @@ phina.globalize();
 var SPEED = 15;
 var gauge1;
 var gauge2;
+var renderEndFlag = false;
 /*
  * シーン01
  */ 
@@ -362,33 +363,46 @@ phina.define("qrSetPage", {
     // 親クラス初期化
     this.superInit(option);
     // 背景色
-    this.backgroundColor = 'black';
+    this.backgroundColor = 'white';
 
+    //背景画像
+    var scanBgSprite = Sprite('scanBg').addChildTo(this);
+    //画面に合わせてサイズ変更
+    scanBgSprite.width *= (SCREEN_WIDTH / scanBgSprite.width);
+    scanBgSprite.height *= (SCREEN_HEIGHT / scanBgSprite.height);
+    //画像を配置
+    scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+    
     // SoundManager.stopMusic();
     // SoundManager.playMusic("battleSelectBGM",1,true);
     
-    // battleCPUButtonSet(master);
-    // battleFriendButtonSet(master);
-    //battleSelectButtonSet(master,false);
-    var flow = Flow(function(resolve) {
-      if(qrCodeGenerator(master)){
+    let qrBackGround = RectangleShape();
+    qrBackGround.width = 350;
+    qrBackGround.height = 350;
+    qrBackGround.fill = "white";
+    qrBackGround.cornerRadius = 10;
+    qrBackGround.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center());
+    var flowScene = Flow(function(resolve) {
+      qrCodeGenerator(master);
+      let timer = setInterval(function(){
+        if(renderEndFlag == true){
+          clearInterval(timer);
           resolve();
-      }
+        }
+      },300);
     });
-    flow.then(function() {
-      console.log("マサラタウン");
-      let qrcodeMonster = phina.asset.AssetManager.get("image", "monsterQR");
-      console.log(qrcodeMonster);
-      let qrcodeSprite = Sprite("monsterQR");
+    flowScene.then(function() {
+      let qrcodeSprite = Sprite("monsterQR").addChildTo(master);
+      console.log(qrcodeSprite);
+      qrcodeSprite.width = 300;
+      qrcodeSprite.height = 300;
       console.log("マラサタウン");
-      
       console.log("qrcodeSprite:" + qrcodeSprite);
-      qrcodeSprite.width = 200;
-      qrcodeSprite.height = 200;
-      qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
+
+      qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0));
       BackButtonSet(master);
+      renderEndFlag = false;
     });
-    
   },
 });
 

@@ -70,6 +70,7 @@ var ASSETS = {
     'buttonBattleCPU': 'image/buttonBattleCPU.png',
     'buttonBattleFriend': 'image/buttonBattleFriend.png',
     'boxBg':'image/boxBg.png',
+    'monsterQR':'',
   },
   //音楽
   sound:{
@@ -104,6 +105,7 @@ var ASSETS = {
   }
   //効果音
 };
+
 // 定数
 var SCREEN_WIDTH  =window.parent.screen.width; // 画面横サイズ
 var SCREEN_HEIGHT = window.parent.screen.height; // 画面縦サイズ

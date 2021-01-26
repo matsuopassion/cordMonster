@@ -616,37 +616,45 @@ function boxCharaInfoSet(master,monster){
 
 function qrCodeGenerator(master){
   let qrcodeImage;
-  console.log("ここまできた");
   let qrcode = document.getElementById("qrcode");
-  console.log("ここまできち");
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
   let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
   delete sendMonster.skill;
   let text = JSON.stringify(sendMonster);
-  console.log("ここまできつ");
   let qrcode_object = new QRCode(
                 qrcode,
                 {
                     text: text,
-                    width: 300,
-                    height: 300,
+                    width: 110,
+                    height: 110,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
                 });
   var flow = Flow(function(resolve) {
       html2canvas(document.querySelector("#qrcode")).then(canvas => {
-        qrcodeImage = canvas.toDataURL("image/png");
-      });
-      console.log("ここまできて");
-      console.log("ここまできと");
-      resolve();
+        qrcodeImage = canvas.toDataURL("image/jpg");
+      })
+      let timer = setInterval(function(){
+        if(qrcodeImage != undefined ){
+          clearInterval(timer);
+          resolve();
+        }
+      },300);
     });
     flow.then(function() {
-      console.log("画像：" + qrcodeImage);
-      phina.asset.AssetManager.set("image","monsterQR",qrcodeImage);
-      return true;
+      var loader = phina.asset.AssetLoader();
+      loader.load({
+        // 画像
+        image: {
+          monsterQR : qrcodeImage,
+        },
+      });
+      let monsterQRAsset = phina.asset.AssetManager.get("image","monsterQR");
+      loader.on('load', function() {
+        console.log(phina.asset.AssetManager.get("image","monsterQR").src);
+        renderEndFlag = true; 
+      });
     });
-  
 }
