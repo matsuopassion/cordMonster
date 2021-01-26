@@ -44,7 +44,7 @@ var ASSETS = {
     'Taurusborg':'image/monsters/Taurusborg.png',
     'Unsui':'image/monsters/Unsui.png',
     'Worm':'image/monsters/Worm.png',
-    'Yanchiken':'image/monsters/Yanchicken.png',
+    'Yanchicken':'image/monsters/Yanchicken.png',
     //enemys
     'Envy':'image/monsters/enemyMonster/Envy.png',
     'Glutton':'image/monsters/enemyMonster/Glutton.png',
