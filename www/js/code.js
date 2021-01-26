@@ -122,16 +122,16 @@ function getNewMonster(monsterID){
  */
 function resultClassification(){
   let rarityList = [0.1,0.4,1];
-  const lotNum;
+  let lotNum = Math.random();
   let rarityIndex;
-  for(let i in rarityList){
-    if(lotNum > rarityList[rarityIndex]){
-      rarityIndex = i;
-    }
+  console.log(lotNum);
+  for(rarityIndex = 0; lotNum > rarityList[rarityIndex]; rarityIndex++ ){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
   console.log(rarityIndex);
+  console.log(monster.rarity);
+  
   return monster.monsterID;
 }
 

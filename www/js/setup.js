@@ -40,7 +40,6 @@ function setGachaList(){
   GACHA_LIST.push(aList);
   GACHA_LIST.push(bList);
   GACHA_LIST.push(cList);
-  console.log(GACHA_LIST);
 }
-RISE_INDEX.indexOf();
+//RISE_INDEX.indexOf();
 
