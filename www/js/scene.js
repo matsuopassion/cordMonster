@@ -4,6 +4,7 @@ phina.globalize();
 var SPEED = 15;
 var gauge1;
 var gauge2;
+var renderEndFlag = false;
 /*
  * シーン01
  */ 
@@ -362,33 +363,33 @@ phina.define("qrSetPage", {
     // 親クラス初期化
     this.superInit(option);
     // 背景色
-    this.backgroundColor = 'black';
+    this.backgroundColor = 'white';
 
     // SoundManager.stopMusic();
     // SoundManager.playMusic("battleSelectBGM",1,true);
     
-    // battleCPUButtonSet(master);
-    // battleFriendButtonSet(master);
-    //battleSelectButtonSet(master,false);
-    var flow = Flow(function(resolve) {
-      if(qrCodeGenerator(master)){
+
+    var flowScene = Flow(function(resolve) {
+      qrCodeGenerator(master);
+      let timer = setInterval(function(){
+        if(renderEndFlag == true){
+          clearInterval(timer);
           resolve();
-      }
+        }
+      },300);
     });
-    flow.then(function() {
-      console.log("マサラタウン");
-      let qrcodeMonster = phina.asset.AssetManager.get("image", "monsterQR");
-      console.log(qrcodeMonster);
-      let qrcodeSprite = Sprite("monsterQR");
-      console.log("マラサタウン");
-      
-      console.log("qrcodeSprite:" + qrcodeSprite);
+    flowScene.then(function() {
+      let qrcodeSprite = Sprite("monsterQR").addChildTo(master);
+      console.log(qrcodeSprite);
       qrcodeSprite.width = 200;
       qrcodeSprite.height = 200;
-      qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
+      console.log("マラサタウン");
+      console.log("qrcodeSprite:" + qrcodeSprite);
+
+      qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0));
       BackButtonSet(master);
+      renderEndFlag = false;
     });
-    
   },
 });
 
