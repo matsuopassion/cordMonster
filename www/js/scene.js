@@ -33,31 +33,45 @@ phina.define("startPage", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("startBGM",1,true);
-    this.monsterArray = ["Bechoime",
-                        "Pixia",
-                        "Blingo",
-                        "Golem",
-                        "Worm",
-                        "Chrysalis",
-                        "Fukahirade",
-                        "Genie",
-                        "Lindwurm",
-                        "Sapphivern",
-                        "Taurusborg",
-                        "Pilebine",
-                        "Maskednature",
-                        "Hotdog",
-                        "Aborideer",
-                        "Fishman",
-                        "Lyris",
-                        "Chaser",
-                        "Blingolord",
-                        "Killerblingo",
-                        "Ibuki",
-                        "Kinichiro",
-                        "Unsui",
-                        "Cthulhu",
-                        "Ithaqua"];
+    this.monsterArray = 
+    [
+      'Aborideer',
+      'Babygon',
+      'Bechoime',
+      'Bechoimeking',
+      'Beetletank',
+      'Blingo',
+      'Blingolord',
+      'Captainskull',
+      'Chaser',
+      'Chrysalis',
+      'Cthulhu',
+      'Fishman',
+      'Fukahirade',
+      'Genie',
+      'Golem',
+      'Hotdog',
+      'Ibuki',
+      'Ithaqua',
+      'Killerblingo',
+      'Kinichiro',
+      'Lindwurm',
+      'Lyris',
+      'Maskednature',
+      'Momosuke',
+      'Pilebine',
+      'Pixia',
+      'Rasyomon',
+      'Ryuya',
+      'Ryuyasoldier',
+      'Ryuyaraptor',
+      'Sapphivern',
+      'Senra',
+      'Taurusborg',
+      'Unsui',
+      'Worm',
+      'Yanchicken',
+    ];
     for(monsterID of this.monsterArray){
       console.log("モンスターをセット（テスト用）：" + monsterID);
       console.log(JSON.stringify(getNewMonster(monsterID)));
@@ -164,6 +178,20 @@ phina.define("boxPage", {
       } catch (e) {
         continue;
       }
+      //let monsterstatus1 = jsonMonster.monsterID;
+      // for (let k = 0; k < MONSTER_MASTER.monsterData.length; k++) {
+      //     let monsterstatus2 = MONSTER_MASTER.monsterData[k]["monsterID"];
+      //     if(monsterstatus1 == monsterstatus2){
+            // let ID = jsonMonster.monsterID;
+            // let Name = jsonMonster.monsterName;
+            // let Lv = jsonMonster.Lv;
+            // let life = jsonMonster.param["life"];
+            // let power = jsonMonster.param["power"];
+            // let shield = jsonMonster.param["shield"];
+            // let speed = jsonMonster.param["speed"];
+            //console.log(ID);
+            // boxcharaSet(master, ID, x, y);
+            // x += 2;
     }
     boxPageView(master,myMonsterArray,0,1);
     menuSet(master);
@@ -202,9 +230,12 @@ phina.define("characterChack", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("mainBGM",1,true);
+
      //box 画像
     boxCharaDSet(master,param.boxCharaResults.monsterID);
+    console.log("ここまでき");
     boxCharaInfoSet(master,param.boxCharaResults);
+    //menuSet(master);
     BackButtonSet(master);
     
   }
@@ -339,12 +370,25 @@ phina.define("qrSetPage", {
     // battleCPUButtonSet(master);
     // battleFriendButtonSet(master);
     //battleSelectButtonSet(master,false);
-    qrCodegenerator(master);
-    let qrcodeSprite = Sprite("monsterQR");
-    qrcodeSprite.width = 200;
-    qrcodeSprite.height = 200;
-    qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
-    BackButtonSet(master);
+    var flow = Flow(function(resolve) {
+      if(qrCodeGenerator(master)){
+          resolve();
+      }
+    });
+    flow.then(function() {
+      console.log("マサラタウン");
+      let qrcodeMonster = phina.asset.AssetManager.get("image", "monsterQR");
+      console.log(qrcodeMonster);
+      let qrcodeSprite = Sprite("monsterQR");
+      console.log("マラサタウン");
+      
+      console.log("qrcodeSprite:" + qrcodeSprite);
+      qrcodeSprite.width = 200;
+      qrcodeSprite.height = 200;
+      qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master);
+      BackButtonSet(master);
+    });
+    
   },
 });
 
@@ -378,19 +422,51 @@ phina.define("battleCpuPage", {
 
     this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
+    this.battleResults;
+    this.abilityType;
     this.message;
+    this.conditionChange;
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
     
-
+    // 0からmax-1までの整数を返す
+    function getRandomInt(max) {
+    // ランダムな配列
+      return Math.floor(Math.random() * Math.floor(max));
+    }
     //ここにID指定でバトルテスト可能
-    console.log(localStorage.getItem("Blingo"));
-    this.myMonster  = new monster(JSON.parse(localStorage.getItem("Sapphivern")));
-    this.enemy = new monster(JSON.parse(localStorage.getItem("Blingo")));
+    this.monsterArray = ["Bechoime",
+                        "Pixia",
+                        "Blingo",
+                        "Golem",
+                        "Worm",
+                        "Chrysalis",
+                        "Fukahirade",
+                        "Genie",
+                        "Lindwurm",
+                        "Sapphivern",
+                        "Taurusborg",
+                        "Pilebine",
+                        "Maskednature",
+                        "Hotdog",
+                        "Aborideer",
+                        "Fishman",
+                        "Lyris",
+                        "Chaser",
+                        "Blingolord",
+                        "Killerblingo",
+                        "Ibuki",
+                        "Kinichiro",
+                        "Unsui",
+                        "Cthulhu",
+                        "Ithaqua"];
+    this.myMonster  = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+    this.enemy = new monster(JSON.parse(localStorage.getItem(this.monsterArray[getRandomInt(25)])));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
-
+    this.myMonster.ability = JSON.parse(MONSTER_MAP.get(this.myMonster.monsterID)).ability;
+    this.enemy.ability = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).ability;
     // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
     // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
 
@@ -406,25 +482,45 @@ phina.define("battleCpuPage", {
       if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){
         console.log("死んだ");
         this.phase = "s";
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
       }else{
         if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){
           this.phase = "m";
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else{
           switch (this.phase) {
             case 'e':
               this.phase = "m"
-              this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.mCondition != "normal"){
+                this.conditionType = this.battleResults.mCondition;
+                this.phase = "coToM";
+              }
               break;
             case 'm':
               this.phase = "e"
-              this.message = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.eCondition != "normal"){
+                this.conditionType = this.battleResults.eCondition;
+                this.phase = "coToE";
+              }
+              break;
+            case 'coToM':
+              this.phase = "m"
+              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              this.message = this.battleResults.messageContent;
+              break;
+            case 'coToE':
+              this.phase = "e"
+              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              this.message = this.battleResults.messageContent;
               break;
             default:
               console.log(`eでもmでもない`);

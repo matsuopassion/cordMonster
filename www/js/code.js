@@ -112,7 +112,7 @@ function getNewMonster(monsterID){
         shield : 0 , 
         speed : 0 },
     ability : ["abt1"],
-    condition : ["con1"]  
+    condition : ["normal"]  
   };
   return monsterData;
 }
