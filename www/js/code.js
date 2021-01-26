@@ -57,7 +57,10 @@ function getSearchData(qrText) {
 
   return monsterData;
 }
-
+/**
+ * monsterData : 対象のモンスター
+ * lvと進化の判定、スキルの判定
+*/
 function levelUpMonster(monsterData){
   //lvUP
     monsterData.Lv += 1;
@@ -84,6 +87,10 @@ function levelUpMonster(monsterData){
     return monsterData;
 }
 
+/** 
+ * monsterID : 対象モンスターのID
+ * localstrageに新しいモンスターを追加する
+*/
 function getNewMonster(monsterID){
   let scM = JSON.parse(MONSTER_MAP.get(monsterID));
   const monsterData = {
@@ -107,9 +114,9 @@ function getNewMonster(monsterID){
   return monsterData;
 }
 
-//モンスターの決定
+
 function resultClassification(){
-  //QRコードの文字数 ※現時点では確率設定してない、するならここ
+  //QRコードの文字数
   let monsterIndex = getRandomIntInclusive(0,BASIC_LIST.length); //0~INDEXまde
   let monster = BASIC_LIST[monsterIndex];
   return monster.monsterID;
