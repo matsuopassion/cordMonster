@@ -104,6 +104,7 @@ phina.define("mainPage", {
     this.backgroundColor = 'blue';
 
     //背景画像
+    
     var bgSprite = Sprite('mainBg').addChildTo(this);
     //画面に合わせてサイズ変更
     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
@@ -111,22 +112,26 @@ phina.define("mainPage", {
     //画像を配置
     bgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
-    // ラベル
-    Label({
-      text: 'mainPage',
-      fontSize: 20,
-      fill: 'white',
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
-
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("mainBGM",1,true);
 
     //共通ボタンのセット
     //setBaseButton(master);
-    menuSet(master);
 
-    charaSet(master,"Ryuya",0,1);
+    
+    try{
+      let myMonsterData = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+      mainPageMonsterInfo(this,myMonsterData);
+      let mainPageMonster = Sprite(myMonsterData.monsterID);
+      mainPageMonster.width = 400;
+      mainPageMonster.height = 400;
+      mainPageMonster.addChildTo(this).setPosition(this.gridX.center(),this.gridY.center(2));
+      
+    }catch(e){
+      alert(`ボックスから\nバトルモンスターをセットしよう！`);
+    }
+    menuSet(master);
     
   },
   
@@ -394,7 +399,6 @@ phina.define("qrSetPage", {
       console.log(qrcodeSprite);
       qrcodeSprite.width = 300;
       qrcodeSprite.height = 300;
-      console.log("マラサタウン");
       console.log("qrcodeSprite:" + qrcodeSprite);
 
       qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0));

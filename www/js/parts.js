@@ -121,7 +121,11 @@ function battleSelectButtonSet(master,flag){
   buttonBattleCPU.setInteractive(true);
   buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(bfModeSelectGroup),buttonBattleCPU.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    master.exit('battleCpuPage');
+    if(localStorage.getItem("selectMonster") != undefined){
+      master.exit('battleCpuPage');
+    }else{
+      alert(`バトルモンスターが\nセットされていません`);
+    }
   };
 
   let buttonBattleFriend = Sprite('buttonBattleFriend');
@@ -162,7 +166,6 @@ function battleSelectButtonSet(master,flag){
   qrGetButton.onpointstart=function(e){
   console.log("押されましたね");
   SoundManager.play("buttonPush");
-  //明日こっから
       scanBarcode(function(monsterData) {
         master.exit("battleFriendPage",{
           resultMonster: monsterData,
@@ -182,7 +185,11 @@ function battleSelectButtonSet(master,flag){
   qrSetButton.onpointstart=function(e){
     console.log("押されましたね");
     SoundManager.play("buttonPush");
-    master.exit('qrSetPage');
+    if(localStorage.getItem("selectMonster") != undefined){
+      master.exit('qrSetPage');
+    }else{
+      alert(`バトルモンスターが\nセットされていません`);
+    }
   };
 
 
@@ -610,7 +617,6 @@ function viewUpdateStatus(group){
 }
 
 function boxCharaInfoSet(master,monster){
-  //↓テスト用のスキルポイント
   let magnification = SCREEN_WIDTH / 412;
   let pointSetArray = [0,0,0,0];
   let messageBox = RectangleShape();
@@ -623,6 +629,36 @@ function boxCharaInfoSet(master,monster){
   messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(3));
   let viewStatusGroup = DisplayElement().addChildTo(master);
   viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray,magnification);
+}
+
+function mainInfoLabel(master,monsterData){
+  let monsterNameLabel = Label({
+        text: "【" + monsterData.monsterName + "】",
+        fontSize: 30,
+        fill: 'white',
+  }).addChildTo(master).setPosition(master.gridX.center(0),master.gridY.center(-6));
+  let monsterMasterData = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+  let monsterCommentLabel = Label({
+        text: monsterMasterData.comment,
+        fontSize: 20,
+        fill: 'white',
+        align: 'left',
+  }).addChildTo(master).setPosition(master.gridX.center(-7),master.gridY.center(-4));
+}
+
+function mainPageMonsterInfo(master,monsterData){
+  //let magnification = SCREEN_WIDTH / 412;
+  //let infoGroup = DisplayElement().addChildTo(master);
+  let messageBox = RectangleShape();
+  messageBox.width = 400;
+  messageBox.height = 300;
+  messageBox.fill = "black";
+  messageBox.stroke = "white";
+  messageBox.strokeWidth = 10;
+  messageBox.cornerRadius = 25;
+  messageBox.alpha = 0.5;
+  messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(-4));
+  mainInfoLabel(master,monsterData);
 }
 
 function qrCodeGenerator(master){
