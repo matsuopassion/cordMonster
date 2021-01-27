@@ -163,7 +163,7 @@ function battleSelectButtonSet(master,flag){
   console.log("押されましたね");
   SoundManager.play("buttonPush");
   //明日こっから
-      scanBarcode(function(monsterData) {
+      scanBattleMonster(function(monsterData) {
         master.exit("battleFriendPage",{
           resultMonster: monsterData,
         });

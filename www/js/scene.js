@@ -405,6 +405,119 @@ phina.define("qrSetPage", {
 });
 
 /*
+ * フレンドバトルページ
+ */
+phina.define("battleFriendPage", {
+  // 継承
+  superClass: 'DisplayScene',
+  // 初期化
+  init: function(friendBattle) {
+    // 親クラス初期化
+    this.superInit(friendBattle);
+    // 背景色
+    this.backgroundColor = 'black';
+
+    //背景画像
+    var battleFriendBgSprite = Sprite('battleFriendBg').addChildTo(this);
+    //画面に合わせてサイズ変更
+    battleFriendBgSprite.width *= (SCREEN_WIDTH / battleFriendBgSprite.width);
+    battleFriendBgSprite.height *= (SCREEN_HEIGHT / battleFriendBgSprite.height);
+    //画像を配置
+    battleFriendBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+  
+
+    master = this;
+    SoundManager.stopMusic();
+    SoundManager.playMusic("battleBGM",1,true);
+
+    BackButtonSet(master);
+
+    this.ability = ["abt1","abt4","abt9"];
+    this.count = 0;
+    this.battleResults;
+    this.abilityType;
+    this.message;
+    this.conditionChange;
+    this.turnCount = 0;
+    this.group = setBattleMessage(master);
+    this.group.addChildTo(master);
+    this.group.children[1].text = "バトルスタート！";
+    
+    this.myMonster = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+    this.enemy = friendBattle.resultMonster;
+    charaSet(master, this.myMonster.monsterID, -5, -5);
+    charaEnemySet(master, this.enemy.monsterID, 5, -5);
+
+    gauge1 = gaugeSet(master,this.myMonster,-4,-2);
+    gauge2 = gaugeSet(master,this.enemy,4,-2);
+
+    this.battleLog;
+    this.phase = "s";
+  },
+  update: function(app) {
+    if (app.pointer.getPointingStart()) {
+      if(this.turnCount == 0){//１ターン目限定のセットアップ処理
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+      }
+      if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
+        this.phase = "s";
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        console.log("死んだ");
+      }else{
+        if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){//素早さが速い方が先攻
+          this.phase = "m";
+          console.log("１ターン目：バトル開始");
+          console.log("今のphase : "+this.phase);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
+          this.phase = "e";
+          console.log("今のphase : "+this.phase);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        }else{
+          switch (this.phase) {
+            case 'e':
+              this.phase = "m"
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.mCondition != "normal"){
+                this.conditionType = this.battleResults.mCondition;
+                this.phase = "coToM";
+              }
+              break;
+            case 'm':
+              this.phase = "e"
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.eCondition != "normal"){
+                this.conditionType = this.battleResults.eCondition;
+                this.phase = "coToE";
+              }
+              break;
+            case 'coToM':
+              this.phase = "m"
+              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              this.message = this.battleResults.messageContent;
+              break;
+            case 'coToE':
+              this.phase = "e"
+              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              this.message = this.battleResults.messageContent;
+              break;
+            default:
+              console.log(`eでもmでもない`);
+          }
+        }
+      }
+      this.group.children[1].text = this.message;
+      gauge1.value = this.myMonster.param.life;
+      gauge2.value = this.enemy.param.life;
+      this.turnCount++;
+      console.log(this.turnCount);
+    }
+  }
+});
+
+/*
  * CPUバトルページ
  */
 phina.define("battleCpuPage", {
