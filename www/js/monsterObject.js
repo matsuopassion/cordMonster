@@ -13,6 +13,18 @@ var MONSTER_MASTER = {
     	      evoLv : "Undefined",
             basic : true
         },{
+            monsterID : "Adarugon" ,
+            monsterFamily : "アダルゴン" ,
+            comment: "生まれたてドラゴン",
+            rarity : "C" ,
+            appropriate : { life : "E" ,power : "D" ,shield : "D",speed : "E" } ,
+            ability : ["abt1"],
+            abilityLv : [ 1 ,3 ,5 ],
+            defaultParam : { life : 70 ,power : 40 ,shield : 50 , speed : 60 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
+            basic : true
+        },{
             monsterID : "Babygon" ,
             monsterFamily : "ベイビゴン" ,
             comment: "ドラゴンの赤ちゃん。無限の可能性を秘めている・・？気がする。",
@@ -145,6 +157,18 @@ var MONSTER_MASTER = {
     	      evoLv : "Undefined",
             basic : true
         },{
+            monsterID : "Flarered" ,
+            monsterFamily : "ファイやレッド" ,
+            comment: "人間が火を扱うことをあこがれた姿",
+            rarity : "C" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "E",speed : "D" } ,
+            ability : ["abt1","abt8"],
+            abilityLv : [ 1 ,4 ],
+            defaultParam : { life : 100 ,power : 45 ,shield : 45 , speed : 50 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
+            basic : true
+        },{
             monsterID : "Fukahirade" ,
             monsterFamily : "フカヒレイド" ,
             comment: "獲物を切り裂く水中の剣士。ヒレも牙も全てが凶器！",
@@ -169,6 +193,18 @@ var MONSTER_MASTER = {
     	      evoLv : "Undefined",
             basic : true
         },{
+            monsterID : "Giant" ,
+            monsterFamily : "ジャイアント" ,
+            comment: "ある昔の巨人兵、目的を思い出し復活を遂げた",
+            rarity : "C" ,
+            appropriate : { life : "D" ,power : "D" ,shield : "D",speed : "D" } ,
+            ability : ["abt11"],
+            abilityLv : [1],
+            defaultParam : { life : 90 ,power : 50 ,shield : 30 , speed : 60 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
+            basic : true
+        },{
             monsterID : "Golem" ,
             monsterFamily : "ゴーレム" ,
             comment: "古代の魔法で作られた巨大な人形。力持ちで頼りになるぞ！",
@@ -179,6 +215,18 @@ var MONSTER_MASTER = {
             defaultParam : { life : 120 ,power : 70 ,shield : 70 , speed : 30 },
             evoLine : "Undefined",
     	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Herberus" ,
+            monsterFamily : "ヘルべロス" ,
+            comment: "地獄の番犬が飢えてこの世にやってきた",
+            rarity : "C" ,
+            appropriate : { life : "E" ,power : "F" ,shield : "G",speed : "C" } ,
+            ability : ["abt1","abt4","abt13"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 50 ,power : 70 ,shield : 25 , speed : 60 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
             basic : true
         },{
             monsterID : "Hotdog" ,
@@ -215,6 +263,18 @@ var MONSTER_MASTER = {
             defaultParam : { life : 200 ,power : 100 ,shield : 70 , speed : 100 },
             evoLine : "Undefined",
     	      evoLv : "Undefined",
+            basic : true
+        },{
+            monsterID : "Jiriri" ,
+            monsterFamily : "ジりり" ,
+            comment: "ニュース番組によく似ているマスコットキャラクター",
+            rarity : "A" ,
+            appropriate : { life : "A" ,power : "A" ,shield : "A",speed : "A" } ,
+            ability : ["abt1","abt23","abt25"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 200 ,power : 100 ,shield : 70 , speed : 100 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
             basic : true
         },{
             monsterID : "Killerblingo" ,
@@ -409,6 +469,18 @@ var MONSTER_MASTER = {
     	      evoLv : "Undefined",
             basic : true
         },{
+            monsterID : "Ungyo" ,
+            monsterFamily : "ウンギョ" ,
+            comment: "体の一部が煙と一体化、煙を操ることができる",
+            rarity : "B" ,
+            appropriate : { life : "C" ,power : "C" ,shield : "C",speed : "C" } ,
+            ability : ["abt1","abt9","abt12"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 50 ,power : 100 ,shield : 60 , speed : 50 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
+            basic : true
+        },{
             monsterID : "Unsui" ,
             monsterFamily : "アンスイ" ,
             comment: "超霊媒体質であるアンスイは、その身に取り憑いた殺戮者の邪霊に抗う為に修行に身を置く。",
@@ -421,6 +493,18 @@ var MONSTER_MASTER = {
     	      evoLv : "Undefined",
             basic : true
         },{
+            monsterID : "ViperKong" ,
+            monsterFamily : "ヴェイパーキング" ,
+            comment: "地の果てを這うようになってしまったキング、荒れ果てた姿は昔の姿を想像できない",
+            rarity : "B" ,
+            appropriate : { life : "C" ,power : "C" ,shield : "C",speed : "C" } ,
+            ability : ["abt1","abt9","abt12"],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 50 ,power : 100 ,shield : 60 , speed : 50 },
+            evoLine : "Undefined",
+            evoLv : "Undefined",
+            basic : true
+            },{
             monsterID : "Worm" ,
             monsterFamily : "ツノムシ" ,
             comment: `大きなツノがチャームポイントのムシ。\n触ると超危険！`,

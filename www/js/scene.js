@@ -36,6 +36,7 @@ phina.define("startPage", {
     SoundManager.playMusic("startBGM",1,true);
     this.monsterArray = 
     [
+      'Adarugon',
       'Aborideer',
       'Babygon',
       'Bechoime',
@@ -48,12 +49,15 @@ phina.define("startPage", {
       'Chrysalis',
       'Cthulhu',
       'Fishman',
+      'Flarered',
       'Fukahirade',
       'Genie',
+      'Giant',
       'Golem',
       'Hotdog',
       'Ibuki',
       'Ithaqua',
+      'Jiriri',
       'Killerblingo',
       'Kinichiro',
       'Lindwurm',
@@ -70,6 +74,8 @@ phina.define("startPage", {
       'Senra',
       'Taurusborg',
       'Unsui',
+      'Ungyo',
+      'ViperKong',
       'Worm',
       'Yanchicken',
     ];
