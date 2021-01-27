@@ -8,7 +8,8 @@ var ASSETS = {
   // 画像
   image: {
     //Monsters
-    'Aborideer':'image/monsters/Aborideer.png',
+  'Aborideer':'image/monsters/Aborideer.png',
+    'Adarugon':'image/monsters/Adarugon.png',
     'Babygon':'image/monsters/Babygon.png',
     'Bechoime':'image/monsters/Bechoime.png',
     'Bechoimeking':'image/monsters/Bechoimeking.png',
@@ -21,12 +22,17 @@ var ASSETS = {
     'Cohmon':'image/monsters/Cohmon.png',
     'Cthulhu':'image/monsters/Cthulhu.png',
     'Fishman':'image/monsters/Fishman.png',
+    'Flarered':'image/monsters/Flarered.png',
     'Fukahirade':'image/monsters/Fukahirade.png',
+    'Flarered':'image/monsters/Flarered.png',
     'Genie':'image/monsters/Genie.png',
+    'Giant':'image/monsters/Giant.png',
     'Golem':'image/monsters/Golem.png',
     'Hotdog':'image/monsters/Hotdog.png',
+    'Herberus':'image/monsters/Herberus.png',
     'Ibuki':'image/monsters/Ibuki.png',
     'Ithaqua':'image/monsters/Ithaqua.png',
+    'Jiriri':'image/monsters/Jiriri.png',
     'Killerblingo':'image/monsters/Killerblingo.png',
     'Kinichiro':'image/monsters/Kinichiro.png',
     'Lindwurm':'image/monsters/Lindwurm.png',
@@ -43,6 +49,8 @@ var ASSETS = {
     'Senra':'image/monsters/Senra.png',
     'Taurusborg':'image/monsters/Taurusborg.png',
     'Unsui':'image/monsters/Unsui.png',
+    'Ungyo':'image/monsters/Ungyo.png',
+    'ViperKong':'image/monsters/ViperKong.png',
     'Worm':'image/monsters/Worm.png',
     'Yanchicken':'image/monsters/Yanchicken.png',
     //enemys
@@ -57,7 +65,7 @@ var ASSETS = {
     //systems
     'startBg': 'image/startBg.png',
     'startBg2': 'image/startBg2.png',
-    'scanBg': 'image/scanBg.jpg',
+    'scanBg': 'image/scanBg2.jpg',
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
     'battleFriendBg': 'image/battleFriendBg.png',
