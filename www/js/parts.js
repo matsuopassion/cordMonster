@@ -159,6 +159,16 @@ function battleSelectButtonSet(master,flag){
         fill: 'red',
         //align: "left",
   }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(-3));
+  qrGetButton.onpointstart=function(e){
+  console.log("押されましたね");
+  SoundManager.play("buttonPush");
+  //明日こっから
+      scanBarcode(function(monsterData) {
+        master.exit("battleFriendPage",{
+          resultMonster: monsterData,
+        });
+    });
+  };
 
   let qrSetButton = Button({
         text: "表示する！",
