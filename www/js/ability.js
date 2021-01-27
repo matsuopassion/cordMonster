@@ -382,7 +382,7 @@ function abilitySelect(phase,myMonster,enemy){
     case 'crunch':
       abilityType = 0;
       abilityPower = 75;
-      abilityName = "噛みつき";
+      abilityName = "噛み砕き";
       abilityMessage = "は噛み砕いた！！"
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
