@@ -507,7 +507,7 @@ var MONSTER_MASTER = {
             },{
             monsterID : "Worm" ,
             monsterFamily : "ツノムシ" ,
-            comment: "大きなツノがチャームポイントのムシ。触ると超危険！",
+            comment: `大きなツノがチャームポイントのムシ。\n触ると超危険！`,
             rarity : "C" ,
             appropriate : { life : "E" ,power : "E" ,shield : "E",speed : "E" } ,
             ability : ["normalAttack","continuousThrust","heavyAttack"],
