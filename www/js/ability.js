@@ -57,13 +57,13 @@ function abilitySelect(phase,myMonster,enemy){
     targetSpeed = mParam.speed;
   }
   switch (abilityId){
-    case 'attack_1':
+    case 'normalAttack':
       abilityType = 0;
       abilityPower = 30;
       abilityName = "通常攻撃";
       abilityMessage = "は攻撃をしかけた！";
       abilitySoundEffectPlaying("dageki",3);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
     case 'abt2':
@@ -72,187 +72,153 @@ function abilitySelect(phase,myMonster,enemy){
       break;
     case 'heavyAttack':
       abilityType = 0;
-      abilityPower = 60;
+      abilityPower = 40;
       abilityName = "強打";
-      abilityMessage = "は強打を放った！！"
+      abilityMessage = "は強打を放った！！";
       abilitySoundEffectPlaying("dageki",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'bodyslam':
+    case 'bodySlam':
       abilityType = 0;
-      abilityPower = 75;
+      abilityPower = 55;
       abilityName = "のしかかり";
-      abilityMessage = "は大きく飛び上がって相手にのしかかった！！"
+      abilityMessage = "は大きく飛び上がって相手にのしかかった！！";
       abilitySoundEffectPlaying("dageki",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
     case 'buchikamashi':
       abilityType = 0;
-      abilityPower = 85;
+      abilityPower = 70;
       abilityName = "ぶちかまし";
-      abilityMessage = "のぶちかまし！！"
+      abilityMessage = "のぶちかまし！！";
       abilitySoundEffectPlaying("dageki",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt7':
-      abilityType = 1;
-      abilityPower = 25;
-      conditionType = "Poison"
-      abilityName = "毒攻撃";
-      abilityMessage = "は毒攻撃をしかけた！！"
-      abilitySoundEffectPlaying("dageki",5);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
-      conditionName = "毒";
-      if(phase === "m"){
-        eCondition = "poison";
-      }else{
-        mCondition = "poison";
-      }
-      break;
-    case 'abt8':
-      abilityPower = 65;
-      abilityType = 1;
-      conditionType = "hgihPoison"
-      abilityName = "溶解液";
-      abilityMessage = "は溶解液を放った！！"
-      abilitySoundEffectPlaying("slime",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
-      conditionName = "猛毒";
-      if(phase === "m"){
-        eCondition = "highPoison";
-      }else{
-        mCondition = "highPoison";
-      }
-      break;
-    case 'abt9':
-      abilityType = 3;
-      abilityPower = 40;
-      abilityName = "ヒール";
-      abilityMessage = "のヒール！"
-      abilitySoundEffectPlaying("magic",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      attackerLife = attackerLife + damage;
-      break;
-    case 'abt10':
-      abilityType = 1;
-      conditionType = "poison"
-      abilityPower = 40;
-      abilityName = "フラッシュ";
-      abilityMessage = "はフラッシュを放った！！"
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
-      conditionName = "毒";
-      if(phase === "m"){
-        eCondition = "poison";
-      }else{
-        mCondition = "poison";
-      }
-      break;
-    case 'abt11':
+    case 'ryujinInfernoPalm':
       abilityType = 0;
-      abilityPower = getRandomInt(30,250);
-      abilityName = "おまじない";
-      abilityMessage = "のおまじない！！"
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      abilityPower = 100;
+      abilityName = "竜神烈火掌";
+      abilityMessage = "の竜神烈火掌！！";
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower)
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt12':
-      abilityType = 0;
-      abilityPower = 65;
-      abilityName = "パイロキネシス";
-      abilityMessage = "はパイロキネシスを放った！！"
-      abilitySoundEffectPlaying("magic",1);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
-      break;
-    case 'abt13':
-      abilityType = 0;
-      abilityPower = 75;
-      abilityName = "火炎放射";
-      abilityMessage = "は火炎放射を放った！！"
-      abilitySoundEffectPlaying("magic",1);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
-      break;
-    case 'abt14':
-      abilityType = 0;
-      abilityPower = 80;
-      abilityName = "パイルバンカー";
-      abilityMessage = "はパイルバンカーで相手を激しく打ち付けた！！"
-      abilitySoundEffectPlaying("gunfire",4);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
-      break;
-    case 'abt15':
+    case 'lariat':
       abilityType = 0;
       abilityPower = 85;
       abilityName = "ラリアット";
-      abilityMessage = "のラリアット！！"
+      abilityMessage = "のラリアット！！";
       abilitySoundEffectPlaying("dageki",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt16':
+    case '':
+      abilityType = 0;
+      abilityPower = 0;
+      abilityName = "screwdriver";
+      abilityMessage = "のスクリュードライバー！！"
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'pileBunker':
+      abilityType = 0;
+      abilityPower = 80;
+      abilityName = "パイルバンカー";
+      abilityMessage = "はパイルバンカーで相手を激しく打ち付けた！！";
+      abilitySoundEffectPlaying("gunfire",4);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'terraBreak':
       abilityType = 0;
       abilityPower = 95;
       abilityName = "テラブレイク";
-      abilityMessage = "のテラブレイク！！"
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      abilityMessage = "のテラブレイク！！";
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt17':
+    case 'crossSlash':
       abilityType = 0;
-      abilityPower = 45;
-      abilityName = "噛みつき";
-      abilityMessage = "は噛みついた！！"
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      abilityPower = 55;
+      abilityName = "十文字斬り";
+      abilityMessage = "の十文字斬り！！";
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt18':
+    case 'afterimageSlash':
       abilityType = 0;
-      abilityPower = getChooseRandom([0,0,0,650]);
-      abilityName = "マサカリ";
-      abilityMessage = "はマサカリを大きく振りかぶった！！！"
-      abilitySoundEffectPlaying("swing",2);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      abilityPower = 65;
+      abilityName = "残像斬り";
+      abilityMessage = "の残像斬り！！";
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt19':
+    case 'samidareSlash':
       abilityType = 0;
-      abilityPower = 50;
-      count = getRandomInt(1, 6);
-      abilityName = "クナイ";
-      abilityMessage = `のクナイ投げ！！${count}回当たった！！`
-      loopSoundEffectPlaying("swing",1,count);
-      damage = count * (Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255));
+      abilityPower = 30;
+      count = getRandomInt(2, 4);
+      abilityName = "五月雨斬り";
+      abilityMessage = "の五月雨斬り！！${count}回当たった！！";
+      loopSoundEffectPlaying("dageki",1,count);
+      damage = damageCalclator(abilityPower);
+      damage = count * damage;
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt20':
+      break;
+    case 'ashigari':
+      abilityType = 0;
+      abilityPower = 100;
+      abilityName = "芦刈り";
+      abilityMessage = "の芦刈り！！";
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'demonClaw':
+      abilityType = 0;
+      abilityPower = 120;
+      abilityName = "鬼ノ爪";
+      abilityMessage = "の鬼ノ爪！！";
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'dragonTailFlap':
+      abilityType = 0;
+      abilityPower = 140;
+      abilityName = "竜尾返し";
+      abilityMessage = "の竜尾返し！！";
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'spinningSlash':
       abilityType = 0;
       abilityPower = 50;
       count = getRandomInt(1, 3);
       abilityName = "回転切り";
-      abilityMessage = `の回転切り！！${count}回転！！`
+      abilityMessage = `の回転切り！！${count}回転！！`;
       loopSoundEffectPlaying("dageki",1,count);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt21':
+    case 'hardSpiningSlash':
       abilityType = 0;
       abilityPower = 100;
       count = getRandomInt(2, 5);
       abilityName = "大回転切り";
-      abilityMessage = `の大回転切り！！${count}回転！！`
+      abilityMessage = `の大回転切り！！${count}回転！！`;
       loopSoundEffectPlaying("dageki",2,count);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt22':
+    case 'continuousThrust':
       abilityType = 0;
       abilityPower = 35;
       count = getRandomInt(3, 6);
@@ -262,13 +228,131 @@ function abilitySelect(phase,myMonster,enemy){
       damage = count * (Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255));
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt23':
+    case 'kunai':
+      abilityType = 0;
+      abilityPower = 50;
+      count = getRandomInt(1, 6);
+      abilityName = "クナイ";
+      abilityMessage = `のクナイ投げ！！${count}回当たった！！`
+      loopSoundEffectPlaying("swing",1,count);
+      damage = count * (Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255));
+      targetLife = targetLife - damage * 2;
+      break;
+    case '':
+      abilityType = 0;
+      abilityPower = 0;
+      abilityName = "";
+      abilityMessage = "の"
+      abilitySoundEffectPlaying("dageki",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'masakari':
+      abilityType = 0;
+      abilityPower = getChooseRandom([0,0,0,650]);
+      abilityName = "マサカリ";
+      abilityMessage = "はマサカリを大きく振りかぶった！！！"
+      abilitySoundEffectPlaying("swing",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'biting':
+      abilityType = 0;
+      abilityPower = 45;
+      abilityName = "噛みつき";
+      abilityMessage = "は噛みついた！！"
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'poisonAttack':
+      abilityType = 1;
+      abilityPower = 25;
+      conditionType = "Poison"
+      abilityName = "毒攻撃";
+      abilityMessage = "は毒攻撃をしかけた！！"
+      abilitySoundEffectPlaying("dageki",5);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      conditionName = "毒";
+      if(phase === "m"){
+        eCondition = "poison";
+      }else{
+        mCondition = "poison";
+      }
+      break;
+    case 'dissolution':
+      abilityPower = 65;
+      abilityType = 1;
+      conditionType = "hgihPoison"
+      abilityName = "溶解液";
+      abilityMessage = "は溶解液を放った！！"
+      abilitySoundEffectPlaying("slime",2);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      conditionName = "猛毒";
+      if(phase === "m"){
+        eCondition = "highPoison";
+      }else{
+        mCondition = "highPoison";
+      }
+      break;
+    case 'heal':
+      abilityType = 3;
+      abilityPower = 40;
+      abilityName = "ヒール";
+      abilityMessage = "のヒール！"
+      abilitySoundEffectPlaying("magic",2);
+      damage = damageCalclator(abilityPower);
+      attackerLife = attackerLife + damage;
+      break;
+    case 'flash':
+      abilityType = 1;
+      conditionType = "poison"
+      abilityPower = 40;
+      abilityName = "フラッシュ";
+      abilityMessage = "はフラッシュを放った！！"
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      conditionName = "毒";
+      if(phase === "m"){
+        eCondition = "poison";
+      }else{
+        mCondition = "poison";
+      }
+      break;
+    case 'magic':
+      abilityType = 0;
+      abilityPower = getRandomInt(30,250);
+      abilityName = "おまじない";
+      abilityMessage = "のおまじない！！"
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'flame':
+      abilityType = 0;
+      abilityPower = 75;
+      abilityName = "火炎放射";
+      abilityMessage = "は火炎放射を放った！！"
+      abilitySoundEffectPlaying("magic",1);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'pyrokinesis':
+      abilityType = 0;
+      abilityPower = 65;
+      abilityName = "パイロキネシス";
+      abilityMessage = "はパイロキネシスを放った！！"
+      abilitySoundEffectPlaying("magic",1);
+      damage = damageCalclator(abilityPower);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'infinity':
       abilityType = 0;
       abilityPower = 200;
       abilityName = "無限";
       abilityMessage = "の無限！！"
       abilitySoundEffectPlaying("magic",3);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
     case 'abt24':
@@ -277,10 +361,10 @@ function abilitySelect(phase,myMonster,enemy){
       abilityName = "狂気";
       abilityMessage = "の狂気！！"
       abilitySoundEffectPlaying("magic",3);
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+      damage = damageCalclator(abilityPower);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt25':
+    case 'walkingDeath':
       abilityType = 0;
       abilityPower = 95;
       abilityName = "歩む死";
@@ -288,14 +372,6 @@ function abilitySelect(phase,myMonster,enemy){
       abilitySoundEffectPlaying("magic",3);
       damage =  Math.floor(targetLife / 2);
       targetLife = Math.floor(targetLife / 2);
-      break;
-    case 'abt26':
-      abilityType = 0;
-      abilityPower = 95;
-      abilityName = "テラブレイク";
-      abilityMessage = "のテラブレイク！！"
-      damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
-      targetLife = targetLife - damage * 2;
       break;
     default:
       console.log('エラー：渡されたability idが不正です。');
@@ -330,6 +406,11 @@ function abilitySelect(phase,myMonster,enemy){
     eParam.speed = attackerSpeed;
   }
   return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType , conditionName:conditionName,mCondition:mCondition,eCondition:eCondition};
+};
+
+function damageCalclator(abilityPower){
+  let damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attackerLv * 2/5+2) * abilityPower * attackerPower / (targetShield * 0.6) )/50+2))) / 255);
+  return damage;
 };
 
 function abilitySoundEffectPlaying(seType,seNumber){
