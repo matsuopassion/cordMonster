@@ -626,8 +626,8 @@ function qrCodeGenerator(master){
                 qrcode,
                 {
                     text: text,
-                    width: 110,
-                    height: 110,
+                    width: 1000,
+                    height: 1000,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
