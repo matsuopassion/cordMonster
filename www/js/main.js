@@ -65,7 +65,7 @@ var ASSETS = {
     //systems
     'startBg': 'image/startBg.png',
     'startBg2': 'image/startBg2.png',
-    'scanBg': 'image/scanBg.jpg',
+    'scanBg': 'image/scanBg2.jpg',
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
     'battleFriendBg': 'image/battleFriendBg.png',
