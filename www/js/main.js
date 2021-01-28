@@ -78,7 +78,10 @@ var ASSETS = {
     'buttonBattleCPU': 'image/buttonBattleCPU.png',
     'buttonBattleFriend': 'image/buttonBattleFriend.png',
     'boxBg':'image/boxBg.png',
+    'battleResultLoseBg':'image/battleResultLoseBg.jpg',
+    'battleResultWinBg':'image/battleResultWinBg.jpg',
     'monsterQR':'',
+    
   },
   //音楽
   sound:{

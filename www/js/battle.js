@@ -64,6 +64,7 @@ function Battle(phase,myMonster,enemy,master){
       console.log('エラー：変数 phase に正しい値が設定されてません');
       console.log(`phase : ${phase} `);
   }
+  console.log("現在の勝敗状態：" + this.issue);
   return {messageContent:this.message, mCondition:myMonster.condition, eCondition:enemy.condition, resultIssue:this.issue};
 }
 

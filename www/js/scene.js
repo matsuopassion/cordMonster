@@ -651,7 +651,6 @@ phina.define("battleCpuPage", {
       }
 
       if(this.issue != "uncertain"){
-        console.log("勝敗：" + this.Issue);
         master.exit({
           resultIssue: this.issue,
         });
@@ -727,20 +726,30 @@ phina.define("battleResultPage", {
   init: function(result) {
     // 親クラス初期化
     this.superInit(result);
+    master = this;
     // 背景色
     this.backgroundColor = 'black';
+    this.bgResult = "battleResultLoseBg";
     this.resultMessage = "【敗北】"
     if(result.resultIssue == "win"){
-      this.result.resultMessage = "【勝利】"
+      this.resultMessage = "【勝利】";
+      this.bgResult = "battleResultWinBg";
     }
 
-    console.log(result.resultIssue);
+    //背景画像
+    var battleResultBgSprite = Sprite(this.bgResult).addChildTo(this);
+    //画面に合わせてサイズ変更
+    battleResultBgSprite.width *= (SCREEN_WIDTH / battleResultBgSprite.width);
+    battleResultBgSprite.height *= (SCREEN_HEIGHT / battleResultBgSprite.height);
+    //画像を配置
+    battleResultBgSprite.setPosition(master.gridX.center(), master.gridY.center());
+
     this.resultLabel = Label({
-      text: result.resultIssue,
+      text: this.resultMessage,
       fontSize: 50,
       fill: 'white',
     }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
-    master = this;
+
 
     SoundManager.stopMusic();
     SoundManager.playMusic("resultBGM");
