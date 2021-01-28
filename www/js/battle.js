@@ -12,6 +12,7 @@ function Battle(phase,myMonster,enemy,master){
   let abilityMessage;
   let damage = 0;
   let count = 1;
+  let issue = "uncertain";
   switch (phase){
     case 'm':
       commandResults = abilitySelect(phase,myMonster,enemy);
@@ -43,9 +44,11 @@ function Battle(phase,myMonster,enemy,master){
       if(myMonster.param.life <= 0){
         this.message = `${myMonster.monsterName}は倒れた！`;
         console.log(this.message);
+        this.issue = "lose";
       }else if(enemy.param.life <= 0){
         this.message = `${enemy.monsterName}は倒れた！`;
         console.log(this.message);
+        this.issue = "win";
       }else{
         this.message = `${enemy.monsterName}が飛び出してきた！`;
         myMonster.param.maxlife = myMonster.param.life
@@ -61,7 +64,7 @@ function Battle(phase,myMonster,enemy,master){
       console.log('エラー：変数 phase に正しい値が設定されてません');
       console.log(`phase : ${phase} `);
   }
-  return {messageContent:this.message, mCondition:myMonster.condition, eCondition:enemy.condition};
+  return {messageContent:this.message, mCondition:myMonster.condition, eCondition:enemy.condition, resultIssue:this.issue};
 }
 
 function getMessage(phase,myMonster,enemy,commandResults){

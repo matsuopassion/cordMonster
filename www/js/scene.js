@@ -452,7 +452,8 @@ phina.define("battleFriendPage", {
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
-    
+    this.issue = "uncertain";
+
     this.myMonster = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
     this.enemy = friendBattle.resultMonster;
     charaSet(master, this.myMonster.monsterID, -5, -5);
@@ -469,9 +470,18 @@ phina.define("battleFriendPage", {
       if(this.turnCount == 0){//１ターン目限定のセットアップ処理
         this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
       }
+
+      if(this.issue != "uncertain"){
+        master.exit({
+          resultIssue: this.issue,
+        });
+      }
+
       if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
         this.phase = "s";
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+        this.message = this.battleResults.messageContent;
+        this.issue = this.battleResults.resultIssue;
         console.log("死んだ");
       }else{
         if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){//素早さが速い方が先攻
@@ -565,6 +575,7 @@ phina.define("battleCpuPage", {
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
+    this.issue = "uncertain";
     
     // 0からmax-1までの整数を返す
     function getRandomInt(max) {
@@ -617,9 +628,19 @@ phina.define("battleCpuPage", {
       if(this.turnCount == 0){//１ターン目限定のセットアップ処理
         this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
       }
+
+      if(this.issue != "uncertain"){
+        console.log("勝敗：" + this.Issue);
+        master.exit({
+          resultIssue: this.issue,
+        });
+      }
+
       if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
         this.phase = "s";
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+        this.message = this.battleResults.messageContent;
+        this.issue = this.battleResults.resultIssue;
         console.log("死んだ");
       }else{
         if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){//素早さが速い方が先攻
@@ -682,18 +703,22 @@ phina.define("battleResultPage", {
   // 継承
   superClass: 'DisplayScene',
   // 初期化
-  init: function(option) {
+  init: function(result) {
     // 親クラス初期化
-    this.superInit(option);
+    this.superInit(result);
     // 背景色
     this.backgroundColor = 'black';
-    
+    this.resultMessage = "【敗北】"
+    if(result.resultIssue == "win"){
+      this.result.resultMessage = "【勝利】"
+    }
+
+    console.log(result.resultIssue);
     this.resultLabel = Label({
-      text: 'battleResultPage',
-      fontSize: 20,
+      text: result.resultIssue,
+      fontSize: 50,
       fill: 'white',
     }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
-    console.log(this.resultLabel.text);
     master = this;
 
     SoundManager.stopMusic();
@@ -706,13 +731,13 @@ phina.define("battleResultPage", {
     
   },
   update: function(app) {
-    if(app.frame % SPEED === 0){
-      if(master.resultLabel.text === "これ何？"){
-        master.resultLabel.text = "巨大サーモンの逆襲";
-      }else{
-        master.resultLabel.text  ="これ何？";
-      }
-    }
+    // if(app.frame % SPEED === 0){
+    //   if(master.resultLabel.text === "これ何？"){
+    //     master.resultLabel.text = "巨大サーモンの逆襲";
+    //   }else{
+    //     master.resultLabel.text  ="これ何？";
+    //   }
+    // }
   }
 });
 
