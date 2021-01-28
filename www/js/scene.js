@@ -241,8 +241,8 @@ phina.define("characterChack", {
 
 
     //BGMセット部分（先に全画面のBGMを停止）
-    SoundManager.stopMusic();
-    SoundManager.playMusic("mainBGM",1,true);
+    // SoundManager.stopMusic();
+    // SoundManager.playMusic("mainBGM",1,true);
 
      //box 画像
     boxCharaDSet(master,param.boxCharaResults.monsterID);
@@ -441,8 +441,6 @@ phina.define("battleFriendPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
 
-    BackButtonSet(master);
-
     this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
     this.battleResults;
@@ -563,8 +561,6 @@ phina.define("battleCpuPage", {
     master = this;
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
-
-    BackButtonSet(master);
 
     this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
@@ -731,9 +727,11 @@ phina.define("battleResultPage", {
     this.backgroundColor = 'black';
     this.bgResult = "battleResultLoseBg";
     this.resultMessage = "【敗北】"
+    let levelUpRand = 0;
     if(result.resultIssue == "win"){
       this.resultMessage = "【勝利】";
       this.bgResult = "battleResultWinBg";
+      this.levelUpRand = getRandomIntInclusive(1,2);
     }
 
     //背景画像
@@ -750,6 +748,17 @@ phina.define("battleResultPage", {
       fill: 'white',
     }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
 
+    console.log("randInt:" + levelUpRand);
+    if(this.levelUpRand == 1){
+      this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+      let updateMonsterData = levelUpMonster(this.myMonsterData);
+      localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));
+      this.resultLabel = Label({
+        text:  this.myMonsterData.monsterName + "のレベルが上がった！",
+        fontSize: 20,
+        fill: 'red',
+      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(2));
+    }
 
     SoundManager.stopMusic();
     SoundManager.playMusic("resultBGM");
