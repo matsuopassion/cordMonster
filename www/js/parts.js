@@ -290,10 +290,10 @@ function gaugeSet(master,monster,x,y){
 
 function charaResultSet(master,charaNum){
     let mainChara = Sprite(charaNum);
-    mainChara.width = 400;
-    mainChara.height = 400;
+    mainChara.width = 300;
+    mainChara.height = 300;
     mainChara.scaleX = -1;
-    mainChara.setPosition(master.gridX.center(),master.gridY.center(-5)).addChildTo(master);
+    mainChara.setPosition(master.gridX.center(),master.gridY.center(-4)).addChildTo(master);
     mainChara.setInteractive(true);
 }
 
