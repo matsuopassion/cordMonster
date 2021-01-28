@@ -29,7 +29,7 @@ function abilitySelect(phase,myMonster,enemy){
   // 0:相手に攻撃 1:相手に攻撃かつ状態異常 2:相手に状態異常 3:自身を回復 4:相手に攻撃かつ自身に回復 5:相手を回復
   if(phase === "m"){
     abilityId = myMonster.ability;
-    abilityId = abilityId[Math.floor(Math.random() * abilityId.length)].toString();
+    abilityId = abilityId[Math.floor(Math.random() * abilityId.length)];
     //攻撃者の設定
     attackerLv = myMonster.Lv;
     attackerLife = mParam.life;
@@ -653,7 +653,7 @@ function abilitySelect(phase,myMonster,enemy){
   //自分のターンの場合
   if(phase === "m"){
     abilityId = myMonster.ability;
-    abilityId = abilityId[Math.floor(Math.random() * abilityId.length)].toString();
+    abilityId = abilityId[Math.floor(Math.random() * abilityId.length)];
     //攻撃者の設定
     myMonster.Lv = attackerLv;
     mParam.life = attackerLife;

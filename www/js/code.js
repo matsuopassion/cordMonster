@@ -80,19 +80,51 @@ function levelUpMonster(monsterData){
       monsterData = getEvoMonster(monsterData);
     }
 
-    monsterData = judgeAbilityGet(monsterData);
+    monsterData.ability = judgeAbilityGet(monsterData);
 
     return monsterData;
 }
 
 function judgeAbilityGet(monsterData){
+    //対象モンスターのマスタ
+    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    
+    //対象モンスターのアビリティレベル判定用の値
+    const monsterAbility = monster.ability;
+    const abilityLv = monster.abilityLv;
+
     for(let i in abilityLv){
       //レベルに該当する場合は特技を追加
       if(abilityLv[i] == monsterData.Lv){
         monsterData.ability.push(monsterAbility[i]);
-        alert("新しい特技を取得したよ");
+        if(monsterData.Lv != 1){
+          console.log(monsterData.ability);
+          alert("新しい特技を覚えたよ");
+        }
       }
     }
+
+    return monsterData.ability;
+}
+
+function judgeAbilityEvoMonster(monsterData){
+    //対象モンスターのマスタ
+    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    
+    //対象モンスターのアビリティレベル判定用の値
+    const monsterAbility = monster.ability;
+    const abilityLv = monster.abilityLv;
+
+    let abilityList = new Array();
+    for(let i in abilityLv){
+      //レベルに該当する場合は特技を追加
+      if(abilityLv[i] <= monsterData.Lv){
+        abilityList.push(monsterAbility[i]);
+      }
+    monsterData.ability = abilityList;
+    console.log(monster.ability);
+    }
+    return monsterData.ability;
 }
 
 /** 
@@ -116,9 +148,10 @@ function getNewMonster(monsterID){
         power : 0 ,
         shield : 0 , 
         speed : 0 },
-    ability : [scM.ability[0]],
+    ability : new Array(),
     condition : ["normal"]  
   };
+  monsterData.ability = judgeAbilityGet(monsterData);
   return monsterData;
 }
 
@@ -134,10 +167,8 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  console.log(rarityIndex);
-  console.log(monster.rarity);
   
-  return monster.monsterID;
+  return "Babygon";
 }
 
 
@@ -176,9 +207,10 @@ function getEvoMonster(monsterData){
       power : 0 ,
       shield : 0 , 
       speed : 0 },
-    ability : monsterData.ability ,
+      ability : new Array(),
     condition : monsterData.condition
-  }
+  };
+  evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
   alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
   return evoMonsterData;
 }
@@ -261,7 +293,7 @@ cordova.plugins.barcodeScanner.scan(
   },
   {
     preferFrontCamera : false, // iOS and Android
-    showFlipCameraButton : true, // iOS and Android
+    showFlipCameraButton : false, // iOS and Android
     showTorchButton : true, // iOS and Android
     torchOn: false, // Android, launch with the torch switched on (if available)
     saveHistory: true, // Android, save scan history (default false)
