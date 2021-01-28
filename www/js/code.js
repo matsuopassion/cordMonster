@@ -168,7 +168,7 @@ function resultClassification(){
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
   
-  return "Babygon";
+  return monster.monsterID;
 }
 
 

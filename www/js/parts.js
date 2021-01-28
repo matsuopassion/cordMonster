@@ -670,6 +670,7 @@ function qrCodeGenerator(master){
   let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
   delete sendMonster.skill;
   let text = JSON.stringify(sendMonster);
+  console.log(text);
   let qrcode_object = new QRCode(
                 qrcode,
                 {
