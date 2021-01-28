@@ -217,7 +217,7 @@ var MONSTER_MASTER = {
     	      evoLv : "Undefined",
             basic : true
         },{
-            monsterID : "Herberus" ,
+            monsterID : "Hellberus" ,
             monsterFamily : "ヘルべロス" ,
             comment: "地獄の番犬が飢えてこの世にやってきた",
             rarity : "C" ,
@@ -258,7 +258,7 @@ var MONSTER_MASTER = {
             comment: "旧支配者。「風」に乗る能力によって、宇宙を移動する。",
             rarity : "A" ,
             appropriate : { life : "A" ,power : "A" ,shield : "A",speed : "A" } ,
-            ability : ["normalAttack","infinite","walkingDeath"],
+            ability : ["normalAttack","infinity","walkingDeath"],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 200 ,power : 100 ,shield : 70 , speed : 100 },
             evoLine : "Undefined",
