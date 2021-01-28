@@ -275,8 +275,11 @@ function scanBattleMonster(battleCallback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {//ここから
     if (result.cancelled == 0){
-      if(isValidJson(result.text)){
-        console.log(result.text);
+      if(true){
+        console.log(typeof result.text);
+        var text = result.text;
+        var jsonfile = JSON.parse(text);
+        console.log(typeof jsonfile);
         battleCallback(JSON.parse(result.text));
       }else{
         alert("モンスターが来てくれませんでした＾＾");

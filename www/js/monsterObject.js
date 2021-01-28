@@ -163,10 +163,10 @@ var MONSTER_MASTER = {
             rarity : `C` ,
             appropriate : { life : `F` ,power : `D` ,shield : `E`,speed : `E` } ,
             ability : [`normalAttack`,`continuousPunch`,`ryujinInfernoPalm`],
-            abilityLv : [ 1 ,,8 ],
+            abilityLv : [ 1 ,3,4 ],
             defaultParam : { life : 80 ,power : 50 ,shield : 35 , speed : 60 },
-            evoLine : `Undefined`,
-            evoLv : `Undefined`,
+            evoLine : `Vermilion`,
+            evoLv : `6`,
             basic : true
         },{
             monsterID : `Fukahirade` ,
@@ -361,6 +361,30 @@ var MONSTER_MASTER = {
     	      evoLv : `Undefined`,
             basic : true
         },{
+            monsterID : `Ndanga` ,
+            monsterFamily : `ンダンガ` ,
+            comment: `ンダンガがいた村では、手斧の扱いにお\nいて彼の右に出るものはおらず、次の族\n長候補だった。\n`,
+            rarity : `B` ,
+            appropriate : { life : `D` ,power : `C` ,shield : `C`,speed : `D` } ,
+            ability : [`normalAttack`,'tomahawk','megahawk'],
+            abilityLv : [1 ,1 ,3],
+            defaultParam : { life : 75 ,power : 65 ,shield : 65 , speed : 60 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
+        },{
+            monsterID : `Planer` ,
+            monsterFamily : `プラネ` ,
+            comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
+            rarity : `A` ,
+            appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `B` } ,
+            ability : [`normalAttack`,`pileBunker`,`psychokinesis`],
+            abilityLv : [1 ,2 ,5 ],
+            defaultParam : { life : 150 ,power : 150 ,shield : 70 , speed : 85 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : true
+        },{
             monsterID : `Pilebine` ,
             monsterFamily : `パイルバイン` ,
             comment: `長い年月、地中に埋まっていた古代兵器。\n主人を守るために再び動き出す。\n`,
@@ -433,6 +457,18 @@ var MONSTER_MASTER = {
     	      evoLv : `Undefined`,
             basic : false
         },{
+            monsterID : `Salamaro` ,
+            monsterFamily : `サラマロ` ,
+            comment: `高い身体能力を持つトカゲ族の剣豪。そ\nの剣技は人間をも凌駕する。`,
+            rarity : `C` ,
+            appropriate : { life : `E` ,power : `D` ,shield : `E`,speed : `E` } ,
+            ability : [`normalAttack`,`crossSlash`,`samidareSlash`],
+            abilityLv : [ 1 ,2 ,4 ],
+            defaultParam : { life : 50 ,power : 55 ,shield : 40 , speed : 40 },
+            evoLine : `Undefined`,
+            evoLv : `Undefined`,
+            basic : true
+        },{
             monsterID : `Sapphivern` ,
             monsterFamily : `サファイバーン` ,
             comment: `伝説の蒼い翼竜。\nその口から放たれる火炎は広野を一瞬で\n焼き尽くす。\n`,
@@ -493,6 +529,18 @@ var MONSTER_MASTER = {
     	      evoLv : `Undefined`,
             basic : true
         },{
+            monsterID : `Vermilion` ,
+            monsterFamily : `ヴァーミリオン` ,
+            comment: `深紅のスーツを身にまとった正義のスー\nパーヒーローヴァーミリオン！`,
+            rarity : `B` ,
+            appropriate : { life : `C` ,power : `C` ,shield : `D`,speed : `D` } ,
+            ability : [`normalAttack`,`ryuujinInfernoPalm`,'thunderKick'],
+            abilityLv : [ 1 ,2 ,5 ],
+            defaultParam : { life : 120 ,power : 80 ,shield : 60 , speed : 70 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : true
+        },{
             monsterID : `ViperKong` ,
             monsterFamily : `ヴァイパーコング` ,
             comment: `有毒ガスが漏れだす危険な山脈で育ち、\n適応能力を手に入れたゴリラのモンスタ\nー。`,
@@ -504,7 +552,7 @@ var MONSTER_MASTER = {
             evoLine : `Undefined`,
             evoLv : `Undefined`,
             basic : true
-            },{
+        },{
             monsterID : `Worm` ,
             monsterFamily : `ツノムシ` ,
             comment: `大きなツノがチャームポイントのムシ。\n触ると超危険！`,
