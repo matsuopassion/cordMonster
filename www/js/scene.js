@@ -1,7 +1,7 @@
 // This is a JavaScript file
 // グローバルに展開
 phina.globalize();
-var SPEED = 15;
+var SPEED = 30;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
@@ -702,15 +702,15 @@ phina.define("battleResultPage", {
 
     menuSet(master);
     
-    charaResultSet(master, 'Cohmon');
+    charaResultSet(master, JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))).monsterID);
     
   },
   update: function(app) {
     if(app.frame % SPEED === 0){
-      if(master.resultLabel.text === "a"){
-        master.resultLabel.text = "b";
+      if(master.resultLabel.text === "これ何？"){
+        master.resultLabel.text = "巨大サーモンの逆襲";
       }else{
-        master.resultLabel.text  ="a";
+        master.resultLabel.text  ="これ何？";
       }
     }
   }

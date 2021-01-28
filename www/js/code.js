@@ -236,14 +236,14 @@ function getAppropriate(monsterData){
 
 function scanBattleMonster(battleCallback) {
 cordova.plugins.barcodeScanner.scan(
-  function (result) {
+  function (result) {//ここから
     if (result.cancelled == 0){
-      if(JSON.parse(result.text).monsterID === undefined){
+      if(isValidJson(result.text)){
+        console.log(result.text);
+        battleCallback(JSON.parse(result.text));
+      }else{
         alert("モンスターが来てくれませんでした＾＾");
         return;
-      }else{
-       console.log(result.text);
-       battleCallback(JSON.parse(result.text));
       }
 
     } else {
@@ -270,13 +270,15 @@ cordova.plugins.barcodeScanner.scan(
 );
 }
 
-function scanMonsterData(qrcode){
-  let scanMonster;
+function isValidJson(qrcode){
   try {
-   scanMonster = new monster(JSON.parse(qrcode));
+   let cObject = JSON.parse(qrcode);
+   if(isFinite(cObject)){
+     return false;
+   }
   } catch(e) {
     console.log(e.name);
-    return alert("モンスターが来てくれませんでした＾＾");
+    return false;
   }
-  return scanMonster;
+  return true;
 }
