@@ -263,8 +263,8 @@ function abilitySelect(phase,myMonster,enemy){
       break;
     case 'continuousPunch':
       abilityType = 0;
-      abilityPower = 35;
-      count = getRandomInt(3, 6);
+      abilityPower = 25;
+      count = getRandomInt(2, 5);
       abilityName = "連続パンチ";
       abilityMessage = `の連続パンチ！！${count}回当たった！！`
       loopSoundEffectPlaying("dageki",1,count);
@@ -405,7 +405,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityMessage = "の吸血！！"
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
-      attackerLife = attackerLife - damage * 2;
+      attackerLife = attackerLife + damage * 2;
       break;
     case 'lilithCharm':
       abilityType = 4;
