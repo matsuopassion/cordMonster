@@ -36,7 +36,7 @@ phina.define("startPage", {
     SoundManager.playMusic("startBGM",1,true);
     this.monsterArray = 
     [
-      'Adarugon',
+      'Adulgon',
       'Aborideer',
       'Babygon',
       'Bechoime',
