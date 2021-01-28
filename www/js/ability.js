@@ -261,6 +261,17 @@ function abilitySelect(phase,myMonster,enemy){
       damage = count * damage;
       targetLife = targetLife - damage * 2;
       break;
+    case 'continuousPunch':
+      abilityType = 0;
+      abilityPower = 35;
+      count = getRandomInt(3, 6);
+      abilityName = "連続パンチ";
+      abilityMessage = `の連続パンチ！！${count}回当たった！！`
+      loopSoundEffectPlaying("dageki",1,count);
+      damage = damageCalclator(abilityPower,attacker,target);
+      damage = count * damage;
+      targetLife = targetLife - damage * 2;
+      break;
     case 'tentaclesRush':
       abilityType = 0;
       count = getRandomInt(10, 20);
