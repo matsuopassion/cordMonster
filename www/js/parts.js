@@ -701,7 +701,6 @@ function qrCodeGenerator(master){
       });
       let monsterQRAsset = phina.asset.AssetManager.get("image","monsterQR");
       loader.on('load', function() {
-        console.log(phina.asset.AssetManager.get("image","monsterQR").src);
         renderEndFlag = true; 
       });
     });
