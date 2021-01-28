@@ -15,7 +15,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Adulgon` ,
             monsterFamily : `アダルゴン` ,
-            comment: `生まれたてドラゴン`,
+            comment: `少し大人になったベイビゴンの進化系。\nまだ炎は吐けないみたい。`,
             rarity : `B` ,
             appropriate : { life : `E` ,power : `C` ,shield : `D`,speed : `D` } ,
             ability : [`normalAttack`,`crunch`],
@@ -219,7 +219,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Hellberus` ,
             monsterFamily : `ヘルべロス` ,
-            comment: `地獄の番犬が飢えてこの世にやってきた`,
+            comment: `血に飢えた地獄の番犬のモンスター。三/n匹は不仲らしい。`,
             rarity : `C` ,
             appropriate : { life : `F` ,power : `G` ,shield : `G`,speed : `D` } ,
             ability : [`normalAttack`,`biting`,`crunch`],
@@ -267,7 +267,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Jiriri` ,
             monsterFamily : `ジリーリン` ,
-            comment: `ニュース番組によく似ているマスコットキャラクター`,
+            comment: `目覚まし時計に魂が宿ったモンスター。\n誰よりも早寝早起きを愛している。`,
             rarity : `C` ,
             appropriate : { life : `E` ,power : `F` ,shield : `F`,speed : `E` } ,
             ability : [`normalAttack`,`bodySlam`,`poisonNeedle`],
@@ -495,7 +495,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `ViperKong` ,
             monsterFamily : `ヴァイパーコング` ,
-            comment: `地の果てを這うようになってしまったキ\nング、荒れ果てた姿は昔の姿を想像でき\nない`,
+            comment: `有毒ガスが漏れだす危険な山脈で育ち、\n適応能力を手に入れたゴリラのモンスタ\nー。`,
             rarity : `C` ,
             appropriate : { life : `E` ,power : `D` ,shield : `F`,speed : `E` } ,
             ability : [`normalAttack`,`poisonAttack`,`crunch`],
