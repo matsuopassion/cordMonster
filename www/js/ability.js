@@ -36,7 +36,7 @@ function abilitySelect(phase,myMonster,enemy){
     attackerPower = mParam.power;
     attackerShield = mParam.shield;
     attackerSpeed = mParam.speed;
-    attacker= {
+    attacker = {
       attackerLv : attackerLv,
       attackerLife : attackerLife,
       attackerPower : attackerPower,
@@ -106,7 +106,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityName = "強打";
       abilityMessage = "は強打を放った！！";
       abilitySoundEffectPlaying("dageki",2);
-      damage = damageCalclator(abilityPower,);
+      damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
     case 'bodySlam':
@@ -133,7 +133,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityName = "竜神烈火掌";
       abilityMessage = "の竜神烈火掌！！";
       abilitySoundEffectPlaying("dageki",2);
-      damage = damageCalclator(abilityPower)
+      damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
     case 'lariat':
@@ -256,6 +256,17 @@ function abilitySelect(phase,myMonster,enemy){
       count = getRandomInt(3, 6);
       abilityName = "連続突き";
       abilityMessage = `の連続突き！！${count}回当たった！！`
+      loopSoundEffectPlaying("dageki",1,count);
+      damage = damageCalclator(abilityPower,attacker,target);
+      damage = count * damage;
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'continuousPunch':
+      abilityType = 0;
+      abilityPower = 35;
+      count = getRandomInt(3, 6);
+      abilityName = "連続パンチ";
+      abilityMessage = `の連続パンチ！！${count}回当たった！！`
       loopSoundEffectPlaying("dageki",1,count);
       damage = damageCalclator(abilityPower,attacker,target);
       damage = count * damage;
@@ -618,7 +629,7 @@ function abilitySelect(phase,myMonster,enemy){
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
-    case 'abt24':
+    case 'madness':
       abilityType = 0;
       abilityPower = 300;
       abilityName = "狂気";
@@ -650,6 +661,7 @@ function abilitySelect(phase,myMonster,enemy){
     mParam.shield = attackerShield;
     mParam.speed = attackerSpeed;
     //受け手の設定
+    enemy.Lv = targetLv;
     eParam.life = targetLife;
     eParam.power = targetPower;
     eParam.shield = targetShield;
@@ -663,6 +675,7 @@ function abilitySelect(phase,myMonster,enemy){
     mParam.shield = targetShield;
     mParam.speed = targetSpeed;
     //受け手の設定
+    enemy.Lv = attackerLv;
     eParam.life = attackerLife;
     eParam.power = attackerPower;
     eParam.shield = attackerShield;

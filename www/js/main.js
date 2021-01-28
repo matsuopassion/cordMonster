@@ -8,8 +8,8 @@ var ASSETS = {
   // 画像
   image: {
     //Monsters
-  'Aborideer':'image/monsters/Aborideer.png',
-    'Adarugon':'image/monsters/Adarugon.png',
+    'Aborideer':'image/monsters/Aborideer.png',
+    'Adulgon':'image/monsters/Adulgon.png',
     'Babygon':'image/monsters/Babygon.png',
     'Bechoime':'image/monsters/Bechoime.png',
     'Bechoimeking':'image/monsters/Bechoimeking.png',
@@ -29,7 +29,7 @@ var ASSETS = {
     'Giant':'image/monsters/Giant.png',
     'Golem':'image/monsters/Golem.png',
     'Hotdog':'image/monsters/Hotdog.png',
-    'Herberus':'image/monsters/Herberus.png',
+    'Hellberus':'image/monsters/Hellberus.png',
     'Ibuki':'image/monsters/Ibuki.png',
     'Ithaqua':'image/monsters/Ithaqua.png',
     'Jiriri':'image/monsters/Jiriri.png',
