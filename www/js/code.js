@@ -80,6 +80,12 @@ function levelUpMonster(monsterData){
       monsterData = getEvoMonster(monsterData);
     }
 
+    monsterData = judgeAbilityGet(monsterData);
+
+    return monsterData;
+}
+
+function judgeAbilityGet(monsterData){
     for(let i in abilityLv){
       //レベルに該当する場合は特技を追加
       if(abilityLv[i] == monsterData.Lv){
@@ -87,7 +93,6 @@ function levelUpMonster(monsterData){
         alert("新しい特技を取得したよ");
       }
     }
-    return monsterData;
 }
 
 /** 
@@ -111,7 +116,7 @@ function getNewMonster(monsterID){
         power : 0 ,
         shield : 0 , 
         speed : 0 },
-    ability : ["abt1"],
+    ability : [scM.ability[0]],
     condition : ["normal"]  
   };
   return monsterData;
@@ -278,6 +283,7 @@ function isValidJson(qrcode){
    }
   } catch(e) {
     console.log(e.name);
+    console.log(qrcode);
     return false;
   }
   return true;
