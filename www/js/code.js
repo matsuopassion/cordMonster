@@ -168,7 +168,7 @@ function resultClassification(){
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
   
-  return "Babygon";
+  return monster.monsterID;
 }
 
 
@@ -275,12 +275,9 @@ function scanBattleMonster(battleCallback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {//ここから
     if (result.cancelled == 0){
-      if(true){
-        console.log(typeof result.text);
-        var text = result.text;
-        var jsonfile = JSON.parse(text);
-        console.log(typeof jsonfile);
-        battleCallback(JSON.parse(result.text));
+      if(isValidJson(result.text)){
+        console.log(result.text);
+        battleCallback(JSON.parse(result.text.slice(1)));
       }else{
         alert("モンスターが来てくれませんでした＾＾");
         return;
@@ -311,14 +308,15 @@ cordova.plugins.barcodeScanner.scan(
 }
 
 function isValidJson(qrcode){
+  let cordStr = qrcode.slice(1);
   try {
-   let cObject = JSON.parse(qrcode);
+   let cObject = JSON.parse(cordStr);
    if(isFinite(cObject)){
      return false;
    }
   } catch(e) {
     console.log(e.name);
-    console.log(qrcode);
+    console.log(cordStr);
     return false;
   }
   return true;
