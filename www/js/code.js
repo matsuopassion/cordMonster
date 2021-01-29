@@ -276,8 +276,7 @@ cordova.plugins.barcodeScanner.scan(
   function (result) {//ここから
     if (result.cancelled == 0){
       if(isValidJson(result.text)){
-        console.log(result.text);
-        battleCallback(JSON.parse(result.text.slice(1)));
+        battleCallback(JSON.parse(codeCreate(result.text)));
       }else{
         alert("モンスターが来てくれませんでした＾＾");
         return;
@@ -308,16 +307,24 @@ cordova.plugins.barcodeScanner.scan(
 }
 
 function isValidJson(qrcode){
-  let cordStr = qrcode.slice(1);
+  if(device.platform == "Android"){
+    qrcode.slice(1);
+  }
   try {
-   let cObject = JSON.parse(cordStr);
+   let cObject = JSON.parse(qrcode);
    if(isFinite(cObject)){
      return false;
    }
   } catch(e) {
     console.log(e.name);
-    console.log(cordStr);
     return false;
   }
   return true;
+}
+
+function codeCreate(qrcode){
+    if(device.platform == "Android"){
+    qrcode.slice(1);
+  }
+  return qrcode;
 }
