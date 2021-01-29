@@ -34,61 +34,62 @@ phina.define("startPage", {
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("startBGM",1,true);
-    this.monsterArray = 
-    [
-      'Adulgon',
-      'Aborideer',
-      'Babygon',
-      'Bechoime',
-      'Bechoimeking',
-      'Beetletank',
-      'Blingo',
-      'Blingolord',
-      'Captainskull',
-      'Chaser',
-      'Chrysalis',
-      'Cthulhu',
-      'Fishman',
-      'Flarered',
-      'Fukahirade',
-      'Genie',
-      'Giant',
-      'Golem',
-      'Hotdog',
-      'Hellberus',
-      'Ibuki',
-      'Ithaqua',
-      'Jiriri',
-      'Killerblingo',
-      'Kinichiro',
-      'Lindwurm',
-      'Lyris',
-      'Maskednature',
-      'Momosuke',
-      'Ndanga',
-      'Planer',
-      'Pilebine',
-      'Pixia',
-      'Rasyomon',
-      'Ryuya',
-      'Ryuyasoldier',
-      'Ryuyaraptor',
-      'Salamaro',
-      'Sapphivern',
-      'Senra',
-      'Taurusborg',
-      'Unsui',
-      'Ungyo',
-      'Vermilion',
-      'ViperKong',
-      'Worm',
-      'Yanchicken',
-    ];
-    for(monsterID of this.monsterArray){
-      console.log("モンスターをセット（テスト用）：" + monsterID);
-      console.log(JSON.stringify(getNewMonster(monsterID)));
-      localStorage.setItem(monsterID,JSON.stringify(getNewMonster(monsterID)));
-    }
+    //↓千葉がテストに使う用（千葉が好きに保管しといて）
+    // this.monsterArray = 
+    // [
+    //   'Adulgon',
+    //   'Aborideer',
+    //   'Babygon',
+    //   'Bechoime',
+    //   'Bechoimeking',
+    //   'Beetletank',
+    //   'Blingo',
+    //   'Blingolord',
+    //   'Captainskull',
+    //   'Chaser',
+    //   'Chrysalis',
+    //   'Cthulhu',
+    //   'Fishman',
+    //   'Flarered',
+    //   'Fukahirade',
+    //   'Genie',
+    //   'Giant',
+    //   'Golem',
+    //   'Hotdog',
+    //   'Hellberus',
+    //   'Ibuki',
+    //   'Ithaqua',
+    //   'Jiriri',
+    //   'Killerblingo',
+    //   'Kinichiro',
+    //   'Lindwurm',
+    //   'Lyris',
+    //   'Maskednature',
+    //   'Momosuke',
+    //   'Ndanga',
+    //   'Planer',
+    //   'Pilebine',
+    //   'Pixia',
+    //   'Rasyomon',
+    //   'Ryuya',
+    //   'Ryuyasoldier',
+    //   'Ryuyaraptor',
+    //   'Salamaro',
+    //   'Sapphivern',
+    //   'Senra',
+    //   'Taurusborg',
+    //   'Unsui',
+    //   'Ungyo',
+    //   'Vermilion',
+    //   'ViperKong',
+    //   'Worm',
+    //   'Yanchicken',
+    // ];
+    // for(monsterID of this.monsterArray){
+    //   console.log("モンスターをセット（テスト用）：" + monsterID);
+    //   console.log(JSON.stringify(getNewMonster(monsterID)));
+    //   localStorage.setItem(monsterID,JSON.stringify(getNewMonster(monsterID)));
+    // }
 
   },
   // タッチで次のシーンへ
