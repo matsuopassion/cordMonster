@@ -41,11 +41,10 @@ function getSearchData(qrText) {
 
   //QRコードからモンスターを決定
   let monsterID = resultClassification(qrText);
-  
   // ローカルストレージ内にあるJSON取得
   let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
-  
+  console.log("ここまできた");
   //localstrage内にデータがなければ、モンスター新規取得
   if(monsterJsonString == null){
     monsterData = getNewMonster(monsterID);
@@ -57,7 +56,7 @@ function getSearchData(qrText) {
 
   //localstrageに保存
   localStorage.setItem(monsterID,JSON.stringify(monsterData));
-
+  // console.log(localStorage.getItem(monsterID));
   return monsterData;
 }
 /**
@@ -167,7 +166,7 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  
+  console.log("ここまできち");
   return monster.monsterID;
 }
 

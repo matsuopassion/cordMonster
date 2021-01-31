@@ -458,7 +458,7 @@ phina.define("battleFriendPage", {
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
 
-    this.myMonster = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+    this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.enemy = friendBattle.resultMonster;
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
@@ -615,6 +615,7 @@ phina.define("battleCpuPage", {
       'Lyris',
       'Maskednature',
       'Momosuke',
+      'Mummy',
       'Pilebine',
       'Pixia',
       'Rasyomon',
@@ -630,15 +631,29 @@ phina.define("battleCpuPage", {
       'Worm',
       'Yanchicken',
     ];
-    this.myMonster  = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
-    this.enemy = new monster(JSON.parse(localStorage.getItem(this.monsterArray[getRandomInt(25)])));
+    this.myMonster  = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    let scM = JSON.parse(MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]));
+    this.enemy = {
+      monsterID : scM.monsterID ,
+      monsterName : scM.monsterFamily ,
+      Lv : 1 ,
+      param : { 
+          life : scM.defaultParam.life ,
+          power : scM.defaultParam.power ,
+          shield : scM.defaultParam.shield , 
+          speed : scM.defaultParam.speed },
+      ability : new Array(),
+      condition : ["normal"]  
+    };
+    this.enemy.ability = judgeAbilityGet(this.enemy);
+    console.log(this.enemy);
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
     this.myMonster.ability = JSON.parse(MONSTER_MAP.get(this.myMonster.monsterID)).ability;
     this.enemy.ability = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).ability;
     // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
     // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
-
+    console.log("ここにきた");
     gauge1 = gaugeSet(master,this.myMonster,-4,-2);
     gauge2 = gaugeSet(master,this.enemy,4,-2);
 
