@@ -151,8 +151,8 @@ var ASSETS = {
   //効果音
 };
 
-var SCREEN_TYPE_WIDTH = window.innerWidth;
-var SCREEN_TYPE_HEIGHT = window.innerHeight;
+var SCREEN_TYPE_WIDTH = screen.width;
+var SCREEN_TYPE_HEIGHT = screen.height;
 
 /*
  * メイン処理
