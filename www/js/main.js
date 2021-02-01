@@ -229,7 +229,7 @@ phina.main(function() {
         className: 'qrSetPage',
         label: 'qrSetPage',
         nextLabel: 'battlePage',
-      },
+      }
     ]
   });
   // 実行
