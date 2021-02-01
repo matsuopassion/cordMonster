@@ -41,11 +41,10 @@ function getSearchData(qrText) {
 
   //QRコードからモンスターを決定
   let monsterID = resultClassification(qrText);
-  
   // ローカルストレージ内にあるJSON取得
   let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
-  
+  console.log("ここまできた");
   //localstrage内にデータがなければ、モンスター新規取得
   if(monsterJsonString == null){
     monsterData = getNewMonster(monsterID);
@@ -57,7 +56,7 @@ function getSearchData(qrText) {
 
   //localstrageに保存
   localStorage.setItem(monsterID,JSON.stringify(monsterData));
-
+  // console.log(localStorage.getItem(monsterID));
   return monsterData;
 }
 /**
@@ -167,8 +166,8 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  
-  return "Babygon";
+  console.log("ここまできち");
+  return monster.monsterID;
 }
 
 
@@ -275,12 +274,8 @@ function scanBattleMonster(battleCallback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {//ここから
     if (result.cancelled == 0){
-      if(true){
-        console.log(typeof result.text);
-        var text = result.text;
-        var jsonfile = JSON.parse(text);
-        console.log(typeof jsonfile);
-        battleCallback(JSON.parse(result.text));
+      if(isValidJson(result.text)){
+        battleCallback(JSON.parse(codeCreate(result.text)));
       }else{
         alert("モンスターが来てくれませんでした＾＾");
         return;
@@ -311,6 +306,9 @@ cordova.plugins.barcodeScanner.scan(
 }
 
 function isValidJson(qrcode){
+  if(device.platform == "Android"){
+    qrcode.slice(1);
+  }
   try {
    let cObject = JSON.parse(qrcode);
    if(isFinite(cObject)){
@@ -318,8 +316,14 @@ function isValidJson(qrcode){
    }
   } catch(e) {
     console.log(e.name);
-    console.log(qrcode);
     return false;
   }
   return true;
+}
+
+function codeCreate(qrcode){
+    if(device.platform == "Android"){
+    qrcode.slice(1);
+  }
+  return qrcode;
 }

@@ -40,6 +40,7 @@ var ASSETS = {
     'Ndanga':'image/monsters/Ndanga.png',
     'Maskednature':'image/monsters/Maskednature.png',
     'Momosuke':'image/monsters/Momosuke.png',
+    'Mummy':'image/monsters/Mummy.png',
     'Pilebine':'image/monsters/Pilebine.png',
     'Pixia':'image/monsters/Pixia.png',
     'Planer':'image/monsters/Planer.png',
