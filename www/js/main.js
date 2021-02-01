@@ -44,6 +44,8 @@ var ASSETS = {
     'Pilebine':'image/monsters/Pilebine.png',
     'Pixia':'image/monsters/Pixia.png',
     'Planer':'image/monsters/Planer.png',
+    'Protobine':'image/monsters/Protobine.png',
+    'Queenpixia':'image/monsters/Queenpixia.png',
     'Rasyomon':'image/monsters/Rasyomon.png',
     'Ryuya':'image/monsters/Ryuya.png',
     'Ryuyasoldier':'image/monsters/Ryuyasoldier.png',
