@@ -158,7 +158,7 @@ function getNewMonster(monsterID){
  * 召喚によって出るモンスターを決定
  */
 function resultClassification(){
-  let rarityList = [0.1,0.4,1];
+  let rarityList = [0.05,0.25,1];
   let lotNum = Math.random();
   let rarityIndex;
   console.log(lotNum);
