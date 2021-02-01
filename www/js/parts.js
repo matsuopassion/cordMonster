@@ -672,6 +672,7 @@ function qrCodeGenerator(master){
   delete sendMonster.skill;
   let text = JSON.stringify(sendMonster);
   console.log(text);
+  console.log("データサイズ" + text.legnth);
   let qrcode_object = new QRCode(
                 qrcode,
                 {
