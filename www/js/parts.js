@@ -668,6 +668,7 @@ function qrCodeGenerator(master){
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
   let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+  delete sendMonster.monsterName;
   delete sendMonster.skill;
   let text = JSON.stringify(sendMonster);
   console.log(text);
