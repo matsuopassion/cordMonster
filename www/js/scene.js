@@ -5,6 +5,9 @@ var SPEED = 30;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
+// 定数
+var SCREEN_WIDTH  =screen.width; // 画面横サイズ
+var SCREEN_HEIGHT = screen.height; // 画面縦サイズ
 /*
  * シーン01
  */ 
@@ -22,7 +25,6 @@ phina.define("startPage", {
 
     // 背景色
     this.backgroundColor = 'black';
-
     //背景画像
     var bgSprite = Sprite('startBg2').addChildTo(this);
     //画面に合わせてサイズ変更

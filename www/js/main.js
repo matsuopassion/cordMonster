@@ -147,10 +147,6 @@ var ASSETS = {
   //効果音
 };
 
-// 定数
-var SCREEN_WIDTH  =window.parent.screen.width; // 画面横サイズ
-var SCREEN_HEIGHT = window.parent.screen.height; // 画面縦サイズ
-
 /*
  * メイン処理
  */
@@ -159,8 +155,8 @@ phina.main(function() {
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
-    width: window.innerWidth,  // 画面幅
-    height: window.innerHeight,// 画面高さ
+    width: screen.width,  // 画面幅
+    height: screen.height,// 画面高さ
     assets: ASSETS,
     // シーンのリストを引数で渡す
     scenes: [
