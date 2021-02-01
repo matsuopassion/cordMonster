@@ -147,16 +147,23 @@ var ASSETS = {
   //効果音
 };
 
+var SCREEN_TYPE_WIDTH = window.innerWidth;
+var SCREEN_TYPE_HEIGHT = window.innerHeight;
+
 /*
  * メイン処理
  */
 phina.main(function() {
   // アプリケーションを生成
+  if(device.platform == "Android"){
+    SCREEN_TYPE_WIDTH = screen.width;
+    SCREEN_TYPE_HEIGHT = screen.height;
+  }
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
-    width: screen.width,  // 画面幅
-    height: screen.height,// 画面高さ
+    width: SCREEN_TYPE_WIDTH,  // 画面幅
+    height: SCREEN_TYPE_HEIGHT,// 画面高さ
     assets: ASSETS,
     // シーンのリストを引数で渡す
     scenes: [
