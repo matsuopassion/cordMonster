@@ -373,18 +373,6 @@ var MONSTER_MASTER = {
     	      evoLv : `Undefined`,
             basic : true
         },{
-            monsterID : `Planer` ,
-            monsterFamily : `プラネ` ,
-            comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
-            rarity : `A` ,
-            appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `B` } ,
-            ability : [`normalAttack`,`cosmicBeat`,`milkyWay`],
-            abilityLv : [1 ,2 ,5 ],
-            defaultParam : { life : 110 ,power : 120 ,shield : 60 , speed : 85 },
-            evoLine : `Undefined`,
-    	      evoLv : `Undefined`,
-            basic : true
-        },{
             monsterID : `Pilebine` ,
             monsterFamily : `パイルバイン` ,
             comment: `長い年月、地中に埋まっていた古代兵器。\n主人を守るために再び動き出す。\n`,
@@ -406,6 +394,30 @@ var MONSTER_MASTER = {
             abilityLv : [1 ,2 ,3 ,6],
             defaultParam : { life : 60 ,power : 60 ,shield : 30 , speed : 60 },
             evoLine : `Undefined` ,
+    	      evoLv : `Undefined`,
+            basic : true
+        },{
+            monsterID : `Planer` ,
+            monsterFamily : `プラネ` ,
+            comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
+            rarity : `A` ,
+            appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `B` } ,
+            ability : [`normalAttack`,`cosmicBeat`,`milkyWay`],
+            abilityLv : [1 ,2 ,5 ],
+            defaultParam : { life : 110 ,power : 120 ,shield : 60 , speed : 85 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : true
+        },{
+            monsterID : `Protobine` ,
+            monsterFamily : `プロトバイン` ,
+            comment: `古代兵器の設計図を基に作られた現代の\n戦闘兵器。まだ未完成ながら高い殲滅力を誇る。\n`,
+            rarity : `B` ,
+            appropriate : { life : `D` ,power : `C` ,shield : `C`,speed : `D` } ,
+            ability : [`normalAttack`,`pileBunker`,`plasmaShot`],
+            abilityLv : [1 ,2 ,5 ],
+            defaultParam : { life : 150 ,power : 90 ,shield : 40 , speed : 45 },
+            evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
         },{

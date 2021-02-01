@@ -553,7 +553,7 @@ function abilitySelect(phase,myMonster,enemy){
       break;
     case 'magic':
       abilityType = 0;
-      abilityPower = getRandomInt(30,250);
+      abilityPower = getRandomInt(30,110);
       abilityName = "おまじない";
       abilityMessage = "のおまじない！！"
       abilitySoundEffectPlaying("magic",5);
