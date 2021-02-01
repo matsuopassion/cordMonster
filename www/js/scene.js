@@ -192,26 +192,14 @@ phina.define("boxPage", {
         getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
         console.log("getItemIndex:" + getItemIndex.monsterID);
         if(getItemIndex.monsterID != undefined){
-          myMonsterArray[myMonsterNum] = getItemIndex;
-          myMonsterNum++;
+          // if(localStorage.gtItem(JSON.parse(MONSTER_MAP.get(getItemIndex.monsterID)).evoLine) == 'undefined'){
+            myMonsterArray[myMonsterNum] = getItemIndex;
+            myMonsterNum++;
+          // }
         }
       } catch (e) {
         continue;
       }
-      //let monsterstatus1 = jsonMonster.monsterID;
-      // for (let k = 0; k < MONSTER_MASTER.monsterData.length; k++) {
-      //     let monsterstatus2 = MONSTER_MASTER.monsterData[k]["monsterID"];
-      //     if(monsterstatus1 == monsterstatus2){
-            // let ID = jsonMonster.monsterID;
-            // let Name = jsonMonster.monsterName;
-            // let Lv = jsonMonster.Lv;
-            // let life = jsonMonster.param["life"];
-            // let power = jsonMonster.param["power"];
-            // let shield = jsonMonster.param["shield"];
-            // let speed = jsonMonster.param["speed"];
-            //console.log(ID);
-            // boxcharaSet(master, ID, x, y);
-            // x += 2;
     }
     boxPageView(master,myMonsterArray,0,1);
     menuSet(master);
