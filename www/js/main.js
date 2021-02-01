@@ -96,6 +96,7 @@ var ASSETS = {
     'startBGM': 'sound/startBGM.mp3',
     'battleBGM': 'sound/battleBGM.mp3',
     'buttonPush': 'sound/buttonPush.mp3',
+    'boxPageButton':'sound/boxPageButton.mp3',
     'mainBGM': 'sound/mainBGM.mp3',
     'scanBGM': 'sound/scanBGM.mp3',
     'resultBGM': 'sound/resultBGM.mp3',
@@ -147,20 +148,23 @@ var ASSETS = {
   //効果音
 };
 
-// 定数
-var SCREEN_WIDTH  =window.parent.screen.width; // 画面横サイズ
-var SCREEN_HEIGHT = window.parent.screen.height; // 画面縦サイズ
+var SCREEN_TYPE_WIDTH = window.innerWidth;
+var SCREEN_TYPE_HEIGHT = window.innerHeight;
 
 /*
  * メイン処理
  */
 phina.main(function() {
   // アプリケーションを生成
+  /* if(device.platform == "Android"){
+    SCREEN_TYPE_WIDTH = screen.width;
+    SCREEN_TYPE_HEIGHT = screen.height;
+  }*/
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
-    width: window.innerWidth,  // 画面幅
-    height: window.innerHeight,// 画面高さ
+    width: SCREEN_TYPE_WIDTH,  // 画面幅
+    height: SCREEN_TYPE_HEIGHT,// 画面高さ
     assets: ASSETS,
     // シーンのリストを引数で渡す
     scenes: [

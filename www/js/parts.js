@@ -35,7 +35,9 @@ function BackButtonSet(master){
   buttonScan.setInteractive(true);
   buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    master.exit();
+    master.exit({
+      beforePage:master.label,
+    });
   };
 }
 
@@ -235,7 +237,9 @@ function BoxButtonSet(master,magnification){
   buttonBox.setInteractive(true);
   buttonBox.setPosition(master.gridX.center(),master.gridY.span(15)).addChildTo(master),buttonBox.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    master.exit('boxPage');
+    master.exit('boxPage',{
+      beforePage:master.label,
+    });
   };
 }
 
@@ -326,13 +330,13 @@ function BattleStartButton(master){
   }
 }
 
-function boxButton(master){
-  var mBattleButton = baseButton('Boxを確認',200,70,'white','purple');
-  mBattleButton.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master),mBattleButton.onpush=function(e){
-    SoundManager.play("buttonPush");
-    master.exit("boxChack");
-  }
-}
+// function boxButton(master){
+//   var mBattleButton = baseButton('Boxを確認',200,70,'white','purple');
+//   mBattleButton.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master),mBattleButton.onpush=function(e){
+//     SoundManager.play("buttonPush");
+//     master.exit("boxChack");
+//   }
+// }
 
 function boxcharaSet(master,group,jsonMonster,posX,posY){
     console.log(jsonMonster.monsterID);
@@ -410,6 +414,9 @@ function boxPageView(master,monsterList,startNum,pageNum){
      pageDownButton.fill = 'gray';
    }
    pageDownButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('boxPageButton');
+      SoundManager.setVolume(0.8);
       pageNum--;
       startCount -= 9;
       boxViewGroup.children.clear();
@@ -436,6 +443,9 @@ function boxPageView(master,monsterList,startNum,pageNum){
      pageUpButton.fill = 'gray';
    }
    pageUpButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('boxPageButton');
+      SoundManager.setVolume(0.8);
       pageNum++;
       startCount += 9;
       boxViewGroup.children.clear();
@@ -668,9 +678,11 @@ function qrCodeGenerator(master){
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
   let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+  delete sendMonster.monsterName;
   delete sendMonster.skill;
   let text = JSON.stringify(sendMonster);
   console.log(text);
+  console.log("データサイズ" + text.legnth);
   let qrcode_object = new QRCode(
                 qrcode,
                 {

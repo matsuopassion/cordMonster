@@ -148,8 +148,7 @@ function getNewMonster(monsterID){
         power : 0 ,
         shield : 0 , 
         speed : 0 },
-    ability : new Array(),
-    condition : ["normal"]  
+    ability : new Array()
   };
   monsterData.ability = judgeAbilityGet(monsterData);
   return monsterData;
