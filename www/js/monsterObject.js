@@ -263,7 +263,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 200 ,power : 100 ,shield : 70 , speed : 100 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `Jiriri` ,
             monsterFamily : `ジリーリン` ,
