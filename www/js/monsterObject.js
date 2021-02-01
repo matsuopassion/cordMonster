@@ -23,7 +23,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 130 ,power : 60 ,shield : 45 , speed : 60 },
             evoLine : `Undefined`,
             evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `Babygon` ,
             monsterFamily : `ベイビゴン` ,
@@ -71,7 +71,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 100 ,power : 55 ,shield : 65 , speed : 50 },
             evoLine : `Undefined` ,
     	      evoLv : `Undefined`,
-            basic : false
+            basic : true
         },{
             monsterID : `Blingo` ,
             monsterFamily : `ブリンゴ` ,
@@ -234,7 +234,7 @@ var MONSTER_MASTER = {
             comment: `小学生に人気なアイツ。\n彼を主人公にしたアニメもある。\n`,
             rarity : `C` ,
             appropriate : { life : `F` ,power : `G` ,shield : `G`,speed : `D` } ,
-            ability : [`normalAttack`,`heavyAttack`,`flame`],
+            ability : [`normalAttack`,`heavyAttack`,`biting`],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 50 ,power : 70 ,shield : 25 , speed : 60 },
             evoLine : `Undefined`,
@@ -371,16 +371,16 @@ var MONSTER_MASTER = {
             defaultParam : { life : 75 ,power : 65 ,shield : 65 , speed : 60 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : false
+            basic : true
         },{
             monsterID : `Planer` ,
             monsterFamily : `プラネ` ,
             comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
             rarity : `A` ,
             appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `B` } ,
-            ability : [`normalAttack`,`pileBunker`,`psychokinesis`],
+            ability : [`normalAttack`,`cosmicBeat`,`milkyWay`],
             abilityLv : [1 ,2 ,5 ],
-            defaultParam : { life : 150 ,power : 150 ,shield : 70 , speed : 85 },
+            defaultParam : { life : 110 ,power : 120 ,shield : 60 , speed : 85 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -431,7 +431,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 50 ,power : 50 ,shield : 30 , speed : 50 },
             evoLine : `Ryuyasoldier` ,
     	      evoLv : `5`,
-            basic : false
+            basic : true
         },{
             monsterID : `Ryuyasoldier` ,
             monsterFamily : `ロンヤソルジャー` ,
@@ -446,7 +446,7 @@ var MONSTER_MASTER = {
             basic : false
         },{
             monsterID : `Ryuyaraptor` ,
-            monsterFamily : `ロンヤラプトル` ,
+            monsterFamily : `ロンヤラプター` ,
             comment: `気付いたのだ。\n人間は力ではなく知恵と科学で高みを目\n指すべきだと。\n`,
             rarity : `B` ,
             appropriate : { life : `C` ,power : `C` ,shield : `D`,speed : `F` } ,
@@ -534,12 +534,12 @@ var MONSTER_MASTER = {
             comment: `深紅のスーツを身にまとった正義のスー\nパーヒーローヴァーミリオン！`,
             rarity : `B` ,
             appropriate : { life : `C` ,power : `C` ,shield : `D`,speed : `D` } ,
-            ability : [`normalAttack`,`ryuujinInfernoPalm`,'thunderKick'],
+            ability : [`normalAttack`,`ryuujinInfernoPalm`,'burningKick'],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 120 ,power : 80 ,shield : 60 , speed : 70 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `ViperKong` ,
             monsterFamily : `ヴァイパーコング` ,
