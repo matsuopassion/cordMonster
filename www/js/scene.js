@@ -460,6 +460,7 @@ phina.define("battleFriendPage", {
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.enemy = friendBattle.resultMonster;
+    this.enemy.monsterName = JSON.parse(MONSTER_MAP(enemy.monsterID)).monsterName;
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
