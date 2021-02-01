@@ -190,12 +190,12 @@ phina.define("boxPage", {
       keyID = localStorage.key(i);
       try {
         getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
-        console.log("getItemIndex:" + getItemIndex.monsterID);
         if(getItemIndex.monsterID != undefined){
-          // if(localStorage.gtItem(JSON.parse(MONSTER_MAP.get(getItemIndex.monsterID)).evoLine) == 'undefined'){
+          //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
+          if(localStorage.getItem(JSON.parse(MONSTER_MAP.get(getItemIndex.monsterID)).evoLine) == null){
             myMonsterArray[myMonsterNum] = getItemIndex;
             myMonsterNum++;
-          // }
+          }
         }
       } catch (e) {
         continue;
