@@ -165,7 +165,7 @@ function resultClassification(){
   console.log(lotNum);
   for(rarityIndex = 0; lotNum > rarityList[rarityIndex]; rarityIndex++ ){
   }
-  let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
+  let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
   console.log("ガチャ選定時Index" + monsterIndex);
   console.log("ガチャ選定時" + monster.monsterID);
