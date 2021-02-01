@@ -96,6 +96,7 @@ var ASSETS = {
     'startBGM': 'sound/startBGM.mp3',
     'battleBGM': 'sound/battleBGM.mp3',
     'buttonPush': 'sound/buttonPush.mp3',
+    'boxPageButton':'sound/boxPageButton.mp3',
     'mainBGM': 'sound/mainBGM.mp3',
     'scanBGM': 'sound/scanBGM.mp3',
     'resultBGM': 'sound/resultBGM.mp3',
