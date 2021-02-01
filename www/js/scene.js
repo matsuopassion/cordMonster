@@ -448,7 +448,7 @@ phina.define("battleFriendPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
 
-    this.ability = ["abt1","abt4","abt9"];
+
     this.count = 0;
     this.battleResults;
     this.abilityType;
@@ -461,8 +461,10 @@ phina.define("battleFriendPage", {
     this.issue = "uncertain";
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster.condition = ["nomal"];
     this.enemy = friendBattle.resultMonster;
     this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).monsterFamily;
+    this.enemy.condition = ["nomal"];
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
@@ -570,7 +572,6 @@ phina.define("battleCpuPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
 
-    this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
     this.battleResults;
     this.abilityType;
@@ -634,7 +635,8 @@ phina.define("battleCpuPage", {
       'Worm',
       'Yanchicken',
     ];
-    this.myMonster  = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster.condition = ["nomal"]; 
     let scM = JSON.parse(MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]));
     this.enemy = {
       monsterID : scM.monsterID ,
