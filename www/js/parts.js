@@ -346,6 +346,9 @@ function boxcharaSet(master,group,jsonMonster,posX,posY){
     boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(group);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('boxSelectButton');
+      SoundManager.setVolume(0.8);
       master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
     let selectCharaGridX = Grid({
@@ -511,6 +514,9 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         align: "left",
     }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(2+i));
     statusUpButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('skillSelectButton');
+      SoundManager.setVolume(0.8);
       monster.skill.point--;
       pointSetArray[i]++;
       viewUpdateStatus(group);
@@ -537,6 +543,9 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(2+i));
 
     statusDownButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('skillSelectButton');
+      SoundManager.setVolume(0.8);
       monster.skill.point++;
       pointSetArray[i]--;
       viewUpdateStatus(group);
@@ -583,14 +592,17 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
   }
 
   statusSkillUpdateButton.onpointstart = function(e) {
-      alert('ステータスアップ！！');
-      let updateMonster = updateParam(monster,pointSetArray);
-      console.log(JSON.stringify(updateMonster));
-      alert('ステータスが更新されました。');
-      localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
-      pointSetArray = [0,0,0,0];
-      viewUpdateStatus(group);
-      viewUpdateInfo(master,group,updateMonster,pointSetArray,magnification);
+    SoundManager.setVolume(2.0);
+    SoundManager.play('skillUpdateButton');
+    SoundManager.setVolume(0.8);
+    alert('ステータスアップ！！');
+    let updateMonster = updateParam(monster,pointSetArray);
+    console.log(JSON.stringify(updateMonster));
+    alert('ステータスが更新されました。');
+    localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
+    pointSetArray = [0,0,0,0];
+    viewUpdateStatus(group);
+    viewUpdateInfo(master,group,updateMonster,pointSetArray,magnification);
   }
 
   let selectMonsterButton = Button({
