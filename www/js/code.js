@@ -37,11 +37,12 @@ cordova.plugins.barcodeScanner.scan(
  */
 function getSearchData(qrText) {
   //スキャン済みのQRコード登録
-  localStorage.setItem(qrText,'exist');
+  // localStorage.setItem(qrText,'exist');
 
   //QRコードからモンスターを決定
   let monsterID = resultClassification(qrText);
   // ローカルストレージ内にあるJSON取得
+  
   let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
   console.log("ここまできた");
@@ -166,7 +167,8 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  console.log("ここまできち");
+  console.log("ガチャ選定時Index" + monsterIndex);
+  console.log("ガチャ選定時" + monster.monsterID);
   return monster.monsterID;
 }
 
