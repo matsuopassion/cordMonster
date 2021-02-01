@@ -11,6 +11,53 @@ var SCREEN_HEIGHT = screen.height; // 画面縦サイズ
 /*
  * シーン01
  */ 
+
+
+//phina.js：シーン雛形
+// phina.define("startPage", {
+//   // 継承/
+//   superClass: 'DisplayScene',
+//   // 初期化
+// init: function(option) {
+
+//     //自分をオブジェクトとして変数に代入
+//     master = this;
+
+//     // 親クラス初期化
+//     this.superInit(option);
+
+//     // 背景色設定
+//     this.backgroundColor = 'black';
+//     //背景画像
+//     var bgSprite = Sprite('startBg2').addChildTo(this);
+//     //画面に合わせてサイズ変更
+//     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
+//     bgSprite.height *= (SCREEN_HEIGHT / bgSprite.height );
+//     //画像を配置
+//     bgSprite.setPosition(master.gridX.center(), master.gridY.center());
+
+       //BGM設定
+//     //BGMセット部分（先に全画面のBGMを停止）
+//     SoundManager.stopMusic();
+//     SoundManager.playMusic("startBGM",1,true);
+
+//   },
+//   // タッチで次のシーンへ
+//   onpointstart: function() {
+//     this.exit();  
+//   },
+// }.update: function(app) {
+//  document.addEventListener("pause", function(){
+//    //アプリがバッググラウンドになったとき
+// 		SoundManager.pauseMusic();
+// 	}, false);
+// 	document.addEventListener("resume", function(){
+// 		//アプリが再実行されたとき
+// 		SoundManager.resumeMusic();
+// 	}, false);
+// }
+// );
+
 phina.define("startPage", {
   // 継承/
   superClass: 'DisplayScene',
@@ -96,8 +143,18 @@ phina.define("startPage", {
   },
   // タッチで次のシーンへ
   onpointstart: function() {
-    this.exit();  
-  },
+      
+    // this.exit();  
+  }
+  //ぜんぜんおととめれねぇ
+  // ,update: function(app) {
+  //   document.addEventListener("pause", function() { 
+  //   SoundManager.stopMusic();
+  //   },false);
+  //   document.addEventListener("resume", function() { 
+  //     this.SoundManager.resumeMusic();
+  //   },false);
+  // }
 });
 
 /*
