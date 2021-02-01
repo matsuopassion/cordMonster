@@ -97,6 +97,9 @@ var ASSETS = {
     'battleBGM': 'sound/battleBGM.mp3',
     'buttonPush': 'sound/buttonPush.mp3',
     'boxPageButton':'sound/boxPageButton.mp3',
+    'skillUpdateButton':'sound/skillUpdateButton.mp3',
+    'skillSelectButton':'sound/skillSelectButton.mp3',
+    'boxSelectButton':'sound/boxSelectButton.mp3',
     'mainBGM': 'sound/mainBGM.mp3',
     'scanBGM': 'sound/scanBGM.mp3',
     'resultBGM': 'sound/resultBGM.mp3',
@@ -148,8 +151,8 @@ var ASSETS = {
   //効果音
 };
 
-var SCREEN_TYPE_WIDTH = window.innerWidth;
-var SCREEN_TYPE_HEIGHT = window.innerHeight;
+var SCREEN_TYPE_WIDTH = screen.width;
+var SCREEN_TYPE_HEIGHT = screen.height;
 
 /*
  * メイン処理
