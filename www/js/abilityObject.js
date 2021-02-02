@@ -541,14 +541,14 @@ var ABILITY_MASTER = {
           abilityMessage : "の歩む死！！",
           abilitySound : ["magic",6],
       },{
-        getRandomInt : function getRandomInt(min, max) {
+          getRandomInt : function getRandomInt(min, max) {
           min = Math.ceil(min);
           max = Math.floor(max);
           return Math.floor(Math.random() * (max - min) + min);
         },
-        getChooseRandom : function getChooseRandom(arrayData) {
-            var arrayIndex = Math.floor(Math.random() * arrayData.length);
-            return arrayData[arrayIndex];
+          getChooseRandom : function getChooseRandom(arrayData) {
+          var arrayIndex = Math.floor(Math.random() * arrayData.length);
+          return arrayData[arrayIndex];
         }
       }
     ]

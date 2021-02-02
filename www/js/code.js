@@ -68,7 +68,6 @@ function levelUpMonster(monsterData){
   //lvUP
     monsterData.Lv += 1;
     monsterData.skill.point += 1;
-    alert(monsterData.monsterName + "がレベルアップしました");
     //対象モンスターのマスタ
     const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
     
@@ -81,7 +80,7 @@ function levelUpMonster(monsterData){
     }
 
     monsterData.ability = judgeAbilityGet(monsterData);
-
+    alert(monsterData.monsterName + "がレベルアップしました");
     return monsterData;
 }
 
@@ -141,13 +140,16 @@ function getNewMonster(monsterID){
         life : scM.defaultParam.life ,
         power : scM.defaultParam.power ,
         shield : scM.defaultParam.shield , 
-        speed : scM.defaultParam.speed },
+        speed : scM.defaultParam.speed ,
+        AP : scM.defaultParam.AP},
      skill : {
         point : 0,
         life : 0 ,
         power : 0 ,
         shield : 0 , 
-        speed : 0 },
+        speed : 0 , 
+        AP : 0 , 
+        },
     ability : new Array()
   };
   monsterData.ability = judgeAbilityGet(monsterData);
@@ -189,7 +191,8 @@ function getEvoMonster(monsterData){
    skill.life + 
    skill.power +
    skill.shield +
-   skill.speed ;
+   skill.speed +
+   skill.AP;
 
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
@@ -200,18 +203,23 @@ function getEvoMonster(monsterData){
       power : eDefaultParam.power ,
       shield : eDefaultParam.shield , 
       speed : eDefaultParam.speed , 
-    } ,
+      AP : eDefaultParam.AP,
+    } , 
     skill : {
       point : skillPoint ,
       life : 0 ,
       power : 0 ,
       shield : 0 , 
-      speed : 0 },
+      speed : 0 ,
+      AP : 0},
       ability : new Array(),
     condition : monsterData.condition
   };
   evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
   alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
+  if(localStorage.getItem("selectMonster") == monsterData.monsterID){
+    localStorage.setItem("selectMonster",evoMonster.monsterID);
+  }
   return evoMonsterData;
 }
 
@@ -257,6 +265,8 @@ function updateParam(monsterData,addPointArray){
   skills.shield += addPointArray[2];
   params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
   skills.speed += addPointArray[3];
+  params.AP += skillAllocation(appropriates.speed,addPointArray[4]);
+  skills.AP += addPointArray[4];
   skills.point -= totalPoint;
   monsterData.param = params;
   monsterData.skill = skills;

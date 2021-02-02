@@ -200,6 +200,22 @@ phina.define("mainPage", {
       mainPageMonster.width = 400;
       mainPageMonster.height = 400;
       mainPageMonster.addChildTo(this).setPosition(this.gridX.center(),this.gridY.center(2));
+
+      mainPageMonster.vx = -2;
+      let mainPageMonsterint = 0;
+      // 更新イベント
+      mainPageMonster.update = function() {
+        // 移動2
+        mainPageMonster.x += mainPageMonster.vx;
+        // 画面端との判定
+        if (mainPageMonster.left < -50 || 480 < mainPageMonster.right) {
+          sleep(2000);
+          mainPageMonster.scaleX *= -1;
+          // 速度を反転する
+          mainPageMonster.vx *= -1;
+        }
+      };
+      
       
     }catch(e){
       alert(`ボックスから\nバトルモンスターをセットしよう！`);
@@ -510,9 +526,29 @@ phina.define("battleFriendPage", {
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["nomal"];
-    this.enemy = friendBattle.resultMonster;
-    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).monsterFamily;
-    this.enemy.condition = ["nomal"];
+    /**
+     * monsterID : mID
+     * monsterName : monsterFamily
+     * Lv : Lv
+     * param.life   : param[0]
+     *      .power  : param[1]
+     *      .shield : param[2]
+     *      .speed  : param[3]
+     *      .AP     : param[4]
+     * ability : ability
+     * condition : "nomal"
+     */
+    fMon = friendBattle.resultMonster;
+    this.enemy.monsterID = fmon.mID;
+    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
+    this.enemy.Lv = fMon.Lv;
+    this.enemy.param.life   = fmon.param[0];
+    this.enemy.param.power  = fmon.param[1];
+    this.enemy.param.shield = fmon.param[2];
+    this.enemy.param.speed  = fmon.param[3];
+    this.enemy.param.speed  = fmon.param[4];    
+    this.enemy.ability = fmon.ability;
+    this.enemy.condition = "nomal";
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
