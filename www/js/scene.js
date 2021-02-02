@@ -462,6 +462,17 @@ phina.define("battleFriendPage", {
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["nomal"];
+    /**
+     * monsterID : mID
+     * monsterName : monsterFamily
+     * Lv : Lv
+     * param.life   : param[0]
+     *      .power  : param[1]
+     *      .shield : param[2]
+     *      .speed  : param[3]
+     * ability : ability
+     * AP : AP
+     */
     this.enemy = friendBattle.resultMonster;
     this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).monsterFamily;
     this.enemy.condition = ["nomal"];
