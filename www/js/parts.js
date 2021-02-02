@@ -660,7 +660,7 @@ function mainInfoLabel(master,monsterData){
         fontSize: 30,
         fill: 'white',
   }).addChildTo(master).setPosition(master.gridX.center(0),master.gridY.center(-6));
-  let monsterMasterData = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+  let monsterMasterData = MONSTER_MAP.get(monsterData.monsterID);
   let monsterCommentLabel = Label({
         text: monsterMasterData.comment,
         fontSize: 20,

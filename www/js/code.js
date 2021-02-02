@@ -69,7 +69,7 @@ function levelUpMonster(monsterData){
     monsterData.Lv += 1;
     monsterData.skill.point += 1;
     //対象モンスターのマスタ
-    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
@@ -86,7 +86,7 @@ function levelUpMonster(monsterData){
 
 function judgeAbilityGet(monsterData){
     //対象モンスターのマスタ
-    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
@@ -108,7 +108,7 @@ function judgeAbilityGet(monsterData){
 
 function judgeAbilityEvoMonster(monsterData){
     //対象モンスターのマスタ
-    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
@@ -131,7 +131,7 @@ function judgeAbilityEvoMonster(monsterData){
  * localstrageに新しいモンスターを追加する
 */
 function getNewMonster(monsterID){
-  let scM = JSON.parse(MONSTER_MAP.get(monsterID));
+  let scM = MONSTER_MAP.get(monsterID);
   const monsterData = {
      monsterID : scM.monsterID ,
      monsterName : scM.monsterFamily ,
@@ -176,10 +176,10 @@ function resultClassification(){
 
 function getEvoMonster(monsterData){
   //進化前のマスタ取得
-  const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+  const monster = MONSTER_MAP.get(monsterData.monsterID);
 
   //進化後のマスタ取得
-  const evoMonster = JSON.parse(MONSTER_MAP.get(monster.evoLine));
+  const evoMonster = MONSTER_MAP.get(monster.evoLine);
 
   //進化先のパラメータ取得
   const eDefaultParam = evoMonster.defaultParam ;
@@ -216,6 +216,7 @@ function getEvoMonster(monsterData){
     condition : monsterData.condition
   };
   evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
+
   alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
     localStorage.setItem("selectMonster",evoMonster.monsterID);
@@ -276,7 +277,7 @@ function updateParam(monsterData,addPointArray){
 
 function getAppropriate(monsterData){
   let monsterApp = 
-    JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).appropriate;
+    MONSTER_MAP.get(monsterData.monsterID).appropriate;
   return monsterApp;
 }
 

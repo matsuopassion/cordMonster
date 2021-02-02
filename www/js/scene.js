@@ -268,7 +268,7 @@ phina.define("boxPage", {
         getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
         if(getItemIndex.monsterID != undefined){
           //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
-          if(localStorage.getItem(JSON.parse(MONSTER_MAP.get(getItemIndex.monsterID)).evoLine) == null){
+          if(localStorage.getItem(MONSTER_MAP.get(getItemIndex.monsterID).evoLine) == null){
             myMonsterArray[myMonsterNum] = getItemIndex;
             myMonsterNum++;
           }
@@ -538,17 +538,19 @@ phina.define("battleFriendPage", {
      * ability : ability
      * condition : "nomal"
      */
+    
     fMon = friendBattle.resultMonster;
-    this.enemy.monsterID = fmon.mID;
-    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
+    console.log(JSON.stringify(fMon));
+    this.enemy.monsterID = fMon.mID;
+    this.enemy.monsterName = MONSTER_MAP.get(fMon.mID).monsterFamily;
     this.enemy.Lv = fMon.Lv;
-    this.enemy.param.life   = fmon.param[0];
-    this.enemy.param.power  = fmon.param[1];
-    this.enemy.param.shield = fmon.param[2];
-    this.enemy.param.speed  = fmon.param[3];
-    this.enemy.param.speed  = fmon.param[4];    
-    this.enemy.ability = fmon.ability;
-    this.enemy.condition = "nomal";
+    this.enemy.param.life   = fMon.param[0];
+    this.enemy.param.power  = fMon.param[1];
+    this.enemy.param.shield = fMon.param[2];
+    this.enemy.param.speed  = fMon.param[3];
+    this.enemy.param.AP  = fMon.param[4];    
+    this.enemy.ability = fMon.ability;
+    this.enemy.condition = ["nomal"];
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
@@ -721,7 +723,7 @@ phina.define("battleCpuPage", {
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["nomal"]; 
-    let scM = JSON.parse(MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]));
+    let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]);
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
@@ -738,8 +740,8 @@ phina.define("battleCpuPage", {
     console.log(this.enemy);
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
-    this.myMonster.ability = JSON.parse(MONSTER_MAP.get(this.myMonster.monsterID)).ability;
-    this.enemy.ability = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).ability;
+    this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
+    this.enemy.ability = MONSTER_MAP.get(this.enemy.monsterID).ability;
     // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
     // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
     console.log("ここにきた");
