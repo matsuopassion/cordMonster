@@ -689,7 +689,7 @@ function qrCodeGenerator(master){
   let qrcode = document.getElementById("qrcode");
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
-  let sendMonster = compressMonster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+  let sendMonster = monsterDataCompress(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
   let text = JSON.stringify(sendMonster);
   console.log(text);
   console.log("データサイズ" + text.legnth);
@@ -730,12 +730,11 @@ function qrCodeGenerator(master){
 }
 
 function monsterDataCompress(monsterData){
-  let complessMonster = {
+  let compressMonster = {
     mID : monsterData.monsterID,
     Lv: monsterData.Lv,
-    param:[monsterData.param.life,monsterData.param.power,monsterData.param.shield,monsterData.param.speed],
+    param:[monsterData.param.life,monsterData.param.power,monsterData.param.shield,monsterData.param.speed,10000],
     ability:monsterData.ability,
-    AP:10000
   }
   return compressMonster;
 }

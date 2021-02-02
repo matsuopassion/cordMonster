@@ -75,26 +75,26 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Blingo` ,
             monsterFamily : `ブリンゴ` ,
-            comment: `邪悪で狡猾な種族。\n高い知能を持ち、武器や防具を装備することが出来る。\n`,
+            comment: `邪悪で狡猾な種族。\n高い知能を持ち、武器や防具を装備する\nことが出来る。\n`,
             rarity : `C` ,
             appropriate : { life : `D` ,power : `D` ,shield : `F`,speed : `E` } ,
             ability : [`normalAttack`,`heavyAttack`],
             abilityLv : [1 ,5 ],
             defaultParam : { life : 80 ,power : 70 ,shield : 30 , speed : 40 },
             evoLine : `Killerblingo`,
-    	      evoLv : `Undefined`,
+    	      evoLv : `10`,
             basic : true
         },{
             monsterID : `Blingolord` ,
             monsterFamily : `ブリンゴロード` ,
-            comment: `ブリンゴ族のリーダー。\n冷酷で残忍であり、返り討ちにされた人/n間は数知れない。\n`,
+            comment: `ブリンゴ族のリーダー。\n冷酷で残忍であり、返り討ちにされた人\n間は数知れない。\n`,
             rarity : `A` ,
             appropriate : { life : `C` ,power : `B` ,shield : `D`,speed : `C` } ,
             ability : [`normalAttack`,`heavyAttack`,`spinningSlash`,`hardSpinningSlash`],
             abilityLv : [ 1 ,1 ,1 ,5 ],
             defaultParam : { life : 120 ,power : 120 ,shield : 60 , speed : 50 },
-            evoLine : `Blingolord`,
-    	      evoLv : `10`,
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
             basic : false
         },{
             monsterID : `Captainskull` ,
@@ -183,7 +183,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Genie` ,
             monsterFamily : `ランプのまじん` ,
-            comment: `願いをかなえるランプの魔人のはず…だ/nが？なぜだかダラダラしている。\n`,
+            comment: `願いをかなえるランプの魔人のはず…だ\nが？なぜだかダラダラしている。\n`,
             rarity : `C` ,
             appropriate : { life : `E` ,power : `E` ,shield : `E`,speed : `E` } ,
             ability : [`heal`,`magic`],
@@ -195,7 +195,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Giant` ,
             monsterFamily : `ジャイアント` ,
-            comment: `とある世界の巨人族、実は優しい心の持/nち主`,
+            comment: `とある世界の巨人族、実は優しい心の持\nち主`,
             rarity : `C` ,
             appropriate : { life : `B` ,power : `F` ,shield : `D`,speed : `G` } ,
             ability : [`normalAttack`,`bodySlam`,`buchikamashi`],
@@ -219,7 +219,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Hellberus` ,
             monsterFamily : `ヘルべロス` ,
-            comment: `血に飢えた地獄の番犬のモンスター。三/n匹は不仲らしい。`,
+            comment: `血に飢えた地獄の番犬のモンスター。三\n匹は不仲らしい。`,
             rarity : `C` ,
             appropriate : { life : `F` ,power : `G` ,shield : `G`,speed : `D` } ,
             ability : [`normalAttack`,`biting`,`crunch`],
@@ -243,7 +243,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Ibuki` ,
             monsterFamily : `イブキ` ,
-            comment: `ニンジュツと呼ばれる風の魔法を扱う事/nに長けた東洋の戦士。\n`,
+            comment: `ニンジュツと呼ばれる風の魔法を扱う事\nに長けた東洋の戦士。\n`,
             rarity : `C` ,
             appropriate : { life : `G` ,power : `C` ,shield : `G`,speed : `C` } ,
             ability : [`normalAttack`,`poisonAttack`,`poisonKunai`],
@@ -279,14 +279,14 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Killerblingo` ,
             monsterFamily : `キラーブリンゴ` ,
-            comment: `ブリンゴの中でも特に能力が高く強い個/n体。\n手下のブリンゴ達の統率を取って戦う。`,
+            comment: `ブリンゴの中でも特に能力が高く強い個\n体。\n手下のブリンゴ達の統率を取って戦う。`,
             rarity : `B` ,
             appropriate : { life : `D` ,power : `D` ,shield : `D`,speed : `D` } ,
             ability : [`normalAttack`,`heavyAttack`,`spinningSlash`],
             abilityLv : [1 ,1 ,5 ],
             defaultParam : { life : 100 ,power : 100 ,shield : 50 , speed : 50 },
             evoLine : `Blingolord`,
-    	      evoLv : `5`,
+    	      evoLv : `20`,
             basic : false
         },{
             monsterID : `Kinichiro` ,
@@ -303,7 +303,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Lindwurm` ,
             monsterFamily : `リンドブルム` ,
-            comment: `永い眠りから目覚めたツノムシの最終形/n態！もう誰も止められない！`,
+            comment: `永い眠りから目覚めたツノムシの最終形\n態！もう誰も止められない！`,
             rarity : `A` ,
             appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `C` } ,
             ability : [`normalAttack`,`continuousThrust`,`heavyAttack`,`terraBreak`],
