@@ -35,7 +35,9 @@ function BackButtonSet(master){
   buttonScan.setInteractive(true);
   buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    master.exit();
+    master.exit({
+      beforePage:master.label,
+    });
   };
 }
 
@@ -235,7 +237,9 @@ function BoxButtonSet(master,magnification){
   buttonBox.setInteractive(true);
   buttonBox.setPosition(master.gridX.center(),master.gridY.span(15)).addChildTo(master),buttonBox.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    master.exit('boxPage');
+    master.exit('boxPage',{
+      beforePage:master.label,
+    });
   };
 }
 
@@ -326,13 +330,13 @@ function BattleStartButton(master){
   }
 }
 
-function boxButton(master){
-  var mBattleButton = baseButton('Boxを確認',200,70,'white','purple');
-  mBattleButton.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master),mBattleButton.onpush=function(e){
-    SoundManager.play("buttonPush");
-    master.exit("boxChack");
-  }
-}
+// function boxButton(master){
+//   var mBattleButton = baseButton('Boxを確認',200,70,'white','purple');
+//   mBattleButton.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master),mBattleButton.onpush=function(e){
+//     SoundManager.play("buttonPush");
+//     master.exit("boxChack");
+//   }
+// }
 
 function boxcharaSet(master,group,jsonMonster,posX,posY){
     console.log(jsonMonster.monsterID);
@@ -342,6 +346,9 @@ function boxcharaSet(master,group,jsonMonster,posX,posY){
     boxChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(group);
     boxChara.setInteractive(true);
     boxChara.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('boxSelectButton');
+      SoundManager.setVolume(0.8);
       master.exit('characterChack',{boxCharaResults:jsonMonster});
     }
     let selectCharaGridX = Grid({
@@ -410,6 +417,9 @@ function boxPageView(master,monsterList,startNum,pageNum){
      pageDownButton.fill = 'gray';
    }
    pageDownButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('boxPageButton');
+      SoundManager.setVolume(0.8);
       pageNum--;
       startCount -= 9;
       boxViewGroup.children.clear();
@@ -436,6 +446,9 @@ function boxPageView(master,monsterList,startNum,pageNum){
      pageUpButton.fill = 'gray';
    }
    pageUpButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('boxPageButton');
+      SoundManager.setVolume(0.8);
       pageNum++;
       startCount += 9;
       boxViewGroup.children.clear();
@@ -501,6 +514,9 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         align: "left",
     }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(2+i));
     statusUpButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('skillSelectButton');
+      SoundManager.setVolume(0.8);
       monster.skill.point--;
       pointSetArray[i]++;
       viewUpdateStatus(group);
@@ -527,6 +543,9 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(2+i));
 
     statusDownButton.onpointstart = function(e) {
+      SoundManager.setVolume(2.0);
+      SoundManager.play('skillSelectButton');
+      SoundManager.setVolume(0.8);
       monster.skill.point++;
       pointSetArray[i]--;
       viewUpdateStatus(group);
@@ -573,14 +592,17 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
   }
 
   statusSkillUpdateButton.onpointstart = function(e) {
-      alert('ステータスアップ！！');
-      let updateMonster = updateParam(monster,pointSetArray);
-      console.log(JSON.stringify(updateMonster));
-      alert('ステータスが更新されました。');
-      localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
-      pointSetArray = [0,0,0,0];
-      viewUpdateStatus(group);
-      viewUpdateInfo(master,group,updateMonster,pointSetArray,magnification);
+    SoundManager.setVolume(2.0);
+    SoundManager.play('skillUpdateButton');
+    SoundManager.setVolume(0.8);
+    alert('ステータスアップ！！');
+    let updateMonster = updateParam(monster,pointSetArray);
+    console.log(JSON.stringify(updateMonster));
+    alert('ステータスが更新されました。');
+    localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
+    pointSetArray = [0,0,0,0];
+    viewUpdateStatus(group);
+    viewUpdateInfo(master,group,updateMonster,pointSetArray,magnification);
   }
 
   let selectMonsterButton = Button({
@@ -667,9 +689,7 @@ function qrCodeGenerator(master){
   let qrcode = document.getElementById("qrcode");
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
-  let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-  delete sendMonster.monsterName;
-  delete sendMonster.skill;
+  let sendMonster = compressMonster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
   let text = JSON.stringify(sendMonster);
   console.log(text);
   console.log("データサイズ" + text.legnth);
@@ -707,4 +727,15 @@ function qrCodeGenerator(master){
         renderEndFlag = true; 
       });
     });
+}
+
+function monsterDataCompress(monsterData){
+  let complessMonster = {
+    mID : monsterData.monsterID,
+    Lv: monsterData.Lv,
+    param:[monsterData.param.life,monsterData.param.power,monsterData.param.shield,monsterData.param.speed],
+    ability:monsterData.ability,
+    AP:10000
+  }
+  return compressMonster;
 }
