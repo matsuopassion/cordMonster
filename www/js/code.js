@@ -218,8 +218,8 @@ function getEvoMonster(monsterData){
   };
   evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
   alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
-  if(localstrage.get("selectMonster") == monsterData.monsterID){
-    localstrage.set("selectMonster",evoMonster.monsterID);
+  if(localStorage.getItem("selectMonster") == monsterData.monsterID){
+    localStorage.setItem("selectMonster",evoMonster.monsterID);
   }
   return evoMonsterData;
 }
@@ -266,6 +266,8 @@ function updateParam(monsterData,addPointArray){
   skills.shield += addPointArray[2];
   params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
   skills.speed += addPointArray[3];
+  params.AP += skillAllocation(appropriates.speed,addPointArray[4]);
+  skills.AP += addPointArray[4];
   skills.point -= totalPoint;
   monsterData.param = params;
   monsterData.skill = skills;
