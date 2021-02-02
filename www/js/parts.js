@@ -689,9 +689,7 @@ function qrCodeGenerator(master){
   let qrcode = document.getElementById("qrcode");
   qrcode.textContent="";
   //let barcode = document.getElementById("barcode");
-  let sendMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-  delete sendMonster.monsterName;
-  delete sendMonster.skill;
+  let sendMonster = compressMonster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
   let text = JSON.stringify(sendMonster);
   console.log(text);
   console.log("データサイズ" + text.legnth);
@@ -729,4 +727,15 @@ function qrCodeGenerator(master){
         renderEndFlag = true; 
       });
     });
+}
+
+function monsterDataCompress(monsterData){
+  let complessMonster = {
+    mID : monsterData.monsterID,
+    Lv: monsterData.Lv,
+    param:[monsterData.param.life,monsterData.param.power,monsterData.param.shield,monsterData.param.speed],
+    ability:monsterData.ability,
+    AP:10000
+  }
+  return compressMonster;
 }
