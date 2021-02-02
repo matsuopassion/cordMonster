@@ -68,7 +68,6 @@ function levelUpMonster(monsterData){
   //lvUP
     monsterData.Lv += 1;
     monsterData.skill.point += 1;
-    alert(monsterData.monsterName + "がレベルアップしました");
     //対象モンスターのマスタ
     const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
     
@@ -81,7 +80,7 @@ function levelUpMonster(monsterData){
     }
 
     monsterData.ability = judgeAbilityGet(monsterData);
-
+    alert(monsterData.monsterName + "がレベルアップしました");
     return monsterData;
 }
 
