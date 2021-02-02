@@ -218,6 +218,9 @@ function getEvoMonster(monsterData){
   };
   evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
   alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
+  if(localstrage.get("selectMonster") == monsterData.monsterID){
+    localstrage.set("selectMonster",evoMonster.monsterID);
+  }
   return evoMonsterData;
 }
 
