@@ -175,7 +175,7 @@ function resultClassification(){
 
 
 function getEvoMonster(monsterData){
-  //進化前のマスタ取得
+  //monsterDataのマスタ取得
   const monster = MONSTER_MAP.get(monsterData.monsterID);
 
   //進化後のマスタ取得
@@ -212,12 +212,18 @@ function getEvoMonster(monsterData){
       shield : 0 , 
       speed : 0 ,
       AP : 0},
-      ability : new Array(),
-    condition : monsterData.condition
+    ability : new Array(),
+    condition : monsterData.condition,
+    eflag : true
   };
   evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
-
-  alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
+  if(monster.evoLv == monsterData.Lv+1){ 
+    evoMonsterData = getEvoMonster(evoMonsterData);
+    evoMonster.eflag = false;
+  }
+  if(monsterData.eflag == true){
+    
+  }
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
     localStorage.setItem("selectMonster",evoMonster.monsterID);
   }
