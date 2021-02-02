@@ -141,13 +141,16 @@ function getNewMonster(monsterID){
         life : scM.defaultParam.life ,
         power : scM.defaultParam.power ,
         shield : scM.defaultParam.shield , 
-        speed : scM.defaultParam.speed },
+        speed : scM.defaultParam.speed ,
+        AP : scM.defaultParam.AP},
      skill : {
         point : 0,
         life : 0 ,
         power : 0 ,
         shield : 0 , 
-        speed : 0 },
+        speed : 0 , 
+        AP : 0 , 
+        },
     ability : new Array()
   };
   monsterData.ability = judgeAbilityGet(monsterData);
@@ -189,7 +192,8 @@ function getEvoMonster(monsterData){
    skill.life + 
    skill.power +
    skill.shield +
-   skill.speed ;
+   skill.speed +
+   skill.AP;
 
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
@@ -200,13 +204,15 @@ function getEvoMonster(monsterData){
       power : eDefaultParam.power ,
       shield : eDefaultParam.shield , 
       speed : eDefaultParam.speed , 
-    } ,
+      AP : eDefaultParam.AP,
+    } , 
     skill : {
       point : skillPoint ,
       life : 0 ,
       power : 0 ,
       shield : 0 , 
-      speed : 0 },
+      speed : 0 ,
+      AP : 0},
       ability : new Array(),
     condition : monsterData.condition
   };
