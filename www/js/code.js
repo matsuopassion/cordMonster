@@ -65,6 +65,25 @@ function getSearchData(qrText) {
  * lvと進化の判定、スキルの判定
 */
 function levelUpMonster(monsterData){
+    //ここからやりますので
+    //↓localStorageの中のモンスターだけを抽出
+    //koreを関数かして再起
+    for(let i = 0;i < localStorage.length;i++){
+      keyID = localStorage.key(i);
+      try {
+        getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
+        if(getItemIndex.monsterID != undefined){
+          //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
+          if(localStorage.getItem(MONSTER_MAP.get(getItemIndex.monsterID).evoLine) == null){
+            myMonsterArray[myMonsterNum] = getItemIndex;
+            myMonsterNum++;
+          }
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+
   //lvUP
     monsterData.Lv += 1;
     monsterData.skill.point += 1;
@@ -222,7 +241,7 @@ function getEvoMonster(monsterData){
     evoMonster.eflag = false;
   }
   if(monsterData.eflag == true){
-    
+
   }
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
     localStorage.setItem("selectMonster",evoMonster.monsterID);
