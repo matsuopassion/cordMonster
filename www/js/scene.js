@@ -518,12 +518,21 @@ phina.define("battleFriendPage", {
      *      .power  : param[1]
      *      .shield : param[2]
      *      .speed  : param[3]
+     *      .AP     : param[4]
      * ability : ability
-     * AP : AP
+     * condition : "nomal"
      */
-    this.enemy = friendBattle.resultMonster;
-    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).monsterFamily;
-    this.enemy.condition = ["nomal"];
+    fMon = friendBattle.resultMonster;
+    this.enemy.monsterID = fmon.mID;
+    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
+    this.enemy.Lv = fMon.Lv;
+    this.enemy.param.life   = fmon.param[0];
+    this.enemy.param.power  = fmon.param[1];
+    this.enemy.param.shield = fmon.param[2];
+    this.enemy.param.speed  = fmon.param[3];
+    this.enemy.param.speed  = fmon.param[4];    
+    this.enemy.ability = fmon.ability;
+    this.enemy.condition = "nomal";
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
