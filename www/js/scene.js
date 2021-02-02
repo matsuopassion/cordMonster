@@ -200,6 +200,22 @@ phina.define("mainPage", {
       mainPageMonster.width = 400;
       mainPageMonster.height = 400;
       mainPageMonster.addChildTo(this).setPosition(this.gridX.center(),this.gridY.center(2));
+
+      mainPageMonster.vx = -2;
+      let mainPageMonsterint = 0;
+      // 更新イベント
+      mainPageMonster.update = function() {
+        // 移動2
+        mainPageMonster.x += mainPageMonster.vx;
+        // 画面端との判定
+        if (mainPageMonster.left < -50 || 480 < mainPageMonster.right) {
+          sleep(2000);
+          mainPageMonster.scaleX *= -1;
+          // 速度を反転する
+          mainPageMonster.vx *= -1;
+        }
+      };
+      
       
     }catch(e){
       alert(`ボックスから\nバトルモンスターをセットしよう！`);
