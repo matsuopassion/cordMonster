@@ -5,9 +5,59 @@ var SPEED = 30;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
+// 定数
+var SCREEN_WIDTH  =screen.width; // 画面横サイズ
+var SCREEN_HEIGHT = screen.height; // 画面縦サイズ
 /*
  * シーン01
  */ 
+
+
+//phina.js：シーン雛形
+// phina.define("startPage", {
+//   // 継承/
+//   superClass: 'DisplayScene',
+//   // 初期化
+// init: function(option) {
+
+//     //自分をオブジェクトとして変数に代入
+//     master = this;
+
+//     // 親クラス初期化
+//     this.superInit(option);
+
+//     // 背景色設定
+//     this.backgroundColor = 'black';
+//     //背景画像
+//     var bgSprite = Sprite('startBg2').addChildTo(this);
+//     //画面に合わせてサイズ変更
+//     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
+//     bgSprite.height *= (SCREEN_HEIGHT / bgSprite.height );
+//     //画像を配置
+//     bgSprite.setPosition(master.gridX.center(), master.gridY.center());
+
+       //BGM設定
+//     //BGMセット部分（先に全画面のBGMを停止）
+//     SoundManager.stopMusic();
+//     SoundManager.playMusic("startBGM",1,true);
+
+//   },
+//   // タッチで次のシーンへ
+//   onpointstart: function() {
+//     this.exit();  
+//   },
+// }.update: function(app) {
+//  document.addEventListener("pause", function(){
+//    //アプリがバッググラウンドになったとき
+// 		SoundManager.pauseMusic();
+// 	}, false);
+// 	document.addEventListener("resume", function(){
+// 		//アプリが再実行されたとき
+// 		SoundManager.resumeMusic();
+// 	}, false);
+// }
+// );
+
 phina.define("startPage", {
   // 継承/
   superClass: 'DisplayScene',
@@ -22,7 +72,6 @@ phina.define("startPage", {
 
     // 背景色
     this.backgroundColor = 'black';
-
     //背景画像
     var bgSprite = Sprite('startBg2').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -94,8 +143,17 @@ phina.define("startPage", {
   },
   // タッチで次のシーンへ
   onpointstart: function() {
-    this.exit();  
-  },
+      this.exit();  
+  }
+  //ぜんぜんおととめれねぇ
+  // ,update: function(app) {
+  //   document.addEventListener("pause", function() { 
+  //   SoundManager.stopMusic();
+  //   },false);
+  //   document.addEventListener("resume", function() { 
+  //     this.SoundManager.resumeMusic();
+  //   },false);
+  // }
 });
 
 /*
@@ -114,6 +172,7 @@ phina.define("mainPage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'blue';
+    this.label =  "mainPage";
 
     //背景画像
     
@@ -125,8 +184,10 @@ phina.define("mainPage", {
     bgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
     //BGMセット部分（先に全画面のBGMを停止）
-    SoundManager.stopMusic();
-    SoundManager.playMusic("mainBGM",1,true);
+    if(option.beforePage != 'boxPage'){
+      SoundManager.stopMusic();
+      SoundManager.playMusic("mainBGM",1,true);
+    }
 
     //共通ボタンのセット
     //setBaseButton(master);
@@ -176,7 +237,8 @@ phina.define("boxPage", {
 
     //自分をオブジェクトとして変数に代入
     master = this;
-
+    this.label = 'boxPage';
+    console.log(option.beforePage);
     // 親クラス初期化
     this.superInit(option);
 
@@ -184,9 +246,10 @@ phina.define("boxPage", {
     this.backgroundColor = 'red';
 
     //BGMセット部分（先に全画面のBGMを停止）
-    SoundManager.stopMusic();
-    SoundManager.playMusic("mainBGM",1,true);
-
+    if(option.beforePage != 'mainPage' && option.beforePage != 'characterChack'){
+      SoundManager.stopMusic();
+      SoundManager.playMusic("mainBGM",1,true);
+    }
      //box 画像
     var boxBgSprite = Sprite('boxBg').addChildTo(this);
       //画面に合わせてサイズ変更
@@ -194,7 +257,6 @@ phina.define("boxPage", {
     boxBgSprite.height *= (SCREEN_HEIGHT / boxBgSprite.height);
     //画像を配置
     boxBgSprite.setPosition(master.gridX.center(), master.gridY.center());
-    master=this;
 
     let object = {};        //オブジェクト配列生成
     let myMonsterNum = 0;
@@ -204,28 +266,16 @@ phina.define("boxPage", {
       keyID = localStorage.key(i);
       try {
         getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
-        console.log("getItemIndex:" + getItemIndex.monsterID);
         if(getItemIndex.monsterID != undefined){
-          myMonsterArray[myMonsterNum] = getItemIndex;
-          myMonsterNum++;
+          //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
+          if(localStorage.getItem(JSON.parse(MONSTER_MAP.get(getItemIndex.monsterID)).evoLine) == null){
+            myMonsterArray[myMonsterNum] = getItemIndex;
+            myMonsterNum++;
+          }
         }
       } catch (e) {
         continue;
       }
-      //let monsterstatus1 = jsonMonster.monsterID;
-      // for (let k = 0; k < MONSTER_MASTER.monsterData.length; k++) {
-      //     let monsterstatus2 = MONSTER_MASTER.monsterData[k]["monsterID"];
-      //     if(monsterstatus1 == monsterstatus2){
-            // let ID = jsonMonster.monsterID;
-            // let Name = jsonMonster.monsterName;
-            // let Lv = jsonMonster.Lv;
-            // let life = jsonMonster.param["life"];
-            // let power = jsonMonster.param["power"];
-            // let shield = jsonMonster.param["shield"];
-            // let speed = jsonMonster.param["speed"];
-            //console.log(ID);
-            // boxcharaSet(master, ID, x, y);
-            // x += 2;
     }
     boxPageView(master,myMonsterArray,0,1);
     menuSet(master);
@@ -243,7 +293,7 @@ phina.define("characterChack", {
 
     //自分をオブジェクトとして変数に代入
     master = this;
-
+    this.label =  "characterChack";
     // 親クラス初期化
     this.superInit(param);
 
@@ -462,7 +512,7 @@ phina.define("battleFriendPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
 
-    this.ability = ["abt1","abt4","abt9"];
+
     this.count = 0;
     this.battleResults;
     this.abilityType;
@@ -475,7 +525,30 @@ phina.define("battleFriendPage", {
     this.issue = "uncertain";
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-    this.enemy = friendBattle.resultMonster;
+    this.myMonster.condition = ["nomal"];
+    /**
+     * monsterID : mID
+     * monsterName : monsterFamily
+     * Lv : Lv
+     * param.life   : param[0]
+     *      .power  : param[1]
+     *      .shield : param[2]
+     *      .speed  : param[3]
+     *      .AP     : param[4]
+     * ability : ability
+     * condition : "nomal"
+     */
+    fMon = friendBattle.resultMonster;
+    this.enemy.monsterID = fmon.mID;
+    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
+    this.enemy.Lv = fMon.Lv;
+    this.enemy.param.life   = fmon.param[0];
+    this.enemy.param.power  = fmon.param[1];
+    this.enemy.param.shield = fmon.param[2];
+    this.enemy.param.speed  = fmon.param[3];
+    this.enemy.param.speed  = fmon.param[4];    
+    this.enemy.ability = fmon.ability;
+    this.enemy.condition = "nomal";
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
@@ -583,7 +656,6 @@ phina.define("battleCpuPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
 
-    this.ability = ["abt1","abt4","abt9"];
     this.count = 0;
     this.battleResults;
     this.abilityType;
@@ -647,7 +719,8 @@ phina.define("battleCpuPage", {
       'Worm',
       'Yanchicken',
     ];
-    this.myMonster  = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster.condition = ["nomal"]; 
     let scM = JSON.parse(MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]));
     this.enemy = {
       monsterID : scM.monsterID ,

@@ -23,7 +23,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 130 ,power : 60 ,shield : 45 , speed : 60 },
             evoLine : `Undefined`,
             evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `Babygon` ,
             monsterFamily : `ベイビゴン` ,
@@ -71,30 +71,30 @@ var MONSTER_MASTER = {
             defaultParam : { life : 100 ,power : 55 ,shield : 65 , speed : 50 },
             evoLine : `Undefined` ,
     	      evoLv : `Undefined`,
-            basic : false
+            basic : true
         },{
             monsterID : `Blingo` ,
             monsterFamily : `ブリンゴ` ,
-            comment: `邪悪で狡猾な種族。\n高い知能を持ち、武器や防具を装備することが出来る。\n`,
+            comment: `邪悪で狡猾な種族。\n高い知能を持ち、武器や防具を装備する\nことが出来る。\n`,
             rarity : `C` ,
             appropriate : { life : `D` ,power : `D` ,shield : `F`,speed : `E` } ,
             ability : [`normalAttack`,`heavyAttack`],
             abilityLv : [1 ,5 ],
             defaultParam : { life : 80 ,power : 70 ,shield : 30 , speed : 40 },
             evoLine : `Killerblingo`,
-    	      evoLv : `Undefined`,
+    	      evoLv : `10`,
             basic : true
         },{
             monsterID : `Blingolord` ,
             monsterFamily : `ブリンゴロード` ,
-            comment: `ブリンゴ族のリーダー。\n冷酷で残忍であり、返り討ちにされた人/n間は数知れない。\n`,
+            comment: `ブリンゴ族のリーダー。\n冷酷で残忍であり、返り討ちにされた人\n間は数知れない。\n`,
             rarity : `A` ,
             appropriate : { life : `C` ,power : `B` ,shield : `D`,speed : `C` } ,
             ability : [`normalAttack`,`heavyAttack`,`spinningSlash`,`hardSpinningSlash`],
             abilityLv : [ 1 ,1 ,1 ,5 ],
             defaultParam : { life : 120 ,power : 120 ,shield : 60 , speed : 50 },
-            evoLine : `Blingolord`,
-    	      evoLv : `10`,
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
             basic : false
         },{
             monsterID : `Captainskull` ,
@@ -183,7 +183,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Genie` ,
             monsterFamily : `ランプのまじん` ,
-            comment: `願いをかなえるランプの魔人のはず…だ/nが？なぜだかダラダラしている。\n`,
+            comment: `願いをかなえるランプの魔人のはず…だ\nが？なぜだかダラダラしている。\n`,
             rarity : `C` ,
             appropriate : { life : `E` ,power : `E` ,shield : `E`,speed : `E` } ,
             ability : [`heal`,`magic`],
@@ -195,7 +195,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Giant` ,
             monsterFamily : `ジャイアント` ,
-            comment: `とある世界の巨人族、実は優しい心の持/nち主`,
+            comment: `とある世界の巨人族、実は優しい心の持\nち主`,
             rarity : `C` ,
             appropriate : { life : `B` ,power : `F` ,shield : `D`,speed : `G` } ,
             ability : [`normalAttack`,`bodySlam`,`buchikamashi`],
@@ -219,7 +219,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Hellberus` ,
             monsterFamily : `ヘルべロス` ,
-            comment: `血に飢えた地獄の番犬のモンスター。三/n匹は不仲らしい。`,
+            comment: `血に飢えた地獄の番犬のモンスター。三\n匹は不仲らしい。`,
             rarity : `C` ,
             appropriate : { life : `F` ,power : `G` ,shield : `G`,speed : `D` } ,
             ability : [`normalAttack`,`biting`,`crunch`],
@@ -234,7 +234,7 @@ var MONSTER_MASTER = {
             comment: `小学生に人気なアイツ。\n彼を主人公にしたアニメもある。\n`,
             rarity : `C` ,
             appropriate : { life : `F` ,power : `G` ,shield : `G`,speed : `D` } ,
-            ability : [`normalAttack`,`heavyAttack`,`flame`],
+            ability : [`normalAttack`,`heavyAttack`,`biting`],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 50 ,power : 70 ,shield : 25 , speed : 60 },
             evoLine : `Undefined`,
@@ -243,7 +243,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Ibuki` ,
             monsterFamily : `イブキ` ,
-            comment: `ニンジュツと呼ばれる風の魔法を扱う事/nに長けた東洋の戦士。\n`,
+            comment: `ニンジュツと呼ばれる風の魔法を扱う事\nに長けた東洋の戦士。\n`,
             rarity : `C` ,
             appropriate : { life : `G` ,power : `C` ,shield : `G`,speed : `C` } ,
             ability : [`normalAttack`,`poisonAttack`,`poisonKunai`],
@@ -263,7 +263,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 200 ,power : 100 ,shield : 70 , speed : 100 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `Jiriri` ,
             monsterFamily : `ジリーリン` ,
@@ -279,14 +279,14 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Killerblingo` ,
             monsterFamily : `キラーブリンゴ` ,
-            comment: `ブリンゴの中でも特に能力が高く強い個/n体。\n手下のブリンゴ達の統率を取って戦う。`,
+            comment: `ブリンゴの中でも特に能力が高く強い個\n体。\n手下のブリンゴ達の統率を取って戦う。`,
             rarity : `B` ,
             appropriate : { life : `D` ,power : `D` ,shield : `D`,speed : `D` } ,
             ability : [`normalAttack`,`heavyAttack`,`spinningSlash`],
             abilityLv : [1 ,1 ,5 ],
             defaultParam : { life : 100 ,power : 100 ,shield : 50 , speed : 50 },
             evoLine : `Blingolord`,
-    	      evoLv : `5`,
+    	      evoLv : `20`,
             basic : false
         },{
             monsterID : `Kinichiro` ,
@@ -303,7 +303,7 @@ var MONSTER_MASTER = {
         },{
             monsterID : `Lindwurm` ,
             monsterFamily : `リンドブルム` ,
-            comment: `永い眠りから目覚めたツノムシの最終形/n態！もう誰も止められない！`,
+            comment: `永い眠りから目覚めたツノムシの最終形\n態！もう誰も止められない！`,
             rarity : `A` ,
             appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `C` } ,
             ability : [`normalAttack`,`continuousThrust`,`heavyAttack`,`terraBreak`],
@@ -371,16 +371,16 @@ var MONSTER_MASTER = {
             defaultParam : { life : 75 ,power : 65 ,shield : 65 , speed : 60 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : false
+            basic : true
         },{
             monsterID : `Planer` ,
             monsterFamily : `プラネ` ,
             comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
             rarity : `A` ,
             appropriate : { life : `C` ,power : `B` ,shield : `B`,speed : `B` } ,
-            ability : [`normalAttack`,`pileBunker`,`psychokinesis`],
+            ability : [`normalAttack`,`cosmicBeat`,`milkyWay`],
             abilityLv : [1 ,2 ,5 ],
-            defaultParam : { life : 150 ,power : 150 ,shield : 70 , speed : 85 },
+            defaultParam : { life : 110 ,power : 120 ,shield : 60 , speed : 85 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -431,7 +431,7 @@ var MONSTER_MASTER = {
             defaultParam : { life : 50 ,power : 50 ,shield : 30 , speed : 50 },
             evoLine : `Ryuyasoldier` ,
     	      evoLv : `5`,
-            basic : false
+            basic : true
         },{
             monsterID : `Ryuyasoldier` ,
             monsterFamily : `ロンヤソルジャー` ,
@@ -446,7 +446,7 @@ var MONSTER_MASTER = {
             basic : false
         },{
             monsterID : `Ryuyaraptor` ,
-            monsterFamily : `ロンヤラプトル` ,
+            monsterFamily : `ロンヤラプター` ,
             comment: `気付いたのだ。\n人間は力ではなく知恵と科学で高みを目\n指すべきだと。\n`,
             rarity : `B` ,
             appropriate : { life : `C` ,power : `C` ,shield : `D`,speed : `F` } ,
@@ -534,12 +534,12 @@ var MONSTER_MASTER = {
             comment: `深紅のスーツを身にまとった正義のスー\nパーヒーローヴァーミリオン！`,
             rarity : `B` ,
             appropriate : { life : `C` ,power : `C` ,shield : `D`,speed : `D` } ,
-            ability : [`normalAttack`,`ryuujinInfernoPalm`,'thunderKick'],
+            ability : [`normalAttack`,`ryuujinInfernoPalm`,'burningKick'],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam : { life : 120 ,power : 80 ,shield : 60 , speed : 70 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `ViperKong` ,
             monsterFamily : `ヴァイパーコング` ,

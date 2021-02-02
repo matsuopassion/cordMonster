@@ -92,7 +92,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 30;
       abilityName = "通常攻撃";
       abilityMessage = "は攻撃をしかけた！";
-      abilitySoundEffectPlaying("dageki",3);
+      abilitySoundEffectPlaying("dageki",6);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -105,7 +105,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 40;
       abilityName = "強打";
       abilityMessage = "は強打を放った！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -114,7 +114,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 55;
       abilityName = "のしかかり";
       abilityMessage = "は大きく飛び上がって相手にのしかかった！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -123,7 +123,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 70;
       abilityName = "ぶちかまし";
       abilityMessage = "のぶちかまし！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -132,7 +132,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 100;
       abilityName = "竜神烈火掌";
       abilityMessage = "の竜神烈火掌！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("fire",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -141,16 +141,16 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 85;
       abilityName = "ラリアット";
       abilityMessage = "のラリアット！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
-    case '':
+    case 'screwdriver':
       abilityType = 0;
-      abilityPower = 0;
-      abilityName = "screwdriver";
+      abilityPower = 75;
+      abilityName = "スクリュードライバー";
       abilityMessage = "のスクリュードライバー！！"
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -168,6 +168,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 95;
       abilityName = "テラブレイク";
       abilityMessage = "のテラブレイク！！";
+      abilitySoundEffectPlaying("bomb",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -176,7 +177,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 55;
       abilityName = "十文字斬り";
       abilityMessage = "の十文字斬り！！";
-      abilitySoundEffectPlaying("dageki",2);
+      loopSoundEffectPlaying("zangeki",1,2);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -185,7 +186,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 65;
       abilityName = "残像斬り";
       abilityMessage = "の残像斬り！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -194,8 +195,8 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 30;
       count = getRandomInt(2, 4);
       abilityName = "五月雨斬り";
-      abilityMessage = "の五月雨斬り！！${count}回当たった！！";
-      loopSoundEffectPlaying("dageki",1,count);
+      abilityMessage = `の五月雨斬り！！${count}回当たった！！`;
+      loopSoundEffectPlaying("zangeki",1,count);
       damage = damageCalclator(abilityPower,attacker,target);
       damage = count * damage;
       targetLife = targetLife - damage * 2;
@@ -206,7 +207,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 100;
       abilityName = "芦刈り";
       abilityMessage = "の芦刈り！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -215,7 +216,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 120;
       abilityName = "鬼ノ爪";
       abilityMessage = "の鬼ノ爪！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -224,7 +225,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 140;
       abilityName = "竜尾返し";
       abilityMessage = "の竜尾返し！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -256,7 +257,7 @@ function abilitySelect(phase,myMonster,enemy){
       count = getRandomInt(3, 6);
       abilityName = "連続突き";
       abilityMessage = `の連続突き！！${count}回当たった！！`
-      loopSoundEffectPlaying("dageki",1,count);
+      abilitySoundEffectPlaying("rengeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       damage = count * damage;
       targetLife = targetLife - damage * 2;
@@ -267,7 +268,7 @@ function abilitySelect(phase,myMonster,enemy){
       count = getRandomInt(2, 5);
       abilityName = "連続パンチ";
       abilityMessage = `の連続パンチ！！${count}回当たった！！`
-      loopSoundEffectPlaying("dageki",1,count);
+      abilitySoundEffectPlaying("rengeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       damage = count * damage;
       targetLife = targetLife - damage * 2;
@@ -278,7 +279,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 7 * count;
       abilityName = "";
       abilityMessage = `の触手乱舞！！${count}回当たった！！`
-      loopSoundEffectPlaying("dageki",1,count);
+      abilitySoundEffectPlaying("rengeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       damage =  damage;
       targetLife = targetLife - damage * 2;
@@ -311,6 +312,7 @@ function abilitySelect(phase,myMonster,enemy){
       count = getRandomInt(1, 2);
       abilityName = "トマホーク";
       abilityMessage = "はトマホークを投げつけた！！"
+      abilitySoundEffectPlaying("swing",4);
       damage = damageCalclator(abilityPower,attacker,target);
       damage = count * damage;
       targetLife = targetLife - damage * 2;
@@ -321,6 +323,7 @@ function abilitySelect(phase,myMonster,enemy){
       count = getRandomInt(1, 2);
       abilityName = "メガホーク";
       abilityMessage = "はメガホークを投げつけた！！"
+      abilitySoundEffectPlaying("swing",4);
       damage = damageCalclator(abilityPower,attacker,target);
       damage = count * damage;
       targetLife = targetLife - damage * 2;
@@ -330,6 +333,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 85;
       abilityName = "脳天割り";
       abilityMessage = "の脳天割り！！"
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -338,6 +342,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 100;
       abilityName = "骨砕き";
       abilityMessage = "の骨砕き！！"
+      abilitySoundEffectPlaying("dageki",7);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -355,6 +360,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 75;
       abilityName = "プラズマショット";
       abilityMessage = "のプラズマショット！！"
+      abilitySoundEffectPlaying("gunfire",75);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -363,6 +369,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 75;
       abilityName = "フレイムバレット";
       abilityMessage = "のフレイムバレット！！"
+      abilitySoundEffectPlaying("gunfire",2);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -371,6 +378,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 95;
       abilityName = "チャージショット";
       abilityMessage = "のチャージショット！！"
+      abilitySoundEffectPlaying("gunfire",4);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -387,6 +395,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 45;
       abilityName = "噛みつき";
       abilityMessage = "は噛みついた！！"
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -395,6 +404,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 75;
       abilityName = "噛み砕き";
       abilityMessage = "は噛み砕いた！！"
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -403,6 +413,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 65;
       abilityName = "吸血";
       abilityMessage = "の吸血！！"
+      abilitySoundEffectPlaying("zangeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       attackerLife = attackerLife + damage * 2;
@@ -545,6 +556,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = getRandomInt(30,250);
       abilityName = "おまじない";
       abilityMessage = "のおまじない！！"
+      abilitySoundEffectPlaying("magic",5);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -580,7 +592,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 120;
       abilityName = "大車輪";
       abilityMessage = "の大車輪"
-      abilitySoundEffectPlaying("dageki",1);
+      abilitySoundEffectPlaying("rengeki",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -593,21 +605,53 @@ function abilitySelect(phase,myMonster,enemy){
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
+    case 'burningKick':
+      abilityType = 0;
+      abilityPower = 90;
+      abilityName = "バーニングキック";
+      abilityMessage = "のバーニングキック";
+      abilitySoundEffectPlaying("fire",1);
+      damage = damageCalclator(abilityPower,attacker,target);
+      targetLife = targetLife - damage * 2;
+      break;
     case 'thunderKick':
       abilityType = 0;
       abilityPower = 90;
       abilityName = "帯電キック";
       abilityMessage = "の帯電キック";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("fire",1);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
+      break;
+    case 'cosmicBeat':
+      abilityType = 0;
+      abilityPower = 100;
+      abilityName = "コズミックビート";
+      abilityMessage = "のコズミックビート！！";
+      abilitySoundEffectPlaying("cosmicBeat",1);
+      damage = damageCalclator(abilityPower,attacker,target);
+      targetLife = targetLife - damage * 2;
+      break;
+    case 'milkyWay':
+      abilityType = 3;
+      abilityPower = 80;
+      abilityName = "ミルキーウェイ";
+      abilityMessage = "のミルキーウェイ！！"
+      abilitySoundEffectPlaying("milkyWay",1);
+      damage = damageCalclator(abilityPower,attacker,target);
+      attackerLife = attackerLife + damage;
+      if(phase === "m"){
+        eCondition = "normal";
+      }else{
+        mCondition = "normal";
+      }
       break;
     case 'chaosDisaster':
       abilityType = 0;
       abilityPower = 190;
       abilityName = "カオスディザスター";
       abilityMessage = "のカオスディザスター！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("bomb",2);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -616,7 +660,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 190;
       abilityName = "凝視";
       abilityMessage = "の凝視！！";
-      abilitySoundEffectPlaying("dageki",2);
+      abilitySoundEffectPlaying("magic",6);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -625,7 +669,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 200;
       abilityName = "無限";
       abilityMessage = "の無限！！"
-      abilitySoundEffectPlaying("magic",3);
+      abilitySoundEffectPlaying("magic",6);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -634,7 +678,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 300;
       abilityName = "狂気";
       abilityMessage = "の狂気！！"
-      abilitySoundEffectPlaying("magic",3);
+      abilitySoundEffectPlaying("magic",6);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;
@@ -643,7 +687,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 95;
       abilityName = "歩む死";
       abilityMessage = "の歩む死！！"
-      abilitySoundEffectPlaying("magic",3);
+      abilitySoundEffectPlaying("magic",6);
       damage =  Math.floor(targetLife / 2);
       targetLife = Math.floor(targetLife / 2);
       break;
@@ -690,7 +734,7 @@ function damageCalclator(abilityPower,attacker,target){
 };
 
 function abilitySoundEffectPlaying(seType,seNumber){
-      SoundManager.setVolume(70);
+      SoundManager.setVolume(1.5);
       SoundManager.play(seType + "_" + seNumber);
       SoundManager.setVolume(0.8);
 };

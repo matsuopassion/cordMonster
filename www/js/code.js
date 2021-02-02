@@ -37,11 +37,12 @@ cordova.plugins.barcodeScanner.scan(
  */
 function getSearchData(qrText) {
   //スキャン済みのQRコード登録
-  localStorage.setItem(qrText,'exist');
+  // localStorage.setItem(qrText,'exist');
 
   //QRコードからモンスターを決定
   let monsterID = resultClassification(qrText);
   // ローカルストレージ内にあるJSON取得
+  
   let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
   console.log("ここまできた");
@@ -140,15 +141,17 @@ function getNewMonster(monsterID){
         life : scM.defaultParam.life ,
         power : scM.defaultParam.power ,
         shield : scM.defaultParam.shield , 
-        speed : scM.defaultParam.speed },
+        speed : scM.defaultParam.speed ,
+        AP : scM.defaultParam.AP},
      skill : {
         point : 0,
         life : 0 ,
         power : 0 ,
         shield : 0 , 
-        speed : 0 },
-    ability : new Array(),
-    condition : ["normal"]  
+        speed : 0 , 
+        AP : 0 , 
+        },
+    ability : new Array()
   };
   monsterData.ability = judgeAbilityGet(monsterData);
   return monsterData;
@@ -158,15 +161,16 @@ function getNewMonster(monsterID){
  * 召喚によって出るモンスターを決定
  */
 function resultClassification(){
-  let rarityList = [0.1,0.4,1];
+  let rarityList = [0.05,0.25,1];
   let lotNum = Math.random();
   let rarityIndex;
   console.log(lotNum);
   for(rarityIndex = 0; lotNum > rarityList[rarityIndex]; rarityIndex++ ){
   }
-  let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length); //0~INDEXまde
+  let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  console.log("ここまできち");
+  console.log("ガチャ選定時Index" + monsterIndex);
+  console.log("ガチャ選定時" + monster.monsterID);
   return monster.monsterID;
 }
 
@@ -188,7 +192,8 @@ function getEvoMonster(monsterData){
    skill.life + 
    skill.power +
    skill.shield +
-   skill.speed ;
+   skill.speed +
+   skill.AP;
 
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
@@ -199,13 +204,15 @@ function getEvoMonster(monsterData){
       power : eDefaultParam.power ,
       shield : eDefaultParam.shield , 
       speed : eDefaultParam.speed , 
-    } ,
+      AP : eDefaultParam.AP,
+    } , 
     skill : {
       point : skillPoint ,
       life : 0 ,
       power : 0 ,
       shield : 0 , 
-      speed : 0 },
+      speed : 0 ,
+      AP : 0},
       ability : new Array(),
     condition : monsterData.condition
   };

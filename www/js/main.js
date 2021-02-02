@@ -44,6 +44,8 @@ var ASSETS = {
     'Pilebine':'image/monsters/Pilebine.png',
     'Pixia':'image/monsters/Pixia.png',
     'Planer':'image/monsters/Planer.png',
+    'Protobine':'image/monsters/Protobine.png',
+    'Queenpixia':'image/monsters/Queenpixia.png',
     'Rasyomon':'image/monsters/Rasyomon.png',
     'Ryuya':'image/monsters/Ryuya.png',
     'Ryuyasoldier':'image/monsters/Ryuyasoldier.png',
@@ -94,49 +96,78 @@ var ASSETS = {
     'startBGM': 'sound/startBGM.mp3',
     'battleBGM': 'sound/battleBGM.mp3',
     'buttonPush': 'sound/buttonPush.mp3',
+    'boxPageButton':'sound/boxPageButton.mp3',
+    'skillUpdateButton':'sound/skillUpdateButton.mp3',
+    'skillSelectButton':'sound/skillSelectButton.mp3',
+    'boxSelectButton':'sound/boxSelectButton.mp3',
     'mainBGM': 'sound/mainBGM.mp3',
     'scanBGM': 'sound/scanBGM.mp3',
     'resultBGM': 'sound/resultBGM.mp3',
     'battleSelectBGM': 'sound/battleSelectBGM.mp3',
     'scanStartBGM': 'sound/scanStartBGM.mp3',
+    'cosmicBeat_1': 'sound/effect/cosmicBeat_1.mp3',
+    'milkyWay_1': 'sound/effect/milkyWay_1.mp3',
     'bird_1': 'sound/effect/se_bird_1.mp3',
+    'bomb_1': 'sound/effect/se_bomb_1.mp3',
+    'bomb_2': 'sound/effect/se_bomb_2.mp3',
     'dageki_1': 'sound/effect/se_dageki_1.mp3',
     'dageki_2': 'sound/effect/se_dageki_2.mp3',
     'dageki_3': 'sound/effect/se_dageki_3.mp3',
     'dageki_4': 'sound/effect/se_dageki_4.mp3',
     'dageki_5': 'sound/effect/se_dageki_5.mp3',
+    'dageki_6': 'sound/effect/se_dageki_6.mp3',
+    'dageki_7': 'sound/effect/se_dageki_7.mp3',
     'dragon_1': 'sound/effect/se_dragon_1.mp3',
+    'fire_1': 'sound/effect/se_fire_1.mp3',
+    'fire_2': 'sound/effect/se_fire_2.mp3',
+    'flypan_1': 'sound/effect/se_flypan_1.mp3',
     'gunfire_1': 'sound/effect/se_gunfire_1.mp3',
     'gunfire_2': 'sound/effect/se_gunfire_2.mp3',
     'gunfire_3': 'sound/effect/se_gunfire_3.mp3',
     'gunfire_4': 'sound/effect/se_gunfire_4.mp3',
+    'gunfire_5': 'sound/effect/se_gunfire_5.mp3',
+    'iai_1': 'sound/effect/se_iai_1.mp3',
     'magic_1': 'sound/effect/se_magic_1.mp3',
     'magic_2': 'sound/effect/se_magic_2.mp3',
     'magic_3': 'sound/effect/se_magic_3.mp3',
     'magic_4': 'sound/effect/se_magic_4.mp3',
+    'magic_5': 'sound/effect/se_magic_5.mp3',
+    'magic_6': 'sound/effect/se_magic_6.mp3',
+    'magic_7': 'sound/effect/se_magic_7.mp3',
+    'rengeki_1': 'sound/effect/se_rengeki_1.mp3',
+    'shuriken_1': 'sound/effect/se_shuriken_1.mp3',
     'slime_1': 'sound/effect/se_slime_1.mp3',
     'slime_2': 'sound/effect/se_slime_2.mp3',
     'special_1': 'sound/effect/se_special_1.mp3',
     'swing_1': 'sound/effect/se_swing_1.mp3',
-    'swing_2': 'sound/effect/se_swing_2.mp3'
+    'swing_2': 'sound/effect/se_swing_2.mp3',
+    'swing_3': 'sound/effect/se_swing_3.mp3',
+    'swing_4': 'sound/effect/se_swing_4.mp3',
+    'swing_5': 'sound/effect/se_swing_5.mp3',
+    'swing_6': 'sound/effect/se_swing_6.mp3',
+    'swing_7': 'sound/effect/se_swing_7.mp3',
+    'zangeki_1': 'sound/effect/se_zangeki_1.mp3',
   }
   //効果音
 };
 
-// 定数
-var SCREEN_WIDTH  =window.parent.screen.width; // 画面横サイズ
-var SCREEN_HEIGHT = window.parent.screen.height; // 画面縦サイズ
+var SCREEN_TYPE_WIDTH = screen.width;
+var SCREEN_TYPE_HEIGHT = screen.height;
 
 /*
  * メイン処理
  */
 phina.main(function() {
   // アプリケーションを生成
+  /* if(device.platform == "Android"){
+    SCREEN_TYPE_WIDTH = screen.width;
+    SCREEN_TYPE_HEIGHT = screen.height;
+  }*/
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
-    width: window.innerWidth,  // 画面幅
-    height: window.innerHeight,// 画面高さ
+    width: SCREEN_TYPE_WIDTH,  // 画面幅
+    height: SCREEN_TYPE_HEIGHT,// 画面高さ
     assets: ASSETS,
     // シーンのリストを引数で渡す
     scenes: [
@@ -205,7 +236,7 @@ phina.main(function() {
         className: 'qrSetPage',
         label: 'qrSetPage',
         nextLabel: 'battlePage',
-      },
+      }
     ]
   });
   // 実行
