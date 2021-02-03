@@ -723,14 +723,8 @@ phina.define("battleCpuPage", {
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["nomal"]; 
-    let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(monsterArray.length)]);
+    let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
     
-    // let enemyTypeArray = [[2,1,1,1],[1,2,1,1],[1,1,2,1],[1,1,1,2]];
-    // let monsterType = enemyTypeArray(getRandomInt(4));
-    // let enemySkillPoint = (myMonster.Lv - 1);
-    // while(enemySkillPoint > 0){
-
-    // }
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
@@ -743,7 +737,24 @@ phina.define("battleCpuPage", {
       ability : new Array(),
       condition : ["normal"]  
     };
-    this.enemy.ability = judgeAbilityGet(this.enemy);
+
+    // let enemySkillPointArray = [0,0,0,0];
+    // let enemyType = getRandomInt(4);
+    // let enemySkillPoint = (myMonster.Lv - 1);
+    // if(enemySkillPoint > 0 ){
+    //   if(enemySkillPoint < 5){
+    //     enemySkillPointArray[enemyType] = enemySkillPoint;
+    //   }else{
+    //     for(let i = 0;i < 4;i++){
+    //       enemySkillPointArray[i] = Math.floor(enemySkillPoint / 4);
+          
+    //     }
+    //     enemySkillPointArray[enemyType] += enemySkillPoint % 4;
+    //   }
+    //   this.enemy = updateParam(this.enemy,enemySkillPointArray);
+    // }
+    // this.enemy.Lv = 
+    this.enemy.ability = judgeAbilityEvoMonster(this.enemy);
     console.log(this.enemy);
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
