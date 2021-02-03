@@ -42,10 +42,8 @@ function getSearchData(qrText) {
   //QRコードからモンスターを決定
   let monsterID = resultClassification(qrText);
   // ローカルストレージ内にあるJSON取得
-  
   let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
-  console.log("ここまできた");
   //localstrage内にデータがなければ、モンスター新規取得
   if(monsterJsonString == null){
     monsterData = getNewMonster(monsterID);
@@ -56,31 +54,37 @@ function getSearchData(qrText) {
   }
 
   //localstrageに保存
-  localStorage.setItem(monsterID,JSON.stringify(monsterData));
-  // console.log(localStorage.getItem(monsterID));
+  console.log("monsterID:"+monsterData.monsterID+"/モンスターデータ:"+JSON.stringify(monsterData));
+  localStorage.setItem(monsterData.monsterID,JSON.stringify(monsterData));
   return monsterData;
 }
 /**
  * monsterData : 対象のモンスター
  * lvと進化の判定、スキルの判定
+ * 
+ * monster : masterから取得したモンスターのデータ
 */
 function levelUpMonster(monsterData){
-  //lvUP
-    monsterData.Lv += 1;
-    monsterData.skill.point += 1;
+    //進化先がすでにいるか、存在するかチェックしてセット
+    monsterData = haveEvoCheck(monsterData);
+    
     //対象モンスターのマスタ
     const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
     const abilityLv = monster.abilityLv;
-    
-    monsterData = haveEvoCheck(monsterData);
 
+    //lvUP
+    monsterData.Lv += 1;
+    monsterData.skill.point += 1;
+    
+    //進化判定
     if(monster.evoLv == monsterData.Lv){ 
       monsterData = getEvoMonster(monsterData);
     }
 
+    //アビリティのセット
     monsterData.ability = judgeAbilityGet(monsterData);
     alert(monsterData.monsterName + "がレベルアップしました");
     return monsterData;
@@ -90,12 +94,9 @@ function haveEvoCheck(monsterData){
   let judugeMonsterData = monsterData;
     try {
     const monster = MONSTER_MAP.get(monsterData.monsterID);
-      console.log("evoLineのUndefined判定前"+JSON.stringify(monster));
       if(monster.evoLine != `Undefined`){
-        console.log("evoLineのUndefined判定後");
         //↓localStorage内から進化ラインのモンスターがいないかチェック、いるなら再起呼び出し
         if(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine) != null){
-        console.log(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine));
          judugeMonsterData = 
             haveEvoCheck(JSON.parse(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine)));
         }
@@ -119,7 +120,6 @@ function judgeAbilityGet(monsterData){
       if(abilityLv[i] == monsterData.Lv){
         monsterData.ability.push(monsterAbility[i]);
         if(monsterData.Lv != 1){
-          console.log(monsterData.ability);
           alert("新しい特技を覚えたよ");
         }
       }
@@ -134,9 +134,7 @@ function judgeAbilityEvoMonster(monsterData){
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
-    console.log(monsterAbility);
     const abilityLv = monster.abilityLv;
-    console.log(abilityLv);
     let abilityList = new Array();
     for(let i in abilityLv){
       //レベルに該当する場合は特技を追加
@@ -144,7 +142,6 @@ function judgeAbilityEvoMonster(monsterData){
         abilityList.push(monsterAbility[i]);
       }
     monsterData.ability = abilityList;
-    console.log(monster.ability);
     }
     return monsterData.ability;
 }
@@ -186,7 +183,6 @@ function resultClassification(){
   let rarityList = [0.05,0.25,1];
   let lotNum = Math.random();
   let rarityIndex;
-  console.log(lotNum);
   for(rarityIndex = 0; lotNum > rarityList[rarityIndex]; rarityIndex++ ){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
@@ -259,9 +255,7 @@ function skillAllocation(monsterApp,addPoint){
   let count = 0;
   for(let i = addPoint; i > 0; i--){
     count++;
-    console.log(count);
     totalParam += decisionParam(monsterApp);
-    console.log("totalParam:" + totalParam);
   }
   return totalParam ;
 }
@@ -269,7 +263,6 @@ function skillAllocation(monsterApp,addPoint){
 function updateParam(monsterData,addPointArray){
   const appropriates = getAppropriate(monsterData);
   let totalPoint = 0;
-  console.log(addPointArray);
   for(let point of addPointArray){
     totalPoint =+ point;
   } 
