@@ -159,10 +159,10 @@ var SCREEN_TYPE_HEIGHT = screen.availHeight;
  */
 phina.main(function() {
   // アプリケーションを生成
-  // if(device.platform == "iPhone"){
-  //   SCREEN_TYPE_WIDTH = screen.width;
-  //   SCREEN_TYPE_HEIGHT = screen.height;
-  // }
+  if(device.platform == "iPhone"){
+    SCREEN_TYPE_WIDTH = window.innerWidth;
+    SCREEN_TYPE_HEIGHT = window.innerHeight;
+  }
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
