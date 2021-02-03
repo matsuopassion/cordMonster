@@ -360,7 +360,7 @@ function abilitySelect(phase,myMonster,enemy){
       abilityPower = 75;
       abilityName = "プラズマショット";
       abilityMessage = "のプラズマショット！！"
-      abilitySoundEffectPlaying("gunfire",75);
+      abilitySoundEffectPlaying("gunfire",5);
       damage = damageCalclator(abilityPower,attacker,target);
       targetLife = targetLife - damage * 2;
       break;

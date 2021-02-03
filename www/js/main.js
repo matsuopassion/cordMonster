@@ -163,6 +163,8 @@ phina.main(function() {
     SCREEN_TYPE_WIDTH = window.innerWidth;
     SCREEN_TYPE_HEIGHT = window.innerHeight;
   }
+  SCREEN_WIDTH = SCREEN_TYPE_WIDTH;
+  SCREEN_HEIGHT = SCREEN_TYPE_HEIGHT;
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',

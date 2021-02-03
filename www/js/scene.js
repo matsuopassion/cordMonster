@@ -6,8 +6,8 @@ var gauge1;
 var gauge2;
 var renderEndFlag = false;
 // 定数
-var SCREEN_WIDTH  =screen.width; // 画面横サイズ
-var SCREEN_HEIGHT = screen.height; // 画面縦サイズ
+var SCREEN_WIDTH; // 画面横サイズ
+var SCREEN_HEIGHT; // 画面縦サイズ
 /*
  * シーン01
  */ 
