@@ -83,8 +83,8 @@ var MONSTER_MASTER = {
             appropriate :
              { life : `E` ,power : `D` ,shield : `C`,speed : `D` , AP : `E` } ,
             ability :
-             [`normalAttack`],
-            abilityLv : [1],
+             [`normalAttack`,`plasmaShot`,`chargingShot`],
+            abilityLv : [1,3,10],
             defaultParam :
              { life : 100 ,power : 55 ,shield : 65 , speed : 50 ,AP : 10 },
             evoLine : `Undefined` ,
@@ -507,10 +507,36 @@ var MONSTER_MASTER = {
             abilityLv : [1 ,2 ,3 ,6],
             defaultParam :
              { life : 60 ,power : 60 ,shield : 30 , speed : 60 ,AP : 10 },
-            evoLine : `Undefined` ,
-    	      evoLv : `Undefined`,
+            evoLine : `Queenpixia` ,
+    	      evoLv : `10`,
             basic : true
         },{
+            monsterID: `Protobine`,
+            monsterFamily: `プロトバイン`,
+            comment: `古代兵器の設計図を基に作られた現代の\n戦闘兵器。まだ未完成ながら高い殲滅力を誇る。\n`,
+            rarity: `B`,
+            appropriate: { life: `D`, power: `C`, shield: `C`, speed: `D`, AP : `D`},
+            ability: [`normalAttack`, `pileBunker`, `plasmaShot`],
+            abilityLv: [1, 2, 5],
+            defaultParam: { life: 150, power: 90, shield: 40, speed: 45 , AP : 10},
+            evoLine: `Undefined`,
+            evoLv: `Undefined`,
+            basic: true
+        }, {
+            monsterID: `Queenpixia`,
+            monsterFamily: `クイーンピクシア`,
+            comment: `おらはゲームプログラマのひでき、みんな\nいっぱい遊んでくで`,
+            rarity: `B`,
+            appropriate: { life: `C`, power: `D`, shield: `D`, speed: `C`, AP : `B`},
+            ability: [`normalAttack`, `heal`, `flashArrow`],
+            abilityLv: [1, 1, 5],
+            defaultParam: { life: 130, power: 50, shield: 40, speed: 65 },
+            evoLine: `Undefined`,
+            evoLv: `Undefined`,
+            basic: false
+        }, 
+        
+        {
             monsterID : `Rasyomon` ,
             monsterFamily : `ラショウモン` ,
             comment: `アンデッドとなった魔物の中でも最上位\nの種族`,
@@ -519,7 +545,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `B` ,shield : `C`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`nightmare`,`bigWheel`],
-            abilityLv : [1],
+            abilityLv : [1,5,10],
             defaultParam :
              { life : 70 ,power : 130 ,shield : 80 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
@@ -536,7 +562,7 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `G` ,shield : `G`,speed : `G` , AP : `E` } ,
             ability :
              [`normalAttack`,`biting`],
-            abilityLv : [1],
+            abilityLv : [1,5],
             defaultParam :
              { life : 50 ,power : 50 ,shield : 30 , speed : 50 ,AP : 10 },
             evoLine : `Ryuyasoldier` ,
@@ -555,7 +581,7 @@ var MONSTER_MASTER = {
             defaultParam :
              { life : 65 ,power : 60 ,shield : 40 , speed : 60 ,AP : 10 },
             evoLine : `Ryuyaraptor` ,
-    	      evoLv : `5`,
+    	      evoLv : `20`,
             basic : false
         },{
             monsterID : `Ryuyaraptor` ,
@@ -716,7 +742,7 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `F` ,shield : `E`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`crownSplit`,``],
-            abilityLv : [1],
+            abilityLv : [1,3],
             defaultParam :
              { life : 45 ,power : 60 ,shield : 40 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
