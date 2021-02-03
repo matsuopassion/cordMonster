@@ -720,11 +720,13 @@ phina.define("battleCpuPage", {
       'ViperKong',
       'Worm',
       'Yanchicken',
+      'Protobine'
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
+    console.log(JSON.stringify(this.vdmyMonster));
+
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
-    
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
