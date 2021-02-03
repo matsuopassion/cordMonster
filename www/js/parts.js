@@ -628,6 +628,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
 
   selectMonsterButton.onpointstart = function(e) {
       alert(monster.monsterName + `\nをバトルモンスターにセットしました！`);
+      console.log(JSON.stringify(monster));
       localStorage.setItem("selectMonster",monster.monsterID);
       viewUpdateStatus(group);
       viewUpdateInfo(master,group,monster,pointSetArray,magnification);

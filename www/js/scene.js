@@ -723,7 +723,14 @@ phina.define("battleCpuPage", {
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["nomal"]; 
-    let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]);
+    let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(monsterArray.length)]);
+    
+    // let enemyTypeArray = [[2,1,1,1],[1,2,1,1],[1,1,2,1],[1,1,1,2]];
+    // let monsterType = enemyTypeArray(getRandomInt(4));
+    // let enemySkillPoint = (myMonster.Lv - 1);
+    // while(enemySkillPoint > 0){
+
+    // }
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
