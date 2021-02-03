@@ -555,7 +555,7 @@ var MONSTER_MASTER = {
             defaultParam :
              { life : 65 ,power : 60 ,shield : 40 , speed : 60 ,AP : 10 },
             evoLine : `Ryuyaraptor` ,
-    	      evoLv : `5`,
+    	      evoLv : `20`,
             basic : false
         },{
             monsterID : `Ryuyaraptor` ,

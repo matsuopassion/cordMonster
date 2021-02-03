@@ -722,7 +722,7 @@ phina.define("battleCpuPage", {
       'Yanchicken',
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-    this.myMonster.condition = ["nomal"]; 
+    this.myMonster.condition = ["normal"]; 
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
     
     this.enemy = {
