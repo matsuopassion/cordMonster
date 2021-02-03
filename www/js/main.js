@@ -159,7 +159,8 @@ var SCREEN_TYPE_HEIGHT = screen.availHeight;
  */
 phina.main(function() {
   // アプリケーションを生成
-  if(device.platform == "iPhone"){
+  console.log(device.platform);
+  if(device.platform  == "iOS"){
     SCREEN_TYPE_WIDTH = window.innerWidth;
     SCREEN_TYPE_HEIGHT = window.innerHeight;
   }
