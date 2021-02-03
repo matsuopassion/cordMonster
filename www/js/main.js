@@ -151,18 +151,18 @@ var ASSETS = {
   //効果音
 };
 
-var SCREEN_TYPE_WIDTH = screen.width;
-var SCREEN_TYPE_HEIGHT = screen.height;
+var SCREEN_TYPE_WIDTH = screen.availWidth;
+var SCREEN_TYPE_HEIGHT = screen.availHeight;
 
 /*
  * メイン処理
  */
 phina.main(function() {
   // アプリケーションを生成
-  /* if(device.platform == "Android"){
-    SCREEN_TYPE_WIDTH = screen.width;
-    SCREEN_TYPE_HEIGHT = screen.height;
-  }*/
+  // if(device.platform == "iPhone"){
+  //   SCREEN_TYPE_WIDTH = screen.width;
+  //   SCREEN_TYPE_HEIGHT = screen.height;
+  // }
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
