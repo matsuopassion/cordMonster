@@ -188,7 +188,7 @@ function resultClassification(){
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
   //return monster.monsterID;
-  return "Worm";
+  return monsterData.monsterID;
 }
 
 
