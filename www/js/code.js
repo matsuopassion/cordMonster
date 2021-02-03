@@ -87,16 +87,20 @@ function levelUpMonster(monsterData){
 }
 
 function haveEvoCheck(monsterData){
+  let judugeMonsterData = monsterData;
     try {
     const monster = MONSTER_MAP.get(monsterData.monsterID);
+      console.log("evoLineのUndefined判定前"+JSON.stringify(monster));
       if(monster.evoLine != `Undefined`){
+        console.log("evoLineのUndefined判定後");
         //↓localStorage内から進化ラインのモンスターがいないかチェック、いるなら再起呼び出し
         if(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine) != null){
-         monsterData = 
-            haveEvoCheck(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine));
+        console.log(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine));
+         judugeMonsterData = 
+            haveEvoCheck(JSON.parse(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine)));
         }
       }
-    return monsterData;
+    return judugeMonsterData;
     } catch (e) {
       console.log("モンスターの情報が正しく取れませんでした：evoCheck");
     }
@@ -130,8 +134,9 @@ function judgeAbilityEvoMonster(monsterData){
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
+    console.log(monsterAbility);
     const abilityLv = monster.abilityLv;
-
+    console.log(abilityLv);
     let abilityList = new Array();
     for(let i in abilityLv){
       //レベルに該当する場合は特技を追加
@@ -186,9 +191,8 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  console.log("ガチャ選定時Index" + monsterIndex);
-  console.log("ガチャ選定時" + monster.monsterID);
-  return monster.monsterID;
+  //return monster.monsterID;
+  return "Worm";
 }
 
 
@@ -228,12 +232,11 @@ function getEvoMonster(monsterData){
       shield : 0 , 
       speed : 0 ,
       AP : 0},
-    ability : new Array(),
     condition : monsterData.condition,
   };
-  evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
+  evoMonsterData.ability = judgeAbilityEvoMonster(evoMonsterData);
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
-    localStorage.setItem("selectMonster",evoMonster.monsterID);
+    localStorage.setItem("selectMonster",evoMonsterData.monsterID);
   }
   return evoMonsterData;
 }
