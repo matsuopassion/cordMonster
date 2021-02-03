@@ -734,28 +734,45 @@ phina.define("battleCpuPage", {
           power : scM.defaultParam.power ,
           shield : scM.defaultParam.shield , 
           speed : scM.defaultParam.speed },
+      skill : {
+        point :  0,
+        life : 0 ,
+        power : 0 ,
+        shield : 0 , 
+        speed : 0 ,
+        AP : 0
+      },
       ability : new Array(),
       condition : ["normal"]  
     };
 
-    // let enemySkillPointArray = [0,0,0,0];
-    // let enemyType = getRandomInt(4);
-    // let enemySkillPoint = (myMonster.Lv - 1);
-    // if(enemySkillPoint > 0 ){
-    //   if(enemySkillPoint < 5){
-    //     enemySkillPointArray[enemyType] = enemySkillPoint;
-    //   }else{
-    //     for(let i = 0;i < 4;i++){
-    //       enemySkillPointArray[i] = Math.floor(enemySkillPoint / 4);
+    let enemyLvMin = 1;
+    if(this.myMonster.Lv - 5 > 1){
+      enemyLvMin = this.myMonster.Lv - 5;
+    }
+    let enemyLvMax = this.myMonster.Lv + 2;
+    const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+    this.enemy.Lv = randRange(enemyLvMin,enemyLvMax);
+
+    let enemySkillPointArray = [0,0,0,0];
+    let enemyType = getRandomInt(4);
+    let enemySkillPoint = (this.enemy.Lv - 1);
+    if(enemySkillPoint > 0 ){
+      if(enemySkillPoint < 5){
+        console.log("なかなかやるじゃない");
+        enemySkillPointArray[enemyType] = enemySkillPoint;
+      }else{
+        for(let i = 0;i < 4;i++){
+          enemySkillPointArray[i] = Math.floor(enemySkillPoint / 4);
           
-    //     }
-    //     enemySkillPointArray[enemyType] += enemySkillPoint % 4;
-    //   }
-    //   this.enemy = updateParam(this.enemy,enemySkillPointArray);
-    // }
-    // this.enemy.Lv = 
+        }
+        enemySkillPointArray[enemyType] += enemySkillPoint % 4;
+      }
+      this.enemy.skill.point = enemySkillPointArray.reduce(function(sum, element){return sum + element;}, 0); 
+      this.enemy = updateParam(this.enemy,enemySkillPointArray);
+    }
     this.enemy.ability = judgeAbilityEvoMonster(this.enemy);
-    console.log(this.enemy);
+    console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
     this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
