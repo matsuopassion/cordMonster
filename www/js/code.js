@@ -65,25 +65,6 @@ function getSearchData(qrText) {
  * lvと進化の判定、スキルの判定
 */
 function levelUpMonster(monsterData){
-    //ここからやりますので
-    //↓localStorageの中のモンスターだけを抽出
-    //koreを関数かして再起
-    for(let i = 0;i < localStorage.length;i++){
-      keyID = localStorage.key(i);
-      try {
-        getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
-        if(getItemIndex.monsterID != undefined){
-          //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
-          if(localStorage.getItem(MONSTER_MAP.get(getItemIndex.monsterID).evoLine) == null){
-            myMonsterArray[myMonsterNum] = getItemIndex;
-            myMonsterNum++;
-          }
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-
   //lvUP
     monsterData.Lv += 1;
     monsterData.skill.point += 1;
@@ -94,6 +75,8 @@ function levelUpMonster(monsterData){
     const monsterAbility = monster.ability;
     const abilityLv = monster.abilityLv;
     
+    monsterData = haveEvoCheck(monsterData);
+
     if(monster.evoLv == monsterData.Lv){ 
       monsterData = getEvoMonster(monsterData);
     }
@@ -101,6 +84,26 @@ function levelUpMonster(monsterData){
     monsterData.ability = judgeAbilityGet(monsterData);
     alert(monsterData.monsterName + "がレベルアップしました");
     return monsterData;
+}
+
+function haveEvoCheck(monsterData){
+  let judugeMonsterData = monsterData;
+    try {
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
+      console.log("evoLineのUndefined判定前"+JSON.stringify(monster));
+      if(monster.evoLine != `Undefined`){
+        console.log("evoLineのUndefined判定後");
+        //↓localStorage内から進化ラインのモンスターがいないかチェック、いるなら再起呼び出し
+        if(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine) != null){
+        console.log(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine));
+         judugeMonsterData = 
+            haveEvoCheck(JSON.parse(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine)));
+        }
+      }
+    return judugeMonsterData;
+    } catch (e) {
+      console.log("モンスターの情報が正しく取れませんでした：evoCheck");
+    }
 }
 
 function judgeAbilityGet(monsterData){
@@ -131,8 +134,9 @@ function judgeAbilityEvoMonster(monsterData){
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
+    console.log(monsterAbility);
     const abilityLv = monster.abilityLv;
-
+    console.log(abilityLv);
     let abilityList = new Array();
     for(let i in abilityLv){
       //レベルに該当する場合は特技を追加
@@ -187,19 +191,16 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  console.log("ガチャ選定時Index" + monsterIndex);
-  console.log("ガチャ選定時" + monster.monsterID);
-  return monster.monsterID;
+  //return monster.monsterID;
+  return "Worm";
 }
 
 
 function getEvoMonster(monsterData){
   //monsterDataのマスタ取得
   const monster = MONSTER_MAP.get(monsterData.monsterID);
-
   //進化後のマスタ取得
   const evoMonster = MONSTER_MAP.get(monster.evoLine);
-
   //進化先のパラメータ取得
   const eDefaultParam = evoMonster.defaultParam ;
   
@@ -231,20 +232,11 @@ function getEvoMonster(monsterData){
       shield : 0 , 
       speed : 0 ,
       AP : 0},
-    ability : new Array(),
     condition : monsterData.condition,
-    eflag : true
   };
-  evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
-  if(monster.evoLv == monsterData.Lv+1){ 
-    evoMonsterData = getEvoMonster(evoMonsterData);
-    evoMonster.eflag = false;
-  }
-  if(monsterData.eflag == true){
-
-  }
+  evoMonsterData.ability = judgeAbilityEvoMonster(evoMonsterData);
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
-    localStorage.setItem("selectMonster",evoMonster.monsterID);
+    localStorage.setItem("selectMonster",evoMonsterData.monsterID);
   }
   return evoMonsterData;
 }

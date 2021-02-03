@@ -57,7 +57,7 @@ var MONSTER_MASTER = {
             abilityLv : [1 ,2 ,5 ],
             defaultParam :
              { life : 100 ,power : 50 ,shield : 30 , speed : 50 ,AP : 10 },
-            evoLine : `BechoimeKing` ,
+            evoLine : `Bechoimeking` ,
     	      evoLv : `6`,
             basic : true
         },{
