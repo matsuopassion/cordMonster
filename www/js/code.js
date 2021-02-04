@@ -275,6 +275,8 @@ function updateParam(monsterData,addPointArray){
   skills.shield += addPointArray[2];
   params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
   skills.speed += addPointArray[3];
+  params.AP += skillAllocation(appropriates.AP,addPointArray[4]);
+  skills.AP += addPointArray[4];
   skills.point -= totalPoint;
   monsterData.param = params;
   monsterData.skill = skills;
