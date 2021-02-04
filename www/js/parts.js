@@ -466,8 +466,8 @@ function boxCharaDSet(master,charaNum){
 
 function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
   let rowNum = 1;
-  let statusTextArray = ["HP:","攻撃力:","防御力:","素早さ:"];
-  let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
+  let statusTextArray = ["HP:","攻撃力:","防御力:","素早さ:","AP:"];
+  let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed,monster.param.AP];
   let totalSetPoint = 0;
   let nameLabel = Label({
       text: monster.monsterName,
@@ -480,23 +480,23 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     fontSize: 40 * magnification,
     fill: 'white',
     align: "left",
-  }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1)); 
+  }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(0)); 
 
-    for (let i = 0; i < 4; i++){
+    for (let i = 0; i < 5; i++){
 
       let statusLabel = Label({
         text: statusTextArray[i] + statusNumArray[i],
         fontSize: 35 * magnification,
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
     
     let updatePointLabel = Label({
         text: "",
         fontSize: 30 * magnification,
         fill: 'red',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(1+i));
 
     if(pointSetArray[i] > 0){
       updatePointLabel.text = "+" + pointSetArray[i];
@@ -512,7 +512,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
     statusUpButton.onpointstart = function(e) {
       SoundManager.setVolume(2.0);
       SoundManager.play('skillSelectButton');
@@ -540,7 +540,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
 
     statusDownButton.onpointstart = function(e) {
       SoundManager.setVolume(2.0);
@@ -600,7 +600,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     console.log(JSON.stringify(updateMonster));
     alert('ステータスが更新されました。');
     localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
-    pointSetArray = [0,0,0,0];
+    pointSetArray = [0,0,0,0,0];
     viewUpdateStatus(group);
     viewUpdateInfo(master,group,updateMonster,pointSetArray,magnification);
   }

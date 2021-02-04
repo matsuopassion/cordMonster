@@ -194,7 +194,7 @@ phina.define("mainPage", {
 
     
     try{
-      let myMonsterData = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+      let myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
       mainPageMonsterInfo(this,myMonsterData);
       let mainPageMonster = Sprite(myMonsterData.monsterID);
       mainPageMonster.width = 400;
@@ -265,7 +265,7 @@ phina.define("boxPage", {
     for(let i = 0;i < localStorage.length;i++){
       keyID = localStorage.key(i);
       try {
-        getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
+        getItemIndex = JSON.parse(localStorage.getItem(keyID));
         if(getItemIndex.monsterID != undefined){
           //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
           if(localStorage.getItem(MONSTER_MAP.get(getItemIndex.monsterID).evoLine) == null){
