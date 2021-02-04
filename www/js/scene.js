@@ -1,7 +1,7 @@
 // This is a JavaScript file
 // グローバルに展開
 phina.globalize();
-var SPEED = 30;
+var SPEED = 4;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
@@ -201,18 +201,54 @@ phina.define("mainPage", {
       mainPageMonster.height = 400;
       mainPageMonster.addChildTo(this).setPosition(this.gridX.center(),this.gridY.center(2));
 
-      mainPageMonster.vx = -2;
-      let mainPageMonsterint = 0;
+      let turnArray = ["right","left"];
+      let turnDirection = turnArray[1];
+      let stepMax = getRandomInt(SCREEN_WIDTH - 300);
+      let stepCount = 0;
+      let waitNum = 10 + getRandomInt(10);
+      let waitCount = 0;
       // 更新イベント
-      mainPageMonster.update = function() {
-        // 移動2
-        mainPageMonster.x += mainPageMonster.vx;
-        // 画面端との判定
-        if (mainPageMonster.left < -50 || 480 < mainPageMonster.right) {
-          sleep(2000);
-          mainPageMonster.scaleX *= -1;
-          // 速度を反転する
-          mainPageMonster.vx *= -1;
+      mainPageMonster.update = function(app) {
+        if(turnDirection == "right"){
+          mainPageMonster.scaleX = -1;
+           if(mainPageMonster.right - 100 >= SCREEN_WIDTH || stepCount >= stepMax){
+              if(waitNum < waitCount){
+               if(mainPageMonster.x == SCREEN_WIDTH - 1){
+                 turnDirection = "left";
+               }else{
+                 turnDirection = turnArray[getRandomInt(2)];
+               }
+               stepMax = getRandomInt(SCREEN_WIDTH - 300);
+               stepCount = 0;
+               waitNum = 10 + getRandomInt(10);
+               waitCount = 0;
+             }else{
+               waitCount++;
+             }
+           }else{
+              mainPageMonster.x += 2;
+              stepCount++;
+           }
+        }else{
+          mainPageMonster.scaleX = 1;
+           if(mainPageMonster.left + 100 > 0 && stepCount < stepMax){
+              mainPageMonster.x -= 2;
+              stepCount++;
+           }else{
+             if(waitNum < waitCount){
+               if(mainPageMonster.x == 1){
+                 turnDirection = "right";
+               }else{
+                 turnDirection = turnArray[getRandomInt(2)];
+               }
+               stepMax = getRandomInt(SCREEN_WIDTH - 300);
+               stepCount = 0;
+               waitNum = 10 + getRandomInt(10);
+               waitCount = 0;
+             }else{
+               waitCount++;
+             }
+           }
         }
       };
       
@@ -541,16 +577,20 @@ phina.define("battleFriendPage", {
     
     fMon = friendBattle.resultMonster;
     console.log(JSON.stringify(fMon));
-    this.enemy.monsterID = fMon.mID;
-    this.enemy.monsterName = MONSTER_MAP.get(fMon.mID).monsterFamily;
-    this.enemy.Lv = fMon.Lv;
-    this.enemy.param.life   = fMon.param[0];
-    this.enemy.param.power  = fMon.param[1];
-    this.enemy.param.shield = fMon.param[2];
-    this.enemy.param.speed  = fMon.param[3];
-    this.enemy.param.AP  = fMon.param[4];    
-    this.enemy.ability = fMon.ability;
-    this.enemy.condition = ["nomal"];
+    this.enemy = {
+      monsterID : fMon.mID,
+      monsterName : MONSTER_MAP.get(fMon.mID).monsterFamily ,
+      Lv : 1 ,
+      param : { 
+          life : fMon.param[0] ,
+          power : fMon.param[1] ,
+          shield : fMon.param[2] , 
+          speed : fMon.param[3] ,
+          AP : fMon.param[4] },
+      ability : fMon.ability,
+      condition : ["normal"]  
+    };
+    console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
