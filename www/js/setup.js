@@ -13,17 +13,6 @@ function setMonsterMap(){
     }
 }
 
-function sleep(waitMsec) {
-  var startMsec = new Date();
- 
-  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
-  while (new Date() - startMsec < waitMsec);
-}
-
- 
-// 5秒後にメッセージを表示
-//console.log('5秒経過しました！');
-
 function setBasicMap(){
     for (let monster of MONSTER_MASTER.monsterData) {
       if(monster.basic === true){
@@ -50,5 +39,10 @@ function setGachaList(){
   GACHA_LIST.push(bList);
   GACHA_LIST.push(cList);
 }
-//RISE_INDEX.indexOf();
 
+function sleep(waitMsec) {
+  var startMsec = new Date();
+ 
+  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+  while (new Date() - startMsec < waitMsec);
+}

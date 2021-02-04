@@ -54,7 +54,6 @@ function getSearchData(qrText) {
   }
 
   //localstrageに保存
-  console.log("monsterID:"+monsterData.monsterID+"/モンスターデータ:"+JSON.stringify(monsterData));
   localStorage.setItem(monsterData.monsterID,JSON.stringify(monsterData));
   return monsterData;
 }
@@ -95,7 +94,7 @@ function haveEvoCheck(monsterData){
     try {
     const monster = MONSTER_MAP.get(monsterData.monsterID);
       if(monster.evoLine != `Undefined`){
-        //↓localStorage内から進化ラインのモンスターがいないかチェック、いるなら再起呼び出し
+        //↓localStorage内から進化ラインのモンスターをチェック、いるなら再起呼び出し
         if(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine) != null){
          judugeMonsterData = 
             haveEvoCheck(JSON.parse(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine)));
@@ -276,13 +275,11 @@ function updateParam(monsterData,addPointArray){
   skills.shield += addPointArray[2];
   params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
   skills.speed += addPointArray[3];
-  params.AP += skillAllocation(appropriates.speed,addPointArray[4]);
-  skills.AP += addPointArray[4];
   skills.point -= totalPoint;
   monsterData.param = params;
   monsterData.skill = skills;
   
-  return monsterData;//あやしい
+  return monsterData;
 }
 
 function getAppropriate(monsterData){

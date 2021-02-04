@@ -179,7 +179,7 @@ var MONSTER_MASTER = {
              { life : 230 ,power : 90,shield : 100 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
-            basic : true
+            basic : false
         },{
             monsterID : `Fishman` ,
             monsterFamily : `ウオウ` ,
