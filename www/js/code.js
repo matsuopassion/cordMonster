@@ -348,3 +348,8 @@ function codeCreate(qrcode){
   }
   return qrcode;
 }
+
+function getRandomInt(max) {
+  // ランダムな配列
+  return Math.floor(Math.random() * Math.floor(max));
+}
