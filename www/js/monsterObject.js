@@ -741,7 +741,7 @@ var MONSTER_MASTER = {
             appropriate :
              { life : `G` ,power : `F` ,shield : `E`,speed : `D` , AP : `E` } ,
             ability :
-             [`normalAttack`,`crownSplit`,``],
+             [`normalAttack`,`crownSplit`,`bornBreak`],
             abilityLv : [1,3],
             defaultParam :
              { life : 45 ,power : 60 ,shield : 40 , speed : 50 ,AP : 10 },

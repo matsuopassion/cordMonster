@@ -8,6 +8,7 @@
 function Battle(phase,myMonster,enemy,master){
   let message;
   let commandResults;
+  let ability = "normalAttack";
   let abilityName;
   let abilityMessage;
   let damage = 0;
@@ -15,7 +16,12 @@ function Battle(phase,myMonster,enemy,master){
   let issue = "uncertain";
   switch (phase){
     case 'm':
-      commandResults = abilitySelect(phase,myMonster,enemy);
+      //選択式にしたら消す by ryuya
+      ability = myMonster.ability;
+      console.log(ability);
+      ability = ability[Math.floor(Math.random() * ability.length)].toString();
+      //
+      commandResults = abilitySelect(phase,myMonster,enemy,ability);
       myMonster.param = commandResults.myMonsterParam;
       enemy.param = commandResults.enemyParam;
       myMonster.condition = commandResults.mCondition;
@@ -29,7 +35,12 @@ function Battle(phase,myMonster,enemy,master){
       console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
       break;
     case 'e':
-      commandResults = abilitySelect(phase,myMonster,enemy);
+      //選択式にしたら消す by ryuya
+      ability = enemy.ability;
+      console.log(ability);
+      ability = ability[Math.floor(Math.random() * ability.length)].toString();
+      //
+      commandResults = abilitySelect(phase,myMonster,enemy,ability);
       myMonster.param = commandResults.myMonsterParam;
       enemy.param = commandResults.enemyParam;
       myMonster.condition = commandResults.mCondition;
@@ -73,25 +84,24 @@ function getMessage(phase,myMonster,enemy,commandResults){
   switch (phase){
     case 'm':
       switch(commandResults.abilityType){
-        case 0:
+        case 0://相手に攻撃
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
-        case 1:
+        case 1://相手に攻撃しつつ状態異常を付与
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.conditionName}状態になった！`;
           break;
-        case 2:
-          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.damage}回復した！`;
-          break;
-        case 3:
-          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}は${commandResults.damage}回復した！`;
-          break;
-        case 4:
+        case 2://相手に状態異常を付与
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}は${commandResults.conditionName}状態になった！`;
           break;
-        case 5:
+        case 3://自身を回復
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}は${commandResults.healpoint}回復した！`;
+          break;
+        case 4://相手に攻撃しつつ自身を回復
+          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.healpoint}回復した！`;
+        case 5://未使用
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
-        case 6:
+        case 6://未使用
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
         default:
@@ -100,25 +110,24 @@ function getMessage(phase,myMonster,enemy,commandResults){
       break;
     case 'e':
       switch(commandResults.abilityType){
-        case 0:
+        case 0://相手に攻撃
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
-        case 1:
+        case 1://相手に攻撃しつつ状態異常を付与
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.conditionName}状態になった！`;
           break;
-        case 2:
-          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.damage}回復した！`;
-          break;
-        case 3:
-          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}は${commandResults.damage}回復した！`;
-          break;
-        case 4:
+        case 2://相手に状態異常を付与
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}は${commandResults.conditionName}状態になった！`;
           break;
-        case 5:
+        case 3://自身を回復
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}は${commandResults.healpoint}回復した！`;
+          break;
+        case 4://相手に攻撃しつつ自身を回復
+          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.healpoint}回復した！`;
+        case 5://未使用
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
-        case 6:
+        case 6://未使用
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
         default:
@@ -162,7 +171,7 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
   }
   console.log(conditionType);
   switch (conditionType){
-    case "poison":
+    case "Poison":
       conditionName = "毒";
       if(phase === "m"){
         this.message = `${myMonster.monsterName}は毒のダメージを受けている`;

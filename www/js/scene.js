@@ -577,6 +577,16 @@ phina.define("battleFriendPage", {
      */
     
     fMon = friendBattle.resultMonster;
+    this.enemy.monsterID = fmon.mID;
+    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
+    this.enemy.Lv = fMon.Lv;
+    this.enemy.param.life   = fmon.param[0];
+    this.enemy.param.power  = fmon.param[1];
+    this.enemy.param.shield = fmon.param[2];
+    this.enemy.param.speed  = fmon.param[3];
+    this.enemy.param.speed  = fmon.param[4];    
+    this.enemy.ability = fmon.ability;
+    this.enemy.condition = "normal";
     console.log(JSON.stringify(fMon));
     this.enemy = {
       monsterID : fMon.mID,
@@ -766,8 +776,8 @@ phina.define("battleCpuPage", {
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
     console.log(JSON.stringify(this.myMonster));
-
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
+    console.log(JSON.stringify(scM));
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
@@ -776,7 +786,8 @@ phina.define("battleCpuPage", {
           life : scM.defaultParam.life ,
           power : scM.defaultParam.power ,
           shield : scM.defaultParam.shield , 
-          speed : scM.defaultParam.speed },
+          speed : scM.defaultParam.speed ,
+          AP : scM.defaultParam.AP},
       skill : {
         point :  0,
         life : 0 ,
@@ -896,7 +907,6 @@ phina.define("battleCpuPage", {
       gauge1.value = this.myMonster.param.life;
       gauge2.value = this.enemy.param.life;
       this.turnCount++;
-      console.log(this.turnCount);
     }
   }
 });
