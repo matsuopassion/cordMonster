@@ -169,7 +169,7 @@ var MONSTER_MASTER = {
             monsterID : `Cthulhu` ,
             monsterFamily : `クトゥルー` ,
             comment: `旧支配者。\nクトゥルーが再び姿を現したとき、この\n世が滅ぶという予言がある。\n`,
-            rarity : `A` ,
+            rarity : `S` ,
             appropriate :
              { life : `B` ,power : `B` ,shield : `B`,speed : `D` , AP : `E` } ,
             ability :
@@ -184,7 +184,7 @@ var MONSTER_MASTER = {
             monsterID : `Envy` ,
             monsterFamily : `エンヴィ` ,
             comment: `null`,
-            rarity : `C` ,
+            rarity : `S` ,
             appropriate :
              { life : `F` ,power : `F` ,shield : `F`,speed : `F` , AP : `F` } ,
             ability :
@@ -274,7 +274,7 @@ var MONSTER_MASTER = {
             monsterID : `Glutton` ,
             monsterFamily : `グラトン` ,
             comment: `null`,
-            rarity : `C` ,
+            rarity : `S` ,
             appropriate :
              { life : `E` ,power : `E` ,shield : `F`,speed : `G` , AP : `E` } ,
             ability :
@@ -289,7 +289,7 @@ var MONSTER_MASTER = {
             monsterID : `Greed` ,
             monsterFamily : `グリード` ,
             comment: `null`,
-            rarity : `C`,
+            rarity : `S`,
             appropriate :
              { life : `E` ,power : `F` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
@@ -364,7 +364,7 @@ var MONSTER_MASTER = {
             monsterID : `Ithaqua` ,
             monsterFamily : `イトハカ` ,
             comment: `旧支配者。\n「風」に乗る能力によって、宇宙を移動\nする。\n`,
-            rarity : `A` ,
+            rarity : `S` ,
             appropriate :
              { life : `B` ,power : `B` ,shield : `B`,speed : `B` , AP : `E` } ,
             ability :
@@ -439,7 +439,7 @@ var MONSTER_MASTER = {
             monsterID : `Lust` ,
             monsterFamily : `ラスト` ,
             comment: `null`,
-            rarity : `C`,
+            rarity : `S`,
             appropriate :
              { life : `F` ,power : `E` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
@@ -571,6 +571,21 @@ var MONSTER_MASTER = {
     	      evoLv : `10`,
             basic : true
         },{
+            monsterID : `Pride` ,
+            monsterFamily : `プライド` ,
+            comment: `null`,
+            rarity : `S`,
+            appropriate :
+             { life : `D` ,power : `D` ,shield : `D`,speed : `D` , AP : `E` } ,
+            ability :
+             [`normalAttack`,`plasmaShot`,`pyrokinesis`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 75 ,power : 65 ,shield : 50 , speed : 60 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
+        },{
             monsterID: `Protobine`,
             monsterFamily: `プロトバイン`,
             comment: `古代兵器の設計図を基に作られた現代の\n戦闘兵器。まだ未完成ながら高い殲滅力を誇る。\n`,
@@ -594,9 +609,7 @@ var MONSTER_MASTER = {
             evoLine: `Undefined`,
             evoLv: `Undefined`,
             basic: false
-        }, 
-        
-        {
+        },{
             monsterID : `Rasyomon` ,
             monsterFamily : `ラショウモン` ,
             comment: `アンデッドとなった魔物の中でも最上位\nの種族`,
@@ -704,6 +717,21 @@ var MONSTER_MASTER = {
     	      evoLv : `Undefined`,
             basic : false
         },{
+            monsterID : `Sloth` ,
+            monsterFamily : `スロース` ,
+            comment: `null`,
+            rarity : `S`,
+            appropriate :
+             { life : `C` ,power : `C` ,shield : `D`,speed : `F` , AP : `E` } ,
+            ability :
+             [`normalAttack`, `flame`, `tentaclesRush`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 80 ,power : 120 ,shield : 80 , speed : 70 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
+        },{
             monsterID : `Taurusborg` ,
             monsterFamily : `タウロスボーグ` ,
             comment: `秘密の研究によって生み出された計り知\nれないパワーと知性を持つ牛のサイボー\nグ。\n`,
@@ -793,6 +821,21 @@ var MONSTER_MASTER = {
             evoLine : `Chrysalis`,
     	      evoLv : 3,
             basic : true
+        },{
+            monsterID : `Wrath` ,
+            monsterFamily : `ラース` ,
+            comment: `null`,
+            rarity : `S`,
+            appropriate :
+             { life : `E` ,power : `C` ,shield : `C`,speed : `E` , AP : `E` } ,
+            ability :
+             [`normalAttack`,`crownSplit`,`bornBreak`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 85 ,power : 70 ,shield : 55 , speed : 40 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
         },{
             monsterID : `Yanchicken` ,
             monsterFamily : `メンチキ` ,
