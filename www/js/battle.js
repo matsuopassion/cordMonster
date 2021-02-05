@@ -22,7 +22,6 @@ function Battle(phase,myMonster,enemy,master){
       ability = ability[Math.floor(Math.random() * ability.length)].toString();
       //
       commandResults = abilitySelect(phase,myMonster,enemy,ability);
-      console.log("技タイプ→"+commandResults.abilityType);
       myMonster.param = commandResults.myMonsterParam;
       enemy.param = commandResults.enemyParam;
       myMonster.condition = commandResults.mCondition;
@@ -46,7 +45,6 @@ function Battle(phase,myMonster,enemy,master){
       enemy.param = commandResults.enemyParam;
       myMonster.condition = commandResults.mCondition;
       enemy.condition = commandResults.eCondition;
-      console.log("技タイプ→"+commandResults.abilityType);
       this.message = getMessage(phase,myMonster,enemy,commandResults);
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
@@ -100,7 +98,6 @@ function getMessage(phase,myMonster,enemy,commandResults){
           break;
         case 4://相手に攻撃しつつ自身を回復
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.healpoint}回復した！`;
-          break;
         case 5://未使用
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
@@ -127,7 +124,6 @@ function getMessage(phase,myMonster,enemy,commandResults){
           break;
         case 4://相手に攻撃しつつ自身を回復
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.healpoint}回復した！`;
-          break;
         case 5://未使用
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;

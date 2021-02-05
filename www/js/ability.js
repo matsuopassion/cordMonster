@@ -100,6 +100,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       targetSpeed : targetSpeed,
     };
   }
+  console.log(ability);
   ability_result = ABILITY_MAP.get(ability);
   console.log(JSON.stringify(ability_result));
   console.log(ability_result);
@@ -234,9 +235,3 @@ function getChooseRandom(arrayData) {
   var arrayIndex = Math.floor(Math.random() * arrayData.length);
   return arrayData[arrayIndex];
 };
-function getAbilityMessage(messageTop,countRandum,messageBottom){
-  console.log(messageTop);
-  console.log(countRandum);
-  console.log(messageBottom);
-  return message;
-}

@@ -90,6 +90,7 @@ var ASSETS = {
     'battleResultLoseBg':'image/battleResultLoseBg.jpg',
     'battleResultWinBg':'image/battleResultWinBg.jpg',
     'monsterQR':'',
+    'abilitySelectButton':'image/abilitySelectButton.png',
     
   },
   //音楽
@@ -152,18 +153,20 @@ var ASSETS = {
   //効果音
 };
 
-var SCREEN_TYPE_WIDTH = screen.width;
-var SCREEN_TYPE_HEIGHT = screen.height;
+var SCREEN_TYPE_WIDTH = screen.availWidth;
+var SCREEN_TYPE_HEIGHT = screen.availHeight;
 
 /*
  * メイン処理
  */
 phina.main(function() {
   // アプリケーションを生成
-  /* if(device.platform == "Android"){
-    SCREEN_TYPE_WIDTH = screen.width;
-    SCREEN_TYPE_HEIGHT = screen.height;
-  }*/
+  // if(device.platform == "iOS"){
+    // SCREEN_TYPE_WIDTH = window.innerWidth;
+    // SCREEN_TYPE_HEIGHT = window.innerHeight;
+  // }
+  SCREEN_WIDTH = SCREEN_TYPE_WIDTH;
+  SCREEN_HEIGHT = SCREEN_TYPE_HEIGHT;
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',

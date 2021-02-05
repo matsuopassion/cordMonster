@@ -1,13 +1,13 @@
 // This is a JavaScript file
 // グローバルに展開
 phina.globalize();
-var SPEED = 30;
+var SPEED = 4;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
 // 定数
-var SCREEN_WIDTH  =screen.width; // 画面横サイズ
-var SCREEN_HEIGHT = screen.height; // 画面縦サイズ
+var SCREEN_WIDTH; // 画面横サイズ
+var SCREEN_HEIGHT; // 画面縦サイズ
 /*
  * シーン01
  */ 
@@ -194,25 +194,61 @@ phina.define("mainPage", {
 
     
     try{
-      let myMonsterData = new monster(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
+      let myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
       mainPageMonsterInfo(this,myMonsterData);
       let mainPageMonster = Sprite(myMonsterData.monsterID);
       mainPageMonster.width = 400;
       mainPageMonster.height = 400;
       mainPageMonster.addChildTo(this).setPosition(this.gridX.center(),this.gridY.center(2));
 
-      mainPageMonster.vx = -2;
-      let mainPageMonsterint = 0;
+      let turnArray = ["right","left"];
+      let turnDirection = turnArray[1];
+      let stepMax = getRandomInt(SCREEN_WIDTH - 300);
+      let stepCount = 0;
+      let waitNum = 10 + getRandomInt(10);
+      let waitCount = 0;
       // 更新イベント
-      mainPageMonster.update = function() {
-        // 移動2
-        mainPageMonster.x += mainPageMonster.vx;
-        // 画面端との判定
-        if (mainPageMonster.left < -50 || 480 < mainPageMonster.right) {
-          sleep(2000);
-          mainPageMonster.scaleX *= -1;
-          // 速度を反転する
-          mainPageMonster.vx *= -1;
+      mainPageMonster.update = function(app) {
+        if(turnDirection == "right"){
+          mainPageMonster.scaleX = -1;
+           if(mainPageMonster.right - 100 >= SCREEN_WIDTH || stepCount >= stepMax){
+              if(waitNum < waitCount){
+               if(mainPageMonster.x == SCREEN_WIDTH - 1){
+                 turnDirection = "left";
+               }else{
+                 turnDirection = turnArray[getRandomInt(2)];
+               }
+               stepMax = getRandomInt(SCREEN_WIDTH - 300);
+               stepCount = 0;
+               waitNum = 10 + getRandomInt(10);
+               waitCount = 0;
+             }else{
+               waitCount++;
+             }
+           }else{
+              mainPageMonster.x += 2;
+              stepCount++;
+           }
+        }else{
+          mainPageMonster.scaleX = 1;
+           if(mainPageMonster.left + 100 > 0 && stepCount < stepMax){
+              mainPageMonster.x -= 2;
+              stepCount++;
+           }else{
+             if(waitNum < waitCount){
+               if(mainPageMonster.x == 1){
+                 turnDirection = "right";
+               }else{
+                 turnDirection = turnArray[getRandomInt(2)];
+               }
+               stepMax = getRandomInt(SCREEN_WIDTH - 300);
+               stepCount = 0;
+               waitNum = 10 + getRandomInt(10);
+               waitCount = 0;
+             }else{
+               waitCount++;
+             }
+           }
         }
       };
       
@@ -220,6 +256,7 @@ phina.define("mainPage", {
     }catch(e){
       alert(`ボックスから\nバトルモンスターをセットしよう！`);
     }
+    selectAbilityBar(master);
     menuSet(master);
     
   },
@@ -265,10 +302,10 @@ phina.define("boxPage", {
     for(let i = 0;i < localStorage.length;i++){
       keyID = localStorage.key(i);
       try {
-        getItemIndex = new monster(JSON.parse(localStorage.getItem(keyID)));
+        getItemIndex = JSON.parse(localStorage.getItem(keyID));
         if(getItemIndex.monsterID != undefined){
           //↓localStorage内から進化ラインのモンスターがいないかチェック、いなければボックスに追加
-          if(localStorage.getItem(JSON.parse(MONSTER_MAP.get(getItemIndex.monsterID)).evoLine) == null){
+          if(localStorage.getItem(MONSTER_MAP.get(getItemIndex.monsterID).evoLine) == null){
             myMonsterArray[myMonsterNum] = getItemIndex;
             myMonsterNum++;
           }
@@ -538,6 +575,7 @@ phina.define("battleFriendPage", {
      * ability : ability
      * condition : "nomal"
      */
+    
     fMon = friendBattle.resultMonster;
     this.enemy.monsterID = fmon.mID;
     this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
@@ -549,6 +587,21 @@ phina.define("battleFriendPage", {
     this.enemy.param.speed  = fmon.param[4];    
     this.enemy.ability = fmon.ability;
     this.enemy.condition = "normal";
+    console.log(JSON.stringify(fMon));
+    this.enemy = {
+      monsterID : fMon.mID,
+      monsterName : MONSTER_MAP.get(fMon.mID).monsterFamily ,
+      Lv : fMon.Lv ,
+      param : { 
+          life : fMon.param[0] ,
+          power : fMon.param[1] ,
+          shield : fMon.param[2] , 
+          speed : fMon.param[3] ,
+          AP : fMon.param[4] },
+      ability : fMon.ability,
+      condition : ["normal"]  
+    };
+    console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
@@ -718,10 +771,13 @@ phina.define("battleCpuPage", {
       'ViperKong',
       'Worm',
       'Yanchicken',
+      'Protobine'
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
-    let scM = JSON.parse(MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]));
+    console.log(JSON.stringify(this.myMonster));
+    let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
+    console.log(JSON.stringify(scM));
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
@@ -730,16 +786,51 @@ phina.define("battleCpuPage", {
           life : scM.defaultParam.life ,
           power : scM.defaultParam.power ,
           shield : scM.defaultParam.shield , 
-          speed : scM.defaultParam.speed },
+          speed : scM.defaultParam.speed ,
+          AP : scM.defaultParam.AP},
+      skill : {
+        point :  0,
+        life : 0 ,
+        power : 0 ,
+        shield : 0 , 
+        speed : 0 ,
+        AP : 0
+      },
       ability : new Array(),
       condition : ["normal"]  
     };
-    this.enemy.ability = judgeAbilityGet(this.enemy);
-    console.log(this.enemy);
+
+    let enemyLvMin = 1;
+    if(this.myMonster.Lv - 5 > 1){
+      enemyLvMin = this.myMonster.Lv - 5;
+    }
+    let enemyLvMax = this.myMonster.Lv + 2;
+    const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+    this.enemy.Lv = randRange(enemyLvMin,enemyLvMax);
+
+    let enemySkillPointArray = [0,0,0,0];
+    let enemyType = getRandomInt(4);
+    let enemySkillPoint = (this.enemy.Lv - 1);
+    if(enemySkillPoint > 0 ){
+      if(enemySkillPoint < 5){
+        console.log("なかなかやるじゃない");
+        enemySkillPointArray[enemyType] = enemySkillPoint;
+      }else{
+        for(let i = 0;i < 4;i++){
+          enemySkillPointArray[i] = Math.floor(enemySkillPoint / 4);
+          
+        }
+        enemySkillPointArray[enemyType] += enemySkillPoint % 4;
+      }
+      this.enemy.skill.point = enemySkillPointArray.reduce(function(sum, element){return sum + element;}, 0); 
+      this.enemy = updateParam(this.enemy,enemySkillPointArray);
+    }
+    this.enemy.ability = judgeAbilityEvoMonster(this.enemy);
+    console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
-    this.myMonster.ability = JSON.parse(MONSTER_MAP.get(this.myMonster.monsterID)).ability;
-    this.enemy.ability = JSON.parse(MONSTER_MAP.get(this.enemy.monsterID)).ability;
+    this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
+    this.enemy.ability = MONSTER_MAP.get(this.enemy.monsterID).ability;
     // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
     // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
     console.log("ここにきた");

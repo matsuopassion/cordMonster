@@ -42,10 +42,8 @@ function getSearchData(qrText) {
   //QRコードからモンスターを決定
   let monsterID = resultClassification(qrText);
   // ローカルストレージ内にあるJSON取得
-  
   let monsterJsonString = localStorage.getItem(monsterID);
   let monsterData;
-  console.log("ここまできた");
   //localstrage内にデータがなければ、モンスター新規取得
   if(monsterJsonString == null){
     monsterData = getNewMonster(monsterID);
@@ -56,37 +54,61 @@ function getSearchData(qrText) {
   }
 
   //localstrageに保存
-  localStorage.setItem(monsterID,JSON.stringify(monsterData));
-  // console.log(localStorage.getItem(monsterID));
+  localStorage.setItem(monsterData.monsterID,JSON.stringify(monsterData));
   return monsterData;
 }
 /**
  * monsterData : 対象のモンスター
  * lvと進化の判定、スキルの判定
+ * 
+ * monster : masterから取得したモンスターのデータ
 */
 function levelUpMonster(monsterData){
-  //lvUP
-    monsterData.Lv += 1;
-    monsterData.skill.point += 1;
+    //進化先がすでにいるか、存在するかチェックしてセット
+    monsterData = haveEvoCheck(monsterData);
+    
     //対象モンスターのマスタ
-    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
     const abilityLv = monster.abilityLv;
+
+    //lvUP
+    monsterData.Lv += 1;
+    monsterData.skill.point += 1;
     
+    //進化判定
     if(monster.evoLv == monsterData.Lv){ 
       monsterData = getEvoMonster(monsterData);
     }
 
+    //アビリティのセット
     monsterData.ability = judgeAbilityGet(monsterData);
     alert(monsterData.monsterName + "がレベルアップしました");
     return monsterData;
 }
 
+function haveEvoCheck(monsterData){
+  let judugeMonsterData = monsterData;
+    try {
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
+      if(monster.evoLine != `Undefined`){
+        //↓localStorage内から進化ラインのモンスターをチェック、いるなら再起呼び出し
+        if(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine) != null){
+         judugeMonsterData = 
+            haveEvoCheck(JSON.parse(localStorage.getItem(MONSTER_MAP.get(monster.monsterID).evoLine)));
+        }
+      }
+    return judugeMonsterData;
+    } catch (e) {
+      console.log("モンスターの情報が正しく取れませんでした：evoCheck");
+    }
+}
+
 function judgeAbilityGet(monsterData){
     //対象モンスターのマスタ
-    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
@@ -97,7 +119,6 @@ function judgeAbilityGet(monsterData){
       if(abilityLv[i] == monsterData.Lv){
         monsterData.ability.push(monsterAbility[i]);
         if(monsterData.Lv != 1){
-          console.log(monsterData.ability);
           alert("新しい特技を覚えたよ");
         }
       }
@@ -108,12 +129,11 @@ function judgeAbilityGet(monsterData){
 
 function judgeAbilityEvoMonster(monsterData){
     //対象モンスターのマスタ
-    const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+    const monster = MONSTER_MAP.get(monsterData.monsterID);
     
     //対象モンスターのアビリティレベル判定用の値
     const monsterAbility = monster.ability;
     const abilityLv = monster.abilityLv;
-
     let abilityList = new Array();
     for(let i in abilityLv){
       //レベルに該当する場合は特技を追加
@@ -121,7 +141,6 @@ function judgeAbilityEvoMonster(monsterData){
         abilityList.push(monsterAbility[i]);
       }
     monsterData.ability = abilityList;
-    console.log(monster.ability);
     }
     return monsterData.ability;
 }
@@ -131,7 +150,7 @@ function judgeAbilityEvoMonster(monsterData){
  * localstrageに新しいモンスターを追加する
 */
 function getNewMonster(monsterID){
-  let scM = JSON.parse(MONSTER_MAP.get(monsterID));
+  let scM = MONSTER_MAP.get(monsterID);
   const monsterData = {
      monsterID : scM.monsterID ,
      monsterName : scM.monsterFamily ,
@@ -163,24 +182,20 @@ function resultClassification(){
   let rarityList = [0.05,0.25,1];
   let lotNum = Math.random();
   let rarityIndex;
-  console.log(lotNum);
   for(rarityIndex = 0; lotNum > rarityList[rarityIndex]; rarityIndex++ ){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  console.log("ガチャ選定時Index" + monsterIndex);
-  console.log("ガチャ選定時" + monster.monsterID);
+  //return monster.monsterID;
   return monster.monsterID;
 }
 
 
 function getEvoMonster(monsterData){
-  //進化前のマスタ取得
-  const monster = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
-
+  //monsterDataのマスタ取得
+  const monster = MONSTER_MAP.get(monsterData.monsterID);
   //進化後のマスタ取得
-  const evoMonster = JSON.parse(MONSTER_MAP.get(monster.evoLine));
-
+  const evoMonster = MONSTER_MAP.get(monster.evoLine);
   //進化先のパラメータ取得
   const eDefaultParam = evoMonster.defaultParam ;
   
@@ -212,13 +227,11 @@ function getEvoMonster(monsterData){
       shield : 0 , 
       speed : 0 ,
       AP : 0},
-      ability : new Array(),
-    condition : monsterData.condition
+    condition : monsterData.condition,
   };
-  evoMonster.ability = judgeAbilityEvoMonster(evoMonster);
-  alert(monsterData.monsterName + " は "+ evoMonsterData.monsterName + " に進化した");
+  evoMonsterData.ability = judgeAbilityEvoMonster(evoMonsterData);
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
-    localStorage.setItem("selectMonster",evoMonster.monsterID);
+    localStorage.setItem("selectMonster",evoMonsterData.monsterID);
   }
   return evoMonsterData;
 }
@@ -241,9 +254,7 @@ function skillAllocation(monsterApp,addPoint){
   let count = 0;
   for(let i = addPoint; i > 0; i--){
     count++;
-    console.log(count);
     totalParam += decisionParam(monsterApp);
-    console.log("totalParam:" + totalParam);
   }
   return totalParam ;
 }
@@ -251,7 +262,6 @@ function skillAllocation(monsterApp,addPoint){
 function updateParam(monsterData,addPointArray){
   const appropriates = getAppropriate(monsterData);
   let totalPoint = 0;
-  console.log(addPointArray);
   for(let point of addPointArray){
     totalPoint =+ point;
   } 
@@ -265,18 +275,18 @@ function updateParam(monsterData,addPointArray){
   skills.shield += addPointArray[2];
   params.speed += skillAllocation(appropriates.speed,addPointArray[3]);
   skills.speed += addPointArray[3];
-  params.AP += skillAllocation(appropriates.speed,addPointArray[4]);
+  params.AP += skillAllocation(appropriates.AP,addPointArray[4]);
   skills.AP += addPointArray[4];
   skills.point -= totalPoint;
   monsterData.param = params;
   monsterData.skill = skills;
   
-  return monsterData;//あやしい
+  return monsterData;
 }
 
 function getAppropriate(monsterData){
   let monsterApp = 
-    JSON.parse(MONSTER_MAP.get(monsterData.monsterID)).appropriate;
+    MONSTER_MAP.get(monsterData.monsterID).appropriate;
   return monsterApp;
 }
 
@@ -338,3 +348,4 @@ function codeCreate(qrcode){
   }
   return qrcode;
 }
+

@@ -466,8 +466,8 @@ function boxCharaDSet(master,charaNum){
 
 function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
   let rowNum = 1;
-  let statusTextArray = ["HP:","攻撃力:","防御力:","素早さ:"];
-  let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed];
+  let statusTextArray = ["HP:","攻撃力:","防御力:","素早さ:","AP:"];
+  let statusNumArray = [monster.param.life,monster.param.power,monster.param.shield,monster.param.speed,monster.param.AP];
   let totalSetPoint = 0;
   let nameLabel = Label({
       text: monster.monsterName,
@@ -480,23 +480,23 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     fontSize: 40 * magnification,
     fill: 'white',
     align: "left",
-  }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1)); 
+  }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(0)); 
 
-    for (let i = 0; i < 4; i++){
+    for (let i = 0; i < 5; i++){
 
       let statusLabel = Label({
         text: statusTextArray[i] + statusNumArray[i],
         fontSize: 35 * magnification,
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
     
     let updatePointLabel = Label({
         text: "",
         fontSize: 30 * magnification,
         fill: 'red',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(1+i));
 
     if(pointSetArray[i] > 0){
       updatePointLabel.text = "+" + pointSetArray[i];
@@ -512,7 +512,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
     statusUpButton.onpointstart = function(e) {
       SoundManager.setVolume(2.0);
       SoundManager.play('skillSelectButton');
@@ -540,7 +540,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(2+i));
+    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
 
     statusDownButton.onpointstart = function(e) {
       SoundManager.setVolume(2.0);
@@ -600,7 +600,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     console.log(JSON.stringify(updateMonster));
     alert('ステータスが更新されました。');
     localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
-    pointSetArray = [0,0,0,0];
+    pointSetArray = [0,0,0,0,0];
     viewUpdateStatus(group);
     viewUpdateInfo(master,group,updateMonster,pointSetArray,magnification);
   }
@@ -628,6 +628,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
 
   selectMonsterButton.onpointstart = function(e) {
       alert(monster.monsterName + `\nをバトルモンスターにセットしました！`);
+      console.log(JSON.stringify(monster));
       localStorage.setItem("selectMonster",monster.monsterID);
       viewUpdateStatus(group);
       viewUpdateInfo(master,group,monster,pointSetArray,magnification);
@@ -660,7 +661,7 @@ function mainInfoLabel(master,monsterData){
         fontSize: 30,
         fill: 'white',
   }).addChildTo(master).setPosition(master.gridX.center(0),master.gridY.center(-6));
-  let monsterMasterData = JSON.parse(MONSTER_MAP.get(monsterData.monsterID));
+  let monsterMasterData = MONSTER_MAP.get(monsterData.monsterID);
   let monsterCommentLabel = Label({
         text: monsterMasterData.comment,
         fontSize: 20,
@@ -737,4 +738,56 @@ function monsterDataCompress(monsterData){
     ability:monsterData.ability,
   }
   return compressMonster;
+}
+
+//モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
+function selectAbilityBar(master){
+  let posX = -4;
+  let posY = 2;
+  //今は普通のfor文だが、本来はabilityArrayの分回す
+  for(let i = 0;i < 3;i++){
+    abilitySelectButton(master,posX,posY);
+    posX += 8;
+    if(posX > 4){
+      posX = -4;
+      posY += 2;
+    }
+  }
+}
+
+//ability,←ほんとはこれも渡す
+function abilitySelectButton(master,positionX,positionY){
+  abilityTypeArray = ["ダメージ","状態異常攻撃","状態異常","回復","自回復攻撃","回復攻撃"];
+  let selectButton = Sprite("abilitySelectButton");
+  selectButton.width = 180;
+  selectButton.height = 90;
+  selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(master);
+  let selectAbilityGridX = Grid({
+    width: selectButton.width,
+    columns: 7,
+    offset: master.gridX.center(positionX),
+  });
+  let selectAbilityGridY = Grid({
+    width: selectButton.height,
+    columns: 7,
+    offset: master.gridY.center(positionY),
+  });
+  let abilityNameLabel = Label({
+    text: "強打",
+    fontSize: 35,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(-1));
+  let abilityTypeLabel = Label({
+    text: abilityTypeArray[1],
+    fontSize: 15,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
+  let abilityAPLabel = Label({
+    text: "15",
+    fontSize: 30,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(master).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
 }

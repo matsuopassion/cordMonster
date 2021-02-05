@@ -6,17 +6,16 @@ var BASIC_LIST = [];
 var GACHA_LIST = [];
 var RISE_WIDTH = [[1, 2], [2, 3], [3, 4], [4, 5], [6, 7], [7, 8], [8, 9]];
 var RISE_INDEX = ["G", "F", "E", "D", "C", "B", "A"];
-
-
 console.log("---------start--------");
 function setMonsterMap() {
   for (let monster of MONSTER_MASTER.monsterData) {
-    MONSTER_MAP.set(monster.monsterID, JSON.stringify(monster));
+    MONSTER_MAP.set(monster.monsterID, monster);
   }
 }
 function setAbilityMap() {
   for (let ability of ABILITY_MASTER.abilityData) {
     ABILITY_MAP.set(ability.abilityID, ability);
+    console.log(ability.abilityID);
   }
 }
 
@@ -36,9 +35,10 @@ function setBasicMap() {
     if (monster.basic === true) {
       BASIC_LIST.push(monster);
       BASIC_MAP.set(monster.monsterID, JSON.stringify(monster));
+      MONSTER_MAP.set(monster.monsterID,monster);
     }
   }
-}
+} 
 
 function setGachaList() {
   let aList = [];
@@ -53,10 +53,9 @@ function setGachaList() {
     } else if (monster.rarity == "C") {
       cList.push(monster);
     }
-  }
+  };
   GACHA_LIST.push(aList);
   GACHA_LIST.push(bList);
   GACHA_LIST.push(cList);
-}
-//RISE_INDEX.indexOf();
+};
 
