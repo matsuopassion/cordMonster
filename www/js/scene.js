@@ -525,7 +525,7 @@ phina.define("battleFriendPage", {
     this.issue = "uncertain";
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-    this.myMonster.condition = ["nomal"];
+    this.myMonster.condition = ["normal"];
     /**
      * monsterID : mID
      * monsterName : monsterFamily
@@ -548,7 +548,7 @@ phina.define("battleFriendPage", {
     this.enemy.param.speed  = fmon.param[3];
     this.enemy.param.speed  = fmon.param[4];    
     this.enemy.ability = fmon.ability;
-    this.enemy.condition = "nomal";
+    this.enemy.condition = "normal";
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
@@ -720,7 +720,7 @@ phina.define("battleCpuPage", {
       'Yanchicken',
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-    this.myMonster.condition = ["nomal"]; 
+    this.myMonster.condition = ["normal"]; 
     let scM = JSON.parse(MONSTER_MAP.get(this.monsterArray[getRandomInt(25)]));
     this.enemy = {
       monsterID : scM.monsterID ,
@@ -816,7 +816,6 @@ phina.define("battleCpuPage", {
       gauge1.value = this.myMonster.param.life;
       gauge2.value = this.enemy.param.life;
       this.turnCount++;
-      console.log(this.turnCount);
     }
   }
 });

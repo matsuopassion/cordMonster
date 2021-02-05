@@ -1,4 +1,5 @@
 setMonsterMap();
+setAbilityMap();
 setBasicMap();
 setGachaList();
 // This is a JavaScript file
