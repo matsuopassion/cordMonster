@@ -256,7 +256,6 @@ phina.define("mainPage", {
     }catch(e){
       alert(`ボックスから\nバトルモンスターをセットしよう！`);
     }
-    selectAbilityBar(master);
     menuSet(master);
     
   },
@@ -690,9 +689,9 @@ phina.define("battleCpuPage", {
   // 継承
   superClass: 'DisplayScene',
   // 初期化
-  init: function(option) {
+  init: function(battleParam) {
     // 親クラス初期化
-    this.superInit(option);
+    this.superInit(battleParam);
     // 背景色
     this.backgroundColor = 'black';
 
@@ -720,62 +719,17 @@ phina.define("battleCpuPage", {
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
     
-    // 0からmax-1までの整数を返す
-    function getRandomInt(max) {
-    // ランダムな配列
-      return Math.floor(Math.random() * Math.floor(max));
-    }
-    //ここにID指定でバトルテスト可能
-    this.monsterArray = [
-      'Adulgon',
-      'Aborideer',
-      'Babygon',
-      'Bechoime',
-      'Bechoimeking',
-      'Beetletank',
-      'Blingo',
-      'Blingolord',
-      'Captainskull',
-      'Chaser',
-      'Chrysalis',
-      'Cthulhu',
-      'Fishman',
-      'Flarered',
-      'Fukahirade',
-      'Genie',
-      'Giant',
-      'Golem',
-      'Hotdog',
-      'Hellberus',
-      'Ibuki',
-      'Ithaqua',
-      'Jiriri',
-      'Killerblingo',
-      'Kinichiro',
-      'Lindwurm',
-      'Lyris',
-      'Maskednature',
-      'Momosuke',
-      'Mummy',
-      'Pilebine',
-      'Pixia',
-      'Rasyomon',
-      'Ryuya',
-      'Ryuyasoldier',
-      'Ryuyaraptor',
-      'Sapphivern',
-      'Senra',
-      'Taurusborg',
-      'Unsui',
-      'Ungyo',
-      'ViperKong',
-      'Worm',
-      'Yanchicken',
-      'Protobine'
-    ];
+    // // 0からmax-1までの整数を返す
+    // function getRandomInt(max) {
+    // // ランダムな配列
+    //   return Math.floor(Math.random() * Math.floor(max));
+    // }
+    this.monsterArray = setBattleMonsterList(battleParam.enemyRarity);
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
     console.log(JSON.stringify(this.myMonster));
+    console.log(typeof this.monsterArray);
+    console.log(battleParam.enemyRarity);
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
     console.log(JSON.stringify(scM));
     this.enemy = {
@@ -843,7 +797,7 @@ phina.define("battleCpuPage", {
   update: function(app) {
     if (app.pointer.getPointingStart()) {
       if(this.turnCount == 0){//１ターン目限定のセットアップ処理
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
       }
 
       if(this.issue != "uncertain"){
@@ -854,7 +808,7 @@ phina.define("battleCpuPage", {
 
       if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
         this.phase = "s";
-        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,"");
         this.message = this.battleResults.messageContent;
         this.issue = this.battleResults.resultIssue;
         console.log("死んだ");
@@ -863,16 +817,16 @@ phina.define("battleCpuPage", {
           this.phase = "m";
           console.log("１ターン目：バトル開始");
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityBar(master,myMonster)).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
         }else{
           switch (this.phase) {
             case 'e':
               this.phase = "m"
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityBar(master,myMonster));
               this.message = this.battleResults.messageContent;
               if(this.battleResults.mCondition != "normal"){
                 this.conditionType = this.battleResults.mCondition;
@@ -881,7 +835,7 @@ phina.define("battleCpuPage", {
               break;
             case 'm':
               this.phase = "e"
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,"");
               this.message = this.battleResults.messageContent;
               if(this.battleResults.eCondition != "normal"){
                 this.conditionType = this.battleResults.eCondition;

@@ -59,10 +59,10 @@ function setGachaList() {
 };
 
 function setBattleMonsterList(monsterRank){
-  let monsterList = new Array();
-  for (let monster of MONSTER_MAP.values) {
+  let monsterList = [];
+  for (let monster of MONSTER_MAP.values()) {
     if (monster.rarity == monsterRank) {
-      monsterList.push(monster);
+      monsterList.push(monster.monsterID);
     }
   }
   return monsterList;

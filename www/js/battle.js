@@ -5,7 +5,7 @@
  * @param {object} enemy - 相手のモンスターの情報。
  * @param {object} master - phina.jsのマスタクラス。
  */
-function Battle(phase,myMonster,enemy,master){
+function Battle(phase,myMonster,enemy,master,abilityID){
   let message;
   let commandResults;
   let ability = "normalAttack";
@@ -17,7 +17,7 @@ function Battle(phase,myMonster,enemy,master){
   switch (phase){
     case 'm':
       //選択式にしたら消す by ryuya
-      ability = myMonster.ability;
+      ability = abilityID;
       console.log(ability);
       ability = ability[Math.floor(Math.random() * ability.length)].toString();
       //
