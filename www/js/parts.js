@@ -113,8 +113,13 @@ function battleButtonSet(master,magnification){
 }
 
 function battleSelectButtonSet(master,flag){
+  console.log("今のタイプ：" + flag);
   let bfModeSelectGroup = DisplayElement().addChildTo(master);
-  let friendBattleFlag = flag;
+  let bcModeSelectGroup = DisplayElement().addChildTo(master);
+  //"Unsettled":未確定,"CPU":CPUバトル時,"Friend":フレンドバトル時
+  let BattleTypeFlag = flag;
+
+
   let buttonBattleCPU = Sprite('buttonBattleCPU');
   //画面に合わせてサイズ変更
   let magnificationCPU =(SCREEN_WIDTH / buttonBattleCPU.width);
@@ -124,11 +129,40 @@ function battleSelectButtonSet(master,flag){
   buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(bfModeSelectGroup),buttonBattleCPU.onpointstart=function(e){
     SoundManager.play("buttonPush");
     if(localStorage.getItem("selectMonster") != undefined){
-      master.exit('battleCpuPage');
+      SoundManager.play("buttonPush");
+      BattleTypeFlag = "CPU";
+      bfModeSelectGroup.children.clear();
+      bcModeSelectGroup.children.clear();
+      master.children.last.remove();
+      master.children.last.remove();
+      master.children.last.remove();
+      master.children.last.remove();
+      battleSelectButtonSet(master,BattleTypeFlag);
+      // master.exit('battleCpuPage');
     }else{
       alert(`バトルモンスターが\nセットされていません`);
     }
   };
+
+  let buttonBattleCPUS = Sprite('battleCPUSelectButtonS');
+  buttonBattleCPUS.width = 400;
+  buttonBattleCPUS.height = 120;
+  buttonBattleCPUS.setPosition(master.gridX.center(),master.gridY.span(3)).addChildTo(bcModeSelectGroup);
+
+  let buttonBattleCPUA = Sprite('battleCPUSelectButtonA');
+  buttonBattleCPUA.width = 400;
+  buttonBattleCPUA.height = 120;
+  buttonBattleCPUA.setPosition(master.gridX.center(),master.gridY.span(6)).addChildTo(bcModeSelectGroup);
+
+  let buttonBattleCPUB = Sprite('battleCPUSelectButtonB');
+  buttonBattleCPUB.width = 400;
+  buttonBattleCPUB.height = 120;
+  buttonBattleCPUB.setPosition(master.gridX.center(),master.gridY.span(9)).addChildTo(bcModeSelectGroup);
+
+  let buttonBattleCPUC = Sprite('battleCPUSelectButtonC');
+  buttonBattleCPUC.width = 400;
+  buttonBattleCPUC.height = 120;
+  buttonBattleCPUC.setPosition(master.gridX.center(),master.gridY.span(12)).addChildTo(bcModeSelectGroup);
 
   let buttonBattleFriend = Sprite('buttonBattleFriend');
     //画面に合わせてサイズ変更
@@ -138,13 +172,14 @@ function battleSelectButtonSet(master,flag){
   buttonBattleFriend.setInteractive(true);
   buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(bfModeSelectGroup),buttonBattleFriend.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    friendBattleFlag = true;
+    BattleTypeFlag = "Friend";
     bfModeSelectGroup.children.clear();
+    bcModeSelectGroup.children.clear();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
-    battleSelectButtonSet(master,friendBattleFlag);
+    battleSelectButtonSet(master,BattleTypeFlag);
   };
 
   let backGround = RectangleShape({
@@ -198,34 +233,69 @@ function battleSelectButtonSet(master,flag){
 
   underMenuSet(master);
 
-  if(friendBattleFlag == true){
+  if(BattleTypeFlag != "Unsettled"){
     backGround.setInteractive(true);
-    buttonBattleCPU.setInteractive(false);
+    backGround.alpha = 0.6;
+  }
+
+  if(BattleTypeFlag == "Friend"){
     buttonBattleFriend.setInteractive(false);
+    buttonBattleCPU.setInteractive(false);
+    buttonBattleCPUS.alpha = 0;
+    buttonBattleCPUA.alpha = 0;
+    buttonBattleCPUB.alpha = 0;
+    buttonBattleCPUC.alpha = 0;
+    buttonBattleCPUS.setInteractive(false);
+    buttonBattleCPUA.setInteractive(false);
+    buttonBattleCPUB.setInteractive(false);
+    buttonBattleCPUC.setInteractive(false);
     qrGetButton.setInteractive(true);
     qrSetButton.setInteractive(true);
     qrGetButton.alpha = 1;
     qrSetButton.alpha = 1;
-    backGround.alpha = 0.6;
+  }else if(BattleTypeFlag == "CPU"){
+    buttonBattleCPU.setInteractive(false);
+    buttonBattleFriend.setInteractive(false);
+    buttonBattleCPUS.alpha = 1;
+    buttonBattleCPUA.alpha = 1;
+    buttonBattleCPUB.alpha = 1;
+    buttonBattleCPUC.alpha = 1;
+    buttonBattleCPUS.setInteractive(true);
+    buttonBattleCPUA.setInteractive(true);
+    buttonBattleCPUB.setInteractive(true);
+    buttonBattleCPUC.setInteractive(true);
+    qrGetButton.setInteractive(false);
+    qrSetButton.setInteractive(false);
+    qrGetButton.alpha = 0;
+    qrSetButton.alpha = 0;
   }else{
+    console.log("ここにきているであります");
     backGround.setInteractive(false);
     buttonBattleCPU.setInteractive(true);
     buttonBattleFriend.setInteractive(true);
     qrGetButton.setInteractive(false);
     qrSetButton.setInteractive(false);
+    buttonBattleCPUS.alpha = 0;
+    buttonBattleCPUA.alpha = 0;
+    buttonBattleCPUB.alpha = 0;
+    buttonBattleCPUC.alpha = 0;
+    buttonBattleCPUS.setInteractive(false);
+    buttonBattleCPUA.setInteractive(false);
+    buttonBattleCPUB.setInteractive(false);
+    buttonBattleCPUC.setInteractive(false);
     qrGetButton.alpha = 0;
     qrSetButton.alpha = 0;
     backGround.alpha = 0;
   }
-
   backGround.onpointstart=function(e){
-    friendBattleFlag = false;
+    BattleTypeFlag = "Unsettled";
     bfModeSelectGroup.children.clear();
+    bcModeSelectGroup.children.clear();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
-    battleSelectButtonSet(master,friendBattleFlag);
+    battleSelectButtonSet(master,BattleTypeFlag);
   };
 }
 

@@ -462,7 +462,7 @@ phina.define("battlePage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
     
-    battleSelectButtonSet(master,false);
+    battleSelectButtonSet(master,"Unsettled");
   },
 });
 
@@ -765,7 +765,7 @@ phina.define("battleCpuPage", {
     ];
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
-    console.log(JSON.stringify(this.vdmyMonster));
+    console.log(JSON.stringify(this.myMonster));
 
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
     this.enemy = {

@@ -90,6 +90,10 @@ var ASSETS = {
     'battleResultWinBg':'image/battleResultWinBg.jpg',
     'monsterQR':'',
     'abilitySelectButton':'image/abilitySelectButton.png',
+    'battleCPUSelectButtonA':'image/battleCPUSelectButtonA.png',
+    'battleCPUSelectButtonB':'image/battleCPUSelectButtonB.png',
+    'battleCPUSelectButtonC':'image/battleCPUSelectButtonC.png',
+    'battleCPUSelectButtonS':'image/battleCPUSelectButtonS.png',
     
   },
   //音楽
