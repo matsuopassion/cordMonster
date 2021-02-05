@@ -89,6 +89,7 @@ var ASSETS = {
     'battleResultLoseBg':'image/battleResultLoseBg.jpg',
     'battleResultWinBg':'image/battleResultWinBg.jpg',
     'monsterQR':'',
+    'abilitySelectButton':'image/abilitySelectButton.png',
     
   },
   //音楽
