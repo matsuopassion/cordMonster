@@ -256,6 +256,7 @@ phina.define("mainPage", {
     }catch(e){
       alert(`ボックスから\nバトルモンスターをセットしよう！`);
     }
+    selectAbilityBar(master);
     menuSet(master);
     
   },
@@ -561,7 +562,7 @@ phina.define("battleFriendPage", {
     this.issue = "uncertain";
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-    this.myMonster.condition = ["nomal"];
+    this.myMonster.condition = ["normal"];
     /**
      * monsterID : mID
      * monsterName : monsterFamily
@@ -580,7 +581,7 @@ phina.define("battleFriendPage", {
     this.enemy = {
       monsterID : fMon.mID,
       monsterName : MONSTER_MAP.get(fMon.mID).monsterFamily ,
-      Lv : 1 ,
+      Lv : fMon.Lv ,
       param : { 
           life : fMon.param[0] ,
           power : fMon.param[1] ,

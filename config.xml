@@ -93,16 +93,16 @@
   </platform>
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="b4339d22-0008-64d9-51e4-4e2eccc4b7ca"/>
+  <preference name="KeepRunning" value="false"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="true"/>
   <preference name="target-device" value="universal"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
-  <preference name="EnableViewportScale" value="false"/>
   <access origin="*"/>
-  <preference name="KeepRunning" value="false"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="Orientation" value="default"/>
-  <preference name="SplashScreenDelay" value="1000"/>
-  <preference name="Fullscreen" value="true"/>
+  <preference name="EnableViewportScale" value="false"/>
 </widget>

@@ -739,3 +739,55 @@ function monsterDataCompress(monsterData){
   }
   return compressMonster;
 }
+
+//モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
+function selectAbilityBar(master){
+  let posX = -4;
+  let posY = 2;
+  //今は普通のfor文だが、本来はabilityArrayの分回す
+  for(let i = 0;i < 3;i++){
+    abilitySelectButton(master,posX,posY);
+    posX += 8;
+    if(posX > 4){
+      posX = -4;
+      posY += 2;
+    }
+  }
+}
+
+//ability,←ほんとはこれも渡す
+function abilitySelectButton(master,positionX,positionY){
+  abilityTypeArray = ["ダメージ","状態異常攻撃","状態異常","回復","自回復攻撃","回復攻撃"];
+  let selectButton = Sprite("abilitySelectButton");
+  selectButton.width = 180;
+  selectButton.height = 90;
+  selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(master);
+  let selectAbilityGridX = Grid({
+    width: selectButton.width,
+    columns: 7,
+    offset: master.gridX.center(positionX),
+  });
+  let selectAbilityGridY = Grid({
+    width: selectButton.height,
+    columns: 7,
+    offset: master.gridY.center(positionY),
+  });
+  let abilityNameLabel = Label({
+    text: "強打",
+    fontSize: 35,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(-1));
+  let abilityTypeLabel = Label({
+    text: abilityTypeArray[1],
+    fontSize: 15,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
+  let abilityAPLabel = Label({
+    text: "15",
+    fontSize: 30,
+    fill: 'white',
+    align: "left",
+  }).addChildTo(master).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
+}
