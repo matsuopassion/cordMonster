@@ -181,6 +181,21 @@ var MONSTER_MASTER = {
     	      evoLv : `Undefined`,
             basic : false
         },{
+            monsterID : `Envy` ,
+            monsterFamily : `エンヴィ` ,
+            comment: `null`,
+            rarity : `C` ,
+            appropriate :
+             { life : `F` ,power : `F` ,shield : `F`,speed : `F` , AP : `F` } ,
+            ability :
+             [`normalAttack`,`biting`,`crunch`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 65 ,power : 40 ,shield : 40 , speed : 50 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
+        },{
             monsterID : `Fishman` ,
             monsterFamily : `ウオウ` ,
             comment: `陸地に打ち上げられた水生生物が、陸上\nでも生きられるように適応した。\n`,
@@ -255,6 +270,36 @@ var MONSTER_MASTER = {
             evoLine : `Undefined`,
             evoLv : `Undefined`,
             basic : true
+        },{
+            monsterID : `Glutton` ,
+            monsterFamily : `グラトン` ,
+            comment: `null`,
+            rarity : `C` ,
+            appropriate :
+             { life : `E` ,power : `E` ,shield : `F`,speed : `G` , AP : `E` } ,
+            ability :
+             [`normalAttack`,`biting`,`bodySlam`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 75 ,power : 50 ,shield : 35 , speed : 40 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
+        },{
+            monsterID : `Greed` ,
+            monsterFamily : `グリード` ,
+            comment: `null`,
+            rarity : `C`,
+            appropriate :
+             { life : `E` ,power : `F` ,shield : `F`,speed : `E` , AP : `E` } ,
+            ability :
+             [`normalAttack`,`thunderKick`,`continuousPunch`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 75 ,power : 60 ,shield : 35 , speed : 40 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
         },{
             monsterID : `Golem` ,
             monsterFamily : `ゴーレム` ,
@@ -387,6 +432,21 @@ var MONSTER_MASTER = {
             abilityLv : [1 ,1 ,1, 1],
             defaultParam :
              { life : 200 ,power : 90 ,shield : 70 , speed : 70 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : false
+        },{
+            monsterID : `Lust` ,
+            monsterFamily : `ラスト` ,
+            comment: `null`,
+            rarity : `C`,
+            appropriate :
+             { life : `F` ,power : `E` ,shield : `F`,speed : `E` , AP : `E` } ,
+            ability :
+             [`normalAttack`,`heal`,`poisonAttack`],
+            abilityLv : [1,3,5],
+            defaultParam :
+             { life : 65 ,power : 70 ,shield : 45 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : false
@@ -742,7 +802,7 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `F` ,shield : `E`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`crownSplit`,`bornBreak`],
-            abilityLv : [1,3],
+            abilityLv : [1, 3, 5],
             defaultParam :
              { life : 45 ,power : 60 ,shield : 40 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
