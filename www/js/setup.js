@@ -6,29 +6,28 @@ var BASIC_LIST = [];
 var GACHA_LIST = [];
 var RISE_WIDTH = [[1, 2], [2, 3], [3, 4], [4, 5], [6, 7], [7, 8], [8, 9]];
 var RISE_INDEX = ["G", "F", "E", "D", "C", "B", "A"];
+
 console.log("---------start--------");
+//起動時のメソッドまとめ
+function startUpFunctions(){
+  setMonsterMap();
+  setAbilityMap();
+  setBasicMap();
+  setGachaList();
+}
+
 function setMonsterMap() {
   for (let monster of MONSTER_MASTER.monsterData) {
     MONSTER_MAP.set(monster.monsterID, monster);
   }
 }
+
 function setAbilityMap() {
   for (let ability of ABILITY_MASTER.abilityData) {
     ABILITY_MAP.set(ability.abilityID, ability);
     console.log(ability.abilityID);
   }
 }
-
-function sleep(waitMsec) {
-  var startMsec = new Date();
-
-  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
-  while (new Date() - startMsec < waitMsec);
-}
-
-
-// 5秒後にメッセージを表示
-//console.log('5秒経過しました！');
 
 function setBasicMap() {
   for (let monster of MONSTER_MASTER.monsterData) {
@@ -53,9 +52,18 @@ function setGachaList() {
     } else if (monster.rarity == "C") {
       cList.push(monster);
     }
-  };
+  }
   GACHA_LIST.push(aList);
   GACHA_LIST.push(bList);
   GACHA_LIST.push(cList);
 };
 
+function setBattleMonsterList(monsterRank){
+  let monsterList = new Array();
+  for (let monster of MONSTER_MAP.values) {
+    if (monster.rarity == monsterRank) {
+      monsterList.push(monster);
+    }
+  }
+  return monsterList;
+}
