@@ -804,7 +804,7 @@ phina.define("battleCpuPage", {
   update: function(app) {
     if (app.pointer.getPointingStart()) {
       if(this.turnCount == 0){//１ターン目限定のセットアップ処理
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
+        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
       }
       if(this.issue != "uncertain"){
         master.exit({
@@ -814,7 +814,7 @@ phina.define("battleCpuPage", {
 
       if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
         this.phase = "s";
-        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,"");
+        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
         this.message = this.battleResults.messageContent;
         this.issue = this.battleResults.resultIssue;
         console.log("死んだ");
@@ -825,40 +825,42 @@ phina.define("battleCpuPage", {
           console.log("今のphase : "+this.phase);
           //↓技ボタン表示してうんたらかんたら
           // this.abilityId = selectAbilityBar(master,this.myMonster);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else{
           switch (this.phase) {
             case 'e':
-              console.log("まずここにきた");
-              //↓技ボタン表示してうんたらかんたら
-              selectAbilityBar(master,this.myMonster,this.selectAbilityGroup);
-              var battleFlow = Flow(function(resolve) {
-                let timer = setInterval(function(){
-                  console.log(selectAbilityID);
-                  if(selectAbilityID != ""){
-                    clearInterval(timer);
-                    resolve();
-                  }
-                },300);
-              });
-              battleFlow.then(function() {
-                this.phase = "m";
-                console.log("最後はここ：" + selectAbilityID);
-                this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityID);
-                this.message = this.battleResults.messageContent;
-                if(this.battleResults.mCondition != "normal"){
-                  this.conditionType = this.battleResults.mCondition;
-                  this.phase = "coToM";
-                }
-              });
+              this.phase = "m";
+              // console.log("まずここにきた");
+              // //↓技ボタン表示してうんたらかんたら
+              // this.phase = "m";
+              // selectAbilityBar(master,this.myMonster,this.selectAbilityGroup);
+              // var battleFlow = Flow(function(resolve) {
+              //   let timer = setInterval(function(){
+              //     if(selectAbilityID != ""){
+              //       clearInterval(timer);
+              //       resolve(master);
+              //     }
+              //   },300);
+              // });
+              // battleFlow.then(function(master) {
+                
+              // console.log("最後はここ：" + selectAbilityID);
+              // console.log("僕の体調：" + master.myMonster.condition);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
+              this.message = this.battleResults.messageContent;
+              if(this.battleResults.mCondition != "normal"){
+                this.conditionType = this.battleResults.mCondition;
+                this.phase = "coToM";
+              }
+              // });
               break;
             case 'm':
               this.phase = "e"
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,"");
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
               this.message = this.battleResults.messageContent;
               if(this.battleResults.eCondition != "normal"){
                 this.conditionType = this.battleResults.eCondition;
