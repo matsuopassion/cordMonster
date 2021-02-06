@@ -19,7 +19,7 @@ function Battle(phase,myMonster,enemy,master,abilityID){
       //選択式にしたら消す by ryuya
       ability = abilityID;
       console.log(ability);
-      ability = ability[Math.floor(Math.random() * ability.length)].toString();
+      // ability = ability[Math.floor(Math.random() * ability.length)].toString();
       //
       commandResults = abilitySelect(phase,myMonster,enemy,ability);
       myMonster.param = commandResults.myMonsterParam;

@@ -8,9 +8,6 @@ var renderEndFlag = false;
 // 定数
 var SCREEN_WIDTH; // 画面横サイズ
 var SCREEN_HEIGHT; // 画面縦サイズ
-/*
- * シーン01
- */ 
 
 
 //phina.js：シーン雛形
@@ -58,6 +55,9 @@ var SCREEN_HEIGHT; // 画面縦サイズ
 // }
 // );
 
+/*
+ * シーン01
+ */ 
 phina.define("startPage", {
   // 継承/
   superClass: 'DisplayScene',
@@ -817,7 +817,8 @@ phina.define("battleCpuPage", {
           this.phase = "m";
           console.log("１ターン目：バトル開始");
           console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityBar(master,myMonster)).messageContent;
+          this.abilityId = selectAbilityBar(master,this.myMonster);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master,abilityId).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
           console.log("今のphase : "+this.phase);
@@ -826,7 +827,8 @@ phina.define("battleCpuPage", {
           switch (this.phase) {
             case 'e':
               this.phase = "m"
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityBar(master,myMonster));
+              this.abilityId = selectAbilityBar(master,this.myMonster);
+              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,abilityId);
               this.message = this.battleResults.messageContent;
               if(this.battleResults.mCondition != "normal"){
                 this.conditionType = this.battleResults.mCondition;

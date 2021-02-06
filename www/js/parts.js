@@ -834,16 +834,29 @@ function monsterDataCompress(monsterData){
 function selectAbilityBar(master,monster){
   let posX = -4;
   let posY = 2;
+  let returnID = "";
   //今は普通のfor文だが、本来はabilityArrayの分回す
   for(let i = 0;i < monster.ability.length;i++){
     let abilityData = ABILITY_MAP.get(monster.ability[i]);
-    abilitySelectButton(master,abilityData,posX,posY);
+    returnID = abilitySelectButton(master,abilityData,posX,posY);
     posX += 8;
     if(posX > 4){
       posX = -4;
       posY += 2;
     }
   }
+  //割とまじで難しくてこころおれそう
+  // var selectflow = Flow(function(resolve) {
+  //   let timer = setInterval(function(){
+  //     if(returnID != "" ){
+  //       clearInterval(timer);
+  //       resolve();
+  //     }
+  //   },300);
+  // });
+  // selectflow.then(function() {
+  //   return returnID;
+  // });
 }
 
 //↓帰ったらここから、画面にアビリティID返すだけ
@@ -853,6 +866,9 @@ function abilitySelectButton(master,ability,positionX,positionY){
   selectButton.width = 180;
   selectButton.height = 90;
   selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(master);
+  selectButton.onpointstart = function(e){
+    return ability.abilityID;
+  };
   let selectAbilityGridX = Grid({
     width: selectButton.width,
     columns: 7,
@@ -882,3 +898,4 @@ function abilitySelectButton(master,ability,positionX,positionY){
     align: "left",
   }).addChildTo(master).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
 }
+

@@ -104,7 +104,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   ability_result = ABILITY_MAP.get(ability);
   console.log(JSON.stringify(ability_result));
   console.log(ability_result);
-  abilityId = ability_result.abilityId;
+  abilityId = ability_result.abilityID;
   abilityType = ability_result.abilityType;
   ap = ability_result.ap;
   abilityPower = ability_result.abilityPower;
