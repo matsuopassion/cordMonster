@@ -5,6 +5,9 @@ var SPEED = 4;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
+//技選択用の変数
+//正直グローバル変数でどうにかしようとしている自分が情けないところ
+var selectAbilityID = "";
 // 定数
 var SCREEN_WIDTH; // 画面横サイズ
 var SCREEN_HEIGHT; // 画面縦サイズ
@@ -718,6 +721,8 @@ phina.define("battleCpuPage", {
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
+    //↓画面側で技選択用グループを用意
+    this.selectAbilityGroup = DisplayElement().addChildTo(master);
     
     // // 0からmax-1までの整数を返す
     // function getRandomInt(max) {
@@ -817,8 +822,9 @@ phina.define("battleCpuPage", {
           this.phase = "m";
           console.log("１ターン目：バトル開始");
           console.log("今のphase : "+this.phase);
-          this.abilityId = selectAbilityBar(master,this.myMonster);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master,abilityId).messageContent;
+          //↓技ボタン表示してうんたらかんたら
+          // this.abilityId = selectAbilityBar(master,this.myMonster);
+          this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
           console.log("今のphase : "+this.phase);
@@ -827,13 +833,28 @@ phina.define("battleCpuPage", {
           switch (this.phase) {
             case 'e':
               this.phase = "m"
-              this.abilityId = selectAbilityBar(master,this.myMonster);
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,abilityId);
-              this.message = this.battleResults.messageContent;
-              if(this.battleResults.mCondition != "normal"){
-                this.conditionType = this.battleResults.mCondition;
-                this.phase = "coToM";
-              }
+              console.log("まずここにきた");
+              //↓技ボタン表示してうんたらかんたら
+              selectAbilityBar(master,this.myMonster,this.selectAbilityGroup);
+              console.log(selectAbilityID);
+              var battleFlow = Flow(function(resolve) {
+                let timer = setInterval(function(){
+                  if(selectAbilityID != ""){
+                    clearInterval(timer);
+                    resolve();
+                  }
+                },300);
+              });
+              battleFlow.then(function() {
+                console.log("最後はここ");
+                this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityID);
+                this.message = this.battleResults.messageContent;
+                if(this.battleResults.mCondition != "normal"){
+                  this.conditionType = this.battleResults.mCondition;
+                  this.phase = "coToM";
+                }
+              });
+              
               break;
             case 'm':
               this.phase = "e"
@@ -862,6 +883,7 @@ phina.define("battleCpuPage", {
       this.group.children[1].text = this.message;
       gauge1.value = this.myMonster.param.life;
       gauge2.value = this.enemy.param.life;
+      selectAbilityID = "";
       this.turnCount++;
     }
   }

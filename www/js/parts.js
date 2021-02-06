@@ -831,43 +831,38 @@ function monsterDataCompress(monsterData){
 }
 
 //モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
-function selectAbilityBar(master,monster){
+function selectAbilityBar(master,monster,group){
+  console.log("次にここ");
+  group.children.clear();
   let posX = -4;
   let posY = 2;
   let returnID = "";
   //今は普通のfor文だが、本来はabilityArrayの分回す
   for(let i = 0;i < monster.ability.length;i++){
     let abilityData = ABILITY_MAP.get(monster.ability[i]);
-    returnID = abilitySelectButton(master,abilityData,posX,posY);
+    abilitySelectButton(master,abilityData,posX,posY,group);
     posX += 8;
     if(posX > 4){
       posX = -4;
       posY += 2;
     }
   }
-  //割とまじで難しくてこころおれそう
-  // var selectflow = Flow(function(resolve) {
-  //   let timer = setInterval(function(){
-  //     if(returnID != "" ){
-  //       clearInterval(timer);
-  //       resolve();
-  //     }
-  //   },300);
-  // });
-  // selectflow.then(function() {
-  //   return returnID;
-  // });
 }
 
 //↓帰ったらここから、画面にアビリティID返すだけ
-function abilitySelectButton(master,ability,positionX,positionY){
+function abilitySelectButton(master,ability,positionX,positionY,group){
+  console.log("そのつぎここ");
   abilityTypeArray = ["ダメージ","状態異常攻撃","状態異常","回復","自回復攻撃","回復攻撃"];
   let selectButton = Sprite("abilitySelectButton");
   selectButton.width = 180;
   selectButton.height = 90;
-  selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(master);
+  selectButton.setInteractive(true);
+  selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
   selectButton.onpointstart = function(e){
-    return ability.abilityID;
+    console.log("選んだ技はこれ：" + ability.abilityID);
+    selectAbilityID = ability.abilityID;
+    console.log("選んだ技はこれ：" + selectAbilityID);
+    group.children.clear();
   };
   let selectAbilityGridX = Grid({
     width: selectButton.width,
@@ -884,18 +879,18 @@ function abilitySelectButton(master,ability,positionX,positionY){
     fontSize: 35,
     fill: 'white',
     align: "left",
-  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(-1));
+  }).addChildTo(group).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(-1));
   let abilityTypeLabel = Label({
     text: abilityTypeArray[ability.abilityType],
     fontSize: 15,
     fill: 'white',
     align: "left",
-  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
+  }).addChildTo(group).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
   let abilityAPLabel = Label({
     text: ability.ap,
     fontSize: 30,
     fill: 'white',
     align: "left",
-  }).addChildTo(master).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
+  }).addChildTo(group).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
 }
 
