@@ -718,6 +718,7 @@ phina.define("battleCpuPage", {
     this.conditionChange;
     this.turnCount = 0;
     this.group = setBattleMessage(master);
+    console.log(this.group.interactive);
     this.group.addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
@@ -799,12 +800,12 @@ phina.define("battleCpuPage", {
     this.battleLog;
     this.phase = "s";
   },
+  // onpointstart:function(){
   update: function(app) {
     if (app.pointer.getPointingStart()) {
       if(this.turnCount == 0){//１ターン目限定のセットアップ処理
         this.message = Battle(this.phase,this.myMonster,this.enemy,master,"").messageContent;
       }
-
       if(this.issue != "uncertain"){
         master.exit({
           resultIssue: this.issue,
@@ -832,13 +833,12 @@ phina.define("battleCpuPage", {
         }else{
           switch (this.phase) {
             case 'e':
-              this.phase = "m"
               console.log("まずここにきた");
               //↓技ボタン表示してうんたらかんたら
               selectAbilityBar(master,this.myMonster,this.selectAbilityGroup);
-              console.log(selectAbilityID);
               var battleFlow = Flow(function(resolve) {
                 let timer = setInterval(function(){
+                  console.log(selectAbilityID);
                   if(selectAbilityID != ""){
                     clearInterval(timer);
                     resolve();
@@ -846,7 +846,8 @@ phina.define("battleCpuPage", {
                 },300);
               });
               battleFlow.then(function() {
-                console.log("最後はここ");
+                this.phase = "m";
+                console.log("最後はここ：" + selectAbilityID);
                 this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
                 if(this.battleResults.mCondition != "normal"){
@@ -854,7 +855,6 @@ phina.define("battleCpuPage", {
                   this.phase = "coToM";
                 }
               });
-              
               break;
             case 'm':
               this.phase = "e"
