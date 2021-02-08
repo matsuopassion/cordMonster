@@ -120,6 +120,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       count = ability_result.countRandum;
       console.log(count);
       count = getRandomInt(count[0],count[1]);
+      console.log(count);
       abilityMessage = abilityMessage + "\n" + count + "回当たった！";
       abilityPower = abilityPower * count;
     }

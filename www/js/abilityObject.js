@@ -212,6 +212,8 @@ var ABILITY_MASTER = {
       abilityType: 1,
       ap: 2,
       abilityPower: 40,
+      conditionType: `Poison`, 
+      conditionName: `毒`,
       countRandum:[1, 6],
       abilityName: `毒クナイ投げ`,
       abilityMessage: `の毒クナイ投げ！！`,
