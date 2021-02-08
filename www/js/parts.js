@@ -3,14 +3,6 @@ const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
 
 
-
-function setBackGround(master){
-  let backGround = RectangleShape({
-    width:SCREEN_WIDTH + 200,
-    height:SCREEN_HEIGHT + 200,
-    fill:"black",
-  }).addChildTo(master).setPosition(master.gridX.center(),master.gridY.center());
-}
 /*
 関数概要：戦闘画面のメッセージを返す関数
 引数：phase 誰による行動かを判別するための文字列
@@ -30,7 +22,7 @@ function setBattleMessage(){
   messageBox.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
   let messageLabel = Label();
   messageLabel.text = "";
-  messageLabel.fontSize = 20;
+  messageLabel.fontSize = 18;
   messageLabel.fill = "white";
   messageLabel.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
   return group;
@@ -383,7 +375,7 @@ function gaugeSet(master,monster,x,y){
         // maxValue: 100,         // ゲージ最大値
         // value: 100,         // ゲージ初期値
         fill: 'red',         // 後ろの色
-        gaugeColor: 'skyblue', // ゲージ色
+        gaugeColor: '#00f535', // ゲージ色
         stroke: 'silver',      // 枠色
         strokeWidth: 5,        // 枠太さ
       }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
@@ -413,12 +405,12 @@ function getCharaResultSet(master,monster){
 }
 
 function charaEnemySet(master,charaNum, posX,posY){
-    let mainChara = Sprite(charaNum);
-    mainChara.width = 200;
-    mainChara.height = 200;
-    mainChara.scaleX = 1;
-    mainChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
-    mainChara.setInteractive(true);
+    let mainEnemyChara = Sprite(charaNum);
+    mainEnemyChara.width = 200;
+    mainEnemyChara.height = 200;
+    mainEnemyChara.scaleX = 1;
+    mainEnemyChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
+    mainEnemyChara.setInteractive(true);
 }
 
 function BattleStartButton(master){
@@ -741,7 +733,7 @@ function viewUpdateStatus(group){
 
 function boxCharaInfoSet(master,monster){
   let magnification = SCREEN_WIDTH / 412;
-  let pointSetArray = [0,0,0,0];
+  let pointSetArray = [0,0,0,0,0];
   let messageBox = RectangleShape();
   messageBox.width = 400 * magnification;
   messageBox.height = 400 * magnification;

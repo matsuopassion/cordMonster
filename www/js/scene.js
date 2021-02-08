@@ -75,7 +75,6 @@ phina.define("startPage", {
 
     // 背景色
     this.backgroundColor = 'black';
-    setBackGround(master);
     //背景画像
     var bgSprite = Sprite('startBg2').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -179,7 +178,7 @@ phina.define("mainPage", {
     this.label =  "mainPage";
 
     //背景画像
-    setBackGround(master);
+    
     var bgSprite = Sprite('mainBg').addChildTo(this);
     //画面に合わせてサイズ変更
     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
@@ -284,7 +283,7 @@ phina.define("boxPage", {
 
     // 背景色
     this.backgroundColor = 'red';
-    setBackGround(master);
+
     //BGMセット部分（先に全画面のBGMを停止）
     if(option.beforePage != 'mainPage' && option.beforePage != 'characterChack'){
       SoundManager.stopMusic();
@@ -336,7 +335,7 @@ phina.define("characterChack", {
     this.label =  "characterChack";
     // 親クラス初期化
     this.superInit(param);
-    setBackGround(master);
+
     //box 画像
     var boxBgSprite = Sprite('boxBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -382,7 +381,7 @@ phina.define("scanPage", {
 
     // 背景色
     this.backgroundColor = 'purple';
-    setBackGround(master);
+
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
@@ -421,7 +420,7 @@ phina.define("scanResultPage", {
 
     // 背景色
     this.backgroundColor = 'purple';
-    setBackGround(master);
+
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
@@ -461,7 +460,7 @@ phina.define("battlePage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'black';
-    setBackGround(master);
+
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
     
@@ -485,7 +484,7 @@ phina.define("qrSetPage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'white';
-    setBackGround(master);
+
     //背景画像
     var scanBgSprite = Sprite('scanBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -538,7 +537,7 @@ phina.define("battleFriendPage", {
     this.superInit(friendBattle);
     // 背景色
     this.backgroundColor = 'black';
-    setBackGround(master);
+
     //背景画像
     var battleFriendBgSprite = Sprite('battleFriendBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -698,7 +697,7 @@ phina.define("battleCpuPage", {
     this.superInit(battleParam);
     // 背景色
     this.backgroundColor = 'black';
-    setBackGround(master);
+
     //背景画像
     var battleCPUBgSprite = Sprite('battleCPUBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -792,9 +791,6 @@ phina.define("battleCpuPage", {
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
     this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
     this.enemy.ability = MONSTER_MAP.get(this.enemy.monsterID).ability;
-    // this.myMonster = new monster(1,'コーモンくん',["con1"],10,50,6,5,5,this.ability);
-    // this.enemy = new monster(2,'ゴブリン',["con1"],10,50,6,5,5,this.ability);
-    console.log("ここにきた");
     gauge1 = gaugeSet(master,this.myMonster,-4,-2);
     gauge2 = gaugeSet(master,this.enemy,4,-2);
 
@@ -824,33 +820,27 @@ phina.define("battleCpuPage", {
           this.phase = "m";
           console.log("１ターン目：バトル開始");
           console.log("今のphase : "+this.phase);
-          //↓技ボタン表示してうんたらかんたら
-          // this.abilityId = selectAbilityBar(master,this.myMonster);
+          this.children[3].width = 250;
+          this.children[3].height = 250;  
+          this.children[4].width = 200;
+          this.children[4].height = 200;  
           this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
           this.phase = "e";
+          this.children[4].width = 250;
+          this.children[4].height = 250;  
+          this.children[3].width = 200;
+          this.children[3].height = 200;
           console.log("今のphase : "+this.phase);
           this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
         }else{
           switch (this.phase) {
             case 'e':
               this.phase = "m";
-              // console.log("まずここにきた");
-              // //↓技ボタン表示してうんたらかんたら
-              // this.phase = "m";
-              // selectAbilityBar(master,this.myMonster,this.selectAbilityGroup);
-              // var battleFlow = Flow(function(resolve) {
-              //   let timer = setInterval(function(){
-              //     if(selectAbilityID != ""){
-              //       clearInterval(timer);
-              //       resolve(master);
-              //     }
-              //   },300);
-              // });
-              // battleFlow.then(function(master) {
-                
-              // console.log("最後はここ：" + selectAbilityID);
-              // console.log("僕の体調：" + master.myMonster.condition);
+              this.children[3].width = 250;
+              this.children[3].height = 250;  
+              this.children[4].width = 200;
+              this.children[4].height = 200;  
               this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
               this.message = this.battleResults.messageContent;
               if(this.battleResults.mCondition != "normal"){
@@ -861,6 +851,10 @@ phina.define("battleCpuPage", {
               break;
             case 'm':
               this.phase = "e"
+              this.children[4].width = 250;
+              this.children[4].height = 250;  
+              this.children[3].width = 200;
+              this.children[3].height = 200;
               this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
               this.message = this.battleResults.messageContent;
               if(this.battleResults.eCondition != "normal"){
@@ -905,7 +899,6 @@ phina.define("battleResultPage", {
     master = this;
     // 背景色
     this.backgroundColor = 'black';
-    setBackGround(master);
     this.bgResult = "battleResultLoseBg";
     this.resultMessage = "【敗北】"
     let levelUpRand = 0;
