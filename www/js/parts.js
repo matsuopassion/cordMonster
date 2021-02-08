@@ -2,6 +2,15 @@
 const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
 
+
+
+function setBackGround(master){
+  let backGround = RectangleShape({
+    width:SCREEN_WIDTH + 200,
+    height:SCREEN_HEIGHT + 200,
+    fill:"black",
+  }).addChildTo(master).setPosition(master.gridX.center(),master.gridY.center());
+}
 /*
 関数概要：戦闘画面のメッセージを返す関数
 引数：phase 誰による行動かを判別するための文字列

@@ -75,6 +75,7 @@ phina.define("startPage", {
 
     // 背景色
     this.backgroundColor = 'black';
+    setBackGround(master);
     //背景画像
     var bgSprite = Sprite('startBg2').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -178,7 +179,7 @@ phina.define("mainPage", {
     this.label =  "mainPage";
 
     //背景画像
-    
+    setBackGround(master);
     var bgSprite = Sprite('mainBg').addChildTo(this);
     //画面に合わせてサイズ変更
     bgSprite.width *= (SCREEN_WIDTH / bgSprite.width);
@@ -283,7 +284,7 @@ phina.define("boxPage", {
 
     // 背景色
     this.backgroundColor = 'red';
-
+    setBackGround(master);
     //BGMセット部分（先に全画面のBGMを停止）
     if(option.beforePage != 'mainPage' && option.beforePage != 'characterChack'){
       SoundManager.stopMusic();
@@ -335,7 +336,7 @@ phina.define("characterChack", {
     this.label =  "characterChack";
     // 親クラス初期化
     this.superInit(param);
-
+    setBackGround(master);
     //box 画像
     var boxBgSprite = Sprite('boxBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -381,7 +382,7 @@ phina.define("scanPage", {
 
     // 背景色
     this.backgroundColor = 'purple';
-
+    setBackGround(master);
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
@@ -420,7 +421,7 @@ phina.define("scanResultPage", {
 
     // 背景色
     this.backgroundColor = 'purple';
-
+    setBackGround(master);
     //BGMセット部分（先に全画面のBGMを停止）
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
@@ -460,7 +461,7 @@ phina.define("battlePage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'black';
-
+    setBackGround(master);
     SoundManager.stopMusic();
     SoundManager.playMusic("battleSelectBGM",1,true);
     
@@ -484,7 +485,7 @@ phina.define("qrSetPage", {
     this.superInit(option);
     // 背景色
     this.backgroundColor = 'white';
-
+    setBackGround(master);
     //背景画像
     var scanBgSprite = Sprite('scanBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -537,7 +538,7 @@ phina.define("battleFriendPage", {
     this.superInit(friendBattle);
     // 背景色
     this.backgroundColor = 'black';
-
+    setBackGround(master);
     //背景画像
     var battleFriendBgSprite = Sprite('battleFriendBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -697,7 +698,7 @@ phina.define("battleCpuPage", {
     this.superInit(battleParam);
     // 背景色
     this.backgroundColor = 'black';
-
+    setBackGround(master);
     //背景画像
     var battleCPUBgSprite = Sprite('battleCPUBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -904,6 +905,7 @@ phina.define("battleResultPage", {
     master = this;
     // 背景色
     this.backgroundColor = 'black';
+    setBackGround(master);
     this.bgResult = "battleResultLoseBg";
     this.resultMessage = "【敗北】"
     let levelUpRand = 0;
