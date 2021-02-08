@@ -11,7 +11,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`continuousThrust`],
             abilityLv : [ 1 ,3 ],
             defaultParam :
-             { life : 80 ,power : 50 ,shield : 40 ,speed : 40 ,AP : 10 },
+             { life : 50 ,power : 70 ,shield : 35 ,speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -26,7 +26,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`crunch`],
             abilityLv : [ 1 ,1],
             defaultParam :
-             { life : 130 ,power : 60 ,shield : 45 , speed : 60 ,AP : 10 },
+             { life : 60 ,power : 65 ,shield : 90 , speed : 100 ,AP : 10 },
             evoLine : `Undefined`,
             evoLv : `Undefined`,
             basic : false
@@ -41,7 +41,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`biting`],
             abilityLv : [ 1 , 3],
             defaultParam :
-             { life : 70 ,power : 40 ,shield : 50 , speed : 60 ,AP : 10 },
+             { life : 40 ,power : 60 ,shield : 30 , speed : 70 ,AP : 10 },
             evoLine : `Adulgon`,
     	      evoLv : `5`,
             basic : true
@@ -56,7 +56,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`poisonAttack`,`dissolution`],
             abilityLv : [1 ,2 ,5 ],
             defaultParam :
-             { life : 100 ,power : 50 ,shield : 30 , speed : 50 ,AP : 10 },
+             { life : 45 ,power : 30 ,shield : 35 , speed : 45 ,AP : 10 },
             evoLine : `Bechoimeking` ,
     	      evoLv : `6`,
             basic : true
@@ -71,7 +71,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`poisonAttack`,`dissolution`],
             abilityLv : [1 ,1 ,1],
             defaultParam :
-             { life : 150 ,power : 65 ,shield : 45 , speed : 50 ,AP : 10 },
+             { life : 60 ,power : 45 ,shield : 50 , speed : 70 ,AP : 10 },
             evoLine : `Undefined` ,
     	      evoLv : `Undefined`,
             basic : false
@@ -86,7 +86,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`plasmaShot`,`chargingShot`],
             abilityLv : [1,3,10],
             defaultParam :
-             { life : 100 ,power : 55 ,shield : 65 , speed : 50 ,AP : 10 },
+             { life : 90 ,power : 65 ,shield : 65 , speed : 20 ,AP : 10 },
             evoLine : `Undefined` ,
     	      evoLv : `Undefined`,
             basic : true
@@ -101,7 +101,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`heavyAttack`],
             abilityLv : [1 ,5 ],
             defaultParam :
-             { life : 80 ,power : 70 ,shield : 30 , speed : 40 ,AP : 10 },
+             { life :50 ,power : 40 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Killerblingo`,
     	      evoLv : `10`,
             basic : true
@@ -116,7 +116,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`heavyAttack`,`spinningSlash`,`hardSpinningSlash`],
             abilityLv : [ 1 ,1 ,1 ,5 ],
             defaultParam :
-             { life : 120 ,power : 120 ,shield : 60 , speed : 50 ,AP : 10 },
+             { life : 80 ,power : 70 ,shield : 70 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : false
@@ -131,7 +131,7 @@ var MONSTER_MASTER = {
              [`normalAttack`],
             abilityLv : [ 1 ],
             defaultParam :
-             { life : 150 ,power : 150 ,shield : 50 , speed : 80 ,AP : 10 },
+             { life : 60 ,power : 90 ,shield : 100 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -401,7 +401,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`heavyAttack`,`spinningSlash`],
             abilityLv : [1 ,1 ,5 ],
             defaultParam :
-             { life : 100 ,power : 100 ,shield : 50 , speed : 50 ,AP : 10 },
+             { life : 60 ,power : 50 ,shield : 50 , speed : 50 ,AP : 10 },
             evoLine : `Blingolord`,
     	      evoLv : `20`,
             basic : false
@@ -784,7 +784,7 @@ var MONSTER_MASTER = {
             appropriate :
              { life : `C` ,power : `C` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
-             [`normalAttack`,`ryuujinInfernoPalm`,'burningKick'],
+             [`normalAttack`,`ryujinInfernoPalm`,'burningKick'],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam :
              { life : 120 ,power : 80 ,shield : 60 , speed : 70 ,AP : 10 },

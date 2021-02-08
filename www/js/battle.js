@@ -217,23 +217,3 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
   }
     return {myMonsterParam:mParam, enemyParam:eParam, conditionName:conditionName,mCondition:mCondition,eCondition:eCondition, messageContent:this.message};
 };
-
-/**
- * 指定された範囲内の乱数を整数で返します。
- * @param {int} min - 求める乱数の最小値。
- * @param {int} max - 求める乱数の最大値。
- */
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-/**
- * 渡された配列の中からランダムで一つ取り出して返します。
- * @param {array} arrayData - 要素を取り出したい配列。
- */
-function getChooseRandom(arrayData) {
-    var arrayIndex = Math.floor(Math.random() * arrayData.length);
-    return arrayData[arrayIndex];
-};

@@ -119,13 +119,13 @@ function abilitySelect(phase,myMonster,enemy,ability){
     if("randumFlug" in ability_result){
       count = ability_result.countRandum;
       console.log(count);
-      count = getRandomInt(count[0],count[1]);
+      count = getCountRandom(count[0],count[1]);
       console.log(count);
       abilityMessage = abilityMessage + "\n" + count + "回当たった！";
       abilityPower = abilityPower * count;
     }
     if("chooseFlug" in ability_result){
-      ap = getChooseRandom(ability_result.chooseRandum);
+      abilityPower = getChooseRandom(ability_result.chooseRandum);
     }
     damageCalclator(abilityPower,attacker,target);
   }
@@ -210,7 +210,10 @@ function abilitySelect(phase,myMonster,enemy,ability){
 };
 
 function damageCalclator(abilityPower,attacker,target){
-  let damage = Math.floor(getRandomInt(150, 255) * (Math.floor(((( attacker.attackerLv * 2/5+2) * abilityPower * attacker.attackerPower / (target.targetShield * 0.6) )/50+2))) / 255);
+  let damage = Math.floor((((getCountRandom(20,40)) / 100) * (attacker.attackerPower / 2 - target.targetShield / 4) * abilityPower)) + 1;
+  console.log(abilityPower);
+  console.log(attacker);
+  console.log(target);
   return damage;
 };
 
@@ -227,10 +230,10 @@ function loopSoundEffectPlaying(seType,seNumber,count){
     SoundManager.setVolume(0.8);
   }
 }
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
+function getCountRandom(min, max) {
+  console.log(min);
+  console.log(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 function getChooseRandom(arrayData) {
   var arrayIndex = Math.floor(Math.random() * arrayData.length);
