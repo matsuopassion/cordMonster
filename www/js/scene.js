@@ -578,29 +578,19 @@ phina.define("battleFriendPage", {
      * condition : "nomal"
      */
     
-    fMon = friendBattle.resultMonster;
-    this.enemy.monsterID = fmon.mID;
-    this.enemy.monsterName = JSON.parse(MONSTER_MAP.get(fmon.mID)).monsterFamily;
-    this.enemy.Lv = fMon.Lv;
-    this.enemy.param.life   = fmon.param[0];
-    this.enemy.param.power  = fmon.param[1];
-    this.enemy.param.shield = fmon.param[2];
-    this.enemy.param.speed  = fmon.param[3];
-    this.enemy.param.speed  = fmon.param[4];    
-    this.enemy.ability = fmon.ability;
-    this.enemy.condition = "normal";
-    console.log(JSON.stringify(fMon));
+    this.fMon = friendBattle.resultMonster;
+    console.log(JSON.stringify(this.fMon));
     this.enemy = {
-      monsterID : fMon.mID,
-      monsterName : MONSTER_MAP.get(fMon.mID).monsterFamily ,
-      Lv : fMon.Lv ,
+      monsterID : this.fMon.mID,
+      monsterName : MONSTER_MAP.get(this.fMon.mID).monsterFamily ,
+      Lv : this.fMon.Lv ,
       param : { 
-          life : fMon.param[0] ,
-          power : fMon.param[1] ,
-          shield : fMon.param[2] , 
-          speed : fMon.param[3] ,
-          AP : fMon.param[4] },
-      ability : fMon.ability,
+          life : this.fMon.param[0] ,
+          power : this.fMon.param[1] ,
+          shield : this.fMon.param[2] , 
+          speed : this.fMon.param[3] ,
+          AP : this.fMon.param[4] },
+      ability : this.fMon.ability,
       condition : ["normal"]  
     };
     console.log(JSON.stringify(this.enemy));
