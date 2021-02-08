@@ -343,15 +343,23 @@ function isValidJson(qrcode){
 }
 
 function ScreenSizeDecide(){
-  if(device.platform == "Android"){
-    return {
-      width : window.innerWidth,
-      height : window.innerHeight,
-    };
-  }else{
+  try{
+    if(device.platform == "Android"){
+      console.log("This is God Android device");
+      return {
+        width : screen.availWidth,
+        height : screen.availHeight,
+      };
+    }else{
+      return{
+        width : window.innerWidth,
+        height : window.innerHeight,
+      };
+    }
+  }catch(e){
     return{
-      width : screen.availWidth,
-      height : screen.availHeight,
+        width : window.innerWidth,
+        height : window.innerHeight,
     };
   }
 }
