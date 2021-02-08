@@ -261,10 +261,10 @@ function skillAllocation(monsterApp,addPoint){
 
 function updateParam(monsterData,addPointArray){
   const appropriates = getAppropriate(monsterData);
-  let totalPoint = 0;
-  for(let point of addPointArray){
-    totalPoint =+ point;
-  } 
+  // let totalPoint = 0;
+  // for(let point of addPointArray){
+  //   totalPoint =+ point;
+  // } 
   let skills = monsterData.skill;
   let params = monsterData.param;
   params.life += skillAllocation(appropriates.life,addPointArray[0]);
@@ -277,7 +277,7 @@ function updateParam(monsterData,addPointArray){
   skills.speed += addPointArray[3];
   params.AP += skillAllocation(appropriates.AP,addPointArray[4]);
   skills.AP += addPointArray[4];
-  skills.point -= totalPoint;
+  // skills.point -= totalPoint;
   monsterData.param = params;
   monsterData.skill = skills;
   
@@ -343,15 +343,23 @@ function isValidJson(qrcode){
 }
 
 function ScreenSizeDecide(){
-  if(device.platform == "Android"){
-    return {
-      width : window.innerWidth,
-      height : window.innerHeight,
-    };
-  }else{
+  try{
+    if(device.platform == "Android"){
+      console.log("This is God Android device");
+      return {
+        width : screen.availWidth,
+        height : screen.availHeight,
+      };
+    }else{
+      return{
+        width : window.innerWidth,
+        height : window.innerHeight,
+      };
+    }
+  }catch(e){
     return{
-      width : screen.availWidth,
-      height : screen.availHeight,
+        width : window.innerWidth,
+        height : window.innerHeight,
     };
   }
 }
