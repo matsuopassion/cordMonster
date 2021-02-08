@@ -342,6 +342,20 @@ function isValidJson(qrcode){
   return true;
 }
 
+function ScreenSizeDecide(){
+  if(device.platform == "Android"){
+    return {
+      width : window.innerWidth,
+      height : window.innerHeight,
+    };
+  }else{
+    return{
+      width : screen.availWidth,
+      height : screen.availHeight,
+    };
+  }
+}
+
 function codeCreate(qrcode){
     if(device.platform == "Android"){
     qrcode.slice(1);

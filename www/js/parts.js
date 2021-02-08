@@ -113,8 +113,13 @@ function battleButtonSet(master,magnification){
 }
 
 function battleSelectButtonSet(master,flag){
+  console.log("今のタイプ：" + flag);
   let bfModeSelectGroup = DisplayElement().addChildTo(master);
-  let friendBattleFlag = flag;
+  let bcModeSelectGroup = DisplayElement().addChildTo(master);
+  //"Unsettled":未確定,"CPU":CPUバトル時,"Friend":フレンドバトル時
+  let BattleTypeFlag = flag;
+
+
   let buttonBattleCPU = Sprite('buttonBattleCPU');
   //画面に合わせてサイズ変更
   let magnificationCPU =(SCREEN_WIDTH / buttonBattleCPU.width);
@@ -124,7 +129,15 @@ function battleSelectButtonSet(master,flag){
   buttonBattleCPU.setPosition(master.gridX.center(),master.gridY.span(4)).addChildTo(bfModeSelectGroup),buttonBattleCPU.onpointstart=function(e){
     SoundManager.play("buttonPush");
     if(localStorage.getItem("selectMonster") != undefined){
-      master.exit('battleCpuPage');
+      SoundManager.play("buttonPush");
+      BattleTypeFlag = "CPU";
+      bfModeSelectGroup.children.clear();
+      bcModeSelectGroup.children.clear();
+      master.children.last.remove();
+      master.children.last.remove();
+      master.children.last.remove();
+      master.children.last.remove();
+      battleSelectButtonSet(master,BattleTypeFlag);
     }else{
       alert(`バトルモンスターが\nセットされていません`);
     }
@@ -138,13 +151,14 @@ function battleSelectButtonSet(master,flag){
   buttonBattleFriend.setInteractive(true);
   buttonBattleFriend.setPosition(master.gridX.center(),master.gridY.span(11)).addChildTo(bfModeSelectGroup),buttonBattleFriend.onpointstart=function(e){
     SoundManager.play("buttonPush");
-    friendBattleFlag = true;
+    BattleTypeFlag = "Friend";
     bfModeSelectGroup.children.clear();
+    bcModeSelectGroup.children.clear();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
-    battleSelectButtonSet(master,friendBattleFlag);
+    battleSelectButtonSet(master,BattleTypeFlag);
   };
 
   let backGround = RectangleShape({
@@ -195,37 +209,113 @@ function battleSelectButtonSet(master,flag){
     }
   };
 
+  let buttonBattleCPUS = Sprite('battleCPUSelectButtonS');
+  buttonBattleCPUS.width = 400;
+  buttonBattleCPUS.height = 120;
+  buttonBattleCPUS.setPosition(master.gridX.center(),master.gridY.span(3)).addChildTo(bcModeSelectGroup),
+  buttonBattleCPUS.onpointstart = function(e){
+    console.log("押しちゃったね");
+    master.exit('battleCpuPage',{
+      enemyRarity : "S",
+    });
+  };
+
+  let buttonBattleCPUA = Sprite('battleCPUSelectButtonA');
+  buttonBattleCPUA.width = 400;
+  buttonBattleCPUA.height = 120;
+  buttonBattleCPUA.setPosition(master.gridX.center(),master.gridY.span(6)).addChildTo(bcModeSelectGroup),
+  buttonBattleCPUA.onpointstart = function(e){
+    master.exit('battleCpuPage',{
+      enemyRarity : "A",
+    });
+  };
+
+  let buttonBattleCPUB = Sprite('battleCPUSelectButtonB');
+  buttonBattleCPUB.width = 400;
+  buttonBattleCPUB.height = 120;
+  buttonBattleCPUB.setPosition(master.gridX.center(),master.gridY.span(9)).addChildTo(bcModeSelectGroup),
+  buttonBattleCPUB.onpointstart = function(e){
+    master.exit('battleCpuPage',{
+      enemyRarity : "B",
+    });
+  };
+
+  let buttonBattleCPUC = Sprite('battleCPUSelectButtonC');
+  buttonBattleCPUC.width = 400;
+  buttonBattleCPUC.height = 120;
+  buttonBattleCPUC.setPosition(master.gridX.center(),master.gridY.span(12)).addChildTo(bcModeSelectGroup),
+  buttonBattleCPUC.onpointstart = function(e){
+    master.exit('battleCpuPage',{
+      enemyRarity : "C",
+    });
+  };
 
   underMenuSet(master);
 
-  if(friendBattleFlag == true){
-    backGround.setInteractive(true);
-    buttonBattleCPU.setInteractive(false);
+  // if(BattleTypeFlag != "Unsettled"){
+  //   backGround.setInteractive(true);
+  //   backGround.alpha = 0.6;
+  // }
+  if(BattleTypeFlag == "Friend"){
     buttonBattleFriend.setInteractive(false);
+    buttonBattleCPU.setInteractive(false);
+    buttonBattleCPUS.alpha = 0;
+    buttonBattleCPUA.alpha = 0;
+    buttonBattleCPUB.alpha = 0;
+    buttonBattleCPUC.alpha = 0;
+    buttonBattleCPUS.setInteractive(false);
+    buttonBattleCPUA.setInteractive(false);
+    buttonBattleCPUB.setInteractive(false);
+    buttonBattleCPUC.setInteractive(false);
     qrGetButton.setInteractive(true);
     qrSetButton.setInteractive(true);
     qrGetButton.alpha = 1;
     qrSetButton.alpha = 1;
-    backGround.alpha = 0.6;
+  }else if(BattleTypeFlag == "CPU"){
+    console.log("ここきたよ");
+    buttonBattleCPU.setInteractive(false);
+    buttonBattleFriend.setInteractive(false);
+    buttonBattleCPUS.alpha = 1;
+    buttonBattleCPUA.alpha = 1;
+    buttonBattleCPUB.alpha = 1;
+    buttonBattleCPUC.alpha = 1;
+    buttonBattleCPUS.setInteractive(true);
+    buttonBattleCPUA.setInteractive(true);
+    buttonBattleCPUB.setInteractive(true);
+    buttonBattleCPUC.setInteractive(true);
+    qrGetButton.setInteractive(false);
+    qrSetButton.setInteractive(false);
+    qrGetButton.alpha = 0;
+    qrSetButton.alpha = 0;
+    console.log("Sボタン触れる？" + buttonBattleCPUS.interactive);
   }else{
     backGround.setInteractive(false);
     buttonBattleCPU.setInteractive(true);
     buttonBattleFriend.setInteractive(true);
     qrGetButton.setInteractive(false);
     qrSetButton.setInteractive(false);
+    buttonBattleCPUS.alpha = 0;
+    buttonBattleCPUA.alpha = 0;
+    buttonBattleCPUB.alpha = 0;
+    buttonBattleCPUC.alpha = 0;
+    buttonBattleCPUS.setInteractive(false);
+    buttonBattleCPUA.setInteractive(false);
+    buttonBattleCPUB.setInteractive(false);
+    buttonBattleCPUC.setInteractive(false);
     qrGetButton.alpha = 0;
     qrSetButton.alpha = 0;
     backGround.alpha = 0;
   }
 
   backGround.onpointstart=function(e){
-    friendBattleFlag = false;
+    BattleTypeFlag = "Unsettled";
     bfModeSelectGroup.children.clear();
+    bcModeSelectGroup.children.clear();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
     master.children.last.remove();
-    battleSelectButtonSet(master,friendBattleFlag);
+    battleSelectButtonSet(master,BattleTypeFlag);
   };
 }
 
@@ -740,54 +830,69 @@ function monsterDataCompress(monsterData){
   return compressMonster;
 }
 
-//モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
-function selectAbilityBar(master){
-  let posX = -4;
-  let posY = 2;
-  //今は普通のfor文だが、本来はabilityArrayの分回す
-  for(let i = 0;i < 3;i++){
-    abilitySelectButton(master,posX,posY);
-    posX += 8;
-    if(posX > 4){
-      posX = -4;
-      posY += 2;
-    }
-  }
-}
 
-//ability,←ほんとはこれも渡す
-function abilitySelectButton(master,positionX,positionY){
-  abilityTypeArray = ["ダメージ","状態異常攻撃","状態異常","回復","自回復攻撃","回復攻撃"];
-  let selectButton = Sprite("abilitySelectButton");
-  selectButton.width = 180;
-  selectButton.height = 90;
-  selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(master);
-  let selectAbilityGridX = Grid({
-    width: selectButton.width,
-    columns: 7,
-    offset: master.gridX.center(positionX),
-  });
-  let selectAbilityGridY = Grid({
-    width: selectButton.height,
-    columns: 7,
-    offset: master.gridY.center(positionY),
-  });
-  let abilityNameLabel = Label({
-    text: "強打",
-    fontSize: 35,
-    fill: 'white',
-    align: "left",
-  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(-1));
-  let abilityTypeLabel = Label({
-    text: abilityTypeArray[1],
-    fontSize: 15,
-    fill: 'white',
-    align: "left",
-  }).addChildTo(master).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
-  let abilityAPLabel = Label({
-    text: "15",
-    fontSize: 30,
-    fill: 'white',
-    align: "left",
-  }).addChildTo(master).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
-}
+//こっから下はマジで無理だったところ、むかつく、一生恨んでやる
+// //モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
+// function selectAbilityBar(master,monster,group){
+//   console.log("次にここ");
+//   group.children.clear();
+//   let posX = -4;
+//   let posY = 2;
+//   let returnID = "";
+//   //今は普通のfor文だが、本来はabilityArrayの分回す
+//   for(let i = 0;i < monster.ability.length;i++){
+//     let abilityData = ABILITY_MAP.get(monster.ability[i]);
+//     abilitySelectButton(master,abilityData,posX,posY,group);
+//     posX += 8;
+//     if(posX > 4){
+//       posX = -4;
+//       posY += 2;
+//     }
+//   }
+// }
+
+// //↓帰ったらここから、画面にアビリティID返すだけ
+// function abilitySelectButton(master,ability,positionX,positionY,group){
+//   console.log("そのつぎここ");
+//   abilityTypeArray = ["ダメージ","状態異常攻撃","状態異常","回復","自回復攻撃","回復攻撃"];
+//   let selectButton = Sprite("abilitySelectButton");
+//   selectButton.width = 180;
+//   selectButton.height = 90;
+//   selectButton.setInteractive(true);
+//   selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
+//   selectButton.onpointstart = function(e){
+//     console.log("選んだ技はこれ：" + ability.abilityID);
+//     selectAbilityID = ability.abilityID;
+//     console.log("選んだ技はこれ：" + selectAbilityID);
+//     group.children.clear();
+//   };
+//   let selectAbilityGridX = Grid({
+//     width: selectButton.width,
+//     columns: 7,
+//     offset: master.gridX.center(positionX),
+//   });
+//   let selectAbilityGridY = Grid({
+//     width: selectButton.height,
+//     columns: 7,
+//     offset: master.gridY.center(positionY),
+//   });
+//   let abilityNameLabel = Label({
+//     text: ability.abilityName,
+//     fontSize: 35,
+//     fill: 'white',
+//     align: "left",
+//   }).addChildTo(group).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(-1));
+//   let abilityTypeLabel = Label({
+//     text: abilityTypeArray[ability.abilityType],
+//     fontSize: 15,
+//     fill: 'white',
+//     align: "left",
+//   }).addChildTo(group).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
+//   let abilityAPLabel = Label({
+//     text: ability.ap,
+//     fontSize: 30,
+//     fill: 'white',
+//     align: "left",
+//   }).addChildTo(group).setPosition(selectAbilityGridX.span(2),selectAbilityGridY.span(2));
+// }
+
