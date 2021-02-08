@@ -166,13 +166,16 @@ phina.main(function() {
     // SCREEN_TYPE_WIDTH = window.innerWidth;
     // SCREEN_TYPE_HEIGHT = window.innerHeight;
   // }
-  SCREEN_WIDTH = SCREEN_TYPE_WIDTH;
-  SCREEN_HEIGHT = SCREEN_TYPE_HEIGHT;
+  let screenSize = ScreenSizeDecide();
+  // SCREEN_WIDTH = SCREEN_TYPE_WIDTH;
+  // SCREEN_HEIGHT = SCREEN_TYPE_HEIGHT;
+  SCREEN_WIDTH = screenSize.width;
+  SCREEN_HEIGHT = screenSize.height;
   var app = GameApp({
     // Scene01 から開始
     startLabel: 'startPage',
-    width: SCREEN_TYPE_WIDTH,  // 画面幅
-    height: SCREEN_TYPE_HEIGHT,// 画面高さ
+    width: SCREEN_WIDTH,  // 画面幅
+    height: SCREEN_HEIGHT,// 画面高さ
     assets: ASSETS,
     // シーンのリストを引数で渡す
     scenes: [
