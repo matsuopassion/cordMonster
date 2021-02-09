@@ -101,7 +101,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`heavyAttack`],
             abilityLv : [1 ,5 ],
             defaultParam :
-             { life :50 ,power : 40 ,shield : 40 , speed : 40 ,AP : 10 },
+             { life :65 ,power : 40 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Killerblingo`,
     	      evoLv : `10`,
             basic : true
@@ -146,7 +146,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`flash`,`psychokinesis`],
             abilityLv : [ 1 ,3 ,5 ],
             defaultParam :
-             { life : 50 ,power : 70 ,shield : 30 , speed : 40 ,AP : 10 },
+             { life : 50 ,power : 50 ,shield : 30 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -176,7 +176,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`infinity`,`madness`],
             abilityLv : [ 1 ,2 ,5 ],
             defaultParam :
-             { life : 230 ,power : 90,shield : 100 , speed : 40 ,AP : 10 },
+             { life : 160 ,power : 90,shield : 100 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : false
@@ -356,7 +356,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`poisonAttack`,`poisonKunai`],
             abilityLv : [ 1 ,3 ,5 ],
             defaultParam :
-             { life : 80 ,power : 40 ,shield : 20 , speed : 50 ,AP : 10 },
+             { life : 80 ,power : 50 ,shield : 40 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -506,7 +506,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`heavyAttack`,`continuousPunch`],
             abilityLv : [ 1 , 2 , 5],
             defaultParam :
-             { life : 50 ,power : 70 ,shield : 40 , speed : 40 ,AP : 10 },
+             { life : 50 ,power : 60 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -536,7 +536,7 @@ var MONSTER_MASTER = {
              [`normalAttack`,`cosmicBeat`,`milkyWay`],
             abilityLv : [1 ,2 ,5 ],
             defaultParam :
-             { life : 110 ,power : 120 ,shield : 60 , speed : 85 ,AP : 10 },
+             { life : 110 ,power : 110 ,shield : 60 , speed : 85 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
