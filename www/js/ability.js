@@ -210,6 +210,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
 
 function damageCalclator(abilityPower,attacker,target){
   let damage = abilityPower * (attacker.attackerLv * 2 / 5 + 2) * attacker.attackerPower / target.targetShield / 50;
+  damage = damage * ();
   console.log(abilityPower);
   console.log(attacker);
   console.log(target);
