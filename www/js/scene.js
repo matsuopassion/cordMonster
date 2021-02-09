@@ -890,10 +890,10 @@ phina.define("battleResultPage", {
     // 背景色
     this.backgroundColor = 'black';
     this.bgResult = "battleResultLoseBg";
-    this.resultMessage = "【敗北】"
+    this.resultMessage = "loseMessage"
     let levelUpRand = 0;
     if(result.resultIssue == "win"){
-      this.resultMessage = "【勝利】";
+      this.resultMessage = "winMessage";
       this.bgResult = "battleResultWinBg";
       this.levelUpRand = getRandomIntInclusive(1,2);
     }
@@ -906,11 +906,15 @@ phina.define("battleResultPage", {
     //画像を配置
     battleResultBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
-    this.resultLabel = Label({
-      text: this.resultMessage,
-      fontSize: 50,
-      fill: 'white',
-    }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(0));
+    // this.resultLabel = Label({
+    //   text: this.resultMessage,
+    //   fontSize: 60,
+    //   fill: 'white',
+    // }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
+    this.resultMessage = Sprite(this.resultMessage);
+    this.resultMessage.width = 300;
+    this.resultMessage.height = 300;
+    this.resultMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
 
     console.log("randInt:" + levelUpRand);
     if(this.levelUpRand == 1){
@@ -921,7 +925,7 @@ phina.define("battleResultPage", {
         text:  this.myMonsterData.monsterName + "のレベルが上がった！",
         fontSize: 20,
         fill: 'red',
-      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(2));
+      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(3));
     }
 
     SoundManager.stopMusic();

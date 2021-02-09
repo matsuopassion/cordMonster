@@ -92,6 +92,8 @@ var ASSETS = {
     'battleCPUSelectButtonB':'image/battleCPUSelectButtonB.png',
     'battleCPUSelectButtonC':'image/battleCPUSelectButtonC.png',
     'battleCPUSelectButtonS':'image/battleCPUSelectButtonS.png',
+    'loseMessage':'image/lose.png',
+    'winMessage':'image/win.png'
     
   },
   //音楽

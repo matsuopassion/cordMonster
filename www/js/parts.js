@@ -385,10 +385,10 @@ function gaugeSet(master,monster,x,y){
 
 function charaResultSet(master,charaNum){
     let mainChara = Sprite(charaNum);
-    mainChara.width = 300;
-    mainChara.height = 300;
+    mainChara.width = 400;
+    mainChara.height = 400;
     mainChara.scaleX = -1;
-    mainChara.setPosition(master.gridX.center(),master.gridY.center(-4)).addChildTo(master);
+    mainChara.setPosition(master.gridX.center(),master.gridY.center(-2)).addChildTo(master);
     mainChara.setInteractive(true);
 }
 
@@ -564,11 +564,11 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
       text: monster.monsterName,
       fontSize: 30 * magnification,
       fill: 'white',
-    }).addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(0));
+    }).addChildTo(group).setPosition(master.gridX.center(-1),master.gridY.center(0));
 
   let lvLabel = Label({
     text: "Lv." + monster.Lv,
-    fontSize: 40 * magnification,
+    fontSize: 30 * magnification,
     fill: 'white',
     align: "left",
   }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(0)); 
@@ -577,7 +577,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
 
       let statusLabel = Label({
         text: statusTextArray[i] + statusNumArray[i],
-        fontSize: 35 * magnification,
+        fontSize: 30 * magnification,
         fill: 'white',
         align: "left",
     }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(1+i));
@@ -587,7 +587,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontSize: 30 * magnification,
         fill: 'red',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(1),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(0),master.gridY.center(1+i));
 
     if(pointSetArray[i] > 0){
       updatePointLabel.text = "+" + pointSetArray[i];
@@ -603,7 +603,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(3),master.gridY.center(1+i));
     statusUpButton.onpointstart = function(e) {
       SoundManager.setVolume(2.0);
       SoundManager.play('skillSelectButton');
@@ -631,7 +631,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
         fontColor: 'white',
         fill: 'white',
         align: "left",
-    }).addChildTo(group).setPosition(master.gridX.center(6),master.gridY.center(1+i));
+    }).addChildTo(group).setPosition(master.gridX.center(5),master.gridY.center(1+i));
 
     statusDownButton.onpointstart = function(e) {
       SoundManager.setVolume(2.0);
@@ -657,7 +657,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
   }
   let statusSkillPointLabel = Label({
       text: "スキルポイント:" + monster.skill.point,
-      fontSize: 20 * magnification,
+      fontSize: 25 * magnification,
       fill: 'yellow',
       align: "left",
    }).addChildTo(group).setPosition(master.gridX.center(-6),master.gridY.center(6));
@@ -670,7 +670,7 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
       fontSize: 40 * magnification,
       fill: 'white',
       align: "left",
-   }).addChildTo(group).setPosition(master.gridX.center(5),master.gridY.center(6));
+   }).addChildTo(group).setPosition(master.gridX.center(4),master.gridY.center(6));
   for(let pointSet of pointSetArray){
     totalSetPoint += pointSet;
   }
@@ -832,7 +832,45 @@ function monsterDataCompress(monsterData){
 }
 
 
+
+
 //こっから下はマジで無理だったところ、むかつく、一生恨んでやる
+
+//ゴミ溜め(ポップアップメッセージ編)
+// function popUp(master,message,getWidth,getHeight){
+//     alert(master.children[0].interactive);
+//   let popUpGroup = DisplayElement().addChildTo(master);
+//   let popUpBg = RectangleShape({
+//     width : SCREEN_WIDTH,
+//     height : SCREEN_HEIGHT,
+//     fill : "black",
+//   }).addChildTo(popUpGroup).setPosition(master.gridX.center(0),master.gridY.center(0));
+//   popUpBg.alpha = 0.5;
+//   let popUpWindow = RectangleShape({
+//     width : getWidth,
+//     height : getHeight,
+//     fill : "black",  
+//     stroke : "white",
+//     strokeWidth : 10,
+//     cornerRadius : 25,
+//   }).addChildTo(popUpGroup).setPosition(master.gridX.center(0),master.gridY.center(0));
+
+//   let popUpMessage = Label({
+//     text: message,
+//     fontSize: 25,
+//     fill: 'white',
+//   }).addChildTo(popUpGroup).setPosition(master.gridX.center(0),master.gridY.center(0));
+
+//   popUpWindow.setInteractive(true);
+//   popUpWindow.onpointstart = function(e){
+//     console.log("ポップアップ消すやで");
+//     popUpGroup.children.clear();
+//     //master.interactive = true;
+//   };
+// }
+
+
+//ゴミ溜め(アビリティ選択編)
 // //モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
 // function selectAbilityBar(master,monster,group){
 //   console.log("次にここ");
