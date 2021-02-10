@@ -359,7 +359,7 @@ phina.define("characterChack", {
     console.log("ここまでき");
     boxCharaInfoSet(master,param.boxCharaResults);
     //menuSet(master);
-    BackButtonSet(master);
+    backButtonSet(master);
     
   }
 });
@@ -519,7 +519,7 @@ phina.define("qrSetPage", {
       console.log("qrcodeSprite:" + qrcodeSprite);
 
       qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0));
-      BackButtonSet(master);
+      backButtonSet(master);
       renderEndFlag = false;
     });
   },
@@ -906,14 +906,9 @@ phina.define("battleResultPage", {
     //画像を配置
     battleResultBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
-    // this.resultLabel = Label({
-    //   text: this.resultMessage,
-    //   fontSize: 60,
-    //   fill: 'white',
-    // }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
     this.resultMessage = Sprite(this.resultMessage);
     this.resultMessage.width = 300;
-    this.resultMessage.height = 300;
+    this.resultMessage.height = 200;
     this.resultMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
 
     console.log("randInt:" + levelUpRand);
@@ -925,7 +920,7 @@ phina.define("battleResultPage", {
         text:  this.myMonsterData.monsterName + "のレベルが上がった！",
         fontSize: 20,
         fill: 'red',
-      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(3));
+      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-5));
     }
 
     SoundManager.stopMusic();
