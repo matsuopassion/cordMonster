@@ -1,14 +1,10 @@
-// This is a JavaScript file
 const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
 
-
-/*
-関数概要：戦闘画面のメッセージを返す関数
-引数：phase 誰による行動かを判別するための文字列
-      myMonster 自キャラのクラス
-      enemy 敵キャラのクラス
-      master Sceneの情報
+/**
+ *@関数概要：戦闘画面のメッセージウィンドウを返す関数
+ *@return
+ *group：メッセージウィンドウを構成するパーツが格納されたまとまりを返す
 */
 function setBattleMessage(){
   let group = DisplayElement();
@@ -28,13 +24,21 @@ function setBattleMessage(){
   return group;
 }
 
-function BackButtonSet(master){
+/**
+ * @関数概要：前画面に戻るボタン生成用の関数
+ * @param
+ * master：戻るボタンを生成する画面自身
+*/
+function backButtonSet(master){
   let buttonScan = Sprite('buttonBack');
   //画面に合わせてサイズ変更
   buttonScan.width = 70;
   buttonScan.height = 70;
   buttonScan.setInteractive(true);
-  buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),buttonScan.onpointstart=function(e){
+  buttonScan.setPosition(master.gridX.span(2),master.gridY.span(1)).addChildTo(master),
+  //ボタンが押された時の処理
+  //現在の画面名を前画面に返す
+  buttonScan.onpointstart=function(e){
     SoundManager.play("buttonPush");
     master.exit({
       beforePage:master.label,
@@ -42,6 +46,14 @@ function BackButtonSet(master){
   };
 }
 
+/**
+ * @関数概要：バトル時の自分のモンスターの画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * charaNum：表示するモンスターのmonsterID
+ * posX：モンスター画像のX軸位置(中心が0)
+ * posY：モンスター画像のY軸位置(中心が0)
+*/
 function charaSet(master,charaNum, posX,posY){
     let mainChara = Sprite(charaNum);
     mainChara.width = 200;
@@ -50,6 +62,7 @@ function charaSet(master,charaNum, posX,posY){
     mainChara.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(master);
     mainChara.setInteractive(true);
 }
+
 
 function scanCharaSet(master,charaNum, posX,posY){
     let mainChara = Sprite(charaNum);
@@ -87,7 +100,7 @@ function menuBuckGroundSet(master){
 
 //メニューバーのセット用
 function menuSet(master){
-  BackButtonSet(master);
+  backButtonSet(master);
   let magnification = menuBuckGroundSet(master);
   battleButtonSet(master,magnification);
   BoxButtonSet(master,magnification);
