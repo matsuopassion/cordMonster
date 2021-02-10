@@ -168,7 +168,6 @@ function abilitySelect(phase,myMonster,enemy,ability){
       break;
   }
 
-
   //自分のターンの場合
   if(phase === "m"){
     //攻撃者の設定
@@ -210,7 +209,8 @@ function abilitySelect(phase,myMonster,enemy,ability){
 };
 
 function damageCalclator(abilityPower,attacker,target){
-  let damage = Math.floor((((getCountRandom(20,40)) / 100) * (attacker.attackerPower / 2 - target.targetShield / 4) * abilityPower)) + 1;
+  let damage = abilityPower * (attacker.attackerLv * 2 / 5 + 2) * attacker.attackerPower / target.targetShield / 50;
+  damage = damage * ();
   console.log(abilityPower);
   console.log(attacker);
   console.log(target);

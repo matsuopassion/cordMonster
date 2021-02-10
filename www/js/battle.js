@@ -198,7 +198,7 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
      this.message = `エラー：未知の状態異常が設定されています。`;
   }
   if(phase === "m"){
-    if(getRandomInt(1, 4) == 1){
+    if(getCountRandom(1, 4) == 1){
       mCondition = "normal"
     } 
     //攻撃者の設定
@@ -207,7 +207,7 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
     eParam.life = targetLife;
   }else{
     //敵のターンの場合
-    if(getRandomInt(1, 4) == 1){
+    if(getCountRandom(1, 4) == 1){
       eCondition = "normal"
     } 
     //攻撃者の設定
