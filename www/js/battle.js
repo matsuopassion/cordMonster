@@ -20,7 +20,6 @@ function Battle(phase,myMonster,enemy,master){
       // ability = abilityID;
       // console.log(ability);
       ability = myMonster.ability;
-      console.log(ability);
       ability = ability[Math.floor(Math.random() * ability.length)].toString();
       commandResults = abilitySelect(phase,myMonster,enemy,ability);
       myMonster.param = commandResults.myMonsterParam;
