@@ -63,7 +63,14 @@ function charaSet(master,charaNum, posX,posY){
     mainChara.setInteractive(true);
 }
 
-
+/**
+ * @関数概要：スキャン時の自分のモンスターの画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * charaNum：表示するモンスターのmonsterID
+ * posX：モンスター画像のX軸位置(中心が0)
+ * posY：モンスター画像のY軸位置(中心が0)
+*/
 function scanCharaSet(master,charaNum, posX,posY){
     let mainChara = Sprite(charaNum);
     mainChara.width = 400;
@@ -72,6 +79,12 @@ function scanCharaSet(master,charaNum, posX,posY){
     mainChara.setInteractive(true);
 }
 
+/**
+ * @関数概要：スキャンリザルト画面にメッセージウィンドウを表示する関数
+ * @param
+ * master：表示する画面自身
+ * text：表示するメッセージ
+*/
 function setScanResultMessage(master,text){
   let messageBox = RectangleShape();
   messageBox.width = 300;
@@ -88,6 +101,11 @@ function setScanResultMessage(master,text){
   messageLabel.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(2));
 }
 
+/**
+ * @関数概要：画面下部のメニューバーの背景部分の画像を表示する関数
+ * @param
+ * master：表示する画面自身
+*/
 function menuBuckGroundSet(master){
   let menuBar = Sprite('menuBar');
   //画面に合わせてサイズ変更
@@ -98,7 +116,11 @@ function menuBuckGroundSet(master){
   return magnification;
 }
 
-//メニューバーのセット用
+/**
+ * @関数概要：画面下部のメニューバーと戻るボタンを表示する関数
+ * @param
+ * master：表示する画面自身
+*/
 function menuSet(master){
   backButtonSet(master);
   let magnification = menuBuckGroundSet(master);
@@ -107,6 +129,11 @@ function menuSet(master){
   ScanButtonSet(master,magnification);
 }
 
+/**
+ * @関数概要：画面下部のメニューバーのみを表示する関数
+ * @param
+ * master：表示する画面自身
+*/
 function underMenuSet(master){
   let magnification = menuBuckGroundSet(master);
   battleButtonSet(master,magnification);
@@ -114,6 +141,12 @@ function underMenuSet(master){
   ScanButtonSet(master,magnification);
 };
 
+/**
+ * @関数概要：画面下部のメニューバーのバトル遷移ボタンを表示する関数
+ * @param
+ * master：表示する画面自身
+ * magnification：画像のサイズ比率
+*/
 function battleButtonSet(master,magnification){
   let buttonBattle = Sprite('buttonBattle');
   //画面に合わせてサイズ変更
@@ -126,6 +159,12 @@ function battleButtonSet(master,magnification){
   };
 }
 
+/**
+ * @関数概要：バトルセレクト画面でのバトルモード選択ボタン表示用関数
+ * @param
+ * master：表示する画面自身
+ * flag：現在のモードがCPUかフレンドかをの値
+*/
 function battleSelectButtonSet(master,flag){
   console.log("今のタイプ：" + flag);
   let bfModeSelectGroup = DisplayElement().addChildTo(master);
@@ -333,6 +372,12 @@ function battleSelectButtonSet(master,flag){
   };
 }
 
+/**
+ * @関数概要：画面下部のメニューバーのボックス遷移ボタンを表示する関数
+ * @param
+ * master：表示する画面自身
+ * magnification：画像のサイズ比率
+*/
 function BoxButtonSet(master,magnification){
   let buttonBox = Sprite('buttonBox');
   //画面に合わせてサイズ変更
@@ -347,6 +392,12 @@ function BoxButtonSet(master,magnification){
   };
 }
 
+/**
+ * @関数概要：画面下部のメニューバーの召喚遷移ボタンを表示する関数
+ * @param
+ * master：表示する画面自身
+ * magnification：画像のサイズ比率
+*/
 function ScanButtonSet(master,magnification){
   let buttonScan = Sprite('buttonScan');
   //画面に合わせてサイズ変更
@@ -359,7 +410,11 @@ function ScanButtonSet(master,magnification){
   };
 }
 
-//scanPage用ボタン
+/**
+ * @関数概要：召喚画面で召喚ボタンを表示する関数
+ * @param
+ * master：表示する画面自身
+*/
 function ScanStartButton(master){
   let buttonScanStart = Sprite('scanStartButton');
   //画面に合わせてサイズ変更
@@ -377,6 +432,14 @@ function ScanStartButton(master){
   };
 }
 
+/**
+ * @関数概要：バトル画面でのモンスターのHPゲージを表示する関数
+ * @param
+ * master：表示する画面自身
+ * monster：ゲージにHPを表示するモンスターの情報
+ * x：X軸の表示位置
+ * y：y軸の表示位置
+*/
 function gaugeSet(master,monster,x,y){
   let charaGauge =Gauge({
         // x: 100, y: 300,        // x,y座標
@@ -395,7 +458,12 @@ function gaugeSet(master,monster,x,y){
   return charaGauge;
 }
 
-
+/**
+ * @関数概要：バトルリザルト画面でモンスターの画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * charaNum：表示するモンスターのID
+*/
 function charaResultSet(master,charaNum){
     let mainChara = Sprite(charaNum);
     mainChara.width = 400;
@@ -405,6 +473,12 @@ function charaResultSet(master,charaNum){
     mainChara.setInteractive(true);
 }
 
+/**
+ * @関数概要：召喚リザルト画面でモンスターの画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * monster：表示するモンスターの情報
+*/
 function getCharaResultSet(master,monster){
   let getMonsterImage = Sprite(monster.monsterID);
   mainChara.width = 500;
@@ -417,6 +491,14 @@ function getCharaResultSet(master,monster){
   mainChara.setPosition(master.gridX.center(),master.gridY.center(1)).addChildTo(master);
 }
 
+/**
+ * @関数概要：バトル画面で自分のモンスターの画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * charaNum：表示するモンスターのID
+ * posX：x軸の表示位置
+ * posY：y軸の表示位置
+*/
 function charaEnemySet(master,charaNum, posX,posY){
     let mainEnemyChara = Sprite(charaNum);
     mainEnemyChara.width = 200;
@@ -426,6 +508,12 @@ function charaEnemySet(master,charaNum, posX,posY){
     mainEnemyChara.setInteractive(true);
 }
 
+/**
+ * @関数概要：召喚リザルト画面でモンスターの画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * monster：表示するモンスターの情報
+*/
 function BattleStartButton(master){
   var mBattleButton = baseButton('バトル開始！',200,70,'white','red');
   mBattleButton.setPosition(master.gridX.center(),master.gridY.center()).addChildTo(master),mBattleButton.onpush=function(e){
@@ -434,16 +522,21 @@ function BattleStartButton(master){
   }
 }
 
-// function boxButton(master){
-//   var mBattleButton = baseButton('Boxを確認',200,70,'white','purple');
-//   mBattleButton.setPosition(master.gridX.center(0),master.gridY.center(0)).addChildTo(master),mBattleButton.onpush=function(e){
-//     SoundManager.play("buttonPush");
-//     master.exit("boxChack");
-//   }
-// }
-
+/**
+ * @関数概要：ボックス画面でモンスター画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * group：パーツをまとめるグループ
+ * jsonMonster：表示するモンスターの情報
+ * posX：x軸の表示位置
+ * posY：y軸の表示位置
+*/
 function boxcharaSet(master,group,jsonMonster,posX,posY){
     console.log(jsonMonster.monsterID);
+    let boxCharaBg = Sprite("boxSelectBg");
+    boxCharaBg.width = 100;
+    boxCharaBg.height = 100;
+    boxCharaBg.setPosition(master.gridX.center(posX),master.gridY.center(posY)).addChildTo(group);
     let boxChara = Sprite(jsonMonster.monsterID);
     boxChara.width = 140;
     boxChara.height = 140;
@@ -457,23 +550,30 @@ function boxcharaSet(master,group,jsonMonster,posX,posY){
     }
     let selectCharaGridX = Grid({
       width: 140,
-      columns: 3,
+      columns: 5,
       offset: master.gridX.center(posX),
     });
     let selectCharaGridY = Grid({
       width: 140,
-      columns: 3,
+      columns: 5,
       offset: master.gridY.center(posY),
     });
     if(localStorage.getItem("selectMonster") == jsonMonster.monsterID){
-      let selectLabel = Label({
-        text: "バトルセット中",
-        fontSize: 20,
-        fill: 'white',
-      }).addChildTo(group).setPosition(selectCharaGridX.span(0),selectCharaGridY.span(1));
+      let selectIcon = Sprite('boxSelectIcon');
+      selectIcon.width = 40;
+      selectIcon.height = 40;
+      selectIcon.addChildTo(group).setPosition(selectCharaGridX.span(1),selectCharaGridY.span(-1));
     }
 }
 
+/**
+ * @関数概要：ボックス画面の画面全体を管理する関数
+ * @param
+ * master：表示する画面自身
+ * monsterList：表示するモンスターの情報のリスト
+ * startNum：リストの何番目から表示するかを決める値
+ * pageNum：表示するページの番号
+*/
 function boxPageView(master,monsterList,startNum,pageNum){
   let x = -5;
   let y = -4;
@@ -561,6 +661,12 @@ function boxPageView(master,monsterList,startNum,pageNum){
 
 }
 
+/**
+ * @関数概要：ボックス詳細画面でモンスター画像を表示する関数
+ * @param
+ * master：表示する画面自身
+ * charaNum：表示するモンスターのID
+*/
 function boxCharaDSet(master,charaNum){
   let boxCharaD = Sprite(charaNum);
   boxCharaD.width = 250;
@@ -568,6 +674,15 @@ function boxCharaDSet(master,charaNum){
   boxCharaD.setPosition(master.gridX.center(0),master.gridY.center(-4)).addChildTo(master);
 }
 
+/**
+ * @関数概要：ボックス詳細画面でモンスター情報を表示する関数
+ * @param
+ * master：表示する画面自身
+ * group：パーツをまとめるグループ
+ * monster：詳細情報を表示するモンスターの情報
+ * pointSetArray：スキルポイントを割り振った数をステータス項目ごとにまとめた配列
+ * magnification：パーツを表示する際の比率
+*/
 function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
   let rowNum = 1;
   let statusTextArray = ["HP:","攻撃力:","防御力:","素早さ:","AP:"];
@@ -740,10 +855,21 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
 
 }
 
+/**
+ * @関数概要：指定されたグループ内の要素をすべて消去する関数
+ * @param
+ * group：要素を削除するグループ名
+*/
 function viewUpdateStatus(group){
   group.children.clear();
 }
 
+/**
+ * @関数概要：ボックス詳細画面の全体を管理する関数
+ * @param
+ * master：表示する画面自身
+ * monster：表示するモンスターの情報
+*/
 function boxCharaInfoSet(master,monster){
   let magnification = SCREEN_WIDTH / 412;
   let pointSetArray = [0,0,0,0,0];
@@ -759,6 +885,12 @@ function boxCharaInfoSet(master,monster){
   viewUpdateInfo(master,viewStatusGroup,monster,pointSetArray,magnification);
 }
 
+/**
+ * @関数概要：ホーム画面でモンスター情報を表示する関数
+ * @param
+ * master：表示する画面自身
+ * monsterData：表示するモンスターの情報
+*/
 function mainInfoLabel(master,monsterData){
   let monsterNameLabel = Label({
         text: "【" + monsterData.monsterName + "】",
@@ -774,6 +906,12 @@ function mainInfoLabel(master,monsterData){
   }).addChildTo(master).setPosition(master.gridX.center(-7),master.gridY.center(-4));
 }
 
+/**
+ * @関数概要：ホーム画面でモンスター情報を表示するウィンドウを作る関数
+ * @param
+ * master：表示する画面自身
+ * monsterData：表示するモンスターの情報
+*/
 function mainPageMonsterInfo(master,monsterData){
   //let magnification = SCREEN_WIDTH / 412;
   //let infoGroup = DisplayElement().addChildTo(master);
@@ -789,6 +927,11 @@ function mainPageMonsterInfo(master,monsterData){
   mainInfoLabel(master,monsterData);
 }
 
+/**
+ * @関数概要：フレンドバトル時に自分のモンスターのQRコードを生成する関数
+ * @param
+ * master：表示する画面自身
+*/
 function qrCodeGenerator(master){
   let qrcodeImage;
   let qrcode = document.getElementById("qrcode");
@@ -834,6 +977,11 @@ function qrCodeGenerator(master){
     });
 }
 
+/**
+ * @関数概要：QRコードにする際にモンスターの情報を加工する関数
+ * @param
+ * monsterData：表示するモンスターの情報
+*/
 function monsterDataCompress(monsterData){
   let compressMonster = {
     mID : monsterData.monsterID,
