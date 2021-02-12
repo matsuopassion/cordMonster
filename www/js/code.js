@@ -1,3 +1,7 @@
+/**
+ * 関数概要：召喚の時に一番最初に呼び出されるよ
+ * @callback：キャンセルされたときようにcallback関数を使ってるよ
+ */
 function scanBarcode(callback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {
@@ -32,8 +36,9 @@ cordova.plugins.barcodeScanner.scan(
 );
 }
 /**
- * 召喚用スキャンデータ読み込み
- * qrText : 読み込んだＱＲコードの文字列
+ * 関数概要：召喚用スキャンデータ読み込み
+ * @qrText 読み込んだＱＲコードの文字列
+ * @return 更新や生成されたモンスターのデータを返すよ
  */
 function getSearchData(qrText) {
   //スキャン済みのQRコード登録
@@ -57,12 +62,12 @@ function getSearchData(qrText) {
   localStorage.setItem(monsterData.monsterID,JSON.stringify(monsterData));
   return monsterData;
 }
+
 /**
- * monsterData : 対象のモンスター
- * lvと進化の判定、スキルの判定
- * 
- * monster : masterから取得したモンスターのデータ
-*/
+ * 関数概要：Lvと進化の判定、スキルの判定
+ * @monsterData 対象のモンスター
+ * @return 更新されたモンスターのデータを返すよ
+ */
 function levelUpMonster(monsterData){
     //進化先がすでにいるか、存在するかチェックしてセット
     monsterData = haveEvoCheck(monsterData);
@@ -77,6 +82,7 @@ function levelUpMonster(monsterData){
     //lvUP
     monsterData.Lv += 1;
     monsterData.skill.point += 1;
+    monsterData = updateParam(monsterData,[1,1,1,1,1]);
     
     //進化判定
     if(monster.evoLv == monsterData.Lv){ 
@@ -89,6 +95,11 @@ function levelUpMonster(monsterData){
     return monsterData;
 }
 
+/**
+ * 関数概要：Lvと進化の判定、スキルの判定
+ * @monsterData 対象のモンスター
+ * @return 更新されたモンスターのデータを返すよ
+ */
 function haveEvoCheck(monsterData){
   let judugeMonsterData = monsterData;
     try {
@@ -106,6 +117,11 @@ function haveEvoCheck(monsterData){
     }
 }
 
+/**
+ * 関数概要：アビリティを与えるレベルに達しているかを見極めてあげる
+ * @monsterData 対象のモンスター
+ * @return 更新されたモンスターのアビリティを返すよ
+ */
 function judgeAbilityGet(monsterData){
     //対象モンスターのマスタ
     const monster = MONSTER_MAP.get(monsterData.monsterID);
@@ -126,7 +142,11 @@ function judgeAbilityGet(monsterData){
 
     return monsterData.ability;
 }
-
+/**
+ * 関数概要：進化したモンスターが持っていたアビリティを振りなおします
+ * @monsterData 対象のモンスター
+ * @return 更新されたモンスターのアビリティを返すよ
+ */
 function judgeAbilityEvoMonster(monsterData){
     //対象モンスターのマスタ
     const monster = MONSTER_MAP.get(monsterData.monsterID);
@@ -145,10 +165,11 @@ function judgeAbilityEvoMonster(monsterData){
     return monsterData.ability;
 }
 
-/** 
- * monsterID : 対象モンスターのID
- * localstrageに新しいモンスターを追加する
-*/
+/**
+ * 関数概要：進化したモンスターが持っていたアビリティを振りなおします
+ * @monsterID 対象のモンスターのモンスターID
+ * @return 取得したモンスターのデータを返すよ
+ */
 function getNewMonster(monsterID){
   let scM = MONSTER_MAP.get(monsterID);
   const monsterData = {
@@ -176,7 +197,8 @@ function getNewMonster(monsterID){
 }
 
 /**
- * 召喚によって出るモンスターを決定
+ * 関数概要：ガチャのなかみよ♡
+ * @return でてきたモンスターのID
  */
 function resultClassification(){
   let rarityList = [0.05,0.25,1];
@@ -190,7 +212,11 @@ function resultClassification(){
   return monster.monsterID;
 }
 
-
+/**
+ * 関数概要：進化します
+ * @monsterData 対象のモンスターのモンスターデータ
+ * @return 進化したモンスターデータ
+ */
 function getEvoMonster(monsterData){
   //monsterDataのマスタ取得
   const monster = MONSTER_MAP.get(monsterData.monsterID);
@@ -201,13 +227,6 @@ function getEvoMonster(monsterData){
   
   //skilふり直し
   const skill = monsterData.skill;
-  const skillPoint = 
-   skill.point +
-   skill.life + 
-   skill.power +
-   skill.shield +
-   skill.speed +
-   skill.AP;
 
   let evoMonsterData = {
     monsterID : evoMonster.monsterID ,
@@ -221,7 +240,7 @@ function getEvoMonster(monsterData){
       AP : eDefaultParam.AP,
     } , 
     skill : {
-      point : skillPoint ,
+      point : monsterData.Lv - 1 ,
       life : 0 ,
       power : 0 ,
       shield : 0 , 
@@ -229,26 +248,44 @@ function getEvoMonster(monsterData){
       AP : 0},
     condition : monsterData.condition,
   };
+  let evoLv = evoMonsterData.Lv;
+  evoMonsterData = updateParam(evoMonsterData,[evoLv,evoLv,evoLv,evoLv,evoLv]);
   evoMonsterData.ability = judgeAbilityEvoMonster(evoMonsterData);
   if(localStorage.getItem("selectMonster") == monsterData.monsterID){
     localStorage.setItem("selectMonster",evoMonsterData.monsterID);
   }
+  console.log(JSON.stringify(evoMonsterData));
   return evoMonsterData;
 }
-
+/**
+ * 関数概要：進化したモンスターが持っていたアビリティを振りなおします
+ * @monsterApp 適正値(ex:"A")
+ * @return param：乱数できめた上昇値をかえします
+ */
 function decisionParam(monsterApp){
   let paramWidth = RISE_WIDTH[RISE_INDEX.indexOf(monsterApp)];
   let param = getRandomIntInclusive(paramWidth[0],paramWidth[1]); //引数1~引数2までの中から乱数で値を決定
   return param;
 }
 
+/**
+ * 関数概要：ランダムでイント
+ * @min みん
+ * @max まっくす
+ * @return イント
+ */
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     // both min and max are inclusive
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+/**
+ * 関数概要：スキルを振ります
+ * @monsterApp 適正値(ex:"A")
+ * @addPoint 上昇する分のポイント
+ * @return totalParam：決定したパラメーター
+ */
 function skillAllocation(monsterApp,addPoint){
   let totalParam = 0 ;
   let count = 0;
@@ -259,6 +296,12 @@ function skillAllocation(monsterApp,addPoint){
   return totalParam ;
 }
 
+/**
+ * 関数概要：パラメータを更新するぞ
+ * @monsterData 対象モンスターのモンスターデータ
+ * @addPointArray [life,power,shield,speed,AP]ポイント分のリスト
+ * @return 更新されたモンスターデータを返します
+ */
 function updateParam(monsterData,addPointArray){
   const appropriates = getAppropriate(monsterData);
   // let totalPoint = 0;
@@ -284,13 +327,20 @@ function updateParam(monsterData,addPointArray){
   return monsterData;
 }
 
+/**
+ * 関数概要：適正値をとってくるよ
+ * @monsterData 対象モンスターのモンスターデータ
+ * @return 適正値かえします
+ */
 function getAppropriate(monsterData){
   let monsterApp = 
     MONSTER_MAP.get(monsterData.monsterID).appropriate;
   return monsterApp;
 }
 
-
+/**
+ * 関数概要：フレンドバトルのキャラ読み込み
+ */
 function scanBattleMonster(battleCallback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {//ここから
@@ -325,7 +375,11 @@ cordova.plugins.barcodeScanner.scan(
   }
 );
 }
-
+/**
+ * 関数概要：JSONかどうか教えてくれる
+ * @qrcode 読み込んだやつ
+ * @return 判定
+ */
 function isValidJson(qrcode){
   if(device.platform == "Android"){
     qrcode.slice(1);
@@ -342,6 +396,10 @@ function isValidJson(qrcode){
   return true;
 }
 
+/**
+ * 関数概要：スクリーンサイズを決定します
+ * @return スクリーンサイズ設定します
+ */
 function ScreenSizeDecide(){
   try{
     if(device.platform == "Android"){
@@ -364,6 +422,11 @@ function ScreenSizeDecide(){
   }
 }
 
+/**
+ * 関数概要：JSONの整地
+ * @qrcode 読み込んだやつ
+ * @return 整地したJSON文字列
+ */
 function codeCreate(qrcode){
     if(device.platform == "Android"){
     qrcode.slice(1);
@@ -371,7 +434,11 @@ function codeCreate(qrcode){
   return qrcode;
 }
 
+/**
+ * 関数概要：ランダムなイント
+ * @max   makkusu
+ * @return 数字
+ */
 function getRandomInt(max) {
-  // ランダムな配列
   return Math.floor(Math.random() * Math.floor(max));
 }
