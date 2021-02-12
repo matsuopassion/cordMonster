@@ -776,11 +776,14 @@ phina.define("battleCpuPage", {
     let groupchan = this.group;
     this.issue = "uncertain";
     this.group.children[0].onpointstart = function(){
+      console.log("現在のフェーズ：" + master.phase);
+      console.log("現在のターンフェーズ：" + master.turnPhase);
       if(master.issue != "uncertain"){
         master.exit({
           resultIssue: master.issue,
         });
       }else{
+        master.children[1].children[1].text = "";
         if( master.turnCount == 0 ){
           master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master,"").messageContent;
           trunPhase = 0;
@@ -816,6 +819,7 @@ phina.define("battleCpuPage", {
           }else if(master.turnPhase == 1){
             if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
               if(master.phase == "m"){
+                console.log(selectAbilityID);
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
                 master.phase = "e";
@@ -839,6 +843,7 @@ phina.define("battleCpuPage", {
                 master.turnPhase = 2;
               }else{
                 if(master.rePhase != ""){
+                  console.log("ここいけ");
                   master.turnPhase = 3;
                 }else{
                   master.turnPhase = 1;
@@ -866,7 +871,9 @@ phina.define("battleCpuPage", {
                 master.phase = "m";
               }
 
+              //現状3週目に入ってしまうのでもっかいリフレッシュして考える
               if(master.rePhase != ""){
+                console.log("今の感じ：" + master.rePhase);
                 master.turnPhase = 1;
               }else{
                 master.turnPhase++;
