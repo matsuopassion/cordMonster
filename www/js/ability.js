@@ -34,6 +34,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   let abilityMessage;
   let abilitySound;
   let damageCalcflag;
+  let random;
   // 0:相手に攻撃 1:相手に攻撃かつ状態異常 2:相手に状態異常 3:自身を回復 4:相手に攻撃かつ自身に回復 5:相手を回復
   if(phase === "m"){
     //攻撃者の設定
@@ -135,11 +136,19 @@ function abilitySelect(phase,myMonster,enemy,ability){
       targetLife = targetLife - damage * 2;
       break;
     case 1: //相手に攻撃しつつ状態異常を付与
-      targetLife = targetLife - damage * 2;
-      if("conditionType" in ability_result){
+      random =  Math.floor( Math.random() * 101 ) ;
+      console.log("状態異常確率は"+ability_result.stateChangeChance);
+      console.log("乱数は"+random);
+      if(random < ability_result.stateChangeChance){
+        targetLife = targetLife - damage * 2;
+        if("conditionType" in ability_result){
           targetCondition = ability_result.conditionType;
           conditionName = ability_result.conditionName;
+        }else{
+          abilityType = "normal";
         }
+      }
+      targetLife = targetLife - damage * 2;
       break;
     case 2: //相手に状態異常を付与
       if("conditionType" in ability_result){

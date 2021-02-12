@@ -62,8 +62,8 @@ function Battle(phase,myMonster,enemy,master){
         this.issue = "win";
       }else{
         this.message = `${enemy.monsterName}が飛び出してきた！`;
-        myMonster.param.maxlife = myMonster.param.life
-        enemy.param.maxlife = enemy.param.life
+        myMonster.param.maxlife = myMonster.param.life;
+        enemy.param.maxlife = enemy.param.life;
         console.log(`${myMonster.monsterName}の最大体力：${myMonster.param.maxlife}`);
         console.log(`${enemy.monsterName}の最大体力：${enemy.param.maxlife}`);
         console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
