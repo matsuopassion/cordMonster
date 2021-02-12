@@ -1050,7 +1050,7 @@ function selectAbilityBar(master,monster,group){
     selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
     selectButton.onpointstart = function(e){
       console.log("選んだ技はこれ：" + abilityData.abilityID);
-      return abilityData.abilityID;
+      selectAbilityID = abilityData.abilityID;
       group.children.clear();
     };
     let selectAbilityGridX = Grid({
