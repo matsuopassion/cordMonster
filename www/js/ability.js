@@ -209,7 +209,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
 };
 
 function damageCalclator(abilityPower,attacker,target){
-  let damage = (Math.floor(Math.floor(Math.floor(attacker.attackerLv * 2 / 5 + 2 ) * abilityPower * attacker.attackerPower / target.targetShield ) / 50 + 2 ) * getCountRandom(85, 100)) / 100;
+  let damage = Math.round(Math.round(Math.ceil(Math.ceil(Math.floor(attacker.attackerLv * 2 / 5 + 2 ) * abilityPower * attacker.attackerPower / target.targetShield ) / 50 + 2 ) * getCountRandom(85, 100)) / 100);
   console.log(damage);
   console.log(attacker.attackerLv);
   console.log(attacker.attackerPower);
