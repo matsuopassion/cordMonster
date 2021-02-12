@@ -782,7 +782,7 @@ phina.define("battleCpuPage", {
         });
       }else{
         if( master.turnCount == 0 ){
-          master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master).messageContent;
+          master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master,"").messageContent;
           trunPhase = 0;
           master.turnCount++;
         }
@@ -816,7 +816,7 @@ phina.define("battleCpuPage", {
           }else if(master.turnPhase == 1){
             if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
               if(master.phase == "m"){
-                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master);
+                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
                 master.phase = "e";
                 if(this.battleResults.mCondition != "normal"){
@@ -824,8 +824,7 @@ phina.define("battleCpuPage", {
                   master.phase = "coToM";
                 }
               }else if(master.phase == "e"){
-                console.log("すんませんこっちきました");
-                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master);
+                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
                 this.message = this.battleResults.messageContent;
                 master.phase = "m";
                 if(this.battleResults.eCondition != "normal"){
@@ -837,7 +836,6 @@ phina.define("battleCpuPage", {
               }
               
               if(master.phase == "coToE" || master.phase == "coToM"){
-                console.log("ここきた");
                 master.turnPhase = 2;
               }else{
                 if(master.rePhase != ""){
@@ -855,16 +853,13 @@ phina.define("battleCpuPage", {
               master.turnPhase = 3;
             }
           }else if(master.turnPhase == 2){
-            console.log("phase2にきた");
             if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
               if(master.phase == "coToM"){
-                console.log("僕具合悪い");
                 master.phase = "m";
                 this.battleResults = conditionDamage(master.phase,master.myMonster,master.enemy,this.conditionType);
                 this.message = this.battleResults.messageContent;
                 master.phase = "e";
               }else if(master.phase == "coToE"){
-                console.log("なんかやばくね");
                 master.phase = "e";
                 this.battleResults = conditionDamage(master.phase,master.myMonster,master.enemy,this.conditionType);
                 this.message = this.battleResults.messageContent;
@@ -876,7 +871,6 @@ phina.define("battleCpuPage", {
               }else{
                 master.turnPhase++;
               }
-              console.log("メッセージだすぞぉ！！！：" + this.message);
               master.children[1].children[1].text = this.message;
             }else{
               master.turnPhase = 3;
@@ -884,7 +878,7 @@ phina.define("battleCpuPage", {
           }else{
             if(master.myMonster.param.life <= 0 || master.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
               master.phase = "s";
-              this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master);
+              this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
               this.message = this.battleResults.messageContent;
               master.issue = this.battleResults.resultIssue;
             }else{
