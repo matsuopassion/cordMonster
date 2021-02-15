@@ -199,7 +199,7 @@ phina.define("mainPage", {
     
     try{
       let myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-      mainPageMonsterInfo(this,myMonsterData,num);
+      mainPageMonsterInfo(this,myMonsterData);
       let mainPageMonster = Sprite(myMonsterData.monsterID);
       mainPageMonster.width = 400;
       mainPageMonster.height = 400;
@@ -263,12 +263,6 @@ phina.define("mainPage", {
     menuSet(master);
     
   },
-   // タッチ時処理
-    onpointstart: function() {
-       myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-       num = getRandomInt(3);
-       mainPageMonsterInfo(this,myMonsterData,num);
-  }
   
 });
 

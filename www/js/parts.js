@@ -1,10 +1,5 @@
 const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
-let messageBox;
-let monsterNameLabel;
-let monsterCommentLabel;
-let roopcnt = 0;
-let roopcnt1 = 0;
 /**
  *@関数概要：戦闘画面のメッセージウィンドウを返す関数
  *@return
@@ -895,79 +890,21 @@ function boxCharaInfoSet(master,monster){
  * master：表示する画面自身
  * monsterData：表示するモンスターの情報
 */
-function mainInfoLabel(master,monsterData,num){
-  let abilityName = new Array();
-   monsterNameLabel = Label({
+function mainInfoLabel(master,monsterData){
+  let monsterNameLabel = Label({
         text: "【" + monsterData.monsterName + "】",
         fontSize: 30,
         fill: 'white',
   }).addChildTo(master).setPosition(master.gridX.center(0),master.gridY.center(-6));
   let monsterMasterData = MONSTER_MAP.get(monsterData.monsterID);
-  if(roopcnt1 == 1){
-    monsterCommentLabel.remove();
-    monsterNameLabel.remove();
-  }
-    if(num == 0){
-    var boxMonster = new Array();// locaStorageから取得
-
-    let object = {};        //オブジェクト配列生成
-    let key;                //key
-    let mons = [];
-    let int = 0;
-    let names;
-
-
-      for(let i = 0 ; i < localStorage.length ; i++) {
-        try{
-          key = localStorage.key(i);
-            let exist =  localStorage.getItem(key);
-              if(exist != "exist") {      //existではなかったら値取り出し
-                object[i] = localStorage.getItem(key);
-                let jsonMonster = new monster(JSON.parse(object[i])); //Stringからjsonに変換
-                let monsterstatus1 = jsonMonster["monsterID"];
-                let monsterstatus2 = monsterMasterData.monsterID;
-                if(monsterstatus1 == monsterstatus2){
-                let ID = jsonMonster["monsterID"];
-                let Name = jsonMonster["monsterName"];
-                let Lv = jsonMonster["Lv"];
-                let life = jsonMonster["param"]["life"];
-                let power = jsonMonster["param"]["power"];
-                let shield = jsonMonster["param"]["shield"];
-                let speed = jsonMonster["param"]["speed"];
-                console.log(Lv);
-                  monsterCommentLabel = Label({
-                  text: "Lv" + Lv +"\n" + "life" + life + "\n" + "power" + power + "\n" + "shield" + shield + "\n" + "speed" + speed,
-                  fontSize: 20,
-                  fill: 'white',
-                  align: 'left',
-                  }).addChildTo(master).setPosition(master.gridX.center(-7),master.gridY.center(-4));
-              }
-            }
-          }catch(e){
-          names = "メインキャラ";
-        }
-      }
-    }else if(num == 1){
-      for(let i = 0; i < monsterData.ability.length; i++){
-        let ability_result = ABILITY_MAP.get(monsterData.ability[i]);
-        abilityName[i] = ability_result.abilityName;
-      }
-         monsterCommentLabel = Label({
-          text: abilityName,
-          fontSize: 20,
-          fill: 'white',
-          align: 'left',
-    }).addChildTo(master).setPosition(master.gridX.center(-7),master.gridY.center(-4));
-  }else{
-       monsterCommentLabel = Label({
+  let monsterCommentLabel = Label({
         text: monsterMasterData.comment,
         fontSize: 20,
         fill: 'white',
         align: 'left',
   }).addChildTo(master).setPosition(master.gridX.center(-7),master.gridY.center(-4));
-  }
-  roopcnt1 = 1;
 }
+
 function mainCharaInfoSet(master,monster){
   let pointSetArray = [0,0,0,0,0];
   let viewStatusGroup = DisplayElement().addChildTo(master);
@@ -980,10 +917,10 @@ function mainCharaInfoSet(master,monster){
  * master：表示する画面自身
  * monsterData：表示するモンスターの情報
 */
-function mainPageMonsterInfo(master,monsterData,num){
+function mainPageMonsterInfo(master,monsterData){
   //let magnification = SCREEN_WIDTH / 412;
   //let infoGroup = DisplayElement().addChildTo(master);
-  messageBox = RectangleShape();
+  let messageBox = RectangleShape();
   messageBox.width = 400;
   messageBox.height = 300;
   messageBox.fill = "black";
@@ -992,13 +929,7 @@ function mainPageMonsterInfo(master,monsterData,num){
   messageBox.cornerRadius = 25;
   messageBox.alpha = 0.5;
   messageBox.addChildTo(master).setPosition(master.gridX.center(),master.gridY.center(-4));
-  if(roopcnt == 0){
-    roopcnt = 1;
-    mainInfoLabel(master,monsterData,num);
-  }else{
-    messageBox.remove();
-    mainInfoLabel(master,monsterData,num);
-  }
+  mainInfoLabel(master,monsterData);
 }
 
 /**
@@ -1123,7 +1054,6 @@ function selectAbilityBar(master,monster,group){
     selectButton.setInteractive(true);
     selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
     selectButton.onpointstart = function(e){
-      console.log("選んだ技はこれ：" + abilityData.abilityID);
       selectAbilityID = abilityData.abilityID;
       group.children.clear();
     };
