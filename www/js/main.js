@@ -74,6 +74,7 @@ var ASSETS = {
     'scanBg': 'image/scanBg2.jpg',
     'mainBg': 'image/mainBg.jpg',
     'battleCPUBg': 'image/battleCPUBg.png',
+    'battleCPUBg2': 'image/battleCPUBg2.png',
     'battleFriendBg': 'image/battleFriendBg.png',
     'buttonBattle': 'image/buttonBattle.png',
     'buttonScan': 'image/buttonScan.png',
@@ -95,7 +96,8 @@ var ASSETS = {
     'loseMessage':'image/loseMessage.png',
     'winMessage':'image/winMessage.png',
     'boxSelectBg':'image/boxSelectBg.png',
-    'boxSelectIcon':'image/boxSelectIcon.png'
+    'boxSelectIcon':'image/boxSelectIcon.png',
+    'LvUpMessage':'image/LvUpMessage.png'
     
   },
   //音楽

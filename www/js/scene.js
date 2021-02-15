@@ -605,7 +605,7 @@ phina.define("battleFriendPage", {
         });
       }else{
         master.children[1].children[1].text = "";
-        if( master.turnCount == 0 ){
+        if( master.turnCount == 1 ){
           master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master,"").messageContent;
           trunPhase = 0;
           master.turnCount++;
@@ -745,8 +745,11 @@ phina.define("battleCpuPage", {
     // 背景色
     this.backgroundColor = 'black';
 
+    let bgArray = ["battleCPUBg","battleCPUBg2"];
     //背景画像
-    var battleCPUBgSprite = Sprite('battleCPUBg').addChildTo(this);
+    let bg = bgArray[Math.floor(Math.random() * (bgArray.length - 0)) + 0];
+    console.log(bg);
+    var battleCPUBgSprite = Sprite(bg).addChildTo(this);
     //画面に合わせてサイズ変更
     battleCPUBgSprite.width *= (SCREEN_WIDTH / battleCPUBgSprite.width);
     battleCPUBgSprite.height *= (SCREEN_HEIGHT / battleCPUBgSprite.height);
@@ -853,7 +856,7 @@ phina.define("battleCpuPage", {
         });
       }else{
         master.children[1].children[1].text = "";
-        if( master.turnCount == 0 ){
+        if( master.turnCount == 1 ){
           master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master,"").messageContent;
           trunPhase = 0;
           master.turnCount++;
@@ -1017,16 +1020,7 @@ phina.define("battleResultPage", {
     this.resultMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
 
     console.log("randInt:" + levelUpRand);
-    if(this.levelUpRand == 1){
-      this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-      let updateMonsterData = levelUpMonster(this.myMonsterData);
-      localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));
-      this.resultLabel = Label({
-        text:  this.myMonsterData.monsterName + "のレベルが上がった！",
-        fontSize: 20,
-        fill: 'red',
-      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-5));
-    }
+    
 
     SoundManager.stopMusic();
     SoundManager.playMusic("resultBGM");
@@ -1035,7 +1029,15 @@ phina.define("battleResultPage", {
     menuSet(master);
     
     charaResultSet(master, JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))).monsterID);
-    
+    if(this.levelUpRand == 1){
+      this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+      let updateMonsterData = levelUpMonster(this.myMonsterData);
+      localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));
+      this.LvUpMessage = Sprite("LvUpMessage");
+      this.LvUpMessage.width = 200;
+      this.LvUpMessage.height = 100;
+      this.LvUpMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-6));
+    }
   },
   update: function(app) {
     // if(app.frame % SPEED === 0){
