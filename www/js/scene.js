@@ -1039,14 +1039,9 @@ phina.define("battleResultPage", {
       this.LvUpMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-6));
     }
   },
-  update: function(app) {
-    // if(app.frame % SPEED === 0){
-    //   if(master.resultLabel.text === "これ何？"){
-    //     master.resultLabel.text = "巨大サーモンの逆襲";
-    //   }else{
-    //     master.resultLabel.text  ="これ何？";
-    //   }
-    // }
+  // タッチで次のシーンへ
+  onpointstart: function() {
+      this.exit("battlePage");  
   }
 });
 
