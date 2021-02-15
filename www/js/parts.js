@@ -10,7 +10,7 @@ function setBattleMessage(){
   let group = DisplayElement();
   let messageBox = RectangleShape();
   messageBox.width = 400;
-  messageBox.height = 300;
+  messageBox.height = 200;
   messageBox.fill = "black";
   messageBox.stroke = "white";
   messageBox.strokeWidth = 10;
@@ -1037,7 +1037,7 @@ function selectAbilityBar(master,monster,group){
   console.log("次にここ");
   group.children.clear();
   let positionX = -4;
-  let positionY = 2;
+  let positionY = 1;
   let returnID = "";
   //今は普通のfor文だが、本来はabilityArrayの分回す
   for(let i = 0;i < monster.ability.length;i++){
