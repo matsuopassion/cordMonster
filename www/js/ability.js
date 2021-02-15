@@ -153,10 +153,17 @@ function abilitySelect(phase,myMonster,enemy,ability){
       targetLife = targetLife - damage * 2;
       break;
     case 2: //相手に状態異常を付与
-      if("conditionType" in ability_result){
+      random =  Math.floor( Math.random() * 101 ) ;
+      if(random < ability_result.stateChangeChance){
+        if("conditionType" in ability_result){
+          console.log("状態異常を付与成功！");
           targetCondition = ability_result.conditionType;
           conditionName = ability_result.conditionName;
         }
+      }else{
+        console.log("状態異常を付与失敗！");
+        conditionType = null;
+      }
       break;
     case 3: //自身を回復
       healpoint = damage * 2;
