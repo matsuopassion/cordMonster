@@ -5,7 +5,7 @@
 function scanBarcode(callback) {
 cordova.plugins.barcodeScanner.scan(
   function (result) {
-    //sreturn getSearchData(result.text,result.cancelled);
+    //return getSearchData(result.text,result.cancelled);
     if (result.cancelled == 0){
       if(localStorage.getItem(result.text) != null){
         return alert("既にスキャンされています");
@@ -208,7 +208,6 @@ function resultClassification(){
   }
   let monsterIndex = getRandomIntInclusive(0,GACHA_LIST[rarityIndex].length-1); //0~INDEX-1まde
   let monster = GACHA_LIST[rarityIndex][monsterIndex];
-  //return monster.monsterID;
   return monster.monsterID;
 }
 

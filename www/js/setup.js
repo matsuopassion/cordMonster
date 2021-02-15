@@ -8,27 +8,35 @@ var RISE_WIDTH = [[1, 2], [1, 3], [2, 3], [2, 4], [3, 4], [3, 5], [4, 5]];
 var RISE_INDEX = ["G", "F", "E", "D", "C", "B", "A"];
 
 console.log("---------start--------");
-//起動時のメソッドまとめ
+/**
+ * 関数概要：起動時のメソッドまとめ
+ */
 function startUpFunctions(){
   setMonsterMap();
   setAbilityMap();
   setBasicMap();
   setGachaList();
 }
-
+/**
+ * 関数概要：全モンスターのマップを作製します。
+ */
 function setMonsterMap() {
   for (let monster of MONSTER_MASTER.monsterData) {
     MONSTER_MAP.set(monster.monsterID, monster);
   }
 }
-
+/**
+ * 関数概要：アビリティのマップを作成します
+ */
 function setAbilityMap() {
   for (let ability of ABILITY_MASTER.abilityData) {
     ABILITY_MAP.set(ability.abilityID, ability);
     console.log(ability.abilityID);
   }
 }
-
+/**
+ * 関数概要：Basicがtrueであるモンスターのマップを作製します
+ */
 function setBasicMap() {
   for (let monster of MONSTER_MASTER.monsterData) {
     if (monster.basic === true) {
@@ -39,6 +47,9 @@ function setBasicMap() {
   }
 } 
 
+/**
+ * 関数概要：ガチャで使用するarrayリストを作成します
+ */
 function setGachaList() {
   let aList = [];
   let bList = [];
@@ -58,6 +69,11 @@ function setGachaList() {
   GACHA_LIST.push(cList);
 };
 
+/**
+ * 関数概要：バトルで使うモンスタ一リストの作成
+ * @monsterRank 対象のrarity
+ * @return モンスターのリスト
+ */
 function setBattleMonsterList(monsterRank){
   let monsterList = [];
   for (let monster of MONSTER_MAP.values()) {
