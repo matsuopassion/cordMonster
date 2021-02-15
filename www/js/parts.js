@@ -1,6 +1,5 @@
 const FONT_FAMILY = "'KaiTi','Yu Mincho','Monaco','HG行書体'";
 phina.globalize();
-
 /**
  *@関数概要：戦闘画面のメッセージウィンドウを返す関数
  *@return
@@ -906,6 +905,12 @@ function mainInfoLabel(master,monsterData){
   }).addChildTo(master).setPosition(master.gridX.center(-7),master.gridY.center(-4));
 }
 
+function mainCharaInfoSet(master,monster){
+  let pointSetArray = [0,0,0,0,0];
+  let viewStatusGroup = DisplayElement().addChildTo(master);
+  monster.life
+}
+
 /**
  * @関数概要：ホーム画面でモンスター情報を表示するウィンドウを作る関数
  * @param
@@ -1049,7 +1054,10 @@ function selectAbilityBar(master,monster,group){
     selectButton.setInteractive(true);
     selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
     selectButton.onpointstart = function(e){
-      console.log("選んだ技はこれ：" + abilityData.abilityID);
+      SoundManager.setVolume(4.0);
+      SoundManager.play("abilitySelect");
+      SoundManager.setVolume(0.8);
+      
       selectAbilityID = abilityData.abilityID;
       group.children.clear();
     };
