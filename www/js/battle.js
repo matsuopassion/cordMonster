@@ -18,8 +18,10 @@ function Battle(phase,myMonster,enemy,master,abilityID){
     case 'm':
       if(abilityID != ""){
         ability = abilityID;
+        console.log(abilityID);
       }else{
         ability = myMonster.ability;
+        console.log(abilityID);
         ability = ability[Math.floor(Math.random() * ability.length)].toString();
       }
       commandResults = abilitySelect(phase,myMonster,enemy,ability);
@@ -27,8 +29,6 @@ function Battle(phase,myMonster,enemy,master,abilityID){
       enemy.param = commandResults.enemyParam;
       myMonster.condition = commandResults.mCondition;
       enemy.condition = commandResults.eCondition;
-      console.log(JSON.stringify(myMonster.param));
-      console.log(JSON.stringify(enemy.param));
       this.message = getMessage(phase,myMonster,enemy,commandResults);
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
@@ -89,7 +89,11 @@ function getMessage(phase,myMonster,enemy,commandResults){
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
         case 1://相手に攻撃しつつ状態異常を付与
-          this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.conditionName}状態になった！`;
+          if(commandResults.eCondition != "normal" && commandResults.conditionType != null){
+            this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.conditionName}状態になった！`;
+          }else{
+            this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
+          }
           break;
         case 2://相手に状態異常を付与
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}は${commandResults.conditionName}状態になった！`;
@@ -115,7 +119,11 @@ function getMessage(phase,myMonster,enemy,commandResults){
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
         case 1://相手に攻撃しつつ状態異常を付与
-          this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.conditionName}状態になった！`;
+          if(commandResults.mCondition != "normal" && commandResults.mCondition != "normal"){
+            this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.conditionName}状態になった！`;
+          }else{
+            this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
+          }
           break;
         case 2://相手に状態異常を付与
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}は${commandResults.conditionName}状態になった！`;
@@ -191,6 +199,17 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
       }
       if(phase === "e"){
         this.message = `${enemy.monsterName}は猛毒のダメージを受けている`;
+        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+      }
+      break;
+    case "Burn":
+      conditionName = "火傷";
+      if(phase === "m"){
+        this.message = `${myMonster.monsterName}は火傷のダメージを受けている`;
+        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+      }
+      if(phase === "e"){
+        this.message = `${enemy.monsterName}は火傷のダメージを受けている`;
         attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
       }
       break;
