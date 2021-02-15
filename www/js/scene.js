@@ -441,6 +441,8 @@ phina.define("scanResultPage", {
     //共通ボタンのセット
     menuSet(master);
 
+    SoundManager.play("scanResultSE");
+
   },
 
 });

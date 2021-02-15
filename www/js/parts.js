@@ -1054,6 +1054,10 @@ function selectAbilityBar(master,monster,group){
     selectButton.setInteractive(true);
     selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
     selectButton.onpointstart = function(e){
+      SoundManager.setVolume(4.0);
+      SoundManager.play("abilitySelect");
+      SoundManager.setVolume(0.8);
+      
       selectAbilityID = abilityData.abilityID;
       group.children.clear();
     };
