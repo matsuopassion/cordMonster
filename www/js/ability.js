@@ -18,6 +18,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   let attacker;
   let target;
   let conditionName = "通常";
+  let conditionType = "normal";
   let mCondition = myMonster.condition;
   let eCondition = enemy.condition;
   let mParam = myMonster.param;
@@ -107,6 +108,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   console.log(ability_result);
   abilityId = ability_result.abilityID;
   abilityType = ability_result.abilityType;
+  conditionType = ability_result.conditionType;
   ap = ability_result.ap;
   abilityPower = ability_result.abilityPower;
   abilityName = ability_result.abilityName;
@@ -137,16 +139,16 @@ function abilitySelect(phase,myMonster,enemy,ability){
       break;
     case 1: //相手に攻撃しつつ状態異常を付与
       random =  Math.floor( Math.random() * 101 ) ;
-      console.log("状態異常確率は"+ability_result.stateChangeChance);
-      console.log("乱数は"+random);
       if(random < ability_result.stateChangeChance){
         targetLife = targetLife - damage * 2;
         if("conditionType" in ability_result){
+          console.log("状態異常を付与成功！");
           targetCondition = ability_result.conditionType;
           conditionName = ability_result.conditionName;
-        }else{
-          abilityType = "normal";
         }
+      }else{
+        console.log("状態異常を付与失敗！");
+        conditionType = null;
       }
       targetLife = targetLife - damage * 2;
       break;
@@ -214,11 +216,11 @@ function abilitySelect(phase,myMonster,enemy,ability){
     eParam.shield = attackerShield;
     eParam.speed = attackerSpeed;
   }
-  return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, healpoint:healpoint, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType, conditionName:conditionName,mCondition:mCondition,eCondition:eCondition};
+  return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, healpoint:healpoint, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType, conditionName:conditionName, conditionType:conditionType, mCondition:mCondition, eCondition:eCondition};
 };
 
 function damageCalclator(abilityPower,attacker,target){
-  let damage = Math.round(Math.round(Math.ceil(Math.ceil(Math.floor(attacker.attackerLv * 2 / 5 + 2 ) * abilityPower * attacker.attackerPower / target.targetShield ) / 50 + 2 ) * getCountRandom(85, 100)) / 100);
+  let damage = Math.round(Math.round(Math.ceil(Math.ceil(Math.floor(attacker.attackerLv * 2 / 5 + 2 ) * abilityPower * attacker.attackerPower / target.targetShield ) / 50 + 2 ) * getCountRandom(85, 110)) / 100);
   console.log(damage);
   console.log(attacker.attackerLv);
   console.log(attacker.attackerPower);
