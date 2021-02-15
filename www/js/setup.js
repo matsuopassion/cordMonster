@@ -4,7 +4,7 @@ var BASIC_MAP = new Map();
 var APP_RISE = new Map();
 var BASIC_LIST = [];
 var GACHA_LIST = [];
-var RISE_WIDTH = [[1, 2], [2, 3], [3, 4], [4, 5], [6, 7], [7, 8], [8, 9]];
+var RISE_WIDTH = [[1, 2], [1, 3], [2, 3], [2, 4], [3, 4], [3, 5], [4, 5]];
 var RISE_INDEX = ["G", "F", "E", "D", "C", "B", "A"];
 
 console.log("---------start--------");

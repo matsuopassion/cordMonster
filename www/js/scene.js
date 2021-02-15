@@ -5,13 +5,13 @@ var SPEED = 4;
 var gauge1;
 var gauge2;
 var renderEndFlag = false;
-//技選択用の変数
-//正直グローバル変数でどうにかしようとしている自分が情けないところ
 var selectAbilityID = "";
+//技選択用の変数
 // 定数
 var SCREEN_WIDTH; // 画面横サイズ
 var SCREEN_HEIGHT; // 画面縦サイズ
 var num = 0;
+
 
 
 //phina.js：シーン雛形
@@ -553,37 +553,25 @@ phina.define("battleFriendPage", {
     //画像を配置
     battleFriendBgSprite.setPosition(master.gridX.center(), master.gridY.center());
   
-
     master = this;
     SoundManager.stopMusic();
     SoundManager.playMusic("battleBGM",1,true);
-
 
     this.count = 0;
     this.battleResults;
     this.abilityType;
     this.message;
     this.conditionChange;
-    this.turnCount = 0;
+    this.turnCount = 1;
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
+    this.abilitySelectGroup = DisplayElement().addChildTo(master);
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"];
-    /**
-     * monsterID : mID
-     * monsterName : monsterFamily
-     * Lv : Lv
-     * param.life   : param[0]
-     *      .power  : param[1]
-     *      .shield : param[2]
-     *      .speed  : param[3]
-     *      .AP     : param[4]
-     * ability : ability
-     * condition : "nomal"
-     */
+    console.log("うちのこ" + JSON.stringify(this.myMonster));
     
     this.fMon = friendBattle.resultMonster;
     console.log(JSON.stringify(this.fMon));
@@ -609,77 +597,146 @@ phina.define("battleFriendPage", {
 
     this.battleLog;
     this.phase = "s";
-  },
-  update: function(app) {
-    if (app.pointer.getPointingStart()) {
-      if(this.turnCount == 0){//１ターン目限定のセットアップ処理
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
-      }
-
-      if(this.issue != "uncertain"){
+    this.turnPhase = 0;
+    this.group.children[0].setInteractive(true);
+    this.turnEndFlag = false;
+    this.rePhase = "";
+    let groupchan = this.group;
+    this.issue = "uncertain";
+    this.group.children[0].onpointstart = function(){
+      console.log("現在のフェーズ：" + master.phase);
+      console.log("現在のターンフェーズ：" + master.turnPhase);
+      if(master.issue != "uncertain"){
         master.exit({
-          resultIssue: this.issue,
+          resultIssue: master.issue,
         });
-      }
-
-      if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
-        this.phase = "s";
-        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
-        this.message = this.battleResults.messageContent;
-        this.issue = this.battleResults.resultIssue;
-        console.log("死んだ");
       }else{
-        if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){//素早さが速い方が先攻
-          this.phase = "m";
-          console.log("１ターン目：バトル開始");
-          console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
-        }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
-          this.phase = "e";
-          console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
-        }else{
-          switch (this.phase) {
-            case 'e':
-              this.phase = "m"
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
-              this.message = this.battleResults.messageContent;
-              if(this.battleResults.mCondition != "normal"){
-                this.conditionType = this.battleResults.mCondition;
-                this.phase = "coToM";
+        master.children[1].children[1].text = "";
+        if( master.turnCount == 1 ){
+          master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master,"").messageContent;
+          trunPhase = 0;
+          master.turnCount++;
+        }
+        else{
+          if(master.turnPhase == 0){  
+            master.children[1].children[0].setInteractive(false);
+            master.children[1].alpha = 0.5;
+            master.children[1].children[1].alpha = 0;
+            var battleFlow = Flow(function(resolve) {
+              master.children[1].children[1].text = "";
+              selectAbilityBar(master,master.myMonster,master.abilitySelectGroup);
+              let timer = setInterval(function(){
+                if(selectAbilityID != ""){
+                  clearInterval(timer);
+                  resolve();
+                }
+              },300);
+            });
+            battleFlow.then(function() {
+              master.children[1].children[1].text = "アビリティ決定！";
+              master.children[1].children[0].setInteractive(true);
+              master.children[1].alpha = 1;
+              master.children[1].children[1].alpha = 1;
+              master.turnPhase = 1; 
+              //先攻決定
+              if(master.myMonster.param.speed >= master.enemy.param.speed){
+                master.phase = "m";
+              }else{
+                master.phase = "e";
               }
-              break;
-            case 'm':
-              this.phase = "e"
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
-              this.message = this.battleResults.messageContent;
-              if(this.battleResults.eCondition != "normal"){
-                this.conditionType = this.battleResults.eCondition;
-                this.phase = "coToE";
+            });
+            master.children[1].children[1].text = this.message;
+          }else if(master.turnPhase == 1){
+            if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
+              if(master.phase == "m"){
+                console.log(selectAbilityID);
+                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
+                this.message = this.battleResults.messageContent;
+                master.phase = "e";
+                if(this.battleResults.mCondition != "normal"){
+                  this.conditionType = this.battleResults.mCondition;
+                  master.phase = "coToM";
+                }
+              }else if(master.phase == "e"){
+                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
+                this.message = this.battleResults.messageContent;
+                master.phase = "m";
+                if(this.battleResults.eCondition != "normal"){
+                  this.conditionType = this.battleResults.eCondition;
+                  master.phase = "coToE";
+                }
+              }else{
+                this.message = "エラー：攻撃解決時";
               }
-              break;
-            case 'coToM':
-              this.phase = "m"
-              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              
+
+              if(master.phase == "coToE" || master.phase == "coToM"){
+                master.turnPhase = 2;
+              }else{
+                if(master.rePhase != ""){
+                  console.log("ここいけ");
+                  master.turnPhase = 3;
+                }else{
+                  master.turnPhase = 1;
+                }
+              }
+              
+              if(master.rePhase == ""){
+                master.rePhase = master.phase;
+              }else{
+                master.rePhase = "";
+              }
+              master.children[1].children[1].text = this.message;
+              //メッセージ表示個別ならここ
+          }else{
+            master.turnPhase = 3;
+          }
+          }else if(master.turnPhase == 2){
+            if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
+              if(master.phase == "coToM"){
+                master.phase = "m";
+                this.battleResults = conditionDamage(master.phase,master.myMonster,master.enemy,this.conditionType);
+                this.message = this.battleResults.messageContent;
+                master.phase = "e";
+              }else if(master.phase == "coToE"){
+                master.phase = "e";
+                this.battleResults = conditionDamage(master.phase,master.myMonster,master.enemy,this.conditionType);
+                this.message = this.battleResults.messageContent;
+                master.phase = "m";
+              }
+
+              
+              if(master.rePhase != ""){
+                console.log("今の感じ：" + master.rePhase);
+                master.turnPhase = 1;
+              }else{
+                master.turnPhase++;
+              }
+              master.children[1].children[1].text = this.message;
+            }else{
+              master.turnPhase = 3;
+            }
+          }else{
+            if(master.myMonster.param.life <= 0 || master.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
+              master.phase = "s";
+              this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
               this.message = this.battleResults.messageContent;
-              break;
-            case 'coToE':
-              this.phase = "e"
-              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
-              this.message = this.battleResults.messageContent;
-              break;
-            default:
-              console.log(`eでもmでもない`);
+              master.issue = this.battleResults.resultIssue;
+            }else{
+              this.message = "TURN：" + master.turnCount;
+            }
+            master.children[1].children[1].text = this.message;
+            master.turnCount++;
+            master.rePhase = "";
+            master.turnPhase = 0;
+            selectAbilityID = "";
           }
         }
+        gauge1.value = master.myMonster.param.life;
+        gauge2.value = master.enemy.param.life;
       }
-      this.group.children[1].text = this.message;
-      gauge1.value = this.myMonster.param.life;
-      gauge2.value = this.enemy.param.life;
-      this.turnCount++;
-      console.log(this.turnCount);
     }
-  }
+  } 
 });
 
 /*
@@ -695,8 +752,11 @@ phina.define("battleCpuPage", {
     // 背景色
     this.backgroundColor = 'black';
 
+    let bgArray = ["battleCPUBg","battleCPUBg2"];
     //背景画像
-    var battleCPUBgSprite = Sprite('battleCPUBg').addChildTo(this);
+    let bg = bgArray[Math.floor(Math.random() * (bgArray.length - 0)) + 0];
+    console.log(bg);
+    var battleCPUBgSprite = Sprite(bg).addChildTo(this);
     //画面に合わせてサイズ変更
     battleCPUBgSprite.width *= (SCREEN_WIDTH / battleCPUBgSprite.width);
     battleCPUBgSprite.height *= (SCREEN_HEIGHT / battleCPUBgSprite.height);
@@ -713,20 +773,16 @@ phina.define("battleCpuPage", {
     this.abilityType;
     this.message;
     this.conditionChange;
-    this.turnCount = 0;
+    this.turnCount = 1;
     this.group = setBattleMessage(master);
-    console.log(this.group.interactive);
     this.group.addChildTo(master);
+    this.abilitySelectGroup = DisplayElement().addChildTo(master);
+    console.log(this.group.interactive);
+    this.messageBox = this.group.children[0];
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
     //↓画面側で技選択用グループを用意
     this.selectAbilityGroup = DisplayElement().addChildTo(master);
-    
-    // // 0からmax-1までの整数を返す
-    // function getRandomInt(max) {
-    // // ランダムな配列
-    //   return Math.floor(Math.random() * Math.floor(max));
-    // }
     this.monsterArray = setBattleMonsterList(battleParam.enemyRarity);
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
@@ -770,7 +826,6 @@ phina.define("battleCpuPage", {
     let enemySkillPoint = (this.enemy.Lv - 1);
     if(enemySkillPoint > 0 ){
       if(enemySkillPoint < 5){
-        console.log("なかなかやるじゃない");
         enemySkillPointArray[enemyType] = enemySkillPoint;
       }else{
         for(let i = 0;i < 4;i++){
@@ -786,101 +841,154 @@ phina.define("battleCpuPage", {
     console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
-    this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
-    this.enemy.ability = MONSTER_MAP.get(this.enemy.monsterID).ability;
+    //this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
+    //this.enemy.ability = MONSTER_MAP.get(this.enemy.monsterID).ability;
     gauge1 = gaugeSet(master,this.myMonster,-4,-2);
     gauge2 = gaugeSet(master,this.enemy,4,-2);
 
     this.battleLog;
     this.phase = "s";
-  },
-  // onpointstart:function(){
-  update: function(app) {
-    if (app.pointer.getPointingStart()) {
-      if(this.turnCount == 0){//１ターン目限定のセットアップ処理
-        this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
-      }
-      if(this.issue != "uncertain"){
+    this.turnPhase = 0;
+    this.group.children[0].setInteractive(true);
+    this.turnEndFlag = false;
+    this.rePhase = "";
+    let groupchan = this.group;
+    this.issue = "uncertain";
+    this.group.children[0].onpointstart = function(){
+      console.log("現在のフェーズ：" + master.phase);
+      console.log("現在のターンフェーズ：" + master.turnPhase);
+      if(master.issue != "uncertain"){
         master.exit({
-          resultIssue: this.issue,
+          resultIssue: master.issue,
         });
-      }
-
-      if(this.myMonster.param.life <= 0 || this.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
-        this.phase = "s";
-        this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
-        this.message = this.battleResults.messageContent;
-        this.issue = this.battleResults.resultIssue;
-        console.log("死んだ");
       }else{
-        if(this.myMonster.param.speed > this.enemy.param.speed && this.phase == "s"){//素早さが速い方が先攻
-          this.phase = "m";
-          console.log("１ターン目：バトル開始");
-          console.log("今のphase : "+this.phase);
-          this.children[3].width = 250;
-          this.children[3].height = 250;  
-          this.children[4].width = 200;
-          this.children[4].height = 200;  
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
-        }else if(this.myMonster.param.speed <= this.enemy.param.speed && this.phase == "s"){
-          this.phase = "e";
-          this.children[4].width = 250;
-          this.children[4].height = 250;  
-          this.children[3].width = 200;
-          this.children[3].height = 200;
-          console.log("今のphase : "+this.phase);
-          this.message = Battle(this.phase,this.myMonster,this.enemy,master).messageContent;
-        }else{
-          switch (this.phase) {
-            case 'e':
-              this.phase = "m";
-              this.children[3].width = 250;
-              this.children[3].height = 250;  
-              this.children[4].width = 200;
-              this.children[4].height = 200;  
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
-              this.message = this.battleResults.messageContent;
-              if(this.battleResults.mCondition != "normal"){
-                this.conditionType = this.battleResults.mCondition;
-                this.phase = "coToM";
+        master.children[1].children[1].text = "";
+        if( master.turnCount == 1 ){
+          master.children[1].children[1].text = Battle(master.phase,master.myMonster,master.enemy,master,"").messageContent;
+          trunPhase = 0;
+          master.turnCount++;
+        }
+        else{
+          if(master.turnPhase == 0){  
+            master.children[1].children[0].setInteractive(false);
+            master.children[1].alpha = 0.5;
+            master.children[1].children[1].alpha = 0;
+            var battleFlow = Flow(function(resolve) {
+              master.children[1].children[1].text = "";
+              selectAbilityBar(master,master.myMonster,master.abilitySelectGroup);
+              let timer = setInterval(function(){
+                if(selectAbilityID != ""){
+                  clearInterval(timer);
+                  resolve();
+                }
+              },300);
+            });
+            battleFlow.then(function() {
+              master.children[1].children[1].text = "アビリティ決定！";
+              master.children[1].children[0].setInteractive(true);
+              master.children[1].alpha = 1;
+              master.children[1].children[1].alpha = 1;
+              master.turnPhase = 1; 
+              //先攻決定
+              if(master.myMonster.param.speed >= master.enemy.param.speed){
+                master.phase = "m";
+              }else{
+                master.phase = "e";
               }
-              // });
-              break;
-            case 'm':
-              this.phase = "e"
-              this.children[4].width = 250;
-              this.children[4].height = 250;  
-              this.children[3].width = 200;
-              this.children[3].height = 200;
-              this.battleResults = Battle(this.phase,this.myMonster,this.enemy,master);
-              this.message = this.battleResults.messageContent;
-              if(this.battleResults.eCondition != "normal"){
-                this.conditionType = this.battleResults.eCondition;
-                this.phase = "coToE";
+            });
+            master.children[1].children[1].text = this.message;
+          }else if(master.turnPhase == 1){
+            if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
+              if(master.phase == "m"){
+                console.log(selectAbilityID);
+                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
+                this.message = this.battleResults.messageContent;
+                master.phase = "e";
+                if(this.battleResults.mCondition != "normal"){
+                  this.conditionType = this.battleResults.mCondition;
+                  master.phase = "coToM";
+                }
+              }else if(master.phase == "e"){
+                this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
+                this.message = this.battleResults.messageContent;
+                master.phase = "m";
+                if(this.battleResults.eCondition != "normal"){
+                  this.conditionType = this.battleResults.eCondition;
+                  master.phase = "coToE";
+                }
+              }else{
+                this.message = "エラー：攻撃解決時";
               }
-              break;
-            case 'coToM':
-              this.phase = "m"
-              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
+              
+
+              if(master.phase == "coToE" || master.phase == "coToM"){
+                master.turnPhase = 2;
+              }else{
+                if(master.rePhase != ""){
+                  console.log("ここいけ");
+                  master.turnPhase = 3;
+                }else{
+                  master.turnPhase = 1;
+                }
+              }
+              
+              if(master.rePhase == ""){
+                master.rePhase = master.phase;
+              }else{
+                master.rePhase = "";
+              }
+              master.children[1].children[1].text = this.message;
+              //メッセージ表示個別ならここ
+          }else{
+            master.turnPhase = 3;
+          }
+          }else if(master.turnPhase == 2){
+            if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
+              if(master.phase == "coToM"){
+                master.phase = "m";
+                this.battleResults = conditionDamage(master.phase,master.myMonster,master.enemy,this.conditionType);
+                this.message = this.battleResults.messageContent;
+                master.phase = "e";
+              }else if(master.phase == "coToE"){
+                master.phase = "e";
+                this.battleResults = conditionDamage(master.phase,master.myMonster,master.enemy,this.conditionType);
+                this.message = this.battleResults.messageContent;
+                master.phase = "m";
+              }
+
+              
+              if(master.rePhase != ""){
+                console.log("今の感じ：" + master.rePhase);
+                master.turnPhase = 1;
+              }else{
+                master.turnPhase++;
+              }
+              master.children[1].children[1].text = this.message;
+            }else{
+              master.turnPhase = 3;
+            }
+          }else{
+            if(master.myMonster.param.life <= 0 || master.enemy.param.life <= 0 ){//どちらかが死んでいれば試合終了
+              master.phase = "s";
+              this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
               this.message = this.battleResults.messageContent;
-              break;
-            case 'coToE':
-              this.phase = "e"
-              this.battleResults = conditionDamage(this.phase,this.myMonster,this.enemy,this.conditionType);
-              this.message = this.battleResults.messageContent;
-              break;
-            default:
-              console.log(`eでもmでもない`);
+              master.issue = this.battleResults.resultIssue;
+            }else{
+              this.message = "TURN：" + master.turnCount;
+            }
+            master.children[1].children[1].text = this.message;
+            master.turnCount++;
+            master.rePhase = "";
+            master.turnPhase = 0;
+            selectAbilityID = "";
           }
         }
+        gauge1.value = master.myMonster.param.life;
+        gauge2.value = master.enemy.param.life;
       }
-      this.group.children[1].text = this.message;
-      gauge1.value = this.myMonster.param.life;
-      gauge2.value = this.enemy.param.life;
-      selectAbilityID = "";
-      this.turnCount++;
     }
   }
+
 });
 
 /*
@@ -919,16 +1027,7 @@ phina.define("battleResultPage", {
     this.resultMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
 
     console.log("randInt:" + levelUpRand);
-    if(this.levelUpRand == 1){
-      this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
-      let updateMonsterData = levelUpMonster(this.myMonsterData);
-      localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));
-      this.resultLabel = Label({
-        text:  this.myMonsterData.monsterName + "のレベルが上がった！",
-        fontSize: 20,
-        fill: 'red',
-      }).addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-5));
-    }
+    
 
     SoundManager.stopMusic();
     SoundManager.playMusic("resultBGM");
@@ -937,7 +1036,15 @@ phina.define("battleResultPage", {
     menuSet(master);
     
     charaResultSet(master, JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))).monsterID);
-    
+    if(this.levelUpRand == 1){
+      this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+      let updateMonsterData = levelUpMonster(this.myMonsterData);
+      localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));
+      this.LvUpMessage = Sprite("LvUpMessage");
+      this.LvUpMessage.width = 200;
+      this.LvUpMessage.height = 100;
+      this.LvUpMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-6));
+    }
   },
   update: function(app) {
     // if(app.frame % SPEED === 0){
