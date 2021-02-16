@@ -9,7 +9,8 @@ function monster(monster){
     life : monster.param.life,
     power : monster.param.power,
     shield : monster.param.shield, 
-    speed : monster.param.speed 
+    speed : monster.param.speed,
+    AP : monster.param.AP
   };
   this.skill =
   {
@@ -17,7 +18,8 @@ function monster(monster){
     life : monster.skill.life,
     power : monster.skill.power,
     shield : monster.skill.shield, 
-    speed : monster.skill.speed 
+    speed : monster.skill.speed,
+    AP : monster.param.AP
   };
   this.ability = monster.ability;
   this.condition = monster.condition;

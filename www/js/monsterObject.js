@@ -628,8 +628,7 @@ var MONSTER_MASTER = {
             monsterID : `Ryuya` ,
             monsterFamily : `ロンヤ` ,
             comment: `場違いなヤツを召喚してしまった！コイ\n`
-                    +`ツはモンスターではない！千葉龍弥であ\n`
-                    +`る！！！`,
+                    +`ツはモンスターではない！！`,
             rarity : `C` ,
             appropriate :
              { life : `G` ,power : `G` ,shield : `G`,speed : `G` , AP : `E` } ,
