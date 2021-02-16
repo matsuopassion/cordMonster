@@ -474,22 +474,6 @@ function gaugeSet(master,monster,x,y){
     stroke: 'silver',      // 枠色
     strokeWidth: 5,        // 枠太さ
   }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
-   let HPGGridX = Grid({
-      width: charaGauge.width,
-      //状態異常の数↓
-      columns: 5,
-      offset: master.gridX.center(x),
-   });
-   let HPGGridY = Grid({
-      width: charaGauge.height,
-      columns: 3,
-      offset: master.gridY.center(y),
-   });
-  let HPGNameLabel = Label({
-    text: "HP",
-    fontSize: 20,
-    fill: 'white',
-  }).addChildTo(master).setPosition(HPGGridX.span(-2),HPGGridY.span(0));
   return charaGauge;
 }
 
@@ -516,23 +500,50 @@ function APGaugeSet(master,monster,x,y){
         stroke: 'gray',      // 枠色
         strokeWidth: 5,        // 枠太さ
    }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
-   let APGGridX = Grid({
-      width: charaGauge.width,
+   
+  return charaGauge;
+}
+
+function HPLabelSet(master,x,y){
+let HPGGridX = Grid({
+      width: 150,
+      //状態異常の数↓
+      columns: 5,
+      offset: master.gridX.center(x),
+   });
+   let HPGGridY = Grid({
+      width: 30,
+      columns: 3,
+      offset: master.gridY.center(y),
+   });
+  let HPGNameLabel = Label({
+    text: "HP/",
+    fontSize: 20,
+    fill: 'white',
+    align:"left"
+  }).addChildTo(master).setPosition(HPGGridX.span(-2),HPGGridY.span(0));
+  return HPGNameLabel;
+}
+
+function APLabelSet(master,x,y){
+let APGGridX = Grid({
+      width: 150,
       //状態異常の数↓
       columns: 5,
       offset: master.gridX.center(x),
    });
    let APGGridY = Grid({
-      width: charaGauge.height,
+      width: 30,
       columns: 3,
       offset: master.gridY.center(y),
    });
   let APGNameLabel = Label({
-    text: "AP",
+    text: "AP/",
     fontSize: 20,
     fill: 'white',
+    align:"left"
   }).addChildTo(master).setPosition(APGGridX.span(-2),APGGridY.span(0));
-  return charaGauge;
+  return APGNameLabel;
 }
 
 function conditionIconSet(master,group,condition,posX,posY){
@@ -566,6 +577,8 @@ function conditionIconSet(master,group,condition,posX,posY){
   }
   
 }
+
+
 
 /**
  * @関数概要：バトルリザルト画面でモンスターの画像を表示する関数
