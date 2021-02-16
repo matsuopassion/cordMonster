@@ -97,7 +97,10 @@ var ASSETS = {
     'winMessage':'image/winMessage.png',
     'boxSelectBg':'image/boxSelectBg.png',
     'boxSelectIcon':'image/boxSelectIcon.png',
-    'LvUpMessage':'image/LvUpMessage.png'
+    'LvUpMessage':'image/LvUpMessage.png',
+    'Charm':'image/charmIcon.png',
+    'Poison':'image/poisonIcon.png',
+    'HighPoison':'image/venomIcon.png',
     
   },
   //音楽

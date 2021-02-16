@@ -645,6 +645,10 @@ phina.define("battleFriendPage", {
           }else if(master.turnPhase == 1){
             if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
               if(master.phase == "m"){
+                master.children[3].width = 250;
+                master.children[3].height = 250;  
+                master.children[4].width = 200;
+                master.children[4].height = 200;  
                 console.log(selectAbilityID);
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
@@ -654,6 +658,10 @@ phina.define("battleFriendPage", {
                   master.phase = "coToM";
                 }
               }else if(master.phase == "e"){
+                master.children[4].width = 250;
+                master.children[4].height = 250;  
+                master.children[3].width = 200;
+                master.children[3].height = 200;
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
                 this.message = this.battleResults.messageContent;
                 master.phase = "m";
@@ -721,6 +729,10 @@ phina.define("battleFriendPage", {
             }else{
               this.message = "TURN：" + master.turnCount;
             }
+            master.children[4].width = 200;
+            master.children[4].height = 200;  
+            master.children[3].width = 200;
+            master.children[3].height = 200;
             master.children[1].children[1].text = this.message;
             master.turnCount++;
             master.rePhase = "";
@@ -842,6 +854,10 @@ phina.define("battleCpuPage", {
     gauge1 = gaugeSet(master,this.myMonster,-4,-2);
     gauge2 = gaugeSet(master,this.enemy,4,-2);
 
+    backButtonSet(master);
+
+    this.myConditionGroup = DisplayElement().addChildTo(master);
+    this.enemyConditionGroup = DisplayElement().addChildTo(master);
     this.battleLog;
     this.phase = "s";
     this.turnPhase = 0;
@@ -896,6 +912,10 @@ phina.define("battleCpuPage", {
           }else if(master.turnPhase == 1){
             if(master.myMonster.param.life > 0 && master.enemy.param.life > 0){
               if(master.phase == "m"){
+                master.children[5].width = 200;
+                master.children[5].height = 200;  
+                master.children[4].width = 250;
+                master.children[4].height = 250;  
                 console.log(selectAbilityID);
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
@@ -905,6 +925,10 @@ phina.define("battleCpuPage", {
                   master.phase = "coToM";
                 }
               }else if(master.phase == "e"){
+                master.children[5].width = 250;
+                master.children[5].height = 250;  
+                master.children[4].width = 200;
+                master.children[4].height = 200;
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,"");
                 this.message = this.battleResults.messageContent;
                 master.phase = "m";
@@ -916,7 +940,6 @@ phina.define("battleCpuPage", {
                 this.message = "エラー：攻撃解決時";
               }
               
-
               if(master.phase == "coToE" || master.phase == "coToM"){
                 master.turnPhase = 2;
               }else{
@@ -972,6 +995,11 @@ phina.define("battleCpuPage", {
             }else{
               this.message = "TURN：" + master.turnCount;
             }
+            
+            master.children[5].width = 200;
+            master.children[5].height = 200;
+            master.children[4].width = 200;
+            master.children[4].height = 200;  
             master.children[1].children[1].text = this.message;
             master.turnCount++;
             master.rePhase = "";
@@ -979,6 +1007,10 @@ phina.define("battleCpuPage", {
             selectAbilityID = "";
           }
         }
+        console.log(master.myMonster.condition);
+        master.myConditionGroup = conditionIconSet(master,master.myConditionGroup,master.myMonster.condition,-4,-1);
+        console.log(master.enemy.condition);
+        master.enemyConditionGroup = conditionIconSet(master,master.enemyConditionGroup,master.enemy.condition,4,-1);
         gauge1.value = master.myMonster.param.life;
         gauge2.value = master.enemy.param.life;
       }
@@ -1029,18 +1061,21 @@ phina.define("battleResultPage", {
     SoundManager.playMusic("resultBGM");
 
 
-    menuSet(master);
     
-    charaResultSet(master, JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))).monsterID);
+    
+    
     if(this.levelUpRand == 1){
+      console.log("ここまできた");
       this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
       let updateMonsterData = levelUpMonster(this.myMonsterData);
       localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));
       this.LvUpMessage = Sprite("LvUpMessage");
-      this.LvUpMessage.width = 200;
-      this.LvUpMessage.height = 100;
+      this.LvUpMessage.width = 400;
+      this.LvUpMessage.height = 200;
       this.LvUpMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(-6));
     }
+    charaResultSet(master, JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))).monsterID);
+    menuSet(master);
   },
   // タッチで次のシーンへ
   onpointstart: function() {
