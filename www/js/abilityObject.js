@@ -3,7 +3,7 @@ var ABILITY_MASTER = {
     {
       abilityID: `normalAttack`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 20,
       abilityName: `通常攻撃`,
       abilityMessage: `は攻撃をしかけた！`,
@@ -12,7 +12,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `heavyAttack`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 30,
       abilityName: `強打`,
       abilityMessage: `は強打を放った！！`,
@@ -22,7 +22,7 @@ var ABILITY_MASTER = {
 
       abilityID: `bodySlam`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 35,
       abilityName: `のしかかり`,
       abilityMessage: `は大きく飛び上がって相手にのしかかった！！`,
@@ -32,7 +32,7 @@ var ABILITY_MASTER = {
 
       abilityID: `buchikamashi`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       abilityName: `ぶちかまし`,
       abilityMessage: `のぶちかまし！！`,
@@ -42,7 +42,7 @@ var ABILITY_MASTER = {
 
       abilityID: `ryujinInfernoPalm`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 55,
       abilityName: `竜神烈火掌`,
       abilityMessage: `の竜神烈火掌！！`,
@@ -52,7 +52,7 @@ var ABILITY_MASTER = {
 
       abilityID: `lariat`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       abilityName: `ラリアット`,
       abilityMessage: `のラリアット！！`,
@@ -61,7 +61,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `screwdriver`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 55,
       abilityName: `スクリュードライバー`,
       abilityMessage: `のスクリュードライバー！！`,
@@ -70,7 +70,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `pileBunker`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 55,
       abilityName: `パイルバンカー`,
       abilityMessage: `はパイルバンカーで相手を激しく打ち付けた！！`,
@@ -79,7 +79,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `terraBreak`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 60,
       abilityName: `テラブレイク`,
       abilityMessage: `のテラブレイク！！`,
@@ -88,7 +88,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `crossSlash`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 30,
       countRandum:[2, 2],
       abilityName: `十文字斬り`,
@@ -99,7 +99,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `afterimageSlash`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       abilityName: `残像斬り`,
       abilityMessage: `の残像斬り！！`,
@@ -108,7 +108,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `samidareSlash`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 18,
       countRandum:[2, 5],
       abilityName: `五月雨斬り`,
@@ -119,7 +119,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `ashigari`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 50,
       abilityName: `芦刈り`,
       abilityMessage: `の芦刈り！！`,
@@ -128,7 +128,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `demonClaw`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 55,
       abilityName: `鬼ノ爪`,
       abilityMessage: `の鬼ノ爪！！`,
@@ -137,7 +137,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `dragonTailFlap`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 60,
       abilityName: `竜尾返し`,
       abilityMessage: `の竜尾返し！！`,
@@ -146,7 +146,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `spinningSlash`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 16,
       countRandum: [2, 3],
       abilityName: `回転切り`,
@@ -157,7 +157,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `hardSpinningSlash`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 18,
       countRandum:[2, 4],
       abilityName: `大回転切り`,
@@ -168,7 +168,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `continuousThrust`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 18,
       countRandum:[2, 5],
       abilityName: `連続突き`,
@@ -179,7 +179,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `continuousPunch`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 18,
       countRandum:[2, 5],
       abilityName: `連続パンチ`,
@@ -191,7 +191,7 @@ var ABILITY_MASTER = {
       abilityID: `tentaclesRush`,
       abilityType: 0,
       countRandum:[10, 20],
-      ap: 2,
+      AP: 2,
       abilityPower: 5,
       abilityName: `触手乱舞`,
       abilityMessage: `の触手乱舞！！`,
@@ -201,7 +201,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `kunai`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 10,
       countRandum:[1, 6],
       abilityName: `クナイ`,
@@ -212,7 +212,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `poisonKunai`,
       abilityType: 1,
-      ap: 2,
+      AP: 2,
       abilityPower: 9,
       conditionType: `Poison`,
       conditionName: `毒`,
@@ -226,7 +226,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `tomahawk`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 30,
       countRandum:[1, 2],
       abilityName: `トマホーク`,
@@ -237,7 +237,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `megahawk`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 50,
       countRandum:[1, 2],
       abilityName: `メガホーク`,
@@ -248,7 +248,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `crownSplit`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       abilityName: `脳天割り`,
       abilityMessage: `の脳天割り！！`,
@@ -257,7 +257,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `bornBreak`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 55,
       abilityName: `骨砕き`,
       abilityMessage: `の骨砕き！！`,
@@ -266,7 +266,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `masakari`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 0,
       chooseRandum:[0, 0, 100],
       abilityName: `マサカリ`,
@@ -277,7 +277,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `plasmaShot`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       abilityName: `プラズマショット`,
       abilityMessage: `のプラズマショット！！`,
@@ -286,7 +286,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `flameBullet`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 50,
       abilityName: `フレイムバレット`,
       abilityMessage: `のフレイムバレット！！`,
@@ -295,7 +295,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `chargingShot`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 65,
       abilityName: `チャージショット`,
       abilityMessage: `のチャージショット！！`,
@@ -304,8 +304,11 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `flashArrow`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
+      conditionType: `Blind`,
+      conditionName: `暗闇`,
+      stateChangeChance: 30,
       abilityName: `フラッシュアロー`,
       abilityMessage: `のフラッシュアロー！！`,
       abilitySound: [`gunfire`, 5],
@@ -313,7 +316,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `biting`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
       abilityName: `噛みつき`,
       abilityMessage: `は噛みついた！！`,
@@ -322,7 +325,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `crunch`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 50,
       abilityName: `噛み砕き`,
       abilityMessage: `は噛み砕いた！！`,
@@ -331,7 +334,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `suckBlood`,
       abilityType: 4,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
       abilityName: `吸血`,
       abilityMessage: `の吸血！！`,
@@ -340,7 +343,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `lilithCharm`,
       abilityType:2,
-      ap: 2,
+      AP: 2,
       abilityPower: 0,
       stateChangeChance: 50,
       conditionType: `Charm`,
@@ -352,7 +355,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `poisonAttack`,
       abilityType: 1,
-      ap: 2,
+      AP: 2,
       abilityPower: 25,
       stateChangeChance: 30,
       conditionType: `Poison`,
@@ -364,7 +367,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `poisonNeedle`,
       abilityType: 1,
-      ap: 2,
+      AP: 2,
       abilityPower: 30,
       stateChangeChance: 30,
       conditionType: `Poison`,
@@ -376,10 +379,10 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `dissolution`,
       abilityType: 1,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
       stateChangeChance: 30,
-      conditionType: `highPoison`,
+      conditionType: `HighPoison`,
       conditionName: `猛毒`,
       abilityName: `溶解液`,
       abilityMessage: `は溶解液を放った！！`,
@@ -388,7 +391,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `meditation`,
       abilityType: 3,
-      ap: 2,
+      AP: 2,
       abilityPower: 30,
       abilityName: `瞑想`,
       abilityMessage: `の瞑想！`,
@@ -397,7 +400,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `beUnderNoIllusions`,
       abilityType: 3,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
       abilityName: `明鏡止水`,
       abilityMessage: `の明鏡止水！`,
@@ -406,7 +409,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `regeneLight`,
       abilityType: 3,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
       abilityName: `再生光`,
       abilityMessage: `の再生光！！`,
@@ -415,7 +418,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `heal`,
       abilityType: 3,
-      ap: 2,
+      AP: 2,
       abilityPower: 25,
       abilityName: `ヒール`,
       abilityMessage: `のヒール！`,
@@ -424,9 +427,10 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `flash`,
       abilityType: 2,
-      conditionType: `Poison`,
-      conditionName: `毒`,
-      ap: 2,
+      conditionType: `Blind`,
+      conditionName: `暗闇`,
+      stateChangeChance: 30,
+      AP: 2,
       abilityPower: 20,
       abilityName: `フラッシュ`,
       abilityMessage: `はフラッシュを放った！！`,
@@ -434,7 +438,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `magic`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 5,
       chooseRandum:[10, 20, 50, 55, 60, 80],
       abilityName: `おまじない`,
@@ -445,7 +449,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `flame`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 50,
       stateChangeChance: 20,
       conditionType: `Burn`,
@@ -457,7 +461,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `pyrokinesis`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       stateChangeChance: 20,
       conditionType: `Burn`,
@@ -469,7 +473,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `psychokinesis`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 54,
       abilityName: `サイコキネシス`,
       abilityMessage: `はサイコキネシスを放った！！`,
@@ -478,7 +482,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `bigWheel`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 60,
       abilityName: `大車輪`,
       abilityMessage: `の大車輪`,
@@ -487,7 +491,10 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `nightmare`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
+      conditionType: `Blind`,
+      conditionName: `暗闇`,
+      stateChangeChance: 30,
       abilityPower: 60,
       abilityName: `ナイトメア`,
       abilityMessage: `のナイトメア`,
@@ -496,7 +503,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `burningKick`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       stateChangeChance: 20,
       conditionType: `Burn`,
@@ -508,7 +515,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `thunderKick`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 45,
       abilityName: `帯電キック`,
       abilityMessage: `の帯電キック`,
@@ -517,7 +524,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `cosmicBeat`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 60,
       abilityName: `コズミックビート`,
       abilityMessage: `のコズミックビート！！`,
@@ -526,7 +533,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `milkyWay`,
       abilityType: 3,
-      ap: 2,
+      AP: 2,
       abilityPower: 40,
       abilityName: `ミルキーウェイ`,
       abilityMessage: `のミルキーウェイ！！`,
@@ -535,7 +542,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `chaosDisaster`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 70,
       abilityName: `カオスディザスター`,
       abilityMessage: `のカオスディザスター！！`,
@@ -545,7 +552,7 @@ var ABILITY_MASTER = {
 
       abilityID: `glaring`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 50,
       abilityName: `凝視`,
       abilityMessage: `の凝視！！`,
@@ -554,7 +561,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `infinity`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 70,
       abilityName: `無限`,
       abilityMessage: `の無限！！`,
@@ -563,7 +570,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `madness`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 75,
       abilityName: `狂気`,
       abilityMessage: `の狂気！！`,
@@ -572,7 +579,7 @@ var ABILITY_MASTER = {
     }, {
       abilityID: `walkingDeath`,
       abilityType: 0,
-      ap: 2,
+      AP: 2,
       abilityPower: 100,
       abilityName: `歩む死`,
       abilityMessage: `の歩む死！！`,
