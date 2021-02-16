@@ -46,6 +46,26 @@ function backButtonSet(master){
 }
 
 /**
+ * @関数概要：前画面に戻るボタン生成用の関数
+ * @param
+ * master：戻るボタンを生成する画面自身
+*/
+function escapeButtonSet(master){
+  let buttonScan = Sprite('escapeButton');
+  //画面に合わせてサイズ変更
+  buttonScan.width = 150;
+  buttonScan.height = 90;
+  buttonScan.setInteractive(true);
+  buttonScan.setPosition(master.gridX.center(4),master.gridY.center(5)).addChildTo(master),
+  //ボタンが押された時の処理
+  //現在の画面名を前画面に返す
+  buttonScan.onpointstart=function(e){
+    SoundManager.play("buttonPush");
+    master.exit();
+  };
+}
+
+/**
  * @関数概要：バトル時の自分のモンスターの画像を表示する関数
  * @param
  * master：表示する画面自身
@@ -484,7 +504,7 @@ function conditionIconSet(master,group,condition,posX,posY){
     //conditionIcon.setPosition(master.gridX.center(0),master.gridY.center());
     conditionIcon.addChildTo(conditionGroup);
     conditionGroup.addChildTo(master);
-    return conditionGroup;
+    return conditionGroupf
   }
   
 }
@@ -1116,7 +1136,7 @@ function selectAbilityBar(master,monster,group){
       align: "left",
     }).addChildTo(group).setPosition(selectAbilityGridX.span(-3),selectAbilityGridY.span(2));
     let abilityAPLabel = Label({
-      text: abilityData.ap,
+      text: abilityData.AP,
       fontSize: 30,
       fill: 'white',
       align: "left",

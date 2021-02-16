@@ -101,6 +101,7 @@ var ASSETS = {
     'Charm':'image/charmIcon.png',
     'Poison':'image/poisonIcon.png',
     'HighPoison':'image/venomIcon.png',
+    'escapeButton':'image/escapeButton.png'
     
   },
   //音楽

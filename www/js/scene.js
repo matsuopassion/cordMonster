@@ -854,7 +854,7 @@ phina.define("battleCpuPage", {
     gauge1 = gaugeSet(master,this.myMonster,-4,-2);
     gauge2 = gaugeSet(master,this.enemy,4,-2);
 
-    backButtonSet(master);
+    escapeButtonSet(master);
 
     this.myConditionGroup = DisplayElement().addChildTo(master);
     this.enemyConditionGroup = DisplayElement().addChildTo(master);
