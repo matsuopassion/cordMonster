@@ -9,7 +9,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `E` ,shield : `G`,speed : `F` , AP : `E` },
             ability :
              [`normalAttack`,`continuousThrust`],
-            abilityLv : [ 1 ,3 ],
+            abilityLv : [ 1 ,10],
             defaultParam :
              { life : 70 ,power : 70 ,shield : 35 ,speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -24,7 +24,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `C` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`crunch`],
-            abilityLv : [ 1 ,1],
+            abilityLv : [ 1 ,25],
             defaultParam :
              { life : 80 ,power : 65 ,shield : 90 , speed : 100 ,AP : 10 },
             evoLine : `Undefined`,
@@ -39,11 +39,11 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `E` ,shield : `E`,speed : `F` , AP : `E` } ,
             ability :
              [`normalAttack`,`biting`],
-            abilityLv : [ 1 , 3],
+            abilityLv : [ 1 , 8],
             defaultParam :
              { life : 65 ,power : 60 ,shield : 30 , speed : 70 ,AP : 10 },
             evoLine : `Adulgon`,
-    	      evoLv : `5`,
+    	      evoLv : `15`,
             basic : true
         },{
             monsterID : `Bechoime` ,
@@ -54,11 +54,11 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `G` ,shield : `G`,speed : `F` , AP : `E` } ,
             ability :
              [`normalAttack`,`poisonAttack`,`dissolution`],
-            abilityLv : [1 ,2 ,5 ],
+            abilityLv : [1 ,8 ,12],
             defaultParam :
              { life : 55 ,power : 30 ,shield : 35 , speed : 45 ,AP : 10 },
             evoLine : `Bechoimeking` ,
-    	      evoLv : `6`,
+    	      evoLv : `20`,
             basic : true
         },{
             monsterID : `Bechoimeking` ,
@@ -99,7 +99,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`],
-            abilityLv : [1 ,5 ],
+            abilityLv : [1 ,5],
             defaultParam :
              { life :65 ,power : 40 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Killerblingo`,
@@ -114,7 +114,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `B` ,shield : `D`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`,`spinningSlash`,`hardSpinningSlash`],
-            abilityLv : [ 1 ,1 ,1 ,5 ],
+            abilityLv : [ 1 ,1 ,1 ,35],
             defaultParam :
              { life : 90 ,power : 70 ,shield : 70 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
@@ -129,7 +129,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `B` ,shield : `D`,speed : `C` , AP : `E` },
             ability :
              [`normalAttack`],
-            abilityLv : [ 1 ],
+            abilityLv : [ 1],
             defaultParam :
              { life : 70 ,power : 90 ,shield : 100 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -144,7 +144,7 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `E` ,shield : `F`,speed : `D` , AP : `E` },
             ability :
              [`normalAttack`,`flash`,`psychokinesis`],
-            abilityLv : [ 1 ,3 ,5 ],
+            abilityLv : [ 1 ,5 ,15],
             defaultParam :
              { life : 50 ,power : 50 ,shield : 30 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -159,11 +159,11 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `D` ,shield : `E`,speed : `F` , AP : `E` } ,
             ability :
              [`normalAttack`,`continuousThrust`,`heavyAttack`,`dissolution`],
-            abilityLv : [1 ,1 ,1, 1],
+            abilityLv : [1 ,1 ,1, 25],
             defaultParam :
              { life : 70 ,power : 65 ,shield : 65 , speed : 30 ,AP : 10 },
             evoLine : `Lindwurm` ,
-    	      evoLv : 7,
+    	      evoLv : 35,
             basic : false
         },{
             monsterID : `Cthulhu` ,
@@ -174,7 +174,7 @@ var MONSTER_MASTER = {
              { life : `B` ,power : `B` ,shield : `B`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`infinity`,`madness`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,2 ,5],
             defaultParam :
              { life : 150 ,power : 90,shield : 100 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -204,7 +204,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `G` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`dissolution`],
-            abilityLv : [ 1 ,4 ],
+            abilityLv : [ 1 ,10],
             defaultParam :
              { life : 80 ,power : 45 ,shield : 45 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
@@ -219,11 +219,11 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `D` ,shield : `E`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`continuousPunch`,`ryujinInfernoPalm`],
-            abilityLv : [ 1 ,3,4 ],
+            abilityLv : [ 1 ,10,20],
             defaultParam :
              { life : 80 ,power : 50 ,shield : 35 , speed : 60 ,AP : 10 },
             evoLine : `Vermilion`,
-            evoLv : `6`,
+            evoLv : `25`,
             basic : true
         },{
             monsterID : `Fukahirade` ,
@@ -234,7 +234,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `C` ,shield : `D`,speed : `B` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`,`biting`],
-            abilityLv : [1 ,2 ,5 ],
+            abilityLv : [1 ,8 ,15],
             defaultParam :
              { life : 75 ,power : 70 ,shield : 40 , speed : 90 ,AP : 10 },
             evoLine : `Undefined`,
@@ -249,7 +249,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `E` ,shield : `E`,speed : `E` , AP : `E` } ,
             ability :
              [`heal`,`magic`],
-            abilityLv : [1,1],
+            abilityLv : [1,5],
             defaultParam :
              { life : 50 ,power : 50 ,shield : 30 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -264,7 +264,7 @@ var MONSTER_MASTER = {
              { life : `B` ,power : `F` ,shield : `D`,speed : `G` , AP : `E` } ,
             ability :
              [`normalAttack`,`bodySlam`,`buchikamashi`],
-            abilityLv : [1,3,7],
+            abilityLv : [1,8,15],
             defaultParam :
              { life : 110 ,power : 40 ,shield : 30 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -309,7 +309,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `C` ,shield : `C`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`,`bodySlam`],
-            abilityLv : [1 ,2 ,5 ],
+            abilityLv : [1 ,5 ,18],
             defaultParam :
              { life : 130 ,power : 70 ,shield : 70 , speed : 30 ,AP : 10 },
             evoLine : `Undefined`,
@@ -324,7 +324,7 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `G` ,shield : `G`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`biting`,`crunch`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,9 ,24],
             defaultParam :
              { life : 70 ,power : 70 ,shield : 25 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -339,7 +339,7 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `G` ,shield : `G`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`,`biting`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,5 ,10],
             defaultParam :
              { life : 60 ,power : 70 ,shield : 25 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -354,7 +354,7 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `C` ,shield : `G`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`poisonAttack`,`poisonKunai`],
-            abilityLv : [ 1 ,3 ,5 ],
+            abilityLv : [ 1 ,10 ,15],
             defaultParam :
              { life : 60 ,power : 50 ,shield : 40 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
@@ -369,7 +369,7 @@ var MONSTER_MASTER = {
              { life : `B` ,power : `B` ,shield : `B`,speed : `B` , AP : `E` } ,
             ability :
              [`normalAttack`,`infinity`,`walkingDeath`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,2 ,5],
             defaultParam :
              { life : 200 ,power : 100 ,shield : 70 , speed : 100 ,AP : 10 },
             evoLine : `Undefined`,
@@ -384,7 +384,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `F` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`bodySlam`,`poisonNeedle`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,8 ,15],
             defaultParam :
              { life : 80 ,power : 40 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -399,7 +399,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`,`spinningSlash`],
-            abilityLv : [1 ,1 ,5 ],
+            abilityLv : [1 ,1 ,5],
             defaultParam :
              { life : 90 ,power : 50 ,shield : 50 , speed : 50 ,AP : 10 },
             evoLine : `Blingolord`,
@@ -414,7 +414,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `C` ,shield : `C`,speed : `E` , AP : `E` },
             ability :
              [`normalAttack`,`buchikamashi`,`masakari`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,15 ,25],
             defaultParam :
              { life : 150 ,power : 60 ,shield : 40 , speed : 10 ,AP : 10 },
             evoLine : `Undefined`,
@@ -429,7 +429,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `B` ,shield : `B`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`continuousThrust`,`heavyAttack`,`terraBreak`],
-            abilityLv : [1 ,1 ,1, 1],
+            abilityLv : [1 ,1 ,1, 40],
             defaultParam :
              { life : 180 ,power : 90 ,shield : 70 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
@@ -454,12 +454,12 @@ var MONSTER_MASTER = {
             monsterID : `Lyris` ,
             monsterFamily : `リリ` ,
             comment: `魔界のアイドルっ！リリちゃんだよー！\n五月蠅い人間は魅了しちゃうよっ♡`,
-            rarity : `B` ,
+            rarity : `A` ,
             appropriate :
              { life : `D` ,power : `C` ,shield : `E`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`suckBlood`,`lilithCharm`],
-            abilityLv : [ 1 ,2 ,5],
+            abilityLv : [ 1 ,15 ,35],
             defaultParam :
              { life : 90 ,power : 60 ,shield : 50 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
@@ -474,7 +474,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `C`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`lariat`,`screwdriver`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,8 ,15],
             defaultParam :
              { life : 100 ,power : 70 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -489,7 +489,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`crossSlash`,`samidareSlash`],
-            abilityLv : [ 1 ,3 ,5 ],
+            abilityLv : [ 1 ,10 ,20],
             defaultParam :
              { life : 100 ,power : 90 ,shield : 60 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -504,7 +504,7 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `D` ,shield : `E`,speed : `G` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`,`continuousPunch`],
-            abilityLv : [ 1 , 2 , 5],
+            abilityLv : [ 1 , 5 , 8],
             defaultParam :
              { life : 60 ,power : 60 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -519,24 +519,9 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `C` ,shield : `C`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,'tomahawk','megahawk'],
-            abilityLv : [1 ,1 ,3],
+            abilityLv : [1 ,1 ,15],
             defaultParam :
              { life : 75 ,power : 65 ,shield : 60 , speed : 60 ,AP : 10 },
-            evoLine : `Undefined`,
-    	      evoLv : `Undefined`,
-            basic : true
-        },{
-            monsterID : `Planer` ,
-            monsterFamily : `プラネ` ,
-            comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
-            rarity : `A` ,
-            appropriate :
-             { life : `C` ,power : `B` ,shield : `B`,speed : `B` , AP : `E` } ,
-            ability :
-             [`normalAttack`,`cosmicBeat`,`milkyWay`],
-            abilityLv : [1 ,2 ,5 ],
-            defaultParam :
-             { life : 110 ,power : 95 ,shield : 60 , speed : 85 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -549,9 +534,24 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `B` ,shield : `B`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`pileBunker`,`chargingShot`],
-            abilityLv : [1 ,2 ,5 ],
+            abilityLv : [1 ,15 ,35],
             defaultParam :
              { life : 160 ,power : 130 ,shield : 50 , speed : 45 ,AP : 10 },
+            evoLine : `Undefined`,
+    	      evoLv : `Undefined`,
+            basic : true
+        },{
+            monsterID : `Planer` ,
+            monsterFamily : `プラネ` ,
+            comment: `銀河系の向こう側まで私の歌声を届けた\nい！\n巷では天使の歌声とも称される超人気ア\nイドル。`,
+            rarity : `A` ,
+            appropriate :
+             { life : `C` ,power : `B` ,shield : `B`,speed : `B` , AP : `E` } ,
+            ability :
+             [`normalAttack`,`cosmicBeat`,`milkyWay`],
+            abilityLv : [1 ,15 ,35],
+            defaultParam :
+             { life : 110 ,power : 95 ,shield : 60 , speed : 85 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
@@ -564,11 +564,11 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `G` ,shield : `G`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`flash`,`heal`,`plasmaShot`],
-            abilityLv : [1 ,2 ,3 ,6],
+            abilityLv : [1 ,9 ,18 ,26],
             defaultParam :
              { life : 60 ,power : 60 ,shield : 30 , speed : 60 ,AP : 10 },
             evoLine : `Queenpixia` ,
-    	      evoLv : `10`,
+    	      evoLv : `30`,
             basic : true
         },{
             monsterID : `Pride` ,
@@ -592,7 +592,7 @@ var MONSTER_MASTER = {
             rarity: `B`,
             appropriate: { life: `D`, power: `C`, shield: `C`, speed: `D`, AP : `D`},
             ability: [`normalAttack`, `pileBunker`, `plasmaShot`],
-            abilityLv: [1, 2, 5],
+            abilityLv: [1, 12, 20],
             defaultParam: { life: 150, power: 90, shield: 40, speed: 45 , AP : 10},
             evoLine: `Undefined`,
             evoLv: `Undefined`,
@@ -604,7 +604,7 @@ var MONSTER_MASTER = {
             rarity: `B`,
             appropriate: { life: `C`, power: `D`, shield: `D`, speed: `C`, AP : `B`},
             ability: [`normalAttack`, `heal`, `flashArrow`],
-            abilityLv: [1, 1, 5],
+            abilityLv: [1, 1, 40],
             defaultParam: { life: 130, power: 50, shield: 40, speed: 65 },
             evoLine: `Undefined`,
             evoLv: `Undefined`,
@@ -618,7 +618,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `B` ,shield : `C`,speed : `C` , AP : `E` } ,
             ability :
              [`normalAttack`,`nightmare`,`bigWheel`],
-            abilityLv : [1,5,10],
+            abilityLv : [1,15,30],
             defaultParam :
              { life : 100 ,power : 130 ,shield : 80 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
@@ -634,11 +634,11 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `G` ,shield : `G`,speed : `G` , AP : `E` } ,
             ability :
              [`normalAttack`,`biting`],
-            abilityLv : [1,5],
+            abilityLv : [1 ,5],
             defaultParam :
              { life : 60 ,power : 50 ,shield : 35 , speed : 50 ,AP : 10 },
             evoLine : `Ryuyasoldier` ,
-    	      evoLv : `5`,
+    	      evoLv : `15`,
             basic : true
         },{
             monsterID : `Ryuyasoldier` ,
@@ -653,7 +653,7 @@ var MONSTER_MASTER = {
             defaultParam :
              { life : 70 ,power : 60 ,shield : 40 , speed : 60 ,AP : 10 },
             evoLine : `Ryuyaraptor` ,
-    	      evoLv : `20`,
+    	      evoLv : `25`,
             basic : false
         },{
             monsterID : `Ryuyaraptor` ,
@@ -664,7 +664,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `C` ,shield : `D`,speed : `F` , AP : `E` } ,
             ability :
              [`normalAttack`,`plasmaShot`,`flameBullet`],
-            abilityLv : [1 ,1 ,3],
+            abilityLv : [1 ,1 ,35],
             defaultParam :
              { life : 100 ,power : 70 ,shield : 50 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -679,7 +679,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `D` ,shield : `E`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`crossSlash`,`samidareSlash`],
-            abilityLv : [ 1 ,2 ,4 ],
+            abilityLv : [ 1 ,10 ,25],
             defaultParam :
              { life : 80 ,power : 55 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Undefined`,
@@ -694,7 +694,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `C` ,shield : `C`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`biting`,`crunch`,`flame`],
-            abilityLv : [1 ,2 ,3 ,5 ],
+            abilityLv : [1 ,5 ,15 ,20],
             defaultParam :
              { life : 130 ,power : 100 ,shield : 60 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
@@ -709,7 +709,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `D`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`meditation`,`psychokinesis`],
-            abilityLv : [1,2,4],
+            abilityLv : [1 ,8 ,16],
             defaultParam :
              { life : 55 ,power : 60 ,shield : 45 , speed : 55 ,AP : 10 },
             evoLine : `Undefined`,
@@ -739,7 +739,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `B` ,shield : `C`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`lariat`,`bornBreak`],
-            abilityLv : [1 ,2 ,5 ],
+            abilityLv : [1 ,15 ,25],
             defaultParam :
              { life : 120 ,power : 110 ,shield : 50 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
@@ -754,7 +754,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`poisonAttack`,`afterimageSlash`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,8 ,16],
             defaultParam :
              { life : 80 ,power : 70 ,shield : 45 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
@@ -769,7 +769,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`meditation`,`beUnderNoIllusions`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,8 ,16],
             defaultParam :
              { life : 100 ,power : 100 ,shield : 60 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
@@ -784,7 +784,7 @@ var MONSTER_MASTER = {
              { life : `C` ,power : `C` ,shield : `D`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`ryujinInfernoPalm`,'burningKick'],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,1 ,40],
             defaultParam :
              { life : 120 ,power : 70 ,shield : 55 , speed : 70 ,AP : 10 },
             evoLine : `Undefined`,
@@ -799,7 +799,7 @@ var MONSTER_MASTER = {
              { life : `E` ,power : `D` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`poisonAttack`,`crunch`],
-            abilityLv : [ 1 ,2 ,5 ],
+            abilityLv : [ 1 ,12 ,18],
             defaultParam :
              { life : 55 ,power : 50 ,shield : 45 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
@@ -814,11 +814,11 @@ var MONSTER_MASTER = {
              { life : `F` ,power : `F` ,shield : `F`,speed : `F` , AP : `E` } ,
             ability :
              [`normalAttack`,`continuousThrust`,`heavyAttack`],
-            abilityLv : [1 ,3 ,5 ],
+            abilityLv : [1 ,6 ,10],
             defaultParam :
              { life : 60 ,power : 60 ,shield : 50 , speed : 30 ,AP : 10 },
             evoLine : `Chrysalis`,
-    	      evoLv : 3,
+    	      evoLv : 15,
             basic : true
         },{
             monsterID : `Wrath` ,
@@ -844,12 +844,12 @@ var MONSTER_MASTER = {
              { life : `G` ,power : `F` ,shield : `E`,speed : `D` , AP : `E` } ,
             ability :
              [`normalAttack`,`crownSplit`,`bornBreak`],
-            abilityLv : [1, 3, 5],
+            abilityLv : [1, 3, 20],
             defaultParam :
              { life : 45 ,power : 60 ,shield : 40 , speed : 50 ,AP : 10 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : true
         }
-    ]
+   ]
 };
