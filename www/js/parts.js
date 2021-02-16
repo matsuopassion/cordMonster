@@ -14,12 +14,12 @@ function setBattleMessage(){
   messageBox.stroke = "white";
   messageBox.strokeWidth = 10;
   messageBox.cornerRadius = 25;
-  messageBox.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
+  messageBox.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(3));
   let messageLabel = Label();
   messageLabel.text = "";
   messageLabel.fontSize = 18;
   messageLabel.fill = "white";
-  messageLabel.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(2));
+  messageLabel.addChildTo(group).setPosition(master.gridX.center(),master.gridY.center(3));
   return group;
 }
 
@@ -56,7 +56,7 @@ function escapeButtonSet(master){
   buttonScan.width = 150;
   buttonScan.height = 90;
   buttonScan.setInteractive(true);
-  buttonScan.setPosition(master.gridX.center(4),master.gridY.center(5)).addChildTo(master),
+  buttonScan.setPosition(master.gridX.center(-4),master.gridY.center(6)).addChildTo(master),
   //ボタンが押された時の処理
   //現在の画面名を前画面に返す
   buttonScan.onpointstart=function(e){
@@ -461,19 +461,77 @@ function ScanStartButton(master){
 */
 function gaugeSet(master,monster,x,y){
   let charaGauge =Gauge({
+    // x: 100, y: 300,        // x,y座標
+    width: 150,            // 横サイズ
+    height: 30,            // 縦サイズ
+    cornerRadius: 10,      // 角丸み
+    maxValue: monster.param.life,         // ゲージ最大値
+    value: monster.param.life,         // ゲージ初期値
+    // maxValue: 100,         // ゲージ最大値
+    // value: 100,         // ゲージ初期値
+    fill: 'red',         // 後ろの色
+    gaugeColor: '#00f535', // ゲージ色
+    stroke: 'silver',      // 枠色
+    strokeWidth: 5,        // 枠太さ
+  }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
+   let HPGGridX = Grid({
+      width: charaGauge.width,
+      //状態異常の数↓
+      columns: 5,
+      offset: master.gridX.center(x),
+   });
+   let HPGGridY = Grid({
+      width: charaGauge.height,
+      columns: 3,
+      offset: master.gridY.center(y),
+   });
+  let HPGNameLabel = Label({
+    text: "HP",
+    fontSize: 20,
+    fill: 'white',
+  }).addChildTo(master).setPosition(HPGGridX.span(-2),HPGGridY.span(0));
+  return charaGauge;
+}
+
+/**
+ * @関数概要：バトル画面でのモンスターのHPゲージを表示する関数
+ * @param
+ * master：表示する画面自身
+ * monster：ゲージにHPを表示するモンスターの情報
+ * x：X軸の表示位置
+ * y：y軸の表示位置
+*/
+function APGaugeSet(master,monster,x,y){
+  let charaGauge =Gauge({
         // x: 100, y: 300,        // x,y座標
         width: 150,            // 横サイズ
         height: 30,            // 縦サイズ
         cornerRadius: 10,      // 角丸み
-        maxValue: monster.param.life,         // ゲージ最大値
-        value: monster.param.life,         // ゲージ初期値
+        maxValue: monster.param.AP,         // ゲージ最大値
+        value: monster.param.AP,         // ゲージ初期値
         // maxValue: 100,         // ゲージ最大値
         // value: 100,         // ゲージ初期値
-        fill: 'red',         // 後ろの色
-        gaugeColor: '#00f535', // ゲージ色
-        stroke: 'silver',      // 枠色
+        fill: 'black',         // 後ろの色
+        gaugeColor: '#9007a6', // ゲージ色
+        stroke: 'gray',      // 枠色
         strokeWidth: 5,        // 枠太さ
-      }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
+   }).addChildTo(master).setPosition(master.gridX.center(x),master.gridY.center(y));
+   let APGGridX = Grid({
+      width: charaGauge.width,
+      //状態異常の数↓
+      columns: 5,
+      offset: master.gridX.center(x),
+   });
+   let APGGridY = Grid({
+      width: charaGauge.height,
+      columns: 3,
+      offset: master.gridY.center(y),
+   });
+  let APGNameLabel = Label({
+    text: "AP",
+    fontSize: 20,
+    fill: 'white',
+  }).addChildTo(master).setPosition(APGGridX.span(-2),APGGridY.span(0));
   return charaGauge;
 }
 
@@ -504,7 +562,7 @@ function conditionIconSet(master,group,condition,posX,posY){
     //conditionIcon.setPosition(master.gridX.center(0),master.gridY.center());
     conditionIcon.addChildTo(conditionGroup);
     conditionGroup.addChildTo(master);
-    return conditionGroupf
+    return conditionGroup
   }
   
 }
@@ -1043,7 +1101,7 @@ function monsterDataCompress(monsterData){
   let compressMonster = {
     mID : monsterData.monsterID,
     Lv: monsterData.Lv,
-    param:[monsterData.param.life,monsterData.param.power,monsterData.param.shield,monsterData.param.speed,10000],
+    param:[monsterData.param.life,monsterData.param.power,monsterData.param.shield,monsterData.param.speed,monsterData.param.AP],
     ability:monsterData.ability,
   }
   return compressMonster;
@@ -1094,7 +1152,7 @@ function selectAbilityBar(master,monster,group){
   console.log("次にここ");
   group.children.clear();
   let positionX = -4;
-  let positionY = 1;
+  let positionY = 2;
   let returnID = "";
   //今は普通のfor文だが、本来はabilityArrayの分回す
   for(let i = 0;i < monster.ability.length;i++){

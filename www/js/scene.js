@@ -4,6 +4,8 @@ phina.globalize();
 var SPEED = 4;
 var gauge1;
 var gauge2;
+var myAPGauge;
+var enemyAPGauge;
 var renderEndFlag = false;
 var selectAbilityID = "";
 //技選択用の変数
@@ -851,9 +853,10 @@ phina.define("battleCpuPage", {
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
     //this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
     //this.enemy.ability = MONSTER_MAP.get(this.enemy.monsterID).ability;
-    gauge1 = gaugeSet(master,this.myMonster,-4,-2);
-    gauge2 = gaugeSet(master,this.enemy,4,-2);
-
+    gauge1 = gaugeSet(master,this.myMonster,-4,-1);
+    gauge2 = gaugeSet(master,this.enemy,4,-1);
+    myAPGauge = APGaugeSet(master,this.myMonster,-4,0);
+    enemyAPGauge = APGaugeSet(master,this.enemy,4,0);
     escapeButtonSet(master);
 
     this.myConditionGroup = DisplayElement().addChildTo(master);
@@ -1008,11 +1011,13 @@ phina.define("battleCpuPage", {
           }
         }
         console.log(master.myMonster.condition);
-        master.myConditionGroup = conditionIconSet(master,master.myConditionGroup,master.myMonster.condition,-4,-1);
+        master.myConditionGroup = conditionIconSet(master,master.myConditionGroup,master.myMonster.condition,-4,-2);
         console.log(master.enemy.condition);
-        master.enemyConditionGroup = conditionIconSet(master,master.enemyConditionGroup,master.enemy.condition,4,-1);
+        master.enemyConditionGroup = conditionIconSet(master,master.enemyConditionGroup,master.enemy.condition,4,-2);
         gauge1.value = master.myMonster.param.life;
         gauge2.value = master.enemy.param.life;
+        myAPGauge.value = master.myMonster.param.AP;
+        enemyAPGauge.value = master.enemy.param.AP;
       }
     }
   }
