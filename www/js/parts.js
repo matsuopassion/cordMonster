@@ -457,6 +457,38 @@ function gaugeSet(master,monster,x,y){
   return charaGauge;
 }
 
+function conditionIconSet(master,group,condition,posX,posY){
+  console.log(master + ":" + group + ":" + condition);
+  if(condition == "normal"){
+    group.children.clear();
+    return group;
+  }else{
+    console.log("こっちはいったよ");
+    group.children.clear();
+    let conditionGroup = group;
+    let cIconGridX = Grid({
+      width: 150,
+      //状態異常の数↓
+      columns: 5,
+      offset: master.gridX.center(posX),
+    });
+    let cIconGridY = Grid({
+      width: 40,
+      columns: 3,
+      offset: master.gridY.center(posY),
+    });
+    let conditionIcon = Sprite(condition);
+    conditionIcon.width = 40;
+    conditionIcon.height = 40;
+    conditionIcon.setPosition(cIconGridX.span(-2),cIconGridY.span(-1));
+    //conditionIcon.setPosition(master.gridX.center(0),master.gridY.center());
+    conditionIcon.addChildTo(conditionGroup);
+    conditionGroup.addChildTo(master);
+    return conditionGroup;
+  }
+  
+}
+
 /**
  * @関数概要：バトルリザルト画面でモンスターの画像を表示する関数
  * @param
