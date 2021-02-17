@@ -141,8 +141,6 @@ phina.define("startPage", {
     //   'Yanchicken',
     // ];
     // for(monsterID of this.monsterArray){
-    //   console.log("モンスターをセット（テスト用）：" + monsterID);
-    //   console.log(JSON.stringify(getNewMonster(monsterID)));
     //   localStorage.setItem(monsterID,JSON.stringify(getNewMonster(monsterID)));
     // }
 
@@ -280,7 +278,6 @@ phina.define("boxPage", {
     //自分をオブジェクトとして変数に代入
     master = this;
     this.label = 'boxPage';
-    console.log(option.beforePage);
     // 親クラス初期化
     this.superInit(option);
 
@@ -359,7 +356,6 @@ phina.define("characterChack", {
 
      //box 画像
     boxCharaDSet(master,param.boxCharaResults.monsterID);
-    console.log("ここまでき");
     boxCharaInfoSet(master,param.boxCharaResults);
     //menuSet(master);
     backButtonSet(master);
@@ -428,7 +424,6 @@ phina.define("scanResultPage", {
     SoundManager.stopMusic();
     SoundManager.playMusic("scanBGM",1,true);
     
-    console.log(param.resultMonster);
     //背景画像
     var scanBgSprite = Sprite('scanBg').addChildTo(this);
     //画面に合わせてサイズ変更
@@ -437,7 +432,6 @@ phina.define("scanResultPage", {
     //画像を配置
     scanBgSprite.setPosition(master.gridX.center(), master.gridY.center());
 
-    console.log(param.resultMonster.monsterID);
     scanCharaSet(master,param.resultMonster.monsterID,0,-4);
     setScanResultMessage(master,param.resultMonster.monsterName);
     //共通ボタンのセット
@@ -518,11 +512,8 @@ phina.define("qrSetPage", {
     });
     flowScene.then(function() {
       let qrcodeSprite = Sprite("monsterQR").addChildTo(master);
-      console.log(qrcodeSprite);
       qrcodeSprite.width = 300;
       qrcodeSprite.height = 300;
-      console.log("qrcodeSprite:" + qrcodeSprite);
-
       qrcodeSprite.setPosition(master.gridX.center(0),master.gridY.center(0));
       backButtonSet(master);
       renderEndFlag = false;
@@ -569,10 +560,8 @@ phina.define("battleFriendPage", {
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"];
-    console.log("うちのこ" + JSON.stringify(this.myMonster));
     
     this.fMon = friendBattle.resultMonster;
-    console.log(JSON.stringify(this.fMon));
     this.enemy = {
       monsterID : this.fMon.mID,
       monsterName : MONSTER_MAP.get(this.fMon.mID).monsterFamily ,
@@ -586,7 +575,6 @@ phina.define("battleFriendPage", {
       ability : this.fMon.ability,
       condition : ["normal"]  
     };
-    console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
@@ -615,8 +603,6 @@ phina.define("battleFriendPage", {
     let groupchan = this.group;
     this.issue = "uncertain";
     this.group.children[0].onpointstart = function(){
-      console.log("現在のフェーズ：" + master.phase);
-      console.log("現在のターンフェーズ：" + master.turnPhase);
       if(master.issue != "uncertain"){
         master.exit({
           resultIssue: master.issue,
@@ -664,7 +650,6 @@ phina.define("battleFriendPage", {
                 master.children[3].height = 250;  
                 master.children[4].width = 200;
                 master.children[4].height = 200;  
-                console.log(selectAbilityID);
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
                 master.phase = "e";
@@ -693,7 +678,6 @@ phina.define("battleFriendPage", {
                 master.turnPhase = 2;
               }else{
                 if(master.rePhase != ""){
-                  console.log("ここいけ");
                   master.turnPhase = 3;
                 }else{
                   master.turnPhase = 1;
@@ -726,7 +710,6 @@ phina.define("battleFriendPage", {
 
               
               if(master.rePhase != ""){
-                console.log("今の感じ：" + master.rePhase);
                 master.turnPhase = 1;
               }else{
                 master.turnPhase++;
@@ -755,9 +738,7 @@ phina.define("battleFriendPage", {
             selectAbilityID = "";
           }
         }
-        console.log(master.myMonster.condition);
         master.myConditionGroup = conditionIconSet(master,master.myConditionGroup,master.myMonster.condition,-4,-2);
-        console.log(master.enemy.condition);
         master.enemyConditionGroup = conditionIconSet(master,master.enemyConditionGroup,master.enemy.condition,4,-2);
         gauge1.value = master.myMonster.param.life;
         gauge2.value = master.enemy.param.life;
@@ -788,7 +769,6 @@ phina.define("battleCpuPage", {
     let bgArray = ["battleCPUBg","battleCPUBg2"];
     //背景画像
     let bg = bgArray[Math.floor(Math.random() * (bgArray.length - 0)) + 0];
-    console.log(bg);
     var battleCPUBgSprite = Sprite(bg).addChildTo(this);
     //画面に合わせてサイズ変更
     battleCPUBgSprite.width *= (SCREEN_WIDTH / battleCPUBgSprite.width);
@@ -810,7 +790,6 @@ phina.define("battleCpuPage", {
     this.group = setBattleMessage(master);
     this.group.addChildTo(master);
     this.abilitySelectGroup = DisplayElement().addChildTo(master);
-    console.log(this.group.interactive);
     this.messageBox = this.group.children[0];
     this.group.children[1].text = "バトルスタート！";
     this.issue = "uncertain";
@@ -819,11 +798,7 @@ phina.define("battleCpuPage", {
     this.monsterArray = setBattleMonsterList(battleParam.enemyRarity);
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
     this.myMonster.condition = ["normal"]; 
-    console.log(JSON.stringify(this.myMonster));
-    console.log(typeof this.monsterArray);
-    console.log(battleParam.enemyRarity);
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
-    console.log(JSON.stringify(scM));
     this.enemy = {
       monsterID : scM.monsterID ,
       monsterName : scM.monsterFamily ,
@@ -871,7 +846,6 @@ phina.define("battleCpuPage", {
       this.enemy = updateParam(this.enemy,enemySkillPointArray);
     }
     this.enemy.ability = judgeAbilityEvoMonster(this.enemy);
-    console.log(JSON.stringify(this.enemy));
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
     //this.myMonster.ability = MONSTER_MAP.get(this.myMonster.monsterID).ability;
@@ -901,8 +875,6 @@ phina.define("battleCpuPage", {
     let groupchan = this.group;
     this.issue = "uncertain";
     this.group.children[0].onpointstart = function(){
-      console.log("現在のフェーズ：" + master.phase);
-      console.log("現在のターンフェーズ：" + master.turnPhase);
       if(master.issue != "uncertain"){
         master.exit({
           resultIssue: master.issue,
@@ -950,7 +922,6 @@ phina.define("battleCpuPage", {
                 master.children[5].height = 200;  
                 master.children[4].width = 250;
                 master.children[4].height = 250;  
-                console.log(selectAbilityID);
                 this.battleResults = Battle(master.phase,master.myMonster,master.enemy,master,selectAbilityID);
                 this.message = this.battleResults.messageContent;
                 master.phase = "e";
@@ -978,7 +949,6 @@ phina.define("battleCpuPage", {
                 master.turnPhase = 2;
               }else{
                 if(master.rePhase != ""){
-                  console.log("ここいけ");
                   master.turnPhase = 3;
                 }else{
                   master.turnPhase = 1;
@@ -1011,7 +981,6 @@ phina.define("battleCpuPage", {
 
               
               if(master.rePhase != ""){
-                console.log("今の感じ：" + master.rePhase);
                 master.turnPhase = 1;
               }else{
                 master.turnPhase++;
@@ -1041,9 +1010,7 @@ phina.define("battleCpuPage", {
             selectAbilityID = "";
           }
         }
-        console.log(master.myMonster.condition);
         master.myConditionGroup = conditionIconSet(master,master.myConditionGroup,master.myMonster.condition,-4,-2);
-        console.log(master.enemy.condition);
         master.enemyConditionGroup = conditionIconSet(master,master.enemyConditionGroup,master.enemy.condition,4,-2);
         gauge1.value = master.myMonster.param.life;
         gauge2.value = master.enemy.param.life;
@@ -1094,18 +1061,10 @@ phina.define("battleResultPage", {
     this.resultMessage.height = 200;
     this.resultMessage.addChildTo(this).setPosition(this.gridX.center(0), this.gridY.center(4));
 
-    console.log("randInt:" + levelUpRand);
-    
-
     SoundManager.stopMusic();
     SoundManager.playMusic("resultBGM");
-
-
-    
-    
     
     if(this.levelUpRand == 1){
-      console.log("ここまできた");
       this.myMonsterData = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
       let updateMonsterData = levelUpMonster(this.myMonsterData);
       localStorage.setItem(updateMonsterData.monsterID,JSON.stringify(updateMonsterData));

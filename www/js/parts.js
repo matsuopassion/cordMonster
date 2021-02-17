@@ -185,7 +185,6 @@ function battleButtonSet(master,magnification){
  * flag：現在のモードがCPUかフレンドかをの値
 */
 function battleSelectButtonSet(master,flag){
-  console.log("今のタイプ：" + flag);
   let bfModeSelectGroup = DisplayElement().addChildTo(master);
   let bcModeSelectGroup = DisplayElement().addChildTo(master);
   //"Unsettled":未確定,"CPU":CPUバトル時,"Friend":フレンドバトル時
@@ -252,7 +251,6 @@ function battleSelectButtonSet(master,flag){
         //align: "left",
   }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(-3));
   qrGetButton.onpointstart=function(e){
-  console.log("押されましたね");
   SoundManager.play("buttonPush");
   //明日こっから
       scanBattleMonster(function(monsterData) {
@@ -272,7 +270,6 @@ function battleSelectButtonSet(master,flag){
         //align: "left",
   }).addChildTo(bfModeSelectGroup).setPosition(master.gridX.center(0),master.gridY.center(3));
   qrSetButton.onpointstart=function(e){
-    console.log("押されましたね");
     SoundManager.play("buttonPush");
     if(localStorage.getItem("selectMonster") != undefined){
       master.exit('qrSetPage');
@@ -286,7 +283,6 @@ function battleSelectButtonSet(master,flag){
   buttonBattleCPUS.height = 120;
   buttonBattleCPUS.setPosition(master.gridX.center(),master.gridY.span(3)).addChildTo(bcModeSelectGroup),
   buttonBattleCPUS.onpointstart = function(e){
-    console.log("押しちゃったね");
     master.exit('battleCpuPage',{
       enemyRarity : "S",
     });
@@ -344,7 +340,6 @@ function battleSelectButtonSet(master,flag){
     qrGetButton.alpha = 1;
     qrSetButton.alpha = 1;
   }else if(BattleTypeFlag == "CPU"){
-    console.log("ここきたよ");
     buttonBattleCPU.setInteractive(false);
     buttonBattleFriend.setInteractive(false);
     buttonBattleCPUS.alpha = 1;
@@ -359,7 +354,6 @@ function battleSelectButtonSet(master,flag){
     qrSetButton.setInteractive(false);
     qrGetButton.alpha = 0;
     qrSetButton.alpha = 0;
-    console.log("Sボタン触れる？" + buttonBattleCPUS.interactive);
   }else{
     backGround.setInteractive(false);
     buttonBattleCPU.setInteractive(true);
@@ -547,12 +541,10 @@ let APGGridX = Grid({
 }
 
 function conditionIconSet(master,group,condition,posX,posY){
-  console.log(master + ":" + group + ":" + condition);
   if(condition == "normal"){
     group.children.clear();
     return group;
   }else{
-    console.log("こっちはいったよ");
     group.children.clear();
     let conditionGroup = group;
     let cIconGridX = Grid({
@@ -566,12 +558,22 @@ function conditionIconSet(master,group,condition,posX,posY){
       columns: 3,
       offset: master.gridY.center(posY),
     });
-    let conditionIcon = Sprite(condition);
-    conditionIcon.width = 40;
-    conditionIcon.height = 40;
-    conditionIcon.setPosition(cIconGridX.span(-2),cIconGridY.span(-1));
-    //conditionIcon.setPosition(master.gridX.center(0),master.gridY.center());
-    conditionIcon.addChildTo(conditionGroup);
+    //icon画像用意されるまでの間↓
+    try{
+      let conditionIcon = Sprite(condition);
+      conditionIcon.width = 40;
+      conditionIcon.height = 40;
+      conditionIcon.setPosition(cIconGridX.span(-2),cIconGridY.span(-1));
+      //conditionIcon.setPosition(master.gridX.center(0),master.gridY.center());
+      conditionIcon.addChildTo(conditionGroup);
+    }catch(e){
+      let conditionLabel = Label({
+        text: condition,
+        fontSize: 40,
+        fill: 'red',
+        align:"left"
+      }).addChildTo(conditionGroup).setPosition(cIconGridX.span(-2),cIconGridY.span(-1));
+    }
     conditionGroup.addChildTo(master);
     return conditionGroup
   }
@@ -654,7 +656,6 @@ function BattleStartButton(master){
  * posY：y軸の表示位置
 */
 function boxcharaSet(master,group,jsonMonster,posX,posY){
-    console.log(jsonMonster.monsterID);
     let boxCharaBg = Sprite("boxSelectBg");
     boxCharaBg.width = 100;
     boxCharaBg.height = 100;
@@ -706,9 +707,7 @@ function boxPageView(master,monsterList,startNum,pageNum){
   if( monsterListLen % 9 != 0 ){
     addCount = 1;
   }
-  console.log(Object.keys(monsterList).length);
   let pageMax = Math.floor(monsterListLen / 9) + addCount;
-  console.log("ページ最大数：" + pageMax);
   let roopCount = 9;
   if( 9 > monsterListLen - startCount ){
     roopCount = monsterListLen - startCount;
@@ -938,7 +937,6 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
     SoundManager.setVolume(0.8);
     alert('ステータスアップ！！');
     let updateMonster = updateParam(monster,pointSetArray);
-    console.log(JSON.stringify(updateMonster));
     alert('ステータスが更新されました。');
     localStorage.setItem(updateMonster.monsterID,JSON.stringify(updateMonster));
     pointSetArray = [0,0,0,0,0];
@@ -956,7 +954,6 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
       align: "left",
    }).addChildTo(group).setPosition(master.gridX.center(3),master.gridY.center(-7));
 
-  console.log(localStorage.getItem("selectMonster"));
   if( localStorage.getItem("selectMonster") == null || localStorage.getItem("selectMonster") != monster.monsterID){
     selectMonsterButton.setInteractive(true);
     selectMonsterButton.fill = "blue";
@@ -969,7 +966,6 @@ function viewUpdateInfo(master,group,monster,pointSetArray,magnification){
 
   selectMonsterButton.onpointstart = function(e) {
       alert(monster.monsterName + `\nをバトルモンスターにセットしました！`);
-      console.log(JSON.stringify(monster));
       localStorage.setItem("selectMonster",monster.monsterID);
       viewUpdateStatus(group);
       viewUpdateInfo(master,group,monster,pointSetArray,magnification);
@@ -1067,8 +1063,6 @@ function qrCodeGenerator(master){
   //let barcode = document.getElementById("barcode");
   let sendMonster = monsterDataCompress(JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster"))));
   let text = JSON.stringify(sendMonster);
-  console.log(text);
-  console.log("データサイズ" + text.legnth);
   let qrcode_object = new QRCode(
                 qrcode,
                 {
@@ -1152,7 +1146,6 @@ function monsterDataCompress(monsterData){
 
 //   popUpWindow.setInteractive(true);
 //   popUpWindow.onpointstart = function(e){
-//     console.log("ポップアップ消すやで");
 //     popUpGroup.children.clear();
 //     //master.interactive = true;
 //   };
@@ -1162,7 +1155,6 @@ function monsterDataCompress(monsterData){
 //ゴミ溜め(アビリティ選択編)
 //モンスターオブジェクトも渡す、帰り値をアビリティIDにするように
 function selectAbilityBar(master,monster,group){
-  console.log("次にここ");
   group.children.clear();
   let positionX = -4;
   let positionY = 2;
@@ -1218,11 +1210,5 @@ function selectAbilityBar(master,monster,group){
       positionY += 2;
     }
   }
-}
-
-//↓帰ったらここから、画面にアビリティID返すだけ
-function abilitySelectButton(master,ability,positionX,positionY,group){
-  console.log("そのつぎここ");
-  
 }
 
