@@ -50,7 +50,6 @@ function Battle(phase,myMonster,enemy,master,abilityID){
           }
           break;
         default:
-          console.log("お");
           commandResults = abilitySelect(phase,myMonster,enemy,ability);
           myMonster.param = commandResults.myMonsterParam;
           enemy.param = commandResults.enemyParam;
@@ -167,6 +166,7 @@ function getMessage(phase,myMonster,enemy,commandResults){
           break;
         case 4://相手に攻撃しつつ自身を回復
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.healpoint}回復した！`;
+          break;
         case 5://未使用
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
@@ -197,6 +197,7 @@ function getMessage(phase,myMonster,enemy,commandResults){
           break;
         case 4://相手に攻撃しつつ自身を回復
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.healpoint}回復した！`;
+          break;
         case 5://未使用
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
