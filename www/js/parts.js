@@ -563,7 +563,7 @@ function conditionIconSet(master,group,condition,posX,posY){
       let conditionIcon = Sprite(condition);
       conditionIcon.width = 40;
       conditionIcon.height = 40;
-      conditionIcon.setPosition(cIconGridX.span(-2),cIconGridY.span(-1));
+      conditionIcon.setPosition(cIconGridX.span(-2),cIconGridY.span(0));
       //conditionIcon.setPosition(master.gridX.center(0),master.gridY.center());
       conditionIcon.addChildTo(conditionGroup);
     }catch(e){
@@ -572,7 +572,7 @@ function conditionIconSet(master,group,condition,posX,posY){
         fontSize: 40,
         fill: 'red',
         align:"left"
-      }).addChildTo(conditionGroup).setPosition(cIconGridX.span(-2),cIconGridY.span(-1));
+      }).addChildTo(conditionGroup).setPosition(cIconGridX.span(-2),cIconGridY.span(0));
     }
     conditionGroup.addChildTo(master);
     return conditionGroup
