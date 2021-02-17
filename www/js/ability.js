@@ -110,10 +110,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       targetAp : targetAp
     };
   }
-  console.log(ability);
   ability_result = ABILITY_MAP.get(ability);
-  console.log(JSON.stringify(ability_result));
-  console.log(ability_result);
   abilityId = ability_result.abilityID;
   abilityType = ability_result.abilityType;
   conditionType = ability_result.conditionType;
@@ -129,9 +126,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   if(damageCalcflag === true){
     if("randumFlug" in ability_result){
       count = ability_result.countRandum;
-      console.log(count);
       count = getCountRandom(count[0],count[1]);
-      console.log(count);
       abilityMessage = abilityMessage + "\n" + count + "回当たった！";
       abilityPower = abilityPower * count;
     }
@@ -143,13 +138,14 @@ function abilitySelect(phase,myMonster,enemy,ability){
   damage = damageCalclator(abilityPower,attacker,target);
   switch(abilityType){
     case 0: //相手に攻撃
-      targetLife = targetLife - damage * 2;
+      targetLife = targetLife - damage;
       attackerAp = attackerAp - apCost;
+      console.warn("今のAPは"+attackerAp);
       break;
     case 1: //相手に攻撃しつつ状態異常を付与
       random =  Math.floor( Math.random() * 101 ) ;
       if(random < ability_result.stateChangeChance){
-        targetLife = targetLife - damage * 2;
+        targetLife = targetLife - damage;
         if("conditionType" in ability_result){
           console.log("状態異常を付与成功！");
           targetCondition = ability_result.conditionType;
@@ -159,7 +155,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
         console.log("状態異常を付与失敗！");
         conditionType = null;
       }
-      targetLife = targetLife - damage * 2;
+      targetLife = targetLife - damage;
       attackerAp = attackerAp - apCost;
       break;
     case 2: //相手に状態異常を付与
@@ -177,7 +173,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       attackerAp = attackerAp - apCost;
       break;
     case 3: //自身を回復
-      healpoint = damage * 2;
+      healpoint = damage;
       attackerLife = attackerLife + healpoint;
       if(attackerLife > attackerMaxLife){
         attackerLife = attackerMaxLife;
@@ -187,7 +183,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     case 4: //相手に攻撃しつつ自身を回復
       healpoint = damage;
       attackerLife = attackerLife + healpoint;
-      targetLife = targetLife - damage * 2;
+      targetLife = targetLife - damage;
       if(attackerLife > attackerMaxLife){
         attackerLife = attackerMaxLife;
       }
@@ -210,6 +206,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     mParam.shield = attackerShield;
     mParam.speed = attackerSpeed;
     mParam.ap = attackerAp;
+    console.warn("今のAPは"+ mParam.ap);
     //受け手の設定
     eCondition = targetCondition;
     enemy.Lv = targetLv;
@@ -244,11 +241,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
 };
 
 function damageCalclator(abilityPower,attacker,target){
-  let damage = Math.round(Math.round(Math.ceil(Math.ceil(Math.floor(attacker.attackerLv * 2 / 5 + 2 ) * abilityPower * attacker.attackerPower / target.targetShield ) / 50 + 2 ) * getCountRandom(85, 110)) / 100);
-  console.log(damage);
-  console.log(attacker.attackerLv);
-  console.log(attacker.attackerPower);
-  console.log(target.targetShield);
+  let damage = Math.round(Math.round(Math.ceil(Math.ceil(Math.floor(attacker.attackerLv * 2 / 5 + 2 ) * abilityPower * attacker.attackerPower / target.targetShield ) / 50 + 2 ) * getCountRandom(85, 110)) / 100) * 2;
   return damage;
 };
 
@@ -266,8 +259,6 @@ function loopSoundEffectPlaying(seType,seNumber,count){
   }
 }
 function getCountRandom(min, max) {
-  console.log(min);
-  console.log(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 function getChooseRandom(arrayData) {
