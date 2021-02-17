@@ -590,9 +590,22 @@ phina.define("battleFriendPage", {
     charaSet(master, this.myMonster.monsterID, -5, -5);
     charaEnemySet(master, this.enemy.monsterID, 5, -5);
 
-    gauge1 = gaugeSet(master,this.myMonster,-4,-2);
-    gauge2 = gaugeSet(master,this.enemy,4,-2);
+    gauge1 = gaugeSet(master,this.myMonster,-4,-1);
+    gauge2 = gaugeSet(master,this.enemy,4,-1);
+    this.HPgaugeLabel1 = HPLabelSet(master,-4,-1);
+    this.HPgaugeLabel1.text = "HP/" + this.myMonster.param.life;
+    this.HPgaugeLabel2 = HPLabelSet(master,4,-1);
+    this.HPgaugeLabel2.text = "HP/" + this.enemy.param.life;
+    myAPGauge = APGaugeSet(master,this.myMonster,-4,0);
+    enemyAPGauge = APGaugeSet(master,this.enemy,4,0);
+    this.myAPGaugeLabel = APLabelSet(master,-4,0);
+    this.myAPGaugeLabel.text = "AP/" + this.myMonster.param.AP;
+    this.emenyAPGaugeLabe2 = HPLabelSet(master,4,0);
+    this.emenyAPGaugeLabe2.text = "AP/" + this.enemy.param.AP;
+    escapeButtonSet(master);
 
+    this.myConditionGroup = DisplayElement().addChildTo(master);
+    this.enemyConditionGroup = DisplayElement().addChildTo(master);
     this.battleLog;
     this.phase = "s";
     this.turnPhase = 0;
@@ -742,8 +755,18 @@ phina.define("battleFriendPage", {
             selectAbilityID = "";
           }
         }
+        console.log(master.myMonster.condition);
+        master.myConditionGroup = conditionIconSet(master,master.myConditionGroup,master.myMonster.condition,-4,-2);
+        console.log(master.enemy.condition);
+        master.enemyConditionGroup = conditionIconSet(master,master.enemyConditionGroup,master.enemy.condition,4,-2);
         gauge1.value = master.myMonster.param.life;
         gauge2.value = master.enemy.param.life;
+        myAPGauge.value = master.myMonster.param.AP;
+        enemyAPGauge.value = master.enemy.param.AP;
+        master.HPgaugeLabel1.text = "HP/" + master.myMonster.param.life;
+        master.HPgaugeLabel2.text = "HP/" + master.enemy.param.life;
+        master.myAPGaugeLabel.text = "AP/" + master.myMonster.param.AP;
+        master.emenyAPGaugeLabe2.text = "AP/" + master.enemy.param.AP;
       }
     }
   } 
