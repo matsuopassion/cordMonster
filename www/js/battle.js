@@ -258,27 +258,23 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
     case "HighPoison":
       conditionName = "猛毒";
       if(phase === "m"){
-        console.error("はいぽい"+attackerLife);
         this.message = `${myMonster.monsterName}は猛毒のダメージを受けている`;
         attackerLife = attackerLife - (Math.floor(attackerMaxLife / 8));
-        console.error("はいぽい"+attackerLife);
       }
       if(phase === "e"){
-        console.error("はいぽい"+attackerLife);
         this.message = `${enemy.monsterName}は猛毒のダメージを受けている`;
         attackerLife = attackerLife - (Math.floor(attackerMaxLife / 8));
-        console.error("はいぽい"+attackerLife);
       }
       break;
     case "Burn":
       conditionName = "火傷";
       if(phase === "m"){
         this.message = `${myMonster.monsterName}は火傷のダメージを受けている`;
-        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+        attackerLife = attackerLife - Math.floor(attackerMaxLife / 9);
       }
       if(phase === "e"){
         this.message = `${enemy.monsterName}は火傷のダメージを受けている`;
-        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+        attackerLife = attackerLife - Math.floor(attackerMaxLife / 9);
       }
       break;
     case "Charm":
