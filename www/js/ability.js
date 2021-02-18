@@ -10,6 +10,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   let attackerShield;
   let attackerSpeed;
   let attackerCondition
+  let attackerAP
   let targetLife;
   let targetPower;
   let targetShield;
@@ -46,7 +47,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     attackerPower = mParam.power;
     attackerShield = mParam.shield;
     attackerSpeed = mParam.speed;
-    attackerAp = mParam.AP;
+    attackerAP = mParam.AP;
     attacker = {
       attackerLv : attackerLv,
       attackerMaxLife : attackerMaxLife,
@@ -54,7 +55,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       attackerPower : attackerPower,
       attackerShield : attackerShield,
       attackerSpeed : attackerSpeed,
-      attackerAp : attackerAp
+      attackerAP : attackerAP
     };
     //受け手の設定
     targetCondition = eCondition;
@@ -64,7 +65,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     targetPower = eParam.power;
     targetShield = eParam.shield;
     targetSpeed = eParam.speed;
-    targetAp = eParam.ap;
+    targetAp = eParam.AP;
     target= {
       targetLv : targetLv,
       targetMaxLife : targetMaxLife,
@@ -83,14 +84,14 @@ function abilitySelect(phase,myMonster,enemy,ability){
     attackerPower = eParam.power;
     attackerShield = eParam.shield;
     attackerSpeed = eParam.speed;
-    attackerAp = eParam.AP;
+    attackerAP = eParam.AP;
     attacker= {
       attackerLv : attackerLv,
       attackerLife : attackerLife,
       attackerPower : attackerPower,
       attackerShield : attackerShield,
       attackerSpeed : attackerSpeed,
-      attackerAp : attackerAp
+      attackerAP : attackerAP
     };
     //受け手の設定
     targetCondition = mCondition;
@@ -144,7 +145,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
   switch(abilityType){
     case 0: //相手に攻撃
       targetLife = targetLife - damage * 2;
-      attackerAp = attackerAp - apCost;
+      attackerAP = attackerAP - apCost;
       break;
     case 1: //相手に攻撃しつつ状態異常を付与
       random =  Math.floor( Math.random() * 101 ) ;
@@ -160,7 +161,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
         conditionType = null;
       }
       targetLife = targetLife - damage * 2;
-      attackerAp = attackerAp - apCost;
+      attackerAP = attackerAP - apCost;
       break;
     case 2: //相手に状態異常を付与
       random =  Math.floor( Math.random() * 101 ) ;
@@ -174,7 +175,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
         console.log("状態異常を付与失敗！");
         conditionType = null;
       }
-      attackerAp = attackerAp - apCost;
+      attackerAP = attackerAP - apCost;
       break;
     case 3: //自身を回復
       healpoint = damage * 2;
@@ -182,7 +183,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       if(attackerLife > attackerMaxLife){
         attackerLife = attackerMaxLife;
       }
-      attackerAp = attackerAp - apCost;
+      attackerAP = attackerAP - apCost;
       break;
     case 4: //相手に攻撃しつつ自身を回復
       healpoint = damage;
@@ -191,7 +192,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
       if(attackerLife > attackerMaxLife){
         attackerLife = attackerMaxLife;
       }
-      attackerAp = attackerAp - apCost;
+      attackerAP = attackerAP - apCost;
       break;
     case 5://未定
       break;
@@ -209,7 +210,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     mParam.power = attackerPower;
     mParam.shield = attackerShield;
     mParam.speed = attackerSpeed;
-    mParam.ap = attackerAp;
+    mParam.AP = attackerAP;
     //受け手の設定
     eCondition = targetCondition;
     enemy.Lv = targetLv;
@@ -229,7 +230,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     mParam.power = targetPower;
     mParam.shield = targetShield;
     mParam.speed = targetSpeed;
-    mParam.ap = targetAp;
+    mParam.AP = targetAp;
     //受け手の設定
     eCondition = attackerCondition;
     enemy.Lv = attackerLv;
@@ -238,7 +239,7 @@ function abilitySelect(phase,myMonster,enemy,ability){
     eParam.power = attackerPower;
     eParam.shield = attackerShield;
     eParam.speed = attackerSpeed;
-    eParam.ap = attackerAp;
+    eParam.AP = attackerAP;
   }
   return {abilityName:abilityName, abilityMessage:abilityMessage, damage:damage, healpoint:healpoint, myMonsterParam:mParam, enemyParam:eParam, abilityType:abilityType, conditionName:conditionName, conditionType:conditionType, mCondition:mCondition, eCondition:eCondition};
 };
