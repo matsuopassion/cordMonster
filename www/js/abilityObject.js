@@ -25,7 +25,7 @@ var ABILITY_MASTER = {
       AP: 4,
       abilityPower: 45,
       abilityName: `のしかかり`,
-      abilityMessage: `は大きく飛び上がって相手にのしかかった！！`,
+      abilityMessage: `はのしかかった！！`,
       abilitySound: [`dageki`, 7],
       damageCalcflag: true
     }, {
@@ -73,7 +73,7 @@ var ABILITY_MASTER = {
       AP: 7,
       abilityPower: 65,
       abilityName: `パイルバンカー`,
-      abilityMessage: `はパイルバンカーで相手を激しく打ち付けた！！`,
+      abilityMessage: `はパイルバンカーを打ち付けた！！`,
       abilitySound: [`gunfire`, 4],
       damageCalcflag: true
     }, {
