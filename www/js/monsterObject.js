@@ -99,7 +99,7 @@ var MONSTER_MASTER = {
              { life : `D` ,power : `D` ,shield : `F`,speed : `E` , AP : `E` } ,
             ability :
              [`normalAttack`,`heavyAttack`],
-            abilityLv : [1 ,5],
+            abilityLv : [1, 1, 5],
             defaultParam :
              { life :65 ,power : 40 ,shield : 40 , speed : 40 ,AP : 10 },
             evoLine : `Killerblingo`,
