@@ -559,6 +559,7 @@ phina.define("battleFriendPage", {
     this.issue = "uncertain";
 
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster.param.maxlife = this.myMonster.param.life;
     this.myMonster.condition = ["normal"];
     
     this.fMon = friendBattle.resultMonster;
@@ -567,6 +568,7 @@ phina.define("battleFriendPage", {
       monsterName : MONSTER_MAP.get(this.fMon.mID).monsterFamily ,
       Lv : this.fMon.Lv ,
       param : { 
+          maxlife : this.fMon.param[0] , 
           life : this.fMon.param[0] ,
           power : this.fMon.param[1] ,
           shield : this.fMon.param[2] , 
@@ -797,6 +799,7 @@ phina.define("battleCpuPage", {
     this.selectAbilityGroup = DisplayElement().addChildTo(master);
     this.monsterArray = setBattleMonsterList(battleParam.enemyRarity);
     this.myMonster = JSON.parse(localStorage.getItem(localStorage.getItem("selectMonster")));
+    this.myMonster.param.maxlife = this.myMonster.param.life;
     this.myMonster.condition = ["normal"]; 
     let scM = MONSTER_MAP.get(this.monsterArray[getRandomInt(this.monsterArray.length)]);
     this.enemy = {
@@ -804,6 +807,7 @@ phina.define("battleCpuPage", {
       monsterName : scM.monsterFamily ,
       Lv : 1 ,
       param : { 
+          maxlife : scM.defaultParam.life ,
           life : scM.defaultParam.life ,
           power : scM.defaultParam.power ,
           shield : scM.defaultParam.shield , 

@@ -50,7 +50,6 @@ function Battle(phase,myMonster,enemy,master,abilityID){
           }
           break;
         default:
-          console.log("お");
           commandResults = abilitySelect(phase,myMonster,enemy,ability);
           myMonster.param = commandResults.myMonsterParam;
           enemy.param = commandResults.enemyParam;
@@ -61,14 +60,13 @@ function Battle(phase,myMonster,enemy,master,abilityID){
       }
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
-      console.log(`${myMonster.monsterName}のap：${myMonster.param.ap}`);
-      console.log(`${enemy.monsterName}のap：${enemy.param.ap}`);
+      console.log(`${myMonster.monsterName}のap：${myMonster.param.AP}`);
+      console.log(`${enemy.monsterName}のap：${enemy.param.AP}`);
       console.log(`${myMonster.monsterName}の状態：${myMonster.condition}`);
       console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
       break;
     case 'e':
       ability = enemy.ability;
-      console.log(ability);
       ability = ability[Math.floor(Math.random() * ability.length)].toString();
       console.error("敵の状態は"+enemy.condition);
       switch(enemy.condition){
@@ -99,6 +97,7 @@ function Battle(phase,myMonster,enemy,master,abilityID){
         default:
           commandResults = abilitySelect(phase,myMonster,enemy,ability);
           myMonster.param = commandResults.myMonsterParam;
+          console.warn(myMonster.param.AP);
           enemy.param = commandResults.enemyParam;
           myMonster.condition = commandResults.mCondition;
           enemy.condition = commandResults.eCondition;
@@ -107,8 +106,8 @@ function Battle(phase,myMonster,enemy,master,abilityID){
       }
       console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
       console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
-      console.log(`${myMonster.monsterName}のap：${myMonster.param.ap}`);
-      console.log(`${enemy.monsterName}のap：${enemy.param.ap}`);
+      console.log(`${myMonster.monsterName}のap：${myMonster.param.AP}`);
+      console.log(`${enemy.monsterName}のap：${enemy.param.AP}`);
       console.log(`${myMonster.monsterName}の状態：${myMonster.condition}`);
       console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
       break;
@@ -125,11 +124,11 @@ function Battle(phase,myMonster,enemy,master,abilityID){
         this.message = `${enemy.monsterName}が飛び出してきた！`;
         console.log(`${myMonster.monsterName}の体力：${myMonster.param.life}`);
         console.log(`${enemy.monsterName}の体力：${enemy.param.life}`);
-        console.log(`${myMonster.monsterName}のap：${myMonster.param.ap}`);
-        console.log(`${enemy.monsterName}のap：${enemy.param.ap}`);
+        console.log(`${myMonster.monsterName}のap：${myMonster.param.AP}`);
+        console.log(`${enemy.monsterName}のap：${enemy.param.AP}`);
         console.log(`${myMonster.monsterName}の状態：${myMonster.condition}`);
         console.log(`${enemy.monsterName}の状態：${enemy.condition}`);
-        console.log(this.message);
+        break;
       }
       break;
     default:
@@ -167,6 +166,7 @@ function getMessage(phase,myMonster,enemy,commandResults){
           break;
         case 4://相手に攻撃しつつ自身を回復
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！\n${myMonster.monsterName}は${commandResults.healpoint}回復した！`;
+          break;
         case 5://未使用
           this.message = `${myMonster.monsterName}のターン！\n${myMonster.monsterName}${commandResults.abilityMessage}\n${enemy.monsterName}に${commandResults.damage}のダメージ！`;
           break;
@@ -197,6 +197,7 @@ function getMessage(phase,myMonster,enemy,commandResults){
           break;
         case 4://相手に攻撃しつつ自身を回復
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！\n${enemy.monsterName}は${commandResults.healpoint}回復した！`;
+          break;
         case 5://未使用
           this.message = `${enemy.monsterName}のターン！\n${enemy.monsterName}${commandResults.abilityMessage}\n${myMonster.monsterName}に${commandResults.damage}のダメージ！`;
           break;
@@ -242,7 +243,6 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
     targetLife = mParam.life;
     targetMaxLife = mParam.maxlife;
   }
-  console.log(conditionType);
   switch (conditionType){
     case "Poison":
       conditionName = "毒";
@@ -259,22 +259,22 @@ function conditionDamage(phase,myMonster,enemy,conditionType) {
       conditionName = "猛毒";
       if(phase === "m"){
         this.message = `${myMonster.monsterName}は猛毒のダメージを受けている`;
-        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+        attackerLife = attackerLife - (Math.floor(attackerMaxLife / 8));
       }
       if(phase === "e"){
         this.message = `${enemy.monsterName}は猛毒のダメージを受けている`;
-        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+        attackerLife = attackerLife - (Math.floor(attackerMaxLife / 8));
       }
       break;
     case "Burn":
       conditionName = "火傷";
       if(phase === "m"){
         this.message = `${myMonster.monsterName}は火傷のダメージを受けている`;
-        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+        attackerLife = attackerLife - Math.floor(attackerMaxLife / 9);
       }
       if(phase === "e"){
         this.message = `${enemy.monsterName}は火傷のダメージを受けている`;
-        attackerLife = attackerLife - Math.floor(attackerMaxLife / 8);
+        attackerLife = attackerLife - Math.floor(attackerMaxLife / 9);
       }
       break;
     case "Charm":

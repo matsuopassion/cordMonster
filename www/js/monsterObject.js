@@ -263,8 +263,8 @@ var MONSTER_MASTER = {
             appropriate :
              { life : `E` ,power : `E` ,shield : `E`,speed : `E` , AP : `E` } ,
             ability :
-             [`heal`,`magic`],
-            abilityLv : [1,5],
+             [`normalAttack`,`heal`,`magic`],
+            abilityLv : [1,2,5],
             defaultParam :
              { life : 50 ,power : 50 ,shield : 30 , speed : 60 ,AP : 10 },
             evoLine : `Undefined`,
