@@ -1166,7 +1166,13 @@ function selectAbilityBar(master,monster,group){
     let selectButton = Sprite("abilitySelectButton");
     selectButton.width = 180;
     selectButton.height = 90;
-    selectButton.setInteractive(true);
+    if(abilityData.AP > monster.param.AP){
+      selectButton.setInteractive(false);
+      selectButton.alpha = 0.4;
+    }else{
+      selectButton.setInteractive(true);
+      selectButton.alpha = 1;
+    }
     selectButton.setPosition(master.gridX.center(positionX),master.gridY.center(positionY)).addChildTo(group);
     selectButton.onpointstart = function(e){
       SoundManager.setVolume(4.0);

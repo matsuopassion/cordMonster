@@ -184,14 +184,14 @@ var MONSTER_MASTER = {
             monsterID : `Cohmon` ,
             monsterFamily : `コーモンくん` ,
             comment: `このゲームのマスコットキャラクター。\n中学生の時に新聞配達のバイトをしていた。\n足が速い。\n`,
-            rarity : `S` ,
+            rarity : `C` ,
             appropriate :
              { life : `A` ,power : `A` ,shield : `D`,speed : `D` , AP : `A` } ,
             ability :
-             [`normalAttack`,`infinity`,`madness`,`walkingDeath`,`thunderKick`],
-            abilityLv : [ 1 ,1 ,1 ,1 ,1 ],
+             [`infinity`,`madness`,`walkingDeath`,`thunderKick`],
+            abilityLv : [1 ,1 ,1 ,1 ],
             defaultParam :
-             { life : 300 ,power : 200,shield : 50 , speed : 80 ,AP : 1000 },
+             { life : 500 ,power : 300,shield : 120 , speed : 120 ,AP : 1000 },
             evoLine : `Undefined`,
     	      evoLv : `Undefined`,
             basic : false
